@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <style>
+ <style>
    *, *::after, *::before {
     box-sizing: border-box;
   }
@@ -49,11 +49,11 @@
   .slider > div {
     flex: 0 0 calc(100% / var(--items-per-screen));
     max-width: calc(100% / var(--items-per-screen));
-    aspect-ratio: 10/9;
     padding: var(--div-gap);
     border-radius: 1rem;
   }
   
+
   
   /*item container grid*/
   .item{
@@ -256,17 +256,37 @@ body {
 }
         </style>
     <body>
-        <%-- Total--%>
-<h1>Total</h1> <input type="text" name="total" id="total" value="0" disabled=""/>
-        <div class="row">
+            <table>
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Name</th>
+          <th>Classification</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>      
+      <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Total</th>
+          <th><input type="text" name="total" id="total" value="0" disabled=""/></th>
+         
+        </tr>
+      </tfoot>
+            </table>
+
+      <div class="row">
             
      <%-- Carousel title and progress bar--%>       
     <div class="header">
       <h3 class="title">Title</h3>
       <div class="progress-bar"></div>
     </div>
-            
-            
+                     
     <div class="carouselContainer">
         
          <%-- Left Arrow Button--%>
@@ -277,17 +297,15 @@ body {
         <%-- Carousel Items container--%>
       <div class="slider">
           
-          
-          
-      <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
+         <%-- Slider Item Start--%>      
    <div class="item">  
+       
+          <%-- Hidden fields for database submission--%>
+      <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+      <input type="hidden" id="itemId" name="itemId" value="1"/>
+      <input type="hidden" id="hiddenName" name="hiddenName" value="Cheesecake"/>
+      <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="Classic"/>
+      <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="500" />
        
         <%-- Item Name--%>
         <h1 class="itemName">New york Cheesecake </h1>     
@@ -306,6 +324,46 @@ body {
          
         <%-- Item Price--%> 
         <h3 class="itemPrice">500.00</h3>
+         
+            <%-- Quantity Decrament--%>
+            <div class="dec">-</div>
+            
+            <%-- Quantity input field--%>
+            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+            
+            <%-- Quantity Incrament--%>
+            <div class="inc">+</div>
+         
+            </div>
+            <%-- Slider Item End--%>   
+          
+      <%-- Slider Item Start--%>      
+   <div class="item">  
+       
+          <%-- Hidden fields for database submission--%>
+      <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+      <input type="hidden" id="itemId" name="itemId" value="2"/>
+      <input type="hidden" id="hiddenName" name="hiddenName" value="Coffee"/>
+      <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="Hot"/>
+      <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="200" />
+       
+        <%-- Item Name--%>
+        <h1 class="itemName">Coffee </h1>     
+        
+      <%-- Item Image--%>
+        <img
+          class="thumbnail"
+          src="userImages/bg.png"
+          alt="Sample Item Image">
+        
+       <%-- Item Option--%>
+         <h3 class="itemOption">Hot </h3>
+      
+         <%-- Item PriceTag--%>
+         <h3 class="itemPHPTag">PHP</h3>
+         
+        <%-- Item Price--%> 
+        <h3 class="itemPrice">200.00</h3>
          
      
             <%-- Quantity Decrament--%>
@@ -317,66 +375,23 @@ body {
             <%-- Quantity Incrament--%>
             <div class="inc">+</div>
          
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>   
-            
-        <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
 
+            </div>
+            <%-- Slider Item End--%>
             
             
-             <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
+      <%-- Slider Item Start--%>      
    <div class="item">  
        
+          <%-- Hidden fields for database submission--%>
+      <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+      <input type="hidden" id="itemId" name="itemId" value="3"/>
+      <input type="hidden" id="hiddenName" name="hiddenName" value="Latte"/>
+      <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="Iced"/>
+      <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="300" />
+       
         <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
+        <h1 class="itemName">Latte </h1>     
         
       <%-- Item Image--%>
         <img
@@ -385,171 +400,13 @@ body {
           alt="Sample Item Image">
         
        <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
+         <h3 class="itemOption">Iced </h3>
       
          <%-- Item PriceTag--%>
          <h3 class="itemPHPTag">PHP</h3>
          
         <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
-            
-            
-            
-            
-             <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
-            
-             <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
-            
-            
-      </div>
-       <%-- Right Arrow Button--%>
-      <button class="handle right-handle">
-        <div class="text">&#8250;</div>
-      </button>
-    </div>
-  </div>
-      
-      
-      
-              <div class="row">
-            
-     <%-- Carousel title and progress bar--%>       
-    <div class="header">
-      <h3 class="title">Title</h3>
-      <div class="progress-bar"></div>
-    </div>
-            
-            
-    <div class="carouselContainer">
-        
-         <%-- Left Arrow Button--%>
-      <button class="handle left-handle">
-        <div class="text">&#8249;</div>
-      </button>
-        
-        <%-- Carousel Items container--%>
-      <div class="slider">
-          
-          
-          
-      <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
+        <h3 class="itemPrice">300.00</h3>
          
      
             <%-- Quantity Decrament--%>
@@ -561,181 +418,10 @@ body {
             <%-- Quantity Incrament--%>
             <div class="inc">+</div>
          
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>   
-            
-        <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
 
-            
-            
-             <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
-            
-            
-            
-            
-             <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
-            
-             <%-- Slider Item Start--%>   
-  <div class="itemContainer">
-  <form action="AppController" method="post">
-      
-   <%-- Hidden fields for database submission--%>
-      <input type="hidden" id="menu_form" name="instruction" value="menupage">
-      <input type="hidden" name="itemId" value="sample">
-      <input type="hidden" class="hiddenPrice" name="hiddenPrice" value="500" />
-   <div class="item">  
-       
-        <%-- Item Name--%>
-        <h1 class="itemName">New york Cheesecake </h1>     
-        
-      <%-- Item Image--%>
-        <img
-          class="thumbnail"
-          src="userImages/bg.png"
-          alt="Sample Item Image">
-        
-       <%-- Item Option--%>
-         <h3 class="itemOption">Classic </h3>
-      
-         <%-- Item PriceTag--%>
-         <h3 class="itemPHPTag">PHP</h3>
-         
-        <%-- Item Price--%> 
-        <h3 class="itemPrice">500.00</h3>
-         
-            <%-- Quantity Decrament--%>
-            <div class="dec">-</div>
-            
-            <%-- Quantity input field--%>
-            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-            
-            <%-- Quantity Incrament--%>
-            <div class="inc">+</div>
-      
-   </div>     
-  </form>
-            </div><%-- Slider Item End--%>
-            
-            
+            </div>
+            <%-- Slider Item End--%>
+                      
       </div>
        <%-- Right Arrow Button--%>
       <button class="handle right-handle">
@@ -743,8 +429,6 @@ body {
       </button>
     </div>
   </div>
-      
-      
       
     </body>
     <script>
@@ -762,8 +446,6 @@ document.addEventListener("click", e => {
   }
 });
 
-
-
 //Throttle progress bar update
 const throttleProgressBar = throttle((delay = 1000) => {
   document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
@@ -771,8 +453,6 @@ const throttleProgressBar = throttle((delay = 1000) => {
 window.addEventListener("resize", throttleProgressBar);
 
 document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-
-
 
 
 //Progress bar computation
@@ -805,7 +485,6 @@ function calculateProgressBar(progressBar) {
     progressBar.append(barItem);
   }
 }
-
 
 
 ///Move progress bar and containers
@@ -850,7 +529,7 @@ function throttle(cb, delay = 1000) {
     } else {
       cb(...waitingArgs);
       waitingArgs = null;
-      requestAnimationFrame (timeoutFunc, delay);
+      requestAnimationFrame(timeoutFunc, delay);
     }
   };
 
@@ -862,13 +541,11 @@ function throttle(cb, delay = 1000) {
 
     cb(...args);
     shouldWait = true;
-    requestAnimationFrame (timeoutFunc, delay);
+    requestAnimationFrame(timeoutFunc, delay);
   };
 }
 
-
-
-///////////////////////////// Total orders computation////////////////
+/////////////////////////////// Total orders computation//////////////////////
 
 // incrament decrament buttons
 var incramentButton = document.getElementsByClassName('inc');
@@ -879,15 +556,77 @@ for(var i =0; i< incramentButton.length; i++){
     button.addEventListener('click',function(event){
         
         var buttonClicked = event.target;
+        
         // get reference to input field
-        var input = buttonClicked.parentElement.children[6];
+        var input = buttonClicked.parentElement.children[11];
+        
          // get current value of input field
         var inputValue = input.value;
+        
         // increment value by 1
         var newValue = parseInt(inputValue) + 1;
+        
           // update value of input field         
         input.value = newValue;
-        findTotal();
+           
+         //get table body
+        const tbodyEl = document.querySelector("tbody");          
+          
+         //Get id of current item
+        var itemID =  buttonClicked.parentElement.children[1].value;
+        
+        //Create new row if quantity is equal to 1
+        if(newValue === 1 ){
+
+        tbodyEl.innerHTML +=
+                
+                //set row id as row + itemId
+                //set quantity id as quantity + itemId
+           `<tr id="row`+  itemID + `">
+                <td id="quantity`+  itemID + `">`
+            
+            //Quantity
+            + newValue +
+                    `</td>            
+                <td>`
+            
+            //Item Name
+            + buttonClicked.parentElement.children[2].value +
+                    `</td>
+                <td>`
+            
+              //Item Classification  
+            + buttonClicked.parentElement.children[3].value +
+                    
+             //set price id as price + itemId
+                    `</td>
+                <td id="price`+  itemID + `">`
+            
+             //Item Price  
+            + buttonClicked.parentElement.children[4].value +
+                    `</td>
+            </tr>`;       
+        }
+        else{
+         
+         //get old price
+         var oldPrice =  buttonClicked.parentElement.children[4].value;
+         
+         //Compute for the new price (Quantity * old price)
+         var newPrice = parseInt(oldPrice) * newValue;
+         
+         //set id of quantity and price
+         var quantityID = "quantity" + itemID;
+         var priceID = "price" + itemID;
+         
+           //incrament quantity
+            document.getElementById(quantityID).innerHTML = newValue;
+            
+            //set new price
+            document.getElementById(priceID).innerHTML = newPrice;
+        }
+         findTotal();
+     
     });
 }
 for(var i =0; i< decramentButton.length; i++){
@@ -895,31 +634,57 @@ for(var i =0; i< decramentButton.length; i++){
     button.addEventListener('click',function(event){
         
         var buttonClicked = event.target;
+        
         // get reference to input field
-        var input = buttonClicked.parentElement.children[6];
+        var input = buttonClicked.parentElement.children[11];
+        
         // get current value of input field
         var inputValue = input.value;
+        
          // decrement value by 1
         var newValue = parseInt(inputValue) - 1;
+        
+        //Get id of current item 
+        var itemID =  buttonClicked.parentElement.children[1].value;
+        
         // update value of input field  
-        if(newValue >= 0){
+        if(newValue > 0){
             input.value = newValue;
+         
+         //get old price
+         var oldPrice =  buttonClicked.parentElement.children[4].value;
+         
+         //Compute for the new price (Quantity * old price)
+         var newPrice = parseInt(oldPrice) * newValue;
+         
+         //set id of quantity and price
+         var quantityID = "quantity" + itemID;
+         var priceID = "price" + itemID;
+         
+           //decrament quantity
+            document.getElementById(quantityID).innerHTML = newValue;
             
+            //set new price
+            document.getElementById(priceID).innerHTML = newPrice;
         }
         else{
             input.value = 0;
             
+         //set id of row
+         var rowID = "row" + itemID;
+         
+         //remove row
+         document.getElementById(rowID).remove();
         }
         findTotal();
     });
 }
 
-
 //// Total Price added to cart
    function findTotal(){
 
-    var arr = document.querySelectorAll('.itemQuantity');
-    var price = document.querySelectorAll('.hiddenPrice');
+    var arr = document.getElementsByClassName('itemQuantity');
+    var price = document.getElementsByClassName('hiddenPrice');
     var total=0;
     for(var i=0;i<arr.length;i++){
         if(parseInt(arr[i].value))
@@ -928,9 +693,5 @@ for(var i =0; i< decramentButton.length; i++){
      document.getElementById('total').value = total;
 
 }
-
-
-
-
-        </script>
+</script>
 </html>
