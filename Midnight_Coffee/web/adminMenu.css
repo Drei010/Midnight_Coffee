@@ -1,0 +1,50 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 6 Feb 2023, 12:11:13 am
+    Author     : rvhin
+*/
+
+.Non-Coffees{
+    display: flex;
+    overflow-x: auto;
+}
+
+.Non-Coffees::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.noncoffee-items{
+    display: flex;
+    white-space: nowrap;
+}
+
+.product{
+    width: 100px;
+    height: 100px;
+    background-color: #eee;
+    margin: 0 10px;
+}
+
+.scroll-button {
+    width: 50px;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: fixed;
+}
+
+#scroll-left {
+  left: 0;
+}
+
+#scroll-right {
+  right: 0;
+}
