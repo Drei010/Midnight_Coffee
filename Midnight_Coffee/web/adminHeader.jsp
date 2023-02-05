@@ -1,6 +1,6 @@
 <%-- 
-    Document   : header
-    Created on : 5 Feb 2023, 2:27:46 pm
+    Document   : adminHeader
+    Created on : 5 Feb 2023, 5:40:44 pm
     Author     : rvhin
 --%>
 
@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='header.css'>
+        <title>Header</title>
     </head>
     <header>
         <nav class="header">
@@ -21,16 +22,22 @@
             </div>
             <ul class="header-nav header-right">
                 <li class="header-nav-item">
-                    <a href="index.html"> Home </a>
+                    <a href="adminHome_page.jsp"> Home </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="Menu_page.jsp"> Menu </a>
+                    <a href="adminMenu_page.jsp"> Menu </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="Login_page.jsp"> Login </a>
+                    <a href="adminOrders_page.jsp"> Orders </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="Signup_page.jsp"> Signup </a>
+                    <a href="adminAccount_page.jsp"> Account </a>
+                </li>
+                <li class="header-nav-item">
+                    <a href="adminFeedback_page.jsp"> Feedback </a>
+                </li>
+                <li class="header-nav-item">
+                    <a href="adminIngredients_page.jsp"> Ingredients </a>
                 </li>
             </ul>
         </nav>

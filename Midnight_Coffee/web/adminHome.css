@@ -1,0 +1,59 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 5 Feb 2023, 6:26:13 pm
+    Author     : rvhin
+*/
+
+body{
+    padding-top: 60px;
+    margin: 0px;
+    background-image: url(https://i.postimg.cc/FK5S3QBF/Midnight.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90vh;
+}
+
+.admin-home-container{
+    width: 600px;
+    height: 200px;
+    background-color: #282747;
+    margin-top: 180px;
+    margin-left: 40px;
+}
+
+.home-container-contents{
+    margin-left: 30px;
+    padding-top: 30px;
+}
+
+p{
+    margin: 10px;
+}
+.first-line{
+    color: white;
+    font-size: 30px;
+}
+
+.second-line{
+    color: white;
+    font-size: 25px;
+}
+
+.third-line{
+    font-size: 20px;
+    color: black;
+}
+
+.third-line p{
+    background-color: #D9D9D9;
+    width: 300px;
+    height: 25px;
+    word-wrap: break-word;
+    padding-left: 20px;
+    padding-top: 5px;
+    border-radius: 5px;
+}

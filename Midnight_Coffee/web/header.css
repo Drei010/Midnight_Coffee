@@ -6,19 +6,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 5 Feb 2023, 1:56:02 pm
     Author     : rvhin
 */
-
+/*
 .header {
     background-color: #282747;
     color: #fff;
     display: flex;
-    justify-content: space-between;
     position: fixed;
     top: 0;
     width: 100%;
 }
 
 .header-title {
-    margin: 18px;
+    margin-left: 10px;
+    margin-top: 25px;
     font-size: 30px;
 }
 
@@ -53,5 +53,69 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
         margin-top: 10px;
     }
 }
+*/
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282747;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    margin-left: 18px;
+    font-size: 30px;
+}
+
+.header-nav a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #AEB3AF;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    
+}
+
+.header-nav {
+    display: flex;
+    margin-right: 20px;
+    list-style: none;
+}
+
+.header-nav-item{
+    margin-right: 5px;
+}
+
+.header-nav a:hover {
+    background-color: #1b67c5;
+}
+
+@media (max-width: 700px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .header-left, .header-right {
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-nav {
+        margin-top: 10px;
+    }
+}
+
+.logo-container img {
+  width: 100px;
+  height: 100px;
+}
