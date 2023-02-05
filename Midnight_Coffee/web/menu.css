@@ -1,0 +1,253 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 5 Feb 2023, 3:17:22 pm
+    Author     : rvhin
+*/
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --handle-size: 3rem;
+    --div-gap: .25rem;
+}
+
+body {
+    margin: 0;
+}
+
+table{
+    color: black;
+}
+
+/*carousel container*/
+.carouselContainer {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.slider {
+    --items-per-screen: 4;
+    --slider-index: 0;
+    display: flex;
+    flex-grow: 1;
+    margin: 0 var(--div-gap);
+    transform: translateX(calc(var(--slider-index) * -100%));
+    transition: transform 250ms ease-in-out;
+}
+
+/*items*/
+.slider > div {
+    flex: 0 0 calc(100% / var(--items-per-screen));
+    max-width: calc(100% / var(--items-per-screen));
+    padding: var(--div-gap);
+    border-radius: 1rem;
+}
+
+/*item container grid*/
+.item{
+    display: grid;
+    grid-template-areas:
+        'itemName itemName itemName itemName itemName itemName '
+        'thumbnail thumbnail thumbnail thumbnail thumbnail thumbnail '
+        'itemOption itemOption itemOption itemOption itemOption itemOption '
+        'itemPHPTag itemPrice itemPrice decrament itemQuantity incrament';
+    gap: 5px;
+    background-color: #AEB3AF;
+    max-width: 400px;
+    max-height: 500px;
+    padding:10px;
+    border-radius: 10px;
+}
+
+
+
+/*item image*/
+.thumbnail{
+    grid-area: thumbnail;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
+}
+
+
+/*item name*/
+.itemName{
+    grid-area: itemName;
+    margin: 0;
+    color: black;
+}
+
+/*item php*/
+.itemPHPTag{
+    grid-area: itemPHPTag;
+    margin: 0;
+    color: black;
+}
+
+/*item option*/
+.itemOption{
+    grid-area: itemOption;
+    background-color: #282747;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    max-width: 100px;
+
+}
+
+/*item price*/
+.itemPrice{
+    grid-area: itemPrice;
+    margin: 0;
+    color: black;
+}
+
+
+/*item quantity decrament*/
+.dec{
+    grid-area: decrament;
+    margin: 0;
+    background-color: #282747;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+    max-width: 20px;
+    z-index: 10;
+}
+
+/*item quantity incrament*/
+.inc{
+    grid-area: incrament;
+    margin: 0;
+    background-color: #282747;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+    max-width: 20px;
+    z-index: 10;
+}
+
+/*incrament decrament on hover*/
+.inc:hover,
+.inc:focus,
+.dec:hover,
+.dec:focus {
+    transform: scale(1.2);
+}
+/*item quantity input field*/
+.itemQuantity{
+    grid-area: itemQuantity;
+    margin: 0;
+    max-width: 25px;
+
+}
+/*arrows*/
+.handle {
+    border: none;
+    border-radius: 1rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: #282747;
+    z-index: 10;
+    margin: var(--div-gap) 0;
+    width: var(--handle-size);
+    cursor: pointer;
+    font-size: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    line-height: 0;
+    transition: background-color 150ms ease-in-out;
+}
+
+/*Left arrow*/
+.left-handle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/*Right arrow*/
+.right-handle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/*Arrow Hover*/
+.handle:hover,
+.handle:focus {
+    background-color: rgba(255, 255, 255, .5);
+}
+
+
+.text {
+    transition: transform 150ms ease-in-out;
+}
+
+.handle:hover .text,
+.handle:focus .text {
+    transform: scale(1.2);
+}
+
+/*progress bar location*/
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem calc(var(--div-gap) * 2 + var(--handle-size));
+    align-items: center;
+    color: black;
+}
+
+.title {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Progress Bar*/
+.progress-bar {
+    display: flex;
+    gap: .25rem;
+}
+
+.progress-item {
+    flex: 0 0 1.5rem;
+    min-width: 1.5rem;
+    height: .5rem;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+.progress-item.active {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+@media (max-width: 1000px) {
+    .slider {
+        --items-per-screen: 3;
+    }
+    .carouselContainer {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 500px) {
+    .slider {
+        --items-per-screen: 2;
+    }
+    .carouselContainer {
+        transform: scale(0.6);
+    }
+}
+
+body {
+    color: white;
+    padding-top: 100px;
+}

@@ -1,17 +1,16 @@
+<%-- 
+    Document   : header
+    Created on : 5 Feb 2023, 2:27:46 pm
+    Author     : rvhin
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
-        <title>Homepage</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='header.css'>
-        <link rel='stylesheet' type='text/css' href='general.css'>
     </head>
-
     <header>
         <nav class="header">
             <h1 class="header-title">MIDNIGHT COFFEE</h1>
@@ -31,11 +30,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             </ul>
         </nav>
     </header>
-
-    <body>
-        <h1> INDEX</h1>
-        <a  href="Menu_page.jsp">Add to cart</a><br>
-        <a  href="Login_page.jsp">Login Page</a><br>
-
-    </body>
 </html>

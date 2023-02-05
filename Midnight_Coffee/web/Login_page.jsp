@@ -9,8 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel='stylesheet' type='text/css' href='general.css'>
         <title>Login Page</title>
     </head>
+    <jsp:include page="header.jsp" /> <!-- Calls the header jsp -->
     <body>
         <h1>Login</h1>
           <form action="index.html" method="post">

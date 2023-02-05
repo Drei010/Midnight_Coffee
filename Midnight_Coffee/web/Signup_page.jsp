@@ -9,8 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel='stylesheet' type='text/css' href='general.css'>
         <title>Sign up Page</title>
     </head>
+    <jsp:include page="header.jsp" /> <!-- Calls the header jsp -->
     <body>
           <h1>Sign up</h1>
           <form action="#" method="post">
@@ -23,7 +25,7 @@
         <h3>Password</h3>
         <input type="password" placeholder="password" name="password" required>
         
-         <h3>Confirm Password</h3>
+        <h3>Confirm Password</h3>
         <input type="password" placeholder="confirm password" name="confirmpassword" required>
         
         <h3>Email</h3>
