@@ -17,44 +17,44 @@ import java.util.logging.Logger;
  */
 public class LoginSignup_Model {
 ///Get the data from the database
-      public ResultSet retrieveData(String email, Connection conn){
-            try { 
-             String query = "SELECT * FROM customer_credentials WHERE customerEmail = ?";
-             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-             stmnt.setString(1, email);
-             ResultSet records = stmnt.executeQuery();
-           if(records.next()) {
+
+    public ResultSet retrieveData(String email, Connection conn) {
+        try {
+            String query = "SELECT * FROM customer_credentials WHERE customerEmail = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, email);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
                 records.beforeFirst();
                 return records;
-               
-            }stmnt.close();
-            }catch (SQLException ex){
-                Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE,null,ex);
+
             }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    return null;
-      }
-    
-    
+        return null;
+    }
+
     ///Insert signup Data to the Database
- public String insertData(String firstname, String lastname, String password, String email, String mobilenumber, Connection conn) {
-           String sql = "INSERT INTO customer_credentials (customerFirstName, customerLastName, customerPassword, customerEmail, customerMobileNumber) VALUES ( ?, ?, ?, ?, ?)";
-                 try {
- PreparedStatement stmnt = conn.prepareStatement(sql);
-             stmnt.setString(1, firstname);
-             stmnt.setString(2, lastname);
-             stmnt.setString(3, password);
-             stmnt.setString(4, email);
-             stmnt.setInt(5, Integer.parseInt(mobilenumber));
-    
-             stmnt.executeUpdate();
-             stmnt.close();
-    return "Yes";
-    }catch (SQLException ex){
-                    Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE,null,ex);
-                }
-            return null;
+    public String insertData(String firstname, String lastname, String password, String email, String mobilenumber, Connection conn) {
+        String sql = "INSERT INTO customer_credentials (customerFirstName, customerLastName, customerPassword, customerEmail, customerMobileNumber) VALUES ( ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, firstname);
+            stmnt.setString(2, lastname);
+            stmnt.setString(3, password);
+            stmnt.setString(4, email);
+            stmnt.setInt(5, Integer.parseInt(mobilenumber));
 
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
 
     }
 }

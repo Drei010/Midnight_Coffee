@@ -4,6 +4,7 @@
     Author     : Andrei
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,6 @@
         <link rel='stylesheet' type='text/css' href='menu.css'>
     </head>
 
-    <jsp:include page="header.jsp" /> <!-- Calls the header jsp -->
     <body>
         <table>
             <thead>
@@ -39,155 +39,223 @@
         </table>
 
         <div class="row">
-
-            <%-- Carousel title and progress bar--%>       
-            <div class="header-menu">
-                <h3 class="title">Best Seller or Your Favorites</h3>
-                <div class="progress-bar"></div>
+            
+     <%-- Carousel title and progress bar--%>       
+    <div class="header-menu">
+      <h3 class="title">Coffee</h3>
+      <div class="progress-bar"></div>
+    </div>
+                     
+    <div class="carouselContainer">
+        
+         <%-- Left Arrow Button--%>
+      <button class="handle left-handle">
+        <div class="text">&#8249;</div>
+      </button>
+        
+        <%-- Carousel Items container--%>
+      <div class="slider">
+          
+          <%
+            ResultSet coffee = (ResultSet) request.getAttribute("coffee");
+            while (coffee.next()){
+        %>
+          
+         <%-- Slider Item Start--%>      
+   <div class="item">  
+       
+          <%-- Hidden fields for database submission--%>
+      <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+      <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
+      <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
+      <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
+      <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
+       
+        <%-- Item Name--%>
+        <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
+        
+      <%-- Item Image--%>
+        <img
+          class="thumbnail"
+          src="userImages/bg.png"
+          alt="Sample Item Image">
+        
+       <%-- Item Option--%>
+         <h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
+      
+         <%-- Item PriceTag--%>
+         <h3 class="itemPHPTag">PHP</h3>
+         
+        <%-- Item Price--%> 
+        <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
+         
+            <%-- Quantity Decrament--%>
+            <div class="dec">-</div>
+            
+            <%-- Quantity input field--%>
+            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+            
+            <%-- Quantity Incrament--%>
+            <div class="inc">+</div>
+         
             </div>
-
-            <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
-
-                <%-- Carousel Items container--%>
-                <div class="slider">
-
-                    <%-- Slider Item Start--%>      
-                    <div class="item">  
-
-                        <%-- Hidden fields for database submission--%>
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="1"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="Cheesecake"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="Classic"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="500" />
-
-                        <%-- Item Name--%>
-                        <h1 class="itemName">New york Cheesecake </h1>     
-
-                        <%-- Item Image--%>
-                        <img
-                            class="thumbnail"
-                            src="userImages/bg.png"
-                            alt="Missing 250x250 Image">
-
-                        <%-- Item Option--%>
-                        <h3 class="itemOption">Classic </h3>
-
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
-
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice">500.00</h3>
-
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
-
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
-
-                    </div>
-                    <%-- Slider Item End--%>   
-
-                    <%-- Slider Item Start--%>      
-                    <div class="item">  
-
-                        <%-- Hidden fields for database submission--%>
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="2"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="Coffee"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="Hot"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="200" />
-
-                        <%-- Item Name--%>
-                        <h1 class="itemName">Coffee </h1>     
-
-                        <%-- Item Image--%>
-                        <img
-                            class="thumbnail"
-                            src="userImages/bg.png"
-                            alt="Sample Item Image">
-
-                        <%-- Item Option--%>
-                        <h3 class="itemOption">Hot </h3>
-
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
-
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice">200.00</h3>
-
-
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
-
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
-
-
-                    </div>
-                    <%-- Slider Item End--%>
-
-
-                    <%-- Slider Item Start--%>      
-                    <div class="item">  
-
-                        <%-- Hidden fields for database submission--%>
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="3"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="Latte"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="Iced"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="300" />
-
-                        <%-- Item Name--%>
-                        <h1 class="itemName">Latte </h1>     
-
-                        <%-- Item Image--%>
-                        <img
-                            class="thumbnail"
-                            src="userImages/bg.png"
-                            alt="Sample Item Image">
-
-                        <%-- Item Option--%>
-                        <h3 class="itemOption">Iced </h3>
-
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
-
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice">300.00</h3>
-
-
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
-
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
-
-
-                    </div>
-                    <%-- Slider Item End--%>
-
-                </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
+            <%-- Slider Item End--%>   
+                 
+            <%}%>
+            
+      </div>
+       <%-- Right Arrow Button--%>
+      <button class="handle right-handle">
+        <div class="text">&#8250;</div>
+      </button>
+    </div>
+  </div>
+      
+      <div class="row">
+            
+     <%-- Carousel title and progress bar--%>    
+    <div class="header-menu">
+      <h3 class="title">Non-Coffees</h3>
+      <div class="progress-bar"></div>
+    </div>
+                     
+    <div class="carouselContainer">
+        
+         <%-- Left Arrow Button--%>
+      <button class="handle left-handle">
+        <div class="text">&#8249;</div>
+      </button>
+        
+        <%-- Carousel Items container--%>
+      <div class="slider">
+          
+          <%
+            ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
+            while (noncoffee.next()){
+        %>
+          
+         <%-- Slider Item Start--%>      
+   <div class="item">  
+       
+          <%-- Hidden fields for database submission--%>
+      <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+      <input type="hidden" id="itemId" name="itemId" value="<%=noncoffee.getString("itemCode")%>"/>
+      <input type="hidden" id="hiddenName" name="hiddenName" value="<%=noncoffee.getString("itemName")%>"/>
+      <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=noncoffee.getString("itemOption")%>"/>
+      <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=noncoffee.getString("itemPrice")%>" />
+       
+        <%-- Item Name--%>
+        <h1 class="itemName"><%=noncoffee.getString("itemName")%></h1>     
+        
+      <%-- Item Image--%>
+        <img
+          class="thumbnail"
+          src="userImages/bg.png"
+          alt="Sample Item Image">
+        
+       <%-- Item Option--%>
+         <h3 class="itemOption"><%=noncoffee.getString("itemOption")%></h3>
+      
+         <%-- Item PriceTag--%>
+         <h3 class="itemPHPTag">PHP</h3>
+         
+        <%-- Item Price--%> 
+        <h3 class="itemPrice"><%=noncoffee.getString("itemPrice")%></h3>
+         
+            <%-- Quantity Decrament--%>
+            <div class="dec">-</div>
+            
+            <%-- Quantity input field--%>
+            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+            
+            <%-- Quantity Incrament--%>
+            <div class="inc">+</div>
+         
             </div>
-        </div>
+            <%-- Slider Item End--%>   
+                 
+            <%}%>
+            
+      </div>
+       <%-- Right Arrow Button--%>
+      <button class="handle right-handle">
+        <div class="text">&#8250;</div>
+      </button>
+    </div>
+  </div>
+      
+      <div class="row">
+            
+     <%-- Carousel title and progress bar--%>       
+    <div class="header-menu">
+      <h3 class="title">Snacks</h3>
+      <div class="progress-bar"></div>
+    </div>
+                     
+    <div class="carouselContainer">
+        
+         <%-- Left Arrow Button--%>
+      <button class="handle left-handle">
+        <div class="text">&#8249;</div>
+      </button>
+        
+        <%-- Carousel Items container--%>
+      <div class="slider">
+          
+          <%
+            ResultSet snack = (ResultSet) request.getAttribute("snack");
+            while (snack.next()){
+        %>
+          
+         <%-- Slider Item Start--%>      
+   <div class="item">  
+       
+          <%-- Hidden fields for database submission--%>
+      <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+      <input type="hidden" id="itemId" name="itemId" value="<%=snack.getString("itemCode")%>"/>
+      <input type="hidden" id="hiddenName" name="hiddenName" value="<%=snack.getString("itemName")%>"/>
+      <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=snack.getString("itemOption")%>"/>
+      <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=snack.getString("itemPrice")%>" />
+       
+        <%-- Item Name--%>
+        <h1 class="itemName"><%=snack.getString("itemName")%></h1>     
+        
+      <%-- Item Image--%>
+        <img
+          class="thumbnail"
+          src="userImages/bg.png"
+          alt="Sample Item Image">
+        
+       <%-- Item Option--%>
+         <h3 class="itemOption"><%=snack.getString("itemOption")%></h3>
+      
+         <%-- Item PriceTag--%>
+         <h3 class="itemPHPTag">PHP</h3>
+         
+        <%-- Item Price--%> 
+        <h3 class="itemPrice"><%=snack.getString("itemPrice")%></h3>
+         
+            <%-- Quantity Decrament--%>
+            <div class="dec">-</div>
+            
+            <%-- Quantity input field--%>
+            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+            
+            <%-- Quantity Incrament--%>
+            <div class="inc">+</div>
+         
+            </div>
+            <%-- Slider Item End--%>   
+                 
+            <%}%>
+            
+      </div>
+       <%-- Right Arrow Button--%>
+      <button class="handle right-handle">
+        <div class="text">&#8250;</div>
+      </button>
+    </div>
+  </div>
 
     </body>
     <script>
