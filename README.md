@@ -34,6 +34,8 @@ Step 4 copy paste and run
 
 CREATE TABLE customer_credentials (`customerID` INT NOT NULL AUTO_INCREMENT, `customerFirstName` VARCHAR(100), `customerLastName` VARCHAR(100), `customerPassword` VARCHAR(256), `customerEmail` VARCHAR(100), `customerMobileNumber` INT, PRIMARY KEY (`customerID`));
 
+CREATE TABLE products (`itemCode` INT NOT NULL AUTO_INCREMENT, `itemName` VARCHAR(50) NOT NULL, `itemOption` VARCHAR(50), `itemPrice` DOUBLE NOT NULL, `itemImage` VARCHAR(255) NOT NULL, `itemClass` VARCHAR(20) NOT NULL, PRIMARY KEY (`itemCode`));
+
 
 
 ![image](https://user-images.githubusercontent.com/91335885/216988157-6e15da89-183d-48af-97a6-62e7f6525734.png)
