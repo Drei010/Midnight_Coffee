@@ -52,7 +52,7 @@ Step 5 make sure table was created
 
 
 
-Step 6 go to LoginSignup_Controller.java and change the username and password based on what you have set on your local computer
+Step 6 go to establishConn.java and change the username and password based on what you have set on your local computer
 
 
 
