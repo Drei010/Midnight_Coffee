@@ -60,7 +60,7 @@ Connection conn;
             String password = "rootpassword";//config.getInitParameter("dbPassword");
             String hostname = "localhost";//config.getInitParameter("dbHostName");
             String dbport = "3306";//config.getInitParameter("dbPort"); 
-            String databaseName = "usersdb";//config.getInitParameter("databaseName"); 
+            String databaseName = "midnightcoffeedb";//config.getInitParameter("databaseName"); 
             String useSSL = "?useSSL=false";//config.getInitParameter("useSSL"); 
             
              //get url name
@@ -92,9 +92,9 @@ Connection conn;
             //sign up
             LoginSignup_Model signUp = new LoginSignup_Model(); 
 
-            //check if Account already exist!
+            //check if Account already exist! Before Sign up
             if(signUp.retrieveData(email, conn) != null){
-             response.sendRedirect("Login_page.jsp?process=1");
+             response.sendRedirect("Signup_page.jsp?process=1");
             return;
             }
 
@@ -102,11 +102,11 @@ Connection conn;
             String Yes = signUp.insertData(firstname, lastname, password, email, mobilenumber, conn);
                   if("Yes".equals(Yes)){
             //Account Creation Successful data inserted to the database
-             response.sendRedirect("Login_page.jsp?process=2");
+             response.sendRedirect("Login_page.jsp?process=1");
                              }
             else{
             //Account Creation Failed
-             response.sendRedirect("Login_page.jsp?process=3");
+             response.sendRedirect("Signup_page.jsp?process=2");
             }  
 
             }
@@ -116,13 +116,27 @@ Connection conn;
 
             //check if account exists
                             if (results == null){
-            response.sendRedirect("Login_page.jsp?process=5");
-            return;
+            //Account does not exist
+            response.sendRedirect("Login_page.jsp?process=2");
             }
+                            
+              try{
+                    while (results.next()){
+            //Check if passwor matches with password in the database
+            if(results.getString("customerPassword").equals(password)!=true){
+                
+                //Password does not match
+            response.sendRedirect("Login_page.jsp?process=3");
+            return;
+             }              
+                                                        
+            //go to menupage if login is successful                
+            response.sendRedirect("Menu_page.jsp?LoginSuccess");
 
 
-
-    }}
+    }}          catch (SQLException ex) {
+                    Logger.getLogger(LoginSignup_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }}}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -19,7 +19,7 @@ public class LoginSignup_Model {
 ///Get the data from the database
       public ResultSet retrieveData(String email, Connection conn){
             try { 
-             String query = "SELECT * FROM USERS WHERE EMAIL = ?";
+             String query = "SELECT * FROM customer_credentials WHERE customerEmail = ?";
              PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
              stmnt.setString(1, email);
              ResultSet records = stmnt.executeQuery();
@@ -38,14 +38,14 @@ public class LoginSignup_Model {
     
     ///Insert signup Data to the Database
  public String insertData(String firstname, String lastname, String password, String email, String mobilenumber, Connection conn) {
-           String sql = "INSERT INTO USERS (FIRSTNAME, LASTNAME, PASSWORD, EMAIL, MOBILENUMBER) VALUES ( ?, ?, ?, ?, ?)";
+           String sql = "INSERT INTO customer_credentials (customerFirstName, customerLastName, customerPassword, customerEmail, customerMobileNumber) VALUES ( ?, ?, ?, ?, ?)";
                  try {
  PreparedStatement stmnt = conn.prepareStatement(sql);
              stmnt.setString(1, firstname);
              stmnt.setString(2, lastname);
              stmnt.setString(3, password);
              stmnt.setString(4, email);
-             stmnt.setString(5, mobilenumber);
+             stmnt.setInt(5, Integer.parseInt(mobilenumber));
     
              stmnt.executeUpdate();
              stmnt.close();
