@@ -1,0 +1,21 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 7 Feb 2023, 11:53:02 am
+    Author     : Andrei
+*/
+
+
+/*paayos nalang neto*/
+#modal{
+    visibility:hidden;
+     border: 5px solid #282747;
+     background: white;
+     width: 60%;
+     position: absolute;
+     top:50%;
+     left:20%;
+     margin:-200px -200px 0 0;
+}
