@@ -46,7 +46,7 @@ public class LoginSignup_Model {
             stmnt.setString(2, lastname);
             stmnt.setString(3, password);
             stmnt.setString(4, email);
-            stmnt.setInt(5, Integer.parseInt(mobilenumber));
+            stmnt.setString(5, mobilenumber);
 
             stmnt.executeUpdate();
             stmnt.close();
