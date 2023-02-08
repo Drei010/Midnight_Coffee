@@ -36,6 +36,9 @@
                 <li class="header-nav-item">
                     <a href="adminFeedback_page.jsp"> Feedback </a>
                 </li>
+                  <li class="header-nav-item">
+                    <a href="adminPayment_page.jsp"> QR Code </a>
+                </li>
                 <li class="header-nav-item">
                     <a href="adminIngredients_page.jsp"> Ingredients </a>
                 </li>

@@ -18,7 +18,7 @@
     <jsp:include page="header.jsp" /> <!-- Calls the header jsp -->
     <body>
           <h1>Sign up</h1>
-          <form action="LoginSignup_Controller" method="post">
+          <form action="LoginSignup_Controller" method="post">        
          <h3>First Name</h3>
         <input type="text" placeholder="firstname" name="firstname" required>
         
@@ -46,7 +46,7 @@
        
         <!-- Terms and conditions -->
          <input type="checkbox" id="checkbox" required><a>Agree to our</a> <a href="#" id="termsLink">Terms and conditions</a><br>
-         
+                 
         <button type="submit" id="btnSignup">Sign up</button>
         </form>
             <a  href="Login_page.jsp">Already have an account</a><br>
