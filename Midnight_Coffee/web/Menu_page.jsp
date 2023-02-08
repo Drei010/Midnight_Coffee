@@ -10,8 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='general.css'>
-        <link rel='stylesheet' type='text/css' href='menu.css'>
+        <link rel='stylesheet' type='text/css' href='styles/general.css'>
+        <link rel='stylesheet' type='text/css' href='styles/menu.css'>
     </head>
 
     <body>

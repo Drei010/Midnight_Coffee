@@ -9,8 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='general.css'>
-        <link rel='stylesheet' type='text/css' href='adminMenu.css'>
+        <link rel='stylesheet' type='text/css' href='styles/general.css'>
+        <link rel='stylesheet' type='text/css' href='styles/adminMenu.css'>
         <title>Menu</title>
     </head>
 

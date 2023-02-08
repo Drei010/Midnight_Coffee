@@ -9,8 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='general.css'>
-        <link rel='stylesheet' type='text/css' href='Signup_page.css'>
+        <link rel='stylesheet' type='text/css' href='styles/general.css'>
+        <link rel='stylesheet' type='text/css' href='styles/Signup_page.css'>
         <title>Sign up Page</title>
                 <!--Captcha API-->
         <script src="https://www.google.com/recaptcha/api.js"></script>
