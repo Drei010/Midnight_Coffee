@@ -38,8 +38,7 @@
             </tfoot>
         </table>
 
-        <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
-            if (coffee != null) {%>
+
 
         <div class="row">
 
@@ -55,6 +54,9 @@
                 <button class="handle left-handle">
                     <div class="text">&#8249;</div>
                 </button>
+
+                <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
+                    if (coffee != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
@@ -103,6 +105,9 @@
                     </div>
                     <%-- Slider Item End--%>   
 
+                    <%}
+                        }%>
+
                 </div>
                 <%-- Right Arrow Button--%>
                 <button class="handle right-handle">
@@ -111,10 +116,8 @@
             </div>
         </div>
 
-        <%}
-            }
-            ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
-            if (noncoffee != null) {%>
+
+
 
         <div class="row">
 
@@ -130,6 +133,9 @@
                 <button class="handle left-handle">
                     <div class="text">&#8249;</div>
                 </button>
+
+                <%ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
+                   if (noncoffee != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
@@ -178,6 +184,9 @@
                     </div>
                     <%-- Slider Item End--%>   
 
+                    <%}
+                        }%>
+
                 </div>
                 <%-- Right Arrow Button--%>
                 <button class="handle right-handle">
@@ -185,11 +194,6 @@
                 </button>
             </div>
         </div>
-
-        <%}
-            }
-            ResultSet snack = (ResultSet) request.getAttribute("snack");
-            if (snack != null) {%>
 
         <div class="row">
 
@@ -205,6 +209,9 @@
                 <button class="handle left-handle">
                     <div class="text">&#8249;</div>
                 </button>
+
+                <%ResultSet snack = (ResultSet) request.getAttribute("snack");
+                   if (snack != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
@@ -253,6 +260,9 @@
                     </div>
                     <%-- Slider Item End--%>   
 
+                    <%}
+                         }%>
+
                 </div>
                 <%-- Right Arrow Button--%>
                 <button class="handle right-handle">
@@ -260,8 +270,7 @@
                 </button>
             </div>
         </div>
-        <%}
-                        }%>
+
     </body>
     <script>
 
