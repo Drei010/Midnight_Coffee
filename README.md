@@ -39,6 +39,12 @@ CREATE TABLE products (`itemCode` INT NOT NULL AUTO_INCREMENT, `itemName` VARCHA
 
 
 
+
+CREATE TABLE payment_method (`methodID` INT NOT NULL AUTO_INCREMENT, `methodName` VARCHAR(100), `QRImage` VARCHAR(256), PRIMARY KEY (`methodID`));
+
+
+
+
 ![image](https://user-images.githubusercontent.com/91335885/216988157-6e15da89-183d-48af-97a6-62e7f6525734.png)
 
 
