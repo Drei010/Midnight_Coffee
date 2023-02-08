@@ -21,7 +21,7 @@
             </div>
             <ul class="header-nav header-right">
                 <li class="header-nav-item">
-                    <a href="index.html"> Home </a>
+                    <a href="home.jsp"> Home </a>
                 </li>
                 <li class="header-nav-item">
                     <a href="Menu_page.jsp"> Menu </a>

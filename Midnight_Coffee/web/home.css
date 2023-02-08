@@ -1,0 +1,153 @@
+body{
+    padding-top: 60px;
+    margin: 0px;
+    background-color: #D9D9D9;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90vh;
+}
+
+
+.row{
+  display: flex;
+  padding-left: 30px;
+  padding-top: 70px;
+}
+.column1{
+  width: 25%;
+}
+
+.column2{
+  width: 75%;
+  padding-left: 30px;
+}
+
+.pic1{
+   flex-basis: 40%;
+}
+
+.mmc{
+  max-width: 100%;
+  height: auto;
+}
+
+.admin-home-container{
+    width: auto;
+    max-height: 250px;
+    background-color: #282747;
+    padding-bottom: 10px;
+}
+
+.home-container-contents{
+    margin-left: 30px;
+    padding-top: 30px;
+}
+
+p{
+    margin: 10px;
+}
+.first-line{
+    color: white;
+    font-size: 30px;
+}
+
+.second-line{
+    color: white;
+    font-size: 25px;
+}
+
+.third-line{
+    font-size: 20px;
+    color: black;
+}
+
+
+.third-line p{
+    background-color: #D9D9D9;
+    max-width: 123px;
+    max-height: 30px;
+    word-wrap: break-word;
+    padding-left: 20px;
+    padding-top: 5px;
+    border-radius: 5px;
+}
+
+.logos{
+  margin-left: 10px;
+}
+
+.fourth-line{
+    font-size: 30px;
+    color: black;
+    padding-top: 30px;
+      
+}
+
+.fourth-line p{
+  padding-top: 30x;
+  text-align:center;
+}
+
+.fifth-line{
+    font-size: 30px;
+    color: black;
+}
+
+.fifth-line p{
+  text-align:center;
+}
+
+.fblogo{
+  width: 5%;
+  max-width: 70px;
+  height: auto;
+}
+.iglogo{
+  width: 5%;
+  max-width: 70px;
+  height: auto;
+}
+.ttlogo{
+  width: 5%;
+  max-width: 70px;
+  height: auto;
+}
+
+.reviews{
+   margin-left: 30px;
+   padding-top: 30px;
+   display: table;
+}
+.review1{
+  height:auto;
+  font-size:20px;
+  float: left;
+  width: 33.33%;
+}
+.review1 p{
+  text-align:center;
+  word-wrap: break-word;
+}
+.review2{
+  float: left;
+  width: 33.33%;
+  height:auto;
+  font-size:20px;
+}
+.review2{
+  text-align:center;
+  word-wrap: break-word;
+}
+.review3{
+  float: left;
+   width: 33.33%;
+  font-size:20px;
+}
+.review3{
+  text-align:center;
+  word-wrap: break-word;
+}
+.desc{
+  padding-top: 10px;
+}
