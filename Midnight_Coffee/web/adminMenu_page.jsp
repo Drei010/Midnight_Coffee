@@ -4,6 +4,7 @@
     Author     : rvhin
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,61 +18,578 @@
     <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
 
     <body>
-        <div class="admin-menu-label">
-            <h1>Admin Menu</h1>
-        </div>
-        <div class="menu-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Name</th>
+                    <th>Classification</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>      
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Total</th>
+                    <th><input type="text" name="total" id="total" value="0" disabled=""/></th>
 
-            <div class="Non-Coffees">
-                <div class="scroll-button" id="scroll-left">&lt;</div>
-                <div class="noncoffee-items">
-                    <div class="noncoffee-add-entry">add button</div>
-                    <div class="product">1</div>
-                    <div class="product">2</div>
-                    <div class="product">3</div>
-                    <div class="product">4</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">9</div>
-                    <div class="product">5</div>
-                    <div class="product">5</div>
-                    <div class="product">11</div>
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+        <div class="row">
+
+            <%-- Carousel title and progress bar--%>       
+            <div class="header-menu">
+                <h3 class="title">Coffee</h3>
+                <div class="progress-bar"></div>
+            </div>
+
+            <div class="carouselContainer">
+
+                <%-- Left Arrow Button--%>
+                <button class="handle left-handle">
+                    <div class="text">&#8249;</div>
+                </button>
+
+                <%-- Add Coffee Item Button --%>
+                <button id="addCoffeeItem"></button>
+
+                <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
+                <div id="popupAdd" class="hidden">
+                    
+                    <div style="display: flex;">
+                        <div style="flex: 2; background-color: red;">Left div</div>
+                        <div style="flex: 1; background-color: blue;">Right div</div>
+                    </div>
+                    
+                    <button id="close-button">Close</button>
                 </div>
-                <div class="scroll-button" id="scroll-right">&gt;</div>
+
+                <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
+                    if (coffee != null) {%>
+
+                <%-- Carousel Items container--%>
+                <div class="slider">
+
+                    <%
+                        while (coffee.next()) {
+                    %>
+
+                    <%-- Slider Item Start--%>      
+                    <div class="item">  
+
+                        <%-- Hidden fields for database submission--%>
+                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                        <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
+                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
+                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
+                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
+
+                        <%-- Item Name--%>
+                        <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
+
+                        <%-- Item Image--%>
+                        <img
+                            class="thumbnail"
+                            src="userImages/bg.png"
+                            alt="Sample Item Image">
+
+                        <%-- Item Option--%>
+                        <h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
+
+                        <%-- Item PriceTag--%>
+                        <h3 class="itemPHPTag">PHP</h3>
+
+                        <%-- Item Price--%> 
+                        <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
+
+                        <%-- Quantity Decrament--%>
+                        <div class="dec">-</div>
+
+                        <%-- Quantity input field--%>
+                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                        <%-- Quantity Incrament--%>
+                        <div class="inc">+</div>
+
+                    </div>
+                    <%-- Slider Item End--%>   
+
+                    <%}
+                        }%>
+
+                    <%-- Right Arrow Button--%>
+                    <button class="handle right-handle">
+                        <div class="text">&#8250;</div>
+                    </button>
+
+                </div>
             </div>
         </div>
 
-        <!--          <div class="Coffees">
-                      <div class="scroll-button" id="scroll-left">&lt;</div>
-                      <h2>Coffees</h2>
-                      <div class="scroll-button" id="scroll-right">&gt;</div>
-                  </div>
-      
-                  <div class="Midnight-Snacks">
-                      <div class="scroll-button" id="scroll-left">&lt;</div>
-                      <h2>Midnight Snacks</h2>
-                      <div class="scroll-button" id="scroll-right">&gt;</div>
-                  </div>
-        -->
 
-        <script>
-            const nonCoffees = document.querySelector(".Non-Coffees");
-            const nonCoffeeItems = document.querySelector(".noncoffee-items");
-            const scrollLeftBtn = document.querySelector("#scroll-left");
-            const scrollRightBtn = document.querySelector("#scroll-right");
 
-            scrollLeftBtn.addEventListener("click", () => {
-                nonCoffeeItems.scrollLeft -= 100;
-            });
 
-            scrollRightBtn.addEventListener("click", () => {
-                nonCoffeeItems.scrollLeft += 100;
-            });
-        </script>
+        <div class="row">
+
+            <%-- Carousel title and progress bar--%>    
+            <div class="header-menu">
+                <h3 class="title">Non-Coffees</h3>
+                <div class="progress-bar"></div>
+            </div>
+
+            <div class="carouselContainer">
+
+                <%-- Left Arrow Button--%>
+                <button class="handle left-handle">
+                    <div class="text">&#8249;</div>
+                </button>
+
+                <%-- Add Tea Item Button --%>
+                <button id="addTeaItem"></button>
+                
+                <%-- Open Popup --%>
+                <div id="popupAdd" class="hidden">
+                    <button id="close-button">Close</button>
+                </div>
+
+
+                <%ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
+                    if (noncoffee != null) {%>
+
+                <%-- Carousel Items container--%>
+                <div class="slider">
+
+                    <%
+                        while (noncoffee.next()) {
+                    %>
+
+                    <%-- Slider Item Start--%>      
+                    <div class="item">  
+
+                        <%-- Hidden fields for database submission--%>
+                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                        <input type="hidden" id="itemId" name="itemId" value="<%=noncoffee.getString("itemCode")%>"/>
+                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=noncoffee.getString("itemName")%>"/>
+                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=noncoffee.getString("itemOption")%>"/>
+                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=noncoffee.getString("itemPrice")%>" />
+
+                        <%-- Item Name--%>
+                        <h1 class="itemName"><%=noncoffee.getString("itemName")%></h1>     
+
+                        <%-- Item Image--%>
+                        <img
+                            class="thumbnail"
+                            src="userImages/bg.png"
+                            alt="Sample Item Image">
+
+                        <%-- Item Option--%>
+                        <h3 class="itemOption"><%=noncoffee.getString("itemOption")%></h3>
+
+                        <%-- Item PriceTag--%>
+                        <h3 class="itemPHPTag">PHP</h3>
+
+                        <%-- Item Price--%> 
+                        <h3 class="itemPrice"><%=noncoffee.getString("itemPrice")%></h3>
+
+                        <%-- Quantity Decrament--%>
+                        <div class="dec">-</div>
+
+                        <%-- Quantity input field--%>
+                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                        <%-- Quantity Incrament--%>
+                        <div class="inc">+</div>
+
+                    </div>
+                    <%-- Slider Item End--%>   
+
+                    <%}
+                        }%>
+
+                    <%-- Right Arrow Button--%>
+                    <button class="handle right-handle">
+                        <div class="text">&#8250;</div>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <%-- Carousel title and progress bar--%>       
+            <div class="header-menu">
+                <h3 class="title">Snacks</h3>
+                <div class="progress-bar"></div>
+            </div>
+
+            <div class="carouselContainer">
+
+                <%-- Left Arrow Button--%>
+                <button class="handle left-handle">
+                    <div class="text">&#8249;</div>
+                </button>
+
+                <%-- Add Latte Item Button --%>
+                <button id="addLatteItem"></button>
+                
+                <%-- Open Popup --%>
+                <div id="popupAdd" class="hidden">
+                    <p>This is a pop-up!</p>
+                    <button id="close-button">Close</button>
+                </div>
+
+                <%ResultSet snack = (ResultSet) request.getAttribute("snack");
+                    if (snack != null) {%>
+
+                <%-- Carousel Items container--%>
+                <div class="slider">
+
+                    <%
+                        while (snack.next()) {
+                    %>
+
+                    <%-- Slider Item Start--%>      
+                    <div class="item">  
+
+                        <%-- Hidden fields for database submission--%>
+                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                        <input type="hidden" id="itemId" name="itemId" value="<%=snack.getString("itemCode")%>"/>
+                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=snack.getString("itemName")%>"/>
+                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=snack.getString("itemOption")%>"/>
+                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=snack.getString("itemPrice")%>" />
+
+                        <%-- Item Name--%>
+                        <h1 class="itemName"><%=snack.getString("itemName")%></h1>     
+
+                        <%-- Item Image--%>
+                        <img
+                            class="thumbnail"
+                            src="userImages/bg.png"
+                            alt="Sample Item Image">
+
+                        <%-- Item Option--%>
+                        <h3 class="itemOption"><%=snack.getString("itemOption")%></h3>
+
+                        <%-- Item PriceTag--%>
+                        <h3 class="itemPHPTag">PHP</h3>
+
+                        <%-- Item Price--%> 
+                        <h3 class="itemPrice"><%=snack.getString("itemPrice")%></h3>
+
+                        <%-- Quantity Decrament--%>
+                        <div class="dec">-</div>
+
+                        <%-- Quantity input field--%>
+                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                        <%-- Quantity Incrament--%>
+                        <div class="inc">+</div>
+
+                    </div>
+                    <%-- Slider Item End--%>   
+
+                    <%}
+                        }%>
+
+                    <%-- Right Arrow Button--%>
+                    <button class="handle right-handle">
+                        <div class="text">&#8250;</div>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
     </body>
+    <script>
+
+        //For pop up when adding
+        const addCoffeeItem = document.getElementById("addCoffeeItem");
+        const addTeaItem = document.getElementById("addTeaItem");
+        const addLatteItem = document.getElementById("addLatteItem");
+        const popupAdd = document.getElementById("popupAdd");
+        const closeButton = document.getElementById("close-button");
+
+        addCoffeeItem.addEventListener("click", function () {
+            popupAdd.style.display = "block";
+        });
+
+        addTeaItem.addEventListener("click", function () {
+            popupAdd.style.display = "block";
+        });
+
+        addLatteItem.addEventListener("click", function () {
+            popupAdd.style.display = "block";
+        });
+
+        closeButton.addEventListener("click", function () {
+            popupAdd.style.display = "none";
+        });
+
+        // If the arrow buttons are clicked
+        document.addEventListener("click", e => {
+            let handle;
+            if (e.target.matches(".handle")) {
+                handle = e.target;
+            } else {
+                handle = e.target.closest(".handle");
+            }
+            if (handle) {
+                onHandleClick(handle);
+            }
+        });
+
+//Throttle progress bar update
+        const throttleProgressBar = throttle((delay = 1000) => {
+            document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
+        });
+        window.addEventListener("resize", throttleProgressBar);
+
+        document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
+
+
+//Progress bar computation
+        function calculateProgressBar(progressBar) {
+            progressBar.innerHTML = "";
+            const slider = progressBar.closest(".row").querySelector(".slider");
+            if (!slider) {
+                return;
+            }
+            const itemCount = slider.children.length;
+            const itemsPerScreen = parseInt(
+                    getComputedStyle(slider).getPropertyValue("--items-per-screen")
+                    );
+            let sliderIndex = parseInt(
+                    getComputedStyle(slider).getPropertyValue("--slider-index")
+                    );
+            const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen);
+
+            if (sliderIndex >= progressBarItemCount) {
+                slider.style.setProperty("--slider-index", progressBarItemCount - 1);
+                sliderIndex = progressBarItemCount - 1;
+            }
+
+            for (let i = 0; i < progressBarItemCount; i++) {
+                const barItem = document.createElement("div");
+                barItem.classList.add("progress-item");
+                if (i === sliderIndex) {
+                    barItem.classList.add("active");
+                }
+                progressBar.append(barItem);
+            }
+        }
+
+
+///Move progress bar and containers
+        function onHandleClick(handle) {
+            const progressBar = handle.closest(".row").querySelector(".progress-bar");
+            const slider = handle.closest(".carouselContainer").querySelector(".slider");
+            const sliderIndex = parseInt(
+                    getComputedStyle(slider).getPropertyValue("--slider-index")
+                    );
+            const progressBarItemCount = progressBar.children.length;
+            if (handle.classList.contains("left-handle")) {
+                if (sliderIndex - 1 < 0) {
+                    slider.style.setProperty("--slider-index", progressBarItemCount - 1);
+                    progressBar.children[sliderIndex].classList.remove("active");
+                    progressBar.children[progressBarItemCount - 1].classList.add("active");
+                } else {
+                    slider.style.setProperty("--slider-index", sliderIndex - 1);
+                    progressBar.children[sliderIndex].classList.remove("active");
+                    progressBar.children[sliderIndex - 1].classList.add("active");
+                }
+            }
+
+            if (handle.classList.contains("right-handle")) {
+                if (sliderIndex + 1 >= progressBarItemCount) {
+                    slider.style.setProperty("--slider-index", 0);
+                    progressBar.children[sliderIndex].classList.remove("active");
+                    progressBar.children[0].classList.add("active");
+                } else {
+                    slider.style.setProperty("--slider-index", sliderIndex + 1);
+                    progressBar.children[sliderIndex].classList.remove("active");
+                    progressBar.children[sliderIndex + 1].classList.add("active");
+                }
+            }
+        }
+
+        function throttle(cb, delay = 1000) {
+            let shouldWait = false;
+            let waitingArgs;
+            const timeoutFunc = () => {
+                if (waitingArgs === null) {
+                    shouldWait = false;
+                } else {
+                    cb(...waitingArgs);
+                    waitingArgs = null;
+                    requestAnimationFrame(timeoutFunc, delay);
+                }
+            };
+
+            return (...args) => {
+                if (shouldWait) {
+                    waitingArgs = args;
+                    return;
+                }
+
+                cb(...args);
+                shouldWait = true;
+                requestAnimationFrame(timeoutFunc, delay);
+            };
+        }
+
+/////////////////////////////// Total orders computation//////////////////////
+
+// incrament decrament buttons
+        var incramentButton = document.getElementsByClassName('inc');
+        var decramentButton = document.getElementsByClassName('dec');
+
+        for (var i = 0; i < incramentButton.length; i++) {
+            var button = incramentButton[i];
+            button.addEventListener('click', function (event) {
+
+                var buttonClicked = event.target;
+
+                // get reference to input field
+                var input = buttonClicked.parentElement.children[11];
+
+                // get current value of input field
+                var inputValue = input.value;
+
+                // increment value by 1
+                var newValue = parseInt(inputValue) + 1;
+
+                // update value of input field         
+                input.value = newValue;
+
+                //get table body
+                const tbodyEl = document.querySelector("tbody");
+
+                //Get id of current item
+                var itemID = buttonClicked.parentElement.children[1].value;
+
+                //Create new row if quantity is equal to 1
+                if (newValue === 1) {
+
+                    tbodyEl.innerHTML +=
+                            //set row id as row + itemId
+                            //set quantity id as quantity + itemId
+                            `<tr id="row` + itemID + `">
+                <td id="quantity` + itemID + `">`
+
+                            //Quantity
+                            + newValue +
+                            `</td>            
+                <td>`
+
+                            //Item Name
+                            + buttonClicked.parentElement.children[2].value +
+                            `</td>
+                <td>`
+
+                            //Item Classification  
+                            + buttonClicked.parentElement.children[3].value +
+                            //set price id as price + itemId
+                            `</td>
+                <td id="price` + itemID + `">`
+
+                            //Item Price  
+                            + buttonClicked.parentElement.children[4].value +
+                            `</td>
+            </tr>`;
+                } else {
+
+                    //get old price
+                    var oldPrice = buttonClicked.parentElement.children[4].value;
+
+                    //Compute for the new price (Quantity * old price)
+                    var newPrice = parseInt(oldPrice) * newValue;
+
+                    //set id of quantity and price
+                    var quantityID = "quantity" + itemID;
+                    var priceID = "price" + itemID;
+
+                    //incrament quantity
+                    document.getElementById(quantityID).innerHTML = newValue;
+
+                    //set new price
+                    document.getElementById(priceID).innerHTML = newPrice;
+                }
+                findTotal();
+
+            });
+        }
+        for (var i = 0; i < decramentButton.length; i++) {
+            var button = decramentButton[i];
+            button.addEventListener('click', function (event) {
+
+                var buttonClicked = event.target;
+
+                // get reference to input field
+                var input = buttonClicked.parentElement.children[11];
+
+                // get current value of input field
+                var inputValue = input.value;
+
+                // decrement value by 1
+                var newValue = parseInt(inputValue) - 1;
+
+                //Get id of current item 
+                var itemID = buttonClicked.parentElement.children[1].value;
+
+                // update value of input field  
+                if (newValue > 0) {
+                    input.value = newValue;
+
+                    //get old price
+                    var oldPrice = buttonClicked.parentElement.children[4].value;
+
+                    //Compute for the new price (Quantity * old price)
+                    var newPrice = parseInt(oldPrice) * newValue;
+
+                    //set id of quantity and price
+                    var quantityID = "quantity" + itemID;
+                    var priceID = "price" + itemID;
+
+                    //decrament quantity
+                    document.getElementById(quantityID).innerHTML = newValue;
+
+                    //set new price
+                    document.getElementById(priceID).innerHTML = newPrice;
+                } else {
+                    input.value = 0;
+
+                    //set id of row
+                    var rowID = "row" + itemID;
+
+                    //remove row
+                    document.getElementById(rowID).remove();
+                }
+                findTotal();
+            });
+        }
+
+//// Total Price added to cart
+        function findTotal() {
+
+            var arr = document.getElementsByClassName('itemQuantity');
+            var price = document.getElementsByClassName('hiddenPrice');
+            var total = 0;
+            for (var i = 0; i < arr.length; i++) {
+                if (parseInt(arr[i].value))
+                    total += parseInt(price[i].value) * parseInt(arr[i].value);
+            }
+            document.getElementById('total').value = total;
+
+        }
+    </script>
 </html>

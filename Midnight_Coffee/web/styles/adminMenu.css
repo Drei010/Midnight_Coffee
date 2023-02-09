@@ -7,14 +7,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : rvhin
 */
 
+body{
+    margin-top: 30px;
+}
+
 .Non-Coffees{
     display: flex;
     overflow-x: auto;
 }
 
 .Non-Coffees::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+    width: 0;
+    height: 0;
 }
 
 .noncoffee-items{
@@ -42,9 +46,63 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 #scroll-left {
-  left: 0;
+    left: 0;
 }
 
 #scroll-right {
-  right: 0;
+    right: 0;
+}
+
+#addCoffeeItem{
+    background-image: url(https://i.postimg.cc/qvdywMwW/add-Button-Coffee.png);
+    background-size: cover;
+    border: none;
+    height: 200px;
+    width: 200px;
+    transition: transform 0.2s ease;
+}
+#addCoffeeItem:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#addTeaItem{
+    background-image: url(https://i.postimg.cc/qv9NZ3DL/add-Button-Tea.png);
+    background-size: cover;
+    border: none;
+    height: 200px;
+    width: 200px;
+    transition: transform 0.2s ease;
+}
+#addTeaItem:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#addLatteItem{
+    background-image: url(https://i.postimg.cc/G2qwtNfp/add-Button-Latte.png);
+    background-size: cover;
+    border: none;
+    height: 200px;
+    width: 200px;
+    transition: transform 0.2s ease;
+}
+#addLatteItem:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+#popupAdd {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+    display: none;
+}
+
+.hidden {
+    display: none;
 }

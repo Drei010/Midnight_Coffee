@@ -36,7 +36,7 @@ public class establishConn extends HttpServlet {
             
             String driver = "jdbc:mysql";//config.getInitParameter("jdbcDriverURL"); 
             String username = "root";//config.getInitParameter("dbUserName");
-            String password = "heatlifer03";//config.getInitParameter("dbPassword");
+            String password = "root";//config.getInitParameter("dbPassword");
             String hostname = "localhost";//config.getInitParameter("dbHostName");
             String dbport = "3306";//config.getInitParameter("dbPort"); 
             String databaseName = "midnightcoffeedb";//config.getInitParameter("databaseName"); 
