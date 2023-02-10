@@ -18,6 +18,23 @@ import java.util.logging.Logger;
 public class QR_Model {
     ///Get the data from the database
 
+          public ResultSet retrieveQRTable(Connection conn){
+            try { 
+             String query = "SELECT * FROM payment_method ";
+             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+             ResultSet records = stmnt.executeQuery();
+           if(records.next()) {
+                records.beforeFirst();
+                return records;
+              }
+           stmnt.close();
+            }catch (SQLException ex){
+                Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
+            }
+
+    return null;
+      }
+          
     public ResultSet retrieveData(String methodName, Connection conn) {
         try {
             String query = "SELECT * FROM payment_method WHERE methodName = ?";

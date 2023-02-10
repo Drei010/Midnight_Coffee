@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -56,125 +58,91 @@ public class QR_Controller extends HttpServlet {
     }void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
+        if (conn == null) {
+         response.sendRedirect("home.jsp?noconnection");
+        }
    //Get Instruction
         String instruction = request.getParameter("instruction");
         
         
-        // Check if instruction is to add payment method QR
-         if ("createQR".equals(instruction)) {
-             
-                  // get parameters
-                String methodName = request.getParameter("methodName"); 
-                String destination = request.getParameter("destination");//"C:/Users/Andrei/Documents/NetBeansProjects/Midnight_Coffee/Midnight_Coffee/web/QRImages";               
-
-                //image name to be uploaded to the database
-                String newImagename = "";
-
-
-                ///image upload
-
-                         // creating path components for saving the file  
-                        final String path = destination;  
-                        final Part filePart = request.getPart("QRImage");  
-                        final String fileName = getFileName(filePart);  
-                        Path source = Paths.get(path+ File.separator + fileName);
-
-
-                /// Only Suports png or jpg
-                String filetype = fileName.substring(fileName.length() - 3).toLowerCase();
-                if("jpg".equals(filetype) ||"png".equals(filetype))
-                {      
-                    // declare instances of OutputStream, InputStream, and PrintWriter classes  
-                    OutputStream otpStream = null;  
-                    InputStream iptStream = null;  
-                    final PrintWriter writer = response.getWriter();  
-
-        // try section handles the code for storing file into the specified location  
-        try {  
-            // initialize instances of OutputStream and InputStream classes  
-            otpStream = new FileOutputStream(new File(path + File.separator + fileName));  
-            iptStream = filePart.getInputStream();  
-  
-            int read = 0;  
-              
-            // initialize bytes array for storing file data  
-            final byte[] bytes = new byte[1024];  
-              
-            // use while loop to read data from the file using iptStream and write into  the desination folder using writer and otpStream  
-            while ((read = iptStream.read(bytes)) != -1) {  
-                otpStream.write(bytes, 0, read);  
-                }  
-                if("jpg".equals(filetype)){
-                newImagename = methodName+".jpg";
-                }
-                else{
-                 newImagename = methodName+".png";
-                }
-                
-             //check if Account already exist! Before Sign up
-             QR_Model checkEntry = new QR_Model();
-            if (checkEntry.retrieveData(methodName, conn) != null) {
-                
-                 // Image Already Exist
-                    response.sendRedirect("adminPayment_page.jsp?imageexist");
-                return;
-                 }
-            else{
-                
-                 QR_Model insertEntry = new QR_Model();
-                 String insertSuccess  = insertEntry.insertData(methodName, newImagename, conn);
-                    if("Yes".equals(insertSuccess)){
-                    response.sendRedirect("adminPayment_page.jsp?success");
-
-                    }else
-                    {
-                     // Unable to upload to database
-                    response.sendRedirect("adminPayment_page.jsp?failedtouploaddatabase");
-                    }
-            }
-
-
-             }  
-        // catch section handles the errors   
-        catch (FileNotFoundException fne){  
-          response.sendRedirect("adminPayment_page.jsp?failedtoupload");
-        }  
-        // finally section will close all the open classes  
-        finally {  
-            if (otpStream != null) {  
-                otpStream.close();  
-            }  
-            if (iptStream != null) {  
-                iptStream.close();  
-            }  
-            if (writer != null) {  
-                writer.close();  
-            }  
-
-        } 
-                 // rename a file in the same directory
-            if("jpg".equals(filetype)){
-              Files.move(source, source.resolveSibling(methodName+".jpg"));
-
-            }
-            else{
-              Files.move(source, source.resolveSibling(methodName+".png"));
-
-            }
-
-            }   else{
-            //image is not in .png or .jpg
-            response.sendRedirect("adminPayment_page.jsp?errorimage");}
-
+                    //load adminPayment_page
+            if("loadQR".equals(instruction)){
+                 
+                   ///Get page location
+                    String page = request.getParameter("page");
                     
+                    QR_Model loadQRTable = new QR_Model();
+                    ///set Carousel Trending data
+                    ResultSet QRTable = loadQRTable.retrieveQRTable(conn);
+                     if (QRTable == null){
+                    response.sendRedirect("home.jsp?QRcodesarentavailablerightnow");/// no data error // please put data in the database
+                    return;}
+                        request.setAttribute("QRTable", QRTable);
+                        
+                    //go to payment_page
+                     request.getRequestDispatcher(page).forward(request, response);
 
-            return;
-         
-         }
+            }       
+        
+            // Check if instruction is to add payment method QR
+            if ("createQR".equals(instruction)) {
+                // get parameters
+                String methodName = request.getParameter("methodName"); 
+                String destination = request.getParameter("destination");
+                String fileName = getFileName(request.getPart("QRImage"));
+                Path source = Paths.get(destination + File.separator + fileName);
+
+                // Only Supports png or jpg
+                String filetype = fileName.substring(fileName.length() - 3).toLowerCase();
+                if (!("jpg".equals(filetype) || "png".equals(filetype))) {
+                    response.sendRedirect("adminPayment_page.jsp?errorimage");
+                    return;
+                }
+
+                String newImagename = methodName + "." + filetype;
+
+                // Check if the payment method already exists
+                QR_Model checkEntry = new QR_Model();
+                if (checkEntry.retrieveData(methodName, conn) != null) {
+                    response.sendRedirect("adminPayment_page.jsp?imageexist");
+                    return;
+                }
+
+                // Store the image file
+                try (InputStream iptStream = request.getPart("QRImage").getInputStream();
+                     OutputStream otpStream = new FileOutputStream(new File(destination + File.separator + fileName))) {
+                    int read;
+                    byte[] bytes = new byte[1024];
+                    while ((read = iptStream.read(bytes)) != -1) {
+                        otpStream.write(bytes, 0, read);
+                    }
+                } catch (IOException e) {
+                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    return;
+                }
+
+                // Rename the file in the same directory
+                try {
+                    Files.move(source, source.resolveSibling(newImagename));
+                } catch (IOException e) {
+                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    return;
+                }
+
+                // Insert the payment method into the database
+                QR_Model insertEntry = new QR_Model();
+                String insertSuccess = insertEntry.insertData(methodName, newImagename, conn);
+                if ("Yes".equals(insertSuccess)) {
+                    response.sendRedirect("adminPayment_page.jsp?success");
+                } else {
+                    response.sendRedirect("adminPayment_page.jsp?failedtouploaddatabase");
+                }
+            }
+
          
          
          //To follow yung Update mahirap eh :(
-         /*
+         
          
          if("updateQR".equals(instruction)){
                 // get parameters
@@ -192,10 +160,12 @@ public class QR_Controller extends HttpServlet {
 
                 
                         //delete image in folder
-                        File file  = new File(destination + "//" + methodName +".png");
-                               if (file.delete()!=true) {
-                                   file  = new File(destination + "//" + methodName +".jpg");
-                                   file.delete();
+                            File file = new File(destination + File.separator + methodName + ".png");
+                                if (file.exists() && !file.delete()) {
+                                    file = new File(destination + File.separator + methodName + ".jpg");
+                                    if (file.exists()) {
+                                        file.delete();
+                                    }
                                 }
 
                 ///image upload
@@ -239,7 +209,7 @@ public class QR_Controller extends HttpServlet {
                                 }
                                  QR_Model UpdateQR = new QR_Model();
                                 try{
-                 String updateSuccess= UpdateQR.updateQR(methodID, methodName,newImagename,conn);
+                 String updateSuccess= UpdateQR.updateQR(methodID, methodName,newImagename, conn);
                                     if("Yes".equals(updateSuccess)){
                                     response.sendRedirect("index.jsp?success");
 
@@ -289,7 +259,7 @@ public class QR_Controller extends HttpServlet {
                 return;
                 }
          
-         */
+         
          
          
                 if("deleteQR".equals(instruction)){
@@ -302,11 +272,11 @@ public class QR_Controller extends HttpServlet {
                         deleteEntry.deleteQR(methodName, conn);
 
                         //delete image in folder
-                        File file  = new File(destination + "//" + methodName +".png");
-                               if (file.delete()!=true) {
-                                   file  = new File(destination + "//" + methodName +".jpg");
-                                   file.delete();
-                                }
+                        File file = new File(destination + File.separator + methodName +".png");
+                              if (!file.delete()) {
+                                file = new File(destination + File.separator + methodName +".jpg");
+                                file.delete();
+                              }
 
 
                        //delete image successful
