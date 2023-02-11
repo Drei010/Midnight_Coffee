@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,10 +57,16 @@ public class QR_Controller extends HttpServlet {
     }void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
+        
+        //Test Connection
         if (conn == null) {
          response.sendRedirect("home.jsp?noconnection");
         }
-   //Get Instruction
+        
+        //Get the destination file path of the QRimage folder
+        String destination = (String)getServletContext().getAttribute("destination");
+        
+        //Get Instruction
         String instruction = request.getParameter("instruction");
         
         
@@ -75,11 +80,14 @@ public class QR_Controller extends HttpServlet {
                     ///set Carousel Trending data
                     ResultSet QRTable = loadQRTable.retrieveQRTable(conn);
                      if (QRTable == null){
-                    response.sendRedirect("home.jsp?QRcodesarentavailablerightnow");/// no data error // please put data in the database
-                    return;}
-                        request.setAttribute("QRTable", QRTable);
-                        
-                    //go to payment_page
+                    // please put data in the database
+                     request.setAttribute("QRTableEmpty", "YES");
+                     request.setAttribute("QRTable", "noTable");
+                   }
+                     else{
+                     request.setAttribute("QRTable", QRTable);
+                     }
+                    //go to either adminPayment or payment page
                      request.getRequestDispatcher(page).forward(request, response);
 
             }       
@@ -88,7 +96,6 @@ public class QR_Controller extends HttpServlet {
             if ("createQR".equals(instruction)) {
                 // get parameters
                 String methodName = request.getParameter("methodName"); 
-                String destination = request.getParameter("destination");
                 String fileName = getFileName(request.getPart("QRImage"));
                 Path source = Paths.get(destination + File.separator + fileName);
 
@@ -141,122 +148,77 @@ public class QR_Controller extends HttpServlet {
 
          
          
-         //To follow yung Update mahirap eh :(
-         
-         
+         //update QR entry
          if("updateQR".equals(instruction)){
-                // get parameters
-                int methodID = Integer.parseInt(request.getParameter("methodID")); 
-                String methodName = request.getParameter("methodName"); 
-                String destination = request.getParameter("destination");
+             // Get parameters
+            int methodID = Integer.parseInt(request.getParameter("methodID")); 
+            String methodName = request.getParameter("NewMethodName");
+            String OldMethodName = request.getParameter("OldMethodName");
 
-                //image name to be uploaded to the database
-                String newImagename = "";
-                
-                           //check if Account already exist! Before Sign up
-                         QR_Model checkEntry = new QR_Model();
-                        checkEntry.retrieveData(methodName, conn);
+            // Delete old image in folder
+            Path file = Paths.get(destination, OldMethodName + ".png");
+            if (Files.exists(file)) {
+              Files.delete(file);
+            } else {
+              file = Paths.get(destination, OldMethodName + ".jpg");
+              if (Files.exists(file)) {
+                Files.delete(file);
+              }
+            }
 
+            // Image upload
+            Part filePart = request.getPart("newQRImage");
+            String fileName = getFileName(filePart);
+            Path source = Paths.get(destination, fileName);
 
-                
-                        //delete image in folder
-                            File file = new File(destination + File.separator + methodName + ".png");
-                                if (file.exists() && !file.delete()) {
-                                    file = new File(destination + File.separator + methodName + ".jpg");
-                                    if (file.exists()) {
-                                        file.delete();
-                                    }
-                                }
+            // Check if the file is in .png or .jpg format
+            String fileType = fileName.substring(fileName.length() - 3).toLowerCase();
+            if (!"jpg".equals(fileType) && !"png".equals(fileType)) {
+              response.sendRedirect("adminPayment_page.jsp?errorimage");
+              return;
+            }
 
-                ///image upload
+            // Save the image to the destination directory
+            try (InputStream iptStream = filePart.getInputStream(); 
+                 OutputStream otpStream = new FileOutputStream(source.toFile())) {
 
-                         // creating path components for saving the file  
-                        final String path = destination;  
-                        final Part filePart = request.getPart("QRImage");  
-                        final String fileName = getFileName(filePart);  
-                        Path source = Paths.get(path+ File.separator + fileName);
+              int read;
+              final byte[] bytes = new byte[1024];
+              while ((read = iptStream.read(bytes)) != -1) {
+                otpStream.write(bytes, 0, read);
+              }
+            } catch (FileNotFoundException e) {
+              response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+              return;
+            } catch (IOException e) {
+              response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+              return;
+            }
 
+            // Rename the file in the same directory
+            String newImagename = methodName + "." + fileType;
+            Path target = Paths.get(destination, newImagename);
+            try {
+              Files.move(source, target);
+            } catch (IOException e) {
+              response.sendRedirect("adminPayment_pagejsp?failedtoupload");
+              return;
+            }
 
-                /// Only Suports png or jpg
-                String filetype = fileName.substring(fileName.length() - 3).toLowerCase();
-                if("jpg".equals(filetype) ||"png".equals(filetype))
-                {      
-                        // declare instances of OutputStream, InputStream, and PrintWriter classes  
-                        OutputStream otpStream = null;  
-                        InputStream iptStream = null;  
-                        final PrintWriter writer = response.getWriter();  
+            // Update the QR information in the database
+            QR_Model updateQR = new QR_Model();
+            try {
+              String updateSuccess = updateQR.updateQR(methodID, methodName, newImagename, conn);
+              if ("Yes".equals(updateSuccess)) {
+                response.sendRedirect("adminPayment_page.jsp?success");
+              } else {
+                response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+              }
+            } catch (SQLException ex) {
+              Logger.getLogger(QR_Controller.class.getName()).log(Level.SEVERE, null, ex);
+              response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+            }
 
-                        // try section handles the code for storing file into the specified location  
-                        try {  
-                            // initialize instances of OutputStream and InputStream classes  
-                            otpStream = new FileOutputStream(new File(path + File.separator + fileName));  
-                            iptStream = filePart.getInputStream();  
-
-                            int read = 0;  
-
-                            // initialize bytes array for storing file data  
-                            final byte[] bytes = new byte[1024];  
-
-                            // use while loop to read data from the file using iptStream and write into  the desination folder using writer and otpStream  
-                            while ((read = iptStream.read(bytes)) != -1) {  
-                                otpStream.write(bytes, 0, read);  
-                                }  
-                                if("jpg".equals(filetype)){
-                                newImagename = methodName+".jpg";
-                                }
-                                else{
-                                 newImagename = methodName+".png";
-                                }
-                                 QR_Model UpdateQR = new QR_Model();
-                                try{
-                 String updateSuccess= UpdateQR.updateQR(methodID, methodName,newImagename, conn);
-                                    if("Yes".equals(updateSuccess)){
-                                    response.sendRedirect("index.jsp?success");
-
-                                    }else
-                                    {
-                                     // Unable to upload to database
-                                    response.sendRedirect("index.jsp?failedtoupload");
-                                    }
-
-                                }
-                                catch (SQLException ex) {
-                                                Logger.getLogger(QR_Controller.class.getName()).log(Level.SEVERE,null,ex);
-                                            }
-                             }  
-                        // catch section handles the errors   
-                        catch (FileNotFoundException fne){  
-                          response.sendRedirect("index.jsp?failedtoupload");
-                        }  
-                        // finally section will close all the open classes  
-                        finally {  
-                            if (otpStream != null) {  
-                                otpStream.close();  
-                            }  
-                            if (iptStream != null) {  
-                                iptStream.close();  
-                            }  
-                            if (writer != null) {  
-                                writer.close();  
-                            }  
-
-                        } 
-                     // rename a file in the same directory
-                if("jpg".equals(filetype)){
-                  Files.move(source, source.resolveSibling(methodName+".jpg"));
-
-                }
-                else{
-                  Files.move(source, source.resolveSibling(methodName+".png"));
-
-                }
-
-                }   else{
-                //image is not in .png or .jpg
-                response.sendRedirect("index.jsp?errorimage");}
-
-
-                return;
                 }
          
          
@@ -265,8 +227,7 @@ public class QR_Controller extends HttpServlet {
                 if("deleteQR".equals(instruction)){
                         // get parameters
                         String methodName = request.getParameter("methodName");
-                        String destination = request.getParameter("destination");
-                        
+                             
                         //delete entry in the database
                        QR_Model deleteEntry = new QR_Model();
                         deleteEntry.deleteQR(methodName, conn);
@@ -281,7 +242,7 @@ public class QR_Controller extends HttpServlet {
 
                        //delete image successful
                         response.sendRedirect("adminPayment_page.jsp?imagedeleted");
-                        return;
+                       
 }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

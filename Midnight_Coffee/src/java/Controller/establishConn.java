@@ -36,7 +36,7 @@ public class establishConn extends HttpServlet {
             
             String driver = "jdbc:mysql";//config.getInitParameter("jdbcDriverURL"); 
             String username = "root";//config.getInitParameter("dbUserName");
-            String password = "root";//config.getInitParameter("dbPassword");
+            String password = "rootpassword";//config.getInitParameter("dbPassword");
             String hostname = "localhost";//config.getInitParameter("dbHostName");
             String dbport = "3306";//config.getInitParameter("dbPort"); 
             String databaseName = "midnightcoffeedb";//config.getInitParameter("databaseName"); 
@@ -55,8 +55,12 @@ public class establishConn extends HttpServlet {
         }
         
         getServletContext().setAttribute("conn",conn);
+        
+        //Baguhin nyo yung file path para gumana yung sa QR nyo
+        getServletContext().setAttribute("destination",
+                "C:/Users/Andrei/Documents/NetBeansProjects/Midnight_Coffee/Midnight_Coffee/web/QRImages");
+    
     }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }

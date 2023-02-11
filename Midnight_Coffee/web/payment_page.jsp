@@ -13,6 +13,7 @@
         <title>Customer Payment Page</title>
     </head>
     <body>
+         <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
         <h1>QR Codes</h1>
         <%
             if (request.getAttribute("QRTable") == null) {
@@ -28,6 +29,7 @@
               </script>
             <%
               } else {
+             if (request.getAttribute("QRTableEmpty") == null){
                 ResultSet QRTable = (ResultSet) request.getAttribute("QRTable");
                  while (QRTable.next()) {%>
                  
@@ -45,6 +47,7 @@
              <%
             }
                }
+                    }
             %>
   </body>
 </html>
