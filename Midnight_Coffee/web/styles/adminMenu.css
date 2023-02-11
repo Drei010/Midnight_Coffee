@@ -8,7 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 body{
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .Non-Coffees{
@@ -92,17 +92,53 @@ body{
     transform: scale(1.2);
 }
 
-#popupAdd {
+#popupAddCoffee {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border: 1px solid black;
-    display: none;
+    z-index: 5;
+}
+
+#popupAddTea {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+#popupAddLatte {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
 }
 
 .hidden {
     display: none;
 }
+
+.container-popup {
+    display: flex;
+    justify-content: space-between;
+}
+
+.first-side {
+    flex: 2;
+    background-color: #282747;
+    border: solid white;
+    margin-right: 5px;
+    padding: 20px;
+}
+
+.second-side {
+    flex: 1;
+    background-color: #282747;
+    border: solid white;
+    margin-left: 5px;
+    padding: 20px;
+}
+
+

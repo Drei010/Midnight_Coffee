@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/adminMenu.css'>
+        <link rel='stylesheet' type='text/css' href='styles/menu.css'>
         <title>Menu</title>
     </head>
 
@@ -36,12 +37,9 @@
                     <th></th>
                     <th>Total</th>
                     <th><input type="text" name="total" id="total" value="0" disabled=""/></th>
-
                 </tr>
             </tfoot>
         </table>
-
-
 
         <div class="row">
 
@@ -62,14 +60,40 @@
                 <button id="addCoffeeItem"></button>
 
                 <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
-                <div id="popupAdd" class="hidden">
-                    
-                    <div style="display: flex;">
-                        <div style="flex: 2; background-color: red;">Left div</div>
-                        <div style="flex: 1; background-color: blue;">Right div</div>
+                <div id="popupAddCoffee" class="hidden">
+
+                    <div class="container-popup">
+                        <div class="first-side">
+                            <h2>Add New Coffee</h2>
+                            <p>Product Name:</p>
+                            <input type="text" placeholder="Coffee Name" name="coffeeName" id="coffeeName" required>
+                            <p>Image:</p>
+                            <input type="file" name="coffeeImage" id="coffeeImage" required>
+                            <p>Option:</p>
+                            <form>
+                                <input type="radio" id="hot" name="coffee-type" value="hot-drink">
+                                <label for="hot">Hot</label><br>
+                                <input type="radio" id="icedRegular" name="coffee-type" value="iced-regular-drink">
+                                <label for="icedRegular">Iced Regular</label><br>
+                                <input type="radio" id="icedLofty" name="coffee-type" value="iced-lofty-drink">
+                                <label for="icedLofty">Iced Lofty</label><br>
+                            </form>
+                            <p>Product Price:</p>
+                            <input type="text" placeholder="Php" name="coffeePrice" id="coffeePrice" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+
+                        </div>
+                        <div class="second-side">
+                            <p>Add Ingredients</p>
+                            <label for="coffee-types">Choose a coffee type:</label>
+                            <select name="coffee-types" id="coffee-types">
+                                <option value="Coffee Beans">Coffee Beans</option>
+                                <option value="Sugar">Sugar</option>
+                                <option value="Milk">Milk</option>
+                            </select>
+                        </div>
                     </div>
-                    
-                    <button id="close-button">Close</button>
+
+                    <button id="close-button1">Close</button>
                 </div>
 
                 <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
@@ -134,9 +158,6 @@
             </div>
         </div>
 
-
-
-
         <div class="row">
 
             <%-- Carousel title and progress bar--%>    
@@ -154,12 +175,37 @@
 
                 <%-- Add Tea Item Button --%>
                 <button id="addTeaItem"></button>
-                
-                <%-- Open Popup --%>
-                <div id="popupAdd" class="hidden">
-                    <button id="close-button">Close</button>
-                </div>
 
+                <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
+                <div id="popupAddTea" class="hidden">
+
+                    <div class="container-popup">
+                        <div class="first-side">
+                            <h2>Add New Tea</h2>
+                            <p>Product Name:</p>
+                            <input type="text" placeholder="Tea Name" name="teaName" id="teaName" required>
+                            <p>Image:</p>
+                            <input type="file" name="teaImage" id="teaImage" required>
+                            <p>Option:</p>
+                            <form>
+                                <input type="radio" id="hot" name="coffee-type" value="hot-drink">
+                                <label for="hot">Hot</label><br>
+                                <input type="radio" id="icedRegular" name="coffee-type" value="iced-regular-drink">
+                                <label for="icedRegular">Iced Regular</label><br>
+                                <input type="radio" id="icedLofty" name="coffee-type" value="iced-lofty-drink">
+                                <label for="icedLofty">Iced Lofty</label><br>
+                            </form>
+                            <p>Product Price:</p>
+                            <input type="text" placeholder="Php" name="teaPrice" id="teaPrice" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+
+                        </div>
+                        <div class="second-side">
+                            <p>Add Ingredients</p>
+                        </div>
+                    </div>
+
+                    <button id="close-button2">Close</button>
+                </div>
 
                 <%ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
                     if (noncoffee != null) {%>
@@ -240,11 +286,36 @@
 
                 <%-- Add Latte Item Button --%>
                 <button id="addLatteItem"></button>
-                
-                <%-- Open Popup --%>
-                <div id="popupAdd" class="hidden">
-                    <p>This is a pop-up!</p>
-                    <button id="close-button">Close</button>
+
+                <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
+                <div id="popupAddLatte" class="hidden">
+
+                    <div class="container-popup">
+                        <div class="first-side">
+                            <h2>Add New Latte</h2>
+                            <p>Product Name:</p>
+                            <input type="text" placeholder="Latte Name" name="latteName" id="latteName" required>
+                            <p>Image:</p>
+                            <input type="file" name="latteImage" id="latteImage" required>
+                            <p>Option:</p>
+                            <form>
+                                <input type="radio" id="hot" name="coffee-type" value="hot-drink">
+                                <label for="hot">Hot</label><br>
+                                <input type="radio" id="icedRegular" name="coffee-type" value="iced-regular-drink">
+                                <label for="icedRegular">Iced Regular</label><br>
+                                <input type="radio" id="icedLofty" name="coffee-type" value="iced-lofty-drink">
+                                <label for="icedLofty">Iced Lofty</label><br>
+                            </form>
+                            <p>Product Price:</p>
+                            <input type="text" placeholder="Php" name="lattePrice" id="lattePrice" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+
+                        </div>
+                        <div class="second-side">
+                            <p>Add Ingredients</p>
+                        </div>
+                    </div>
+
+                    <button id="close-button3">Close</button>
                 </div>
 
                 <%ResultSet snack = (ResultSet) request.getAttribute("snack");
@@ -308,32 +379,27 @@
                 </div>
             </div>
         </div>
-
     </body>
     <script>
 
         //For pop up when adding
-        const addCoffeeItem = document.getElementById("addCoffeeItem");
-        const addTeaItem = document.getElementById("addTeaItem");
-        const addLatteItem = document.getElementById("addLatteItem");
-        const popupAdd = document.getElementById("popupAdd");
-        const closeButton = document.getElementById("close-button");
+        const addItem = (itemId, popupId, closeButtonId) => {
+            const addItemButton = document.getElementById(itemId);
+            const popup = document.getElementById(popupId);
+            const closeButton = document.getElementById(closeButtonId);
 
-        addCoffeeItem.addEventListener("click", function () {
-            popupAdd.style.display = "block";
-        });
+            addItemButton.addEventListener("click", function () {
+                popup.style.display = "block";
+            });
 
-        addTeaItem.addEventListener("click", function () {
-            popupAdd.style.display = "block";
-        });
+            closeButton.addEventListener("click", function () {
+                popup.style.display = "none";
+            });
+        };
 
-        addLatteItem.addEventListener("click", function () {
-            popupAdd.style.display = "block";
-        });
-
-        closeButton.addEventListener("click", function () {
-            popupAdd.style.display = "none";
-        });
+        addItem("addCoffeeItem", "popupAddCoffee", "close-button1");
+        addItem("addTeaItem", "popupAddTea", "close-button2");
+        addItem("addLatteItem", "popupAddLatte", "close-button3");
 
         // If the arrow buttons are clicked
         document.addEventListener("click", e => {

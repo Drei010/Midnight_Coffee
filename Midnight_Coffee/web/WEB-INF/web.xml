@@ -3,7 +3,7 @@
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
-  <!--
+
     <context-param>
         <param-name>jdbcDriverURL</param-name>
         <param-value>jdbc:mysql</param-value>
@@ -14,7 +14,7 @@
     </context-param>
     <context-param>
         <param-name>dbPassword</param-name>
-        <param-value>rootpassword</param-value>
+        <param-value>root</param-value>
     </context-param>
     <context-param>
         <param-name>dbHostName</param-name>
@@ -32,7 +32,7 @@
         <param-name>useSSL</param-name>
         <param-value>?useSSL=false</param-value>
     </context-param>
-        -->
+
     <session-config>
         <session-timeout>
             30

@@ -16,6 +16,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     position: fixed;
     top: 0;
     width: 100%;
+    border-bottom: solid white;
+    z-index: 2;
 }
 
 .header-left, .header-right {

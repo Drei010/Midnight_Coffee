@@ -13,7 +13,7 @@
         <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/menu.css'>
     </head>
-
+    <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
     <body>
         <table>
             <thead>
@@ -135,7 +135,7 @@
                 </button>
 
                 <%ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
-                   if (noncoffee != null) {%>
+                    if (noncoffee != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
@@ -211,7 +211,7 @@
                 </button>
 
                 <%ResultSet snack = (ResultSet) request.getAttribute("snack");
-                   if (snack != null) {%>
+                    if (snack != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
@@ -261,7 +261,7 @@
                     <%-- Slider Item End--%>   
 
                     <%}
-                         }%>
+                        }%>
 
                 </div>
                 <%-- Right Arrow Button--%>

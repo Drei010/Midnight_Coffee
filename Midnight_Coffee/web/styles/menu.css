@@ -17,11 +17,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 body {
-    margin: 0;
+    margin-top: 40px;
 }
 
 table{
     color: black;
+    padding-left: 20px;
 }
 
 /*carousel container*/
@@ -157,7 +158,7 @@ table{
     flex-grow: 0;
     flex-shrink: 0;
     background-color: #282747;
-    z-index: 10;
+    z-index: 1;
     margin: var(--div-gap) 0;
     width: var(--handle-size);
     cursor: pointer;
