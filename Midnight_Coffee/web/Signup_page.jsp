@@ -7,24 +7,28 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    <head class>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='styles/general.css'>
+        <link rel='stylesheet' type='text/css' href='styles/loginSignup.css'>
         <link rel='stylesheet' type='text/css' href='styles/Signup_page.css'>
         <title>Sign up Page</title>
                 <!--Captcha API-->
         <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
-    <jsp:include page="header.jsp" /> <!-- Calls the header jsp -->
+    <jsp:include page="loginSignup.jsp" /> <!-- Calls the header jsp -->
     <body>
-          <h1>Sign up</h1>
-          <form action="LoginSignup_Controller" method="post">        
-         <h3>First Name</h3>
-        <input type="text" placeholder="firstname" name="firstname" required>
-        
-        <h3>Last Name</h3>
-        <input type="text" placeholder="lastname" name="lastname" required>
-        
+        <div class="header"> 
+        </div>
+       <form action="LoginSignup_Controller" method="post">  
+        <div class="login">
+          <h1>Sign up</h1>  
+                <div class="fullname">
+                <label id="First-Name" for="one">First name<input type="text" placeholder="firstname" name="firstname" required>
+                 </label>         
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label id="First-Name" for="one">Last name <input type="text" placeholder="lastname" name="lastname" required>
+                 </label>
+                </div>
         <h3>Password</h3>
         <input type="password" id="pass1" placeholder="password" name="password" required>
         
@@ -40,25 +44,31 @@
         <h3>Mobile Number</h3>
         <input type="number" placeholder="mobile number" name="mobilenumber" required>
             
-                <!-- Captcha -->
-        <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS"></div>
+         
+        <!-- Captcha -->
+        <div class="center">
+            <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;">             
+            </div>
         
        
-        <!-- Terms and conditions -->
-         <input type="checkbox" id="checkbox" required><a>Agree to our</a> <a href="#" id="termsLink">Terms and conditions</a><br>
-                 
+        <!-- Terms and conditions -->    
+        <div class="checkbox">
+        <input type="checkbox" id="checkbox" required><a>Agree to our</a> <a href="#" id="termsLink">Terms and conditions</a><br>
+        </div>
+        </div>
         <button type="submit" id="btnSignup">Sign up</button>
         </form>
+        <div class="center">
             <a  href="Login_page.jsp">Already have an account</a><br>
-            
+        
             
              <!-- Terms and conditions Popup Modal-->
             <div id="modal">
-                <h1>Terms and Conditions</h1>
+                <h2>Terms and Conditions</h2>
                 <p>These are the terms and conditions</p>
                 <button id="acceptBtn">Accept Terms and conditions</button>
                 </div>
-            
+                </div>
             
                       <%--Alerts --%>	
         <%
@@ -127,5 +137,6 @@
             };
             
         </script>
+        </div>
     </body>
 </html>
