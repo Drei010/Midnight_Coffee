@@ -33,9 +33,11 @@
             <div class="home-container-contents">
                 <div class="first-line">
                     <p>Midnight Coffee</p>
+                    
                 </div>
                 <div class="second-line">
-                    <p>It's more than just coffee</p>
+                    <p>It's more than just coffee.</p>
+                    
                 </div>
                 <div class="third-line">
                     <p>Order Now!</p>
@@ -50,7 +52,7 @@
                       
           <div class="desc">
             <div class="fourth-line">
-                    <p>Comments from out customers</p>
+                    <p>Comments from our customers</p>
                 </div>
            <div class="fifth-line">
                     <p>4 &#9733; average rating</p>

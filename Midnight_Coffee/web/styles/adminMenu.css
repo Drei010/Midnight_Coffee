@@ -122,7 +122,6 @@ body{
 
 .container-popup {
     display: flex;
-    justify-content: space-between;
 }
 
 .first-side {
@@ -130,7 +129,7 @@ body{
     background-color: #282747;
     border: solid white;
     margin-right: 5px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .second-side {
@@ -138,7 +137,56 @@ body{
     background-color: #282747;
     border: solid white;
     margin-left: 5px;
-    padding: 20px;
+    padding: 10px;
 }
 
+#coffee-types{
+    margin-bottom: 5px;
+}
 
+#ingredientGrams{
+    width: 100px;
+}
+
+button.add-ingredient-btn {
+    background-color: green;
+    color: white;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    transition: all 0.3s ease;
+}
+
+button.add-ingredient-btn:hover {
+    background-color: darkgreen;
+}
+
+@media (min-width: 768px) {
+    button.add-ingredient-btn {
+        width: auto;
+    }
+}
+
+.added-ingredients {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.popup-buttons{
+    padding-top: 10px;
+}
+
+button:hover{
+    cursor: pointer;
+}

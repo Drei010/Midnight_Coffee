@@ -19,27 +19,6 @@
     <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
 
     <body>
-        <table>
-            <thead>
-                <tr>
-                    <th>Quantity</th>
-                    <th>Name</th>
-                    <th>Classification</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>      
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Total</th>
-                    <th><input type="text" name="total" id="total" value="0" disabled=""/></th>
-                </tr>
-            </tfoot>
-        </table>
 
         <div class="row">
 
@@ -83,17 +62,37 @@
 
                         </div>
                         <div class="second-side">
-                            <p>Add Ingredients</p>
-                            <label for="coffee-types">Choose a coffee type:</label>
+                            <button id="clearIngredients">CLEAR</button>
+                            <p>Add Ingredients: </p>
                             <select name="coffee-types" id="coffee-types">
                                 <option value="Coffee Beans">Coffee Beans</option>
                                 <option value="Sugar">Sugar</option>
                                 <option value="Milk">Milk</option>
                             </select>
+                            <input type="text" placeholder="grams" name="ingredientGrams" id="ingredientGrams" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+                            <button class="add-ingredient-btn">+</button>
+                            <h2>Ingredients Needed: </h2>
+                            <div class="added-ingredients">
+                                <div class="ingredient-item">
+                                    <h2>Sugar</h2>
+                                    <h3>50g</h3>
+                                </div>
+                                <div class="ingredient-item">
+                                    <h2>Coffee</h2>
+                                    <h3>50g</h3>
+                                </div>
+                                <div class="ingredient-item">
+                                    <h2>Milk</h2>
+                                    <h3>50g</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <button id="close-button1">Close</button>
+                    <div class="popup-buttons">
+                        <button id="close-button1">CLOSE</button>
+                        <button id="submit-button1">SUBMIT</button>
+                    </div>
                 </div>
 
                 <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
@@ -200,11 +199,38 @@
 
                         </div>
                         <div class="second-side">
-                            <p>Add Ingredients</p>
+                            <button id="clearIngredients">CLEAR</button>
+                            <p>Add Ingredients: </p>
+                            <select name="tea-types" id="tea-types">
+                                <option value="Tea">Tea</option>
+                                <option value="Sugar">Sugar</option>
+                                <option value="Milk">Milk</option>
+                            </select>
+                            <input type="text" placeholder="grams" name="ingredientGrams" id="ingredientGrams" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+                            <button class="add-ingredient-btn">+</button>
+                            <h2>Ingredients Needed: </h2>
+                            <div class="added-ingredients">
+                                <div class="ingredient-item">
+                                    <h2>Sugar</h2>
+                                    <h3>50g</h3>
+                                </div>
+                                <div class="ingredient-item">
+                                    <h2>Tea</h2>
+                                    <h3>50g</h3>
+                                </div>
+                                <div class="ingredient-item">
+                                    <h2>Milk</h2>
+                                    <h3>50g</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <button id="close-button2">Close</button>
+                    <div class="popup-buttons">
+                        <button id="close-button2">CLOSE</button>
+                        <button id="submit-button2">SUBMIT</button>
+                    </div>
+                    
                 </div>
 
                 <%ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
@@ -311,11 +337,37 @@
 
                         </div>
                         <div class="second-side">
-                            <p>Add Ingredients</p>
+                            <button id="clearIngredients">CLEAR</button>
+                            <p>Add Ingredients: </p>
+                            <select name="latte-types" id="latte-types">
+                                <option value="Tea">Latte</option>
+                                <option value="Sugar">Sugar</option>
+                                <option value="Milk">Milk</option>
+                            </select>
+                            <input type="text" placeholder="grams" name="ingredientGrams" id="ingredientGrams" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
+                            <button class="add-ingredient-btn">+</button>
+                            <h2>Ingredients Needed: </h2>
+                            <div class="added-ingredients">
+                                <div class="ingredient-item">
+                                    <h2>Sugar</h2>
+                                    <h3>50g</h3>
+                                </div>
+                                <div class="ingredient-item">
+                                    <h2>Latte</h2>
+                                    <h3>50g</h3>
+                                </div>
+                                <div class="ingredient-item">
+                                    <h2>Milk</h2>
+                                    <h3>50g</h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <button id="close-button3">Close</button>
+                    <div class="popup-buttons">
+                        <button id="close-button3">CLOSE</button>
+                        <button id="submit-button3">SUBMIT</button>
+                    </div>
                 </div>
 
                 <%ResultSet snack = (ResultSet) request.getAttribute("snack");
@@ -400,6 +452,7 @@
         addItem("addCoffeeItem", "popupAddCoffee", "close-button1");
         addItem("addTeaItem", "popupAddTea", "close-button2");
         addItem("addLatteItem", "popupAddLatte", "close-button3");
+        
 
         // If the arrow buttons are clicked
         document.addEventListener("click", e => {
@@ -511,151 +564,6 @@
                 shouldWait = true;
                 requestAnimationFrame(timeoutFunc, delay);
             };
-        }
-
-/////////////////////////////// Total orders computation//////////////////////
-
-// incrament decrament buttons
-        var incramentButton = document.getElementsByClassName('inc');
-        var decramentButton = document.getElementsByClassName('dec');
-
-        for (var i = 0; i < incramentButton.length; i++) {
-            var button = incramentButton[i];
-            button.addEventListener('click', function (event) {
-
-                var buttonClicked = event.target;
-
-                // get reference to input field
-                var input = buttonClicked.parentElement.children[11];
-
-                // get current value of input field
-                var inputValue = input.value;
-
-                // increment value by 1
-                var newValue = parseInt(inputValue) + 1;
-
-                // update value of input field         
-                input.value = newValue;
-
-                //get table body
-                const tbodyEl = document.querySelector("tbody");
-
-                //Get id of current item
-                var itemID = buttonClicked.parentElement.children[1].value;
-
-                //Create new row if quantity is equal to 1
-                if (newValue === 1) {
-
-                    tbodyEl.innerHTML +=
-                            //set row id as row + itemId
-                            //set quantity id as quantity + itemId
-                            `<tr id="row` + itemID + `">
-                <td id="quantity` + itemID + `">`
-
-                            //Quantity
-                            + newValue +
-                            `</td>            
-                <td>`
-
-                            //Item Name
-                            + buttonClicked.parentElement.children[2].value +
-                            `</td>
-                <td>`
-
-                            //Item Classification  
-                            + buttonClicked.parentElement.children[3].value +
-                            //set price id as price + itemId
-                            `</td>
-                <td id="price` + itemID + `">`
-
-                            //Item Price  
-                            + buttonClicked.parentElement.children[4].value +
-                            `</td>
-            </tr>`;
-                } else {
-
-                    //get old price
-                    var oldPrice = buttonClicked.parentElement.children[4].value;
-
-                    //Compute for the new price (Quantity * old price)
-                    var newPrice = parseInt(oldPrice) * newValue;
-
-                    //set id of quantity and price
-                    var quantityID = "quantity" + itemID;
-                    var priceID = "price" + itemID;
-
-                    //incrament quantity
-                    document.getElementById(quantityID).innerHTML = newValue;
-
-                    //set new price
-                    document.getElementById(priceID).innerHTML = newPrice;
-                }
-                findTotal();
-
-            });
-        }
-        for (var i = 0; i < decramentButton.length; i++) {
-            var button = decramentButton[i];
-            button.addEventListener('click', function (event) {
-
-                var buttonClicked = event.target;
-
-                // get reference to input field
-                var input = buttonClicked.parentElement.children[11];
-
-                // get current value of input field
-                var inputValue = input.value;
-
-                // decrement value by 1
-                var newValue = parseInt(inputValue) - 1;
-
-                //Get id of current item 
-                var itemID = buttonClicked.parentElement.children[1].value;
-
-                // update value of input field  
-                if (newValue > 0) {
-                    input.value = newValue;
-
-                    //get old price
-                    var oldPrice = buttonClicked.parentElement.children[4].value;
-
-                    //Compute for the new price (Quantity * old price)
-                    var newPrice = parseInt(oldPrice) * newValue;
-
-                    //set id of quantity and price
-                    var quantityID = "quantity" + itemID;
-                    var priceID = "price" + itemID;
-
-                    //decrament quantity
-                    document.getElementById(quantityID).innerHTML = newValue;
-
-                    //set new price
-                    document.getElementById(priceID).innerHTML = newPrice;
-                } else {
-                    input.value = 0;
-
-                    //set id of row
-                    var rowID = "row" + itemID;
-
-                    //remove row
-                    document.getElementById(rowID).remove();
-                }
-                findTotal();
-            });
-        }
-
-//// Total Price added to cart
-        function findTotal() {
-
-            var arr = document.getElementsByClassName('itemQuantity');
-            var price = document.getElementsByClassName('hiddenPrice');
-            var total = 0;
-            for (var i = 0; i < arr.length; i++) {
-                if (parseInt(arr[i].value))
-                    total += parseInt(price[i].value) * parseInt(arr[i].value);
-            }
-            document.getElementById('total').value = total;
-
         }
     </script>
 </html>
