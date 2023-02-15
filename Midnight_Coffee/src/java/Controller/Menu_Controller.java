@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,29 +36,38 @@ public class Menu_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-         response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("home.jsp?noconnection");
         }
         //Get Instruction
         String instruction = request.getParameter("instruction");
-        
-        
-                    //load adminPayment_page
-            if("loadMenu".equals(instruction)){
-                
-                    //Get page location
-                    String page = request.getParameter("page");
-                    
-                    //go to menupage                
-                    request.setAttribute("loadedMenu", "yes");
-                    ProductList loadMenu = new ProductList();
-                    request.setAttribute("coffee", loadMenu.Coffee(conn));
-                    request.setAttribute("noncoffee", loadMenu.NonCoffee(conn));
-                    request.setAttribute("snack", loadMenu.Snack(conn));
-                    
-                    //go to either menu page or adminMenu page
-                    request.getRequestDispatcher(page).forward(request, response);
 
-            }    
+        //load adminPayment_page
+        if ("loadMenu".equals(instruction)) {
+
+            //Get page location
+            String page = request.getParameter("page");
+
+            //go to menupage                
+            request.setAttribute("loadedMenu", "yes");
+            ProductList loadMenu = new ProductList();
+            request.setAttribute("coffee", loadMenu.Coffee(conn));
+            request.setAttribute("noncoffee", loadMenu.NonCoffee(conn));
+            request.setAttribute("snack", loadMenu.Snack(conn));
+            HttpSession session = request.getSession();
+
+            if (session.getAttribute("isGuest") != "yes" && session.getAttribute("isGuest") != "no") {
+                session.setAttribute("isGuest", "yes");
+            }
+            if (session.getAttribute("isGuest").equals("yes")) {
+                session.setAttribute("role", "guest");
+            } else {
+                session.setAttribute("role", "customer");
+            }
+
+            //go to either menu page or adminMenu page
+            request.getRequestDispatcher(page).forward(request, response);
+
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

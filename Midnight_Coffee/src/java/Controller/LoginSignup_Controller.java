@@ -37,7 +37,7 @@ public class LoginSignup_Controller extends HttpServlet {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String password = request.getParameter("password");
-        String email = request.getParameter("email");
+    String email = request.getParameter("email");
         String mobilenumber = request.getParameter("mobilenumber");
 
         //check if login or signup
@@ -84,7 +84,7 @@ public class LoginSignup_Controller extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("firstname", results.getString("customerFirstname"));
                     session.setAttribute("lastname", results.getString("customerLastname"));
-                    
+                    session.setAttribute("isGuest","no");
 
                     //go to homepage if login is successful       
                

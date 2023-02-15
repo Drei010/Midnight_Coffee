@@ -13,25 +13,28 @@
         <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/menu.css'>
     </head>
-   
+
     <body> 
         <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
-        
-          <!-- Check if menu is loaded-->
-                <%
+
+        <!-- Check if menu is loaded-->
+        <%
             if (request.getAttribute("loadedMenu") == null) {
-            %>
-              <form action="Menu_Controller" method="post" name="loadMenu">
-                <input type="hidden" name="instruction" value="loadMenu">
-                <input type="hidden" name="page" value="Menu_page.jsp">
-              </form>
-              <script>
-                window.onload = function() {
-                  document.forms['loadMenu'].submit();
-                };
-              </script>
-            <%
-              }%>
+        %>
+        <form action="Menu_Controller" method="post" name="loadMenu">
+            <input type="hidden" name="instruction" value="loadMenu">
+            <input type="hidden" name="page" value="Menu_page.jsp">
+        </form>
+        <script>
+            window.onload = function () {
+                document.forms['loadMenu'].submit();
+            };
+        </script>
+        <%
+            }
+            session = request.getSession();
+        %>
+        <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
         <table>
             <thead>
                 <tr>
@@ -304,7 +307,7 @@
             }
         });
 
-//Throttle progress bar update
+        //Throttle progress bar update
         const throttleProgressBar = throttle((delay = 1000) => {
             document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
         });
@@ -313,7 +316,7 @@
         document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
 
 
-//Progress bar computation
+        //Progress bar computation
         function calculateProgressBar(progressBar) {
             progressBar.innerHTML = "";
             const slider = progressBar.closest(".row").querySelector(".slider");
@@ -345,8 +348,9 @@
         }
 
 
-///Move progress bar and containers
+        ///Move progress bar and containers
         function onHandleClick(handle) {
+
             const progressBar = handle.closest(".row").querySelector(".progress-bar");
             const slider = handle.closest(".carouselContainer").querySelector(".slider");
             const sliderIndex = parseInt(
@@ -403,11 +407,33 @@
             };
         }
 
-/////////////////////////////// Total orders computation//////////////////////
 
-// incrament decrament buttons
         var incramentButton = document.getElementsByClassName('inc');
         var decramentButton = document.getElementsByClassName('dec');
+        var role = document.getElementById('role');
+
+        if (role.value === "guest") {
+
+            for (let i = 0; i < incramentButton.length; i++) {
+                var button = incramentButton[i];
+                button.addEventListener('click', function () {
+                    window.location.href = "Login_page.jsp";
+                });
+            }
+
+            for (let i = 0; i < decramentButton.length; i++) {
+                var button = decramentButton[i];
+                button.addEventListener('click', function () {
+                    window.location.href = "Login_page.jsp";
+                });
+            }
+
+        }
+
+
+        /////////////////////////////// Total orders computation//////////////////////
+
+        // incrament decrament buttons
 
         for (var i = 0; i < incramentButton.length; i++) {
             var button = incramentButton[i];
@@ -534,7 +560,7 @@
             });
         }
 
-//// Total Price added to cart
+        //// Total Price added to cart
         function findTotal() {
 
             var arr = document.getElementsByClassName('itemQuantity');
@@ -547,5 +573,7 @@
             document.getElementById('total').value = total;
 
         }
+
+
     </script>
 </html>
