@@ -1,0 +1,99 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 15 Feb 2023, 7:06:34 pm
+    Author     : rvhin
+*/
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.left {
+    padding: 20px;
+    flex: inherit;
+    border: solid white;
+    background-color: #282747;
+}
+
+.right {
+    overflow-x: auto;
+    padding-left: 20px;
+}
+
+table {
+    width: 100%;
+    border-color: white;
+    background-color: #282747;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #282747;
+}
+
+th, td, label, h2 {
+    color: white;
+}
+
+th {
+    background-color: #282747;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-blue {
+    background-color: #2196F3;
+    color: white;
+}
+
+.btn-red {
+    background-color: #f44336;
+    color: white;
+}
+
+.form-group label {
+    display: block;
+}
+
+tbody tr {
+  display: none;
+}
+
+tbody tr:nth-child(-n+5) {
+  display: table-row;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        flex-basis: 100%;
+        border-radius: 5px;
+    }
+}
+
