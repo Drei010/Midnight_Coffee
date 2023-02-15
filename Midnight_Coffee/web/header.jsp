@@ -27,12 +27,33 @@
                     <a href="Menu_page.jsp"> Menu </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="Login_page.jsp"> Login </a>
-                </li>
-                <li class="header-nav-item">
-                    <a href="Signup_page.jsp"> Signup </a>
+                    <!-- If logged in -->
+                    <a  id="logoutBtn" href="Logout">Log Out</a>
+                    <!-- If logged out -->
+                    <a id="loginBtn" href="Login_page.jsp">Log in</a>
                 </li>
             </ul>
         </nav>
     </header>
+    
+              <%
+           ///Check if user is logged in
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            if(session.getAttribute("firstname")!=null){  
+            %>
+                 <script>
+                   // Hide the login button and show the logout button 
+                    document.getElementById("logoutBtn").style.display = "block";
+                    document.getElementById("loginBtn").style.display = "none";
+                    </script>
+                    <%
+            }   else{
+                    %>
+                    <script>
+                    // Hide the logout button and show the login button
+                    document.getElementById("logoutBtn").style.display = "none";
+                    document.getElementById("loginBtn").style.display = "block";
+                 </script>
+            <%}%>
+   
 </html>

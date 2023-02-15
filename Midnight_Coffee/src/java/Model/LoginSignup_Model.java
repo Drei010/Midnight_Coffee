@@ -24,12 +24,15 @@ public class LoginSignup_Model {
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmnt.setString(1, email);
             ResultSet records = stmnt.executeQuery();
-            if (records.next()) {
+            if (!records.next()) {
                 records.beforeFirst();
                 return records;
-
             }
+            else{
+                //records dont exist;
+                       }
             stmnt.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
         }

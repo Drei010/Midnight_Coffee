@@ -9,7 +9,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 
 /*paayos nalang neto*/
-
+#modal{
+    visibility:hidden;
+     border: 5px solid #282747;
+     background: white;
+     width: 60%;
+     position: absolute;
+     top:50%;
+     left:20%;
+     margin:-200px -200px 0 0;
+}
 .login {
     overflow: hidden;
     background-color: #282747;

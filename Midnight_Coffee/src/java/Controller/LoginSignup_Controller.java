@@ -5,38 +5,18 @@
 package Controller;
 
 import Model.LoginSignup_Model;
-import Model.ProductList;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.servlet.annotation.WebServlet;
-
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Andrei
@@ -46,8 +26,12 @@ public class LoginSignup_Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        //Get Connection
         Connection conn = (Connection) getServletContext().getAttribute("conn");
+        //Test Connection
+        if (conn == null) {
+         response.sendRedirect("home.jsp?noconnection");
+        }
         
         // get parameters
         String firstname = request.getParameter("firstname");
@@ -64,7 +48,7 @@ public class LoginSignup_Controller extends HttpServlet {
             //check if Account already exist! Before Sign up
             if (signUp.retrieveData(email, conn) != null) {
                 response.sendRedirect("Signup_page.jsp?process=1");
-                return;
+              
             }
 
             String Yes = signUp.insertData(firstname, lastname, password, email, mobilenumber, conn);
@@ -79,32 +63,35 @@ public class LoginSignup_Controller extends HttpServlet {
         } else {
             LoginSignup_Model logIn = new LoginSignup_Model();
             ResultSet results = logIn.retrieveData(email, conn);
-
+              try {
             //check if account exists
-            if (results == null) {
+            if (results == null|| !results.next()) {
                 //Account does not exist
                 response.sendRedirect("Login_page.jsp?process=2");
-            }
-
-            try {
-                while (results.next()) {
-                    //Check if passwor matches with password in the database
-                    if (results.getString("customerPassword").equals(password) != true) {
+                results.close();
+            }else{
+                
+                    //Check if password matches with password in the database
+                    String checkPassword = results.getString("customerPassword");
+                    if (!checkPassword.equals(password)) {
 
                         //Password does not match
                         response.sendRedirect("Login_page.jsp?process=3");
-                        return;
+                        results.close();
                     }
+                    else{
+                    //Set Attributes
+                    HttpSession session = request.getSession();
+                    session.setAttribute("firstname", results.getString("customerFirstname"));
+                    session.setAttribute("lastname", results.getString("customerLastname"));
+                    
 
-                    //go to menupage if login is successful                
-                    ProductList test = new ProductList();
-                    System.out.println("TESTENG");
-                    request.setAttribute("coffee", test.Coffee(conn));
-                    request.setAttribute("noncoffee", test.NonCoffee(conn));
-                    request.setAttribute("snack", test.Snack(conn));
-                    request.getRequestDispatcher("Menu_page.jsp?LoginSuccess").forward(request, response);
-
-                }
+                    //go to homepage if login is successful       
+               
+                    request.getRequestDispatcher("home.jsp?LoginSuccess").forward(request, response);
+                    }
+            }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(LoginSignup_Controller.class.getName()).log(Level.SEVERE, null, ex);
             }

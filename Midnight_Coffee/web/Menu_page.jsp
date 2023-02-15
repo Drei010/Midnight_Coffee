@@ -13,8 +13,25 @@
         <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/menu.css'>
     </head>
-    <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
-    <body>
+   
+    <body> 
+        <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
+        
+          <!-- Check if menu is loaded-->
+                <%
+            if (request.getAttribute("loadedMenu") == null) {
+            %>
+              <form action="Menu_Controller" method="post" name="loadMenu">
+                <input type="hidden" name="instruction" value="loadMenu">
+                <input type="hidden" name="page" value="Menu_page.jsp">
+              </form>
+              <script>
+                window.onload = function() {
+                  document.forms['loadMenu'].submit();
+                };
+              </script>
+            <%
+              }%>
         <table>
             <thead>
                 <tr>

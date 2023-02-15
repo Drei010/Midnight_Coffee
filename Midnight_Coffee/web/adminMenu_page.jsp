@@ -15,11 +15,23 @@
         <link rel='stylesheet' type='text/css' href='styles/menu.css'>
         <title>Menu</title>
     </head>
-
-    <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
-
     <body>
-
+          <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
+          <!-- Check if menu is loaded-->
+                <%
+            if (request.getAttribute("loadedMenu") == null) {
+            %>
+              <form action="Menu_Controller" method="post" name="loadMenu">
+                <input type="hidden" name="instruction" value="loadMenu">
+                <input type="hidden" name="page" value="adminMenu_page.jsp">
+              </form>
+              <script>
+                window.onload = function() {
+                  document.forms['loadMenu'].submit();
+                };
+              </script>
+            <%
+              }%>
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       

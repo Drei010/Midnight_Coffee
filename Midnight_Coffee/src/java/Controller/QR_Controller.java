@@ -77,7 +77,7 @@ public class QR_Controller extends HttpServlet {
                     String page = request.getParameter("page");
                     
                     QR_Model loadQRTable = new QR_Model();
-                    ///set Carousel Trending data
+                    ///set data
                     ResultSet QRTable = loadQRTable.retrieveQRTable(conn);
                      if (QRTable == null){
                     // please put data in the database
@@ -146,8 +146,57 @@ public class QR_Controller extends HttpServlet {
                 }
             }
 
-         
-         
+            
+            /*
+                        // Check if instruction is to add payment method QR
+            if ("createQR".equals(instruction)) {
+                // get parameters
+                String methodName = request.getParameter("methodName"); 
+                String fileName = getFileName(request.getPart("QRImage"));
+
+                String newImagename = methodName + "." + filetype;
+
+                // Check if the payment method already exists
+                QR_Model checkEntry = new QR_Model();
+                if (checkEntry.retrieveData(methodName, conn) != null) {
+                    response.sendRedirect("adminPayment_page.jsp?imageexist");
+                    return;
+                }
+
+                // Store the image file to Google Drive
+                try {
+                    // Authenticate and initialize the Google Drive API client
+                    Credential credential = authorize();
+                    Drive driveService = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                            .setApplicationName("Your Application Name")
+                            .build();
+
+                    // Create a new Google Drive file
+                    File fileMetadata = new File();
+                    fileMetadata.setName(newImagename);
+                    java.io.File filePath = new java.io.File("temp");
+                    InputStream iptStream = request.getPart("QRImage").getInputStream();
+                    FileUtils.copyInputStreamToFile(iptStream, filePath);
+                    FileContent mediaContent = new FileContent(filetype, filePath);
+                    File file = driveService.files().create(fileMetadata, mediaContent)
+                            .setFields("id")
+                            .execute();
+                    System.out.println("File ID: " + file.getId());
+                } catch (IOException e) {
+                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    return;
+                }
+
+                // Insert the payment method into the database
+                QR_Model insertEntry = new QR_Model();
+                String insertSuccess = insertEntry.insertData(methodName, newImagename, conn);
+                if ("Yes".equals(insertSuccess)) {
+                    response.sendRedirect("adminPayment_page.jsp?success");
+                } else {
+                    response.sendRedirect("adminPayment_page.jsp?failedtouploaddatabase");
+                }
+            }        
+            */   
          //update QR entry
          if("updateQR".equals(instruction)){
              // Get parameters
