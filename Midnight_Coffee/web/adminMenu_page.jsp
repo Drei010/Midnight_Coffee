@@ -9,11 +9,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='styles/general.css'>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
         <link rel='stylesheet' type='text/css' href='styles/adminMenu.css'>
-        <link rel='stylesheet' type='text/css' href='styles/menu.css'>
-        <title>Menu</title>
+       
+        <title>Admin Menu</title>
     </head>
     <body>
           <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
@@ -32,6 +31,54 @@
               </script>
             <%
               }%>
+              
+              
+              <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
+                <div id="popupModal">
+
+                    <div class="container-popup">
+                        
+                            
+                            
+                            <form id="newProductForm" action="Menu_Controllera" method="POST" enctype="multipart/form-data">
+                            <h2>Add New Coffee</h2>
+                            <label for="itemAddName">Product Name:</label>
+                            <input type="text" placeholder="Name" name="itemAddName" class="itemAddName" required>
+                            <label for="itemAddImage">Image:</label>
+                            <input type="file" name="itemAddImage" class="itemAddImage" required>
+                            <label for="itemAddOption">Option:</label>
+                            <input type="text" placeholder="Item Option" name="itemAddOption" class="itemAddOption" required>
+                            <label for="itemAddPrice">Product Price:</label>
+                            <input type="number" placeholder="Php" name="itemAddPrice" class="itemAddPrice"  required>
+                            </form>
+                            <button type="submit" class="addProductBtn" >Add new product</button>
+                              
+                            <div class="verticalDivider"></div>
+              
+              
+                        <!-- Ingredients div start-->
+                           <form id="ingredientForm" action="Menu_Controllera2" method="POST" enctype="multipart/form-data">
+                            <h1><label for="itemIngredient">Add Ingredients:</label></h1>
+                            <input type="text" name="itemIngredient" placeholder="Ingredient" class="itemIngredient" required>
+                            <input type="number" placeholder="grams" name="ingredientGrams" class="ingredientGrams"  required>
+                            <button class="add-ingredient-btn">+</button>
+                            <button class="clearIngredientsBtn">CLEAR</button>
+                            <h1><label for="added-ingredients">Ingredients:</label></h1>
+                            <div name="added-ingredients" class="added-ingredients">
+                            <h3>testeng</h3>
+                            </div>
+                            </form>
+                         <!-- Ingredients div end-->
+                        
+                       
+                           
+                        
+                          
+                        
+                     </div>
+                </div>
+                
+               
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
@@ -47,72 +94,17 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-                <%-- Add Coffee Item Button --%>
+               
+
+           <%-- Add Coffee Item Button --%>
                 <button id="addCoffeeItem"></button>
-
-                <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
-                <div id="popupAddCoffee" class="hidden">
-
-                    <div class="container-popup">
-                        <div class="first-side">
-                            <h2>Add New Coffee</h2>
-                            <p>Product Name:</p>
-                            <input type="text" placeholder="Coffee Name" name="coffeeName" id="coffeeName" required>
-                            <p>Image:</p>
-                            <input type="file" name="coffeeImage" id="coffeeImage" required>
-                            <p>Option:</p>
-                            <form>
-                                <input type="radio" id="hot" name="coffee-type" value="hot-drink">
-                                <label for="hot">Hot</label><br>
-                                <input type="radio" id="icedRegular" name="coffee-type" value="iced-regular-drink">
-                                <label for="icedRegular">Iced Regular</label><br>
-                                <input type="radio" id="icedLofty" name="coffee-type" value="iced-lofty-drink">
-                                <label for="icedLofty">Iced Lofty</label><br>
-                            </form>
-                            <p>Product Price:</p>
-                            <input type="text" placeholder="Php" name="coffeePrice" id="coffeePrice" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
-
-                        </div>
-                        <div class="second-side">
-                            <button id="clearIngredients">CLEAR</button>
-                            <p>Add Ingredients: </p>
-                            <select name="coffee-types" id="coffee-types">
-                                <option value="Coffee Beans">Coffee Beans</option>
-                                <option value="Sugar">Sugar</option>
-                                <option value="Milk">Milk</option>
-                            </select>
-                            <input type="text" placeholder="grams" name="ingredientGrams" id="ingredientGrams" pattern="[0-9]+(\.[0-9][0-9]?)?" required>
-                            <button class="add-ingredient-btn">+</button>
-                            <h2>Ingredients Needed: </h2>
-                            <div class="added-ingredients">
-                                <div class="ingredient-item">
-                                    <h2>Sugar</h2>
-                                    <h3>50g</h3>
-                                </div>
-                                <div class="ingredient-item">
-                                    <h2>Coffee</h2>
-                                    <h3>50g</h3>
-                                </div>
-                                <div class="ingredient-item">
-                                    <h2>Milk</h2>
-                                    <h3>50g</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="popup-buttons">
-                        <button id="close-button1">CLOSE</button>
-                        <button id="submit-button1">SUBMIT</button>
-                    </div>
-                </div>
-
                 <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
                     if (coffee != null) {%>
-
+            
                 <%-- Carousel Items container--%>
                 <div class="slider">
-
+                    
+            
                     <%
                         while (coffee.next()) {
                     %>
@@ -120,24 +112,25 @@
                     <%-- Slider Item Start--%>      
                     <div class="item">  
 
-                        <%-- Hidden fields for database submission--%>
+                        <%-- Hidden fields for update database submission--%>
+                        <form action="updateddadsa" method="POST" enctype="multipart/form-data">
                         <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
                         <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
                         <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
                         <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
                         <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
-
+                         </form>
                         <%-- Item Name--%>
                         <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
 
                         <%-- Item Image--%>
                         <img
                             class="thumbnail"
-                            src="userImages/bg.png"
+                            src="QRImages/test.png"
                             alt="Sample Item Image">
 
                         <%-- Item Option--%>
-                        <h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
+                        <a class="itemOption"><%=coffee.getString("itemOption")%></a>
 
                         <%-- Item PriceTag--%>
                         <h3 class="itemPHPTag">PHP</h3>
@@ -145,16 +138,17 @@
                         <%-- Item Price--%> 
                         <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
 
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
-
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
-
-                    </div>
+                        <!--Update Menu Item-->
+                        <button class="updateItemBtn">Update</button>
+                       
+                        
+                        <!--Update Availability-->
+                        <button class="availabilityItemBtn">
+                            <a id="inStock">In Stock</a>
+                            <a id="outOfStock">Out of Stock</a>
+                        </button>
+                        
+                                            </div>
                     <%-- Slider Item End--%>   
 
                     <%}
@@ -168,7 +162,7 @@
                 </div>
             </div>
         </div>
-
+<!--
         <div class="row">
 
             <%-- Carousel title and progress bar--%>    
@@ -283,14 +277,7 @@
                         <%-- Item Price--%> 
                         <h3 class="itemPrice"><%=noncoffee.getString("itemPrice")%></h3>
 
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
 
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
 
                     </div>
                     <%-- Slider Item End--%>   
@@ -442,30 +429,10 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
+                    
     </body>
-    <script>
-
-        //For pop up when adding
-        const addItem = (itemId, popupId, closeButtonId) => {
-            const addItemButton = document.getElementById(itemId);
-            const popup = document.getElementById(popupId);
-            const closeButton = document.getElementById(closeButtonId);
-
-            addItemButton.addEventListener("click", function () {
-                popup.style.display = "block";
-            });
-
-            closeButton.addEventListener("click", function () {
-                popup.style.display = "none";
-            });
-        };
-
-        addItem("addCoffeeItem", "popupAddCoffee", "close-button1");
-        addItem("addTeaItem", "popupAddTea", "close-button2");
-        addItem("addLatteItem", "popupAddLatte", "close-button3");
-        
-
+    <script>    
         // If the arrow buttons are clicked
         document.addEventListener("click", e => {
             let handle;
@@ -520,7 +487,7 @@
         }
 
 
-///Move progress bar and containers
+     ///Move progress bar and containers
         function onHandleClick(handle) {
             const progressBar = handle.closest(".row").querySelector(".progress-bar");
             const slider = handle.closest(".carouselContainer").querySelector(".slider");
@@ -577,5 +544,21 @@
                 requestAnimationFrame(timeoutFunc, delay);
             };
         }
+        
+        
+        
+                //For pop up when adding
+        document.getElementById("addCoffeeItem").onclick = function(e) {
+        e.preventDefault();
+        document.getElementById("popupModal").style.display = 'block';
+    
+            };
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+              var modal =  document.getElementById("popupModal");
+              if (event.target === modal) {
+                modal.style.display = "none";
+              }
+            };
     </script>
 </html>

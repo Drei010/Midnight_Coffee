@@ -21,15 +21,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Menu_Controller", urlPatterns = {"/Menu_Controller"})
 public class Menu_Controller extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Get Connection
@@ -41,8 +32,11 @@ public class Menu_Controller extends HttpServlet {
         //Get Instruction
         String instruction = request.getParameter("instruction");
 
+        
+        switch(instruction){
+           
         //load adminPayment_page
-        if ("loadMenu".equals(instruction)) {
+         case "loadMenu" : {
 
             //Get page location
             String page = request.getParameter("page");
@@ -66,8 +60,70 @@ public class Menu_Controller extends HttpServlet {
 
             //go to either menu page or adminMenu page
             request.getRequestDispatcher(page).forward(request, response);
-
+            break;
         }
+        
+             // Check if instruction is to add menu item
+              case "createQR" : {
+                // get parameters
+                String itemCode = request.getParameter("itemCode");
+                String itemName = request.getParameter("itemName"); 
+                String itemOption = request.getParameter("itemOption"); 
+                String itemPrice = request.getParameter("itemPrice"); 
+                String itemImage = request.getParameter("itemImage"); 
+                String itemClass = request.getParameter("itemClass"); 
+                /*
+                String fileName = getFileName(request.getPart("QRImage"));
+                Path source = Paths.get(destination + File.separator + fileName);
+
+                // Only Supports png or jpg
+                String filetype = fileName.substring(fileName.length() - 3).toLowerCase();
+                if (!("jpg".equals(filetype) || "png".equals(filetype))) {
+                    response.sendRedirect("adminPayment_page.jsp?errorimage");
+                    return;
+                }
+
+                String newImagename = methodName + "." + filetype;
+                 */
+                // Check if the payment method already exists
+                ProductList checkEntry = new ProductList();
+                if (checkEntry.retrieveData(itemName, conn) != null) {
+                    response.sendRedirect("adminMenu_page.jsp?imageexist");
+                    return;
+                }
+                 /*
+                // Store the image file
+                try (InputStream iptStream = request.getPart("QRImage").getInputStream();
+                     OutputStream otpStream = new FileOutputStream(new File(destination + File.separator + fileName))) {
+                    int read;
+                    byte[] bytes = new byte[1024];
+                    while ((read = iptStream.read(bytes)) != -1) {
+                        otpStream.write(bytes, 0, read);
+                    }
+                } catch (IOException e) {
+                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    return;
+                }
+
+                // Rename the file in the same directory
+                try {
+                    Files.move(source, source.resolveSibling(newImagename));
+                } catch (IOException e) {
+                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    return;
+                }
+                    */
+                // Insert the payment method into the database
+                ProductList insertEntry = new ProductList();
+                String insertSuccess = insertEntry.insertData(itemName, itemOption, itemPrice, itemImage, itemClass, conn);
+                if ("Yes".equals(insertSuccess)) {
+                    response.sendRedirect("adminMenu_page.jsp?success");
+                } else {
+                    response.sendRedirect("adminMenu_page.jsp?failedtouploaddatabase");
+                }
+            }
+            
+}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

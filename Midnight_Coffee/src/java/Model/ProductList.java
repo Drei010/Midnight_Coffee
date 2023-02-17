@@ -67,4 +67,64 @@ public class ProductList {
         }
         return null;
     }
+    
+    
+    ///Insert menu item Data to the Database
+    public String insertData(String itemName, String itemOption, String itemPrice, String itemImage, String itemClass, Connection conn) {
+        String sql = "INSERT INTO products (itemName, itemOption, itemPrice, itemImage, itemClass) VALUES ( ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, itemName);
+            stmnt.setString(2, itemOption);
+            stmnt.setDouble(3, Double.parseDouble(itemPrice));
+            stmnt.setString(4, itemImage);
+            stmnt.setString(5, itemClass);
+     
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+    
+        public ResultSet retrieveData(String itemName, Connection conn) {
+        try {
+            String query = "SELECT * FROM products WHERE itemName = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, itemName);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

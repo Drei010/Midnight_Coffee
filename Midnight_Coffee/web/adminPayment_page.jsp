@@ -108,8 +108,6 @@
             const updateBtn = document.getElementById('updateBtn');
             const fileInput = document.getElementById('QRImage');
 
-            addBtn.disabled = true;
-            updateBtn.disabled = true;
 
             fileInput.addEventListener('change', function() {
               const file = fileInput.files[0];

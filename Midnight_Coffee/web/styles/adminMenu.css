@@ -6,59 +6,375 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 6 Feb 2023, 12:11:13 am
     Author     : rvhin
 */
-
-body{
-    margin-top: 40px;
+*, *::after, *::before {
+    box-sizing: border-box;
 }
 
-.Non-Coffees{
-    display: flex;
-    overflow-x: auto;
+:root {
+    --handle-size: 3rem;
+    --div-gap: .25rem;
 }
 
-.Non-Coffees::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+body {
+    color: white;
+    margin: 0;
+    padding-top: 100px;
+    background-color: #CFCBC2;
 }
 
-.noncoffee-items{
-    display: flex;
-    white-space: nowrap;
-}
 
-.product{
-    width: 100px;
-    height: 100px;
-    background-color: #eee;
-    margin: 0 10px;
-}
-
-.scroll-button {
-    width: 50px;
-    height: 100%;
-    background-color: #333;
-    color: #fff;
+/*carousel container*/
+.carouselContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.slider {
+    --items-per-screen: 4;
+    --slider-index: 0;
+    display: flex;
+    flex-grow: 1;
+    margin: 0 var(--div-gap);
+    transform: translateX(calc(var(--slider-index) * -100%));
+    transition: transform 250ms ease-in-out;
+}
+
+/*items*/
+.slider > div {
+    flex: 0 0 calc(100% / var(--items-per-screen));
+    max-width: calc(100% / var(--items-per-screen));
+    aspect-ratio: 10/9;
+    padding: var(--div-gap);
+    border-radius: 1rem;
+}
+
+/*item container grid*/
+.item{
+    display: grid;
+    grid-template-areas:
+        'itemName itemName  itemName  '
+        'thumbnail thumbnail  thumbnail  '
+        'itemOption itemOption  itemOption   '
+        'itemPHPTag itemPrice  updateItemBtn  '
+      'itemPHPTag itemPrice  availabilityItemBtn ';
+    gap: 5px;
+    background-color: #AEB3AF;
+    max-width: 400px;
+    max-height: 400px;
+    padding:10px;
+    border-radius: 10px;
+}
+
+
+
+/*item image*/
+.thumbnail{
+    grid-area: thumbnail;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
+}
+
+
+/*item name*/
+.itemName{
+    grid-area: itemName;
+    margin: 0;
+    color: black;
+}
+
+/*item php*/
+.itemPHPTag{
+    grid-area: itemPHPTag;
+    margin: 0;
+    color: black;
+}
+
+/*item option*/
+.itemOption{
+    grid-area: itemOption;
+    background-color: #282747;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    max-width: 100px;
+
+}
+
+/*item price*/
+.itemPrice{
+    grid-area: itemPrice;
+    margin: 0;
+    color: black;
+}
+
+
+/*item quantity decrament*/
+.updateItemBtn{
+    grid-area: updateItemBtn;
+    margin: 0;
+    background-color: #8DC075;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+    z-index: 10;
+}
+
+/*item quantity incrament*/
+.availabilityItemBtn{
+    grid-area: availabilityItemBtn;
+    margin: 0;
+    background-color: #758AC0;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+    z-index: 10;
+}
+
+
+
+/*incrament decrament on hover*/
+.updateItemBtn:hover,
+.availabilityItemBtn:hover
+{
+    transform: scale(1.2);
+}
+
+/*arrows*/
+.handle {
+    border: none;
+    border-radius: 1rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: #282747;
+    z-index: 10;
+    margin: var(--div-gap) 0;
+    width: var(--handle-size);
     cursor: pointer;
-    position: fixed;
+    font-size: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    line-height: 0;
+    transition: background-color 150ms ease-in-out;
 }
 
-#scroll-left {
-    left: 0;
+/*Left arrow*/
+.left-handle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
-#scroll-right {
-    right: 0;
+/*Right arrow*/
+.right-handle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
+
+/*Arrow Hover*/
+.handle:hover,
+.handle:focus {
+    background-color: rgba(255, 255, 255, .5);
+}
+
+
+.text {
+    transition: transform 150ms ease-in-out;
+}
+
+.handle:hover .text,
+.handle:focus .text {
+    transform: scale(1.2);
+}
+
+/*progress bar location*/
+.header-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem calc((var(--div-gap) * 2) + var(--handle-size));
+    align-items: center;
+    color: black;
+}
+
+.title {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Progress Bar*/
+.progress-bar {
+    display: flex;
+    gap: .25rem;
+}
+
+.progress-item {
+    flex: 0 0 1.5rem;
+    min-width: 1.5rem;
+    height: .5rem;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+.progress-item.active {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+@media (max-width: 1000px) {
+    .slider {
+        --items-per-screen: 3;
+    }
+    .carouselContainer {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 500px) {
+    .slider {
+        --items-per-screen: 2;
+    }
+    .carouselContainer {
+        transform: scale(0.6);
+    }
+}
+
+
+/* Pop up*/
+#popupModal {
+  display: none;
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/*Pop up container grid*/
+.container-popup {
+    display: grid;
+    grid-template-areas:
+        'itemAddName verticalDivider itemIngredient ingredientGrams add-ingredient-btn clearIngredientsBtn'
+        'itemAddImage verticalDivider added-ingredients added-ingredients added-ingredients added-ingredients'
+        'itemAddOption verticalDivider added-ingredients added-ingredients added-ingredients added-ingredients'
+        'itemAddPrice  verticalDivider added-ingredients added-ingredients added-ingredients added-ingredients'
+        'addProductBtn verticalDivider added-ingredients added-ingredients added-ingredients added-ingredients';
+    background-color: #282747;
+    border: solid white;
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+    height: 500px;
+    z-index: 5; 
+}
+.itemAddName{
+    grid-area: itemAddName;
+}
+.itemAddImage{
+    grid-area: itemAddImage;
+}
+.itemAddOption{
+    grid-area: itemAddOption;
+}
+.itemAddPrice{
+    grid-area: itemAddPrice;
+}
+.addProductBtn{
+    grid-area: addProductBtn;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    
+}
+.verticalDivider{
+    grid-area: verticalDivider;
+    border-left: 6px solid white;
+    height: 400px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 50px;
+  }
+
+.itemIngredient{
+    grid-area: itemIngredient;
+}
+.ingredientGrams{
+    grid-area: ingredientGrams;
+}
+.add-ingredient-btn, .clearIngredientsBtn{
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    max-width: 70px;
+    transition: all 0.3s ease;
+}
+
+.add-ingredient-btn{
+    grid-area: add-ingredient-btn;
+    background-color: #8DC075;
+    
+    
+}
+.clearIngredientsBtn{
+    grid-area: clearIngredientsBtn;
+    background-color: #C56161;
+        
+}
+.added-ingredients{
+    grid-area: added-ingredients;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.itemAddName, .itemAddImage,
+.itemAddOption, .itemAddPrice{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: #CFCBC2;
+    color: black;
+}  
+
+.itemIngredient, .ingredientGrams{
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: #CFCBC2;
+    color: black;
+}  
+
 
 #addCoffeeItem{
     background-image: url(https://i.postimg.cc/qvdywMwW/add-Button-Coffee.png);
     background-size: cover;
     border: none;
-    height: 200px;
-    width: 200px;
+    height: 400px;
+    width: 400px;
     transition: transform 0.2s ease;
 }
 #addCoffeeItem:hover{
@@ -87,106 +403,7 @@ body{
     width: 200px;
     transition: transform 0.2s ease;
 }
-#addLatteItem:hover{
-    cursor: pointer;
-    transform: scale(1.2);
-}
 
-#popupAddCoffee {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-}
 
-#popupAddTea {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-}
 
-#popupAddLatte {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
-}
 
-.hidden {
-    display: none;
-}
-
-.container-popup {
-    display: flex;
-}
-
-.first-side {
-    flex: 2;
-    background-color: #282747;
-    border: solid white;
-    margin-right: 5px;
-    padding: 10px;
-}
-
-.second-side {
-    flex: 1;
-    background-color: #282747;
-    border: solid white;
-    margin-left: 5px;
-    padding: 10px;
-}
-
-#coffee-types{
-    margin-bottom: 5px;
-}
-
-#ingredientGrams{
-    width: 100px;
-}
-
-button.add-ingredient-btn {
-    background-color: green;
-    color: white;
-    padding: 5px 5px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-    max-width: 200px;
-    transition: all 0.3s ease;
-}
-
-button.add-ingredient-btn:hover {
-    background-color: darkgreen;
-}
-
-@media (min-width: 768px) {
-    button.add-ingredient-btn {
-        width: auto;
-    }
-}
-
-.added-ingredients {
-    display: flex;
-    flex-direction: column;
-}
-
-.ingredient-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.popup-buttons{
-    padding-top: 10px;
-}
-
-button:hover{
-    cursor: pointer;
-}
