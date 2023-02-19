@@ -38,7 +38,7 @@ public class ProductList {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
             PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Non-Coffee");
+            ps.setString(1, "Kremalatte");
             ResultSet records = ps.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
@@ -55,7 +55,7 @@ public class ProductList {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
             PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Snack");
+            ps.setString(1, "tea");
             ResultSet records = ps.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
@@ -76,7 +76,7 @@ public class ProductList {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.setString(1, itemName);
             stmnt.setString(2, itemOption);
-            stmnt.setDouble(3, Double.parseDouble(itemPrice));
+            stmnt.setString(3, itemPrice);
             stmnt.setString(4, itemImage);
             stmnt.setString(5, itemClass);
      
