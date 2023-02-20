@@ -23,26 +23,26 @@
         <div class="login">
           <h1>Sign up</h1>  
                 <div class="fullname">
-                <label id="First-Name" for="one">First name<input type="text" placeholder="firstname" name="firstname" required>
+                <label id="First-Name" for="one">First name<input type="text" name="firstname" required>
                  </label>         
                     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label id="First-Name" for="one">Last name <input type="text" placeholder="lastname" name="lastname" required>
+                <label id="First-Name" for="one">Last name <input type="text" name="lastname" required>
                  </label>
                 </div>
         <h3>Password</h3>
-        <input type="password" id="pass1" placeholder="password" name="password" required>
+        <input type="password" id="pass1" name="password" required>
         
         <!-- Password does not match -->
         <h4 style="color:red;"></h4>
         
         <h3>Confirm Password</h3>
-        <input type="password" id="pass2" placeholder="confirm password" name="confirmpassword" required>
+        <input type="password" id="pass2" name="confirmpassword" required>
         
         <h3>Email</h3>
-        <input type="email" placeholder="email" name="email" required>
+        <input type="email" name="email" required>
         
         <h3>Mobile Number</h3>
-        <input type="number" placeholder="mobile number" name="mobilenumber" required>
+        <input type="number" placeholder="+63" name="mobilenumber" required>
             
          
         <!-- Captcha -->
@@ -59,7 +59,7 @@
         <button type="submit" id="btnSignup">Sign up</button>
         </form>
         <div class="center">
-            <a  href="Login_page.jsp">Already have an account</a><br>
+            <a  href="Login_page.jsp">Already have an account?</a><br>
         
             
              <!-- Terms and conditions Popup Modal-->
