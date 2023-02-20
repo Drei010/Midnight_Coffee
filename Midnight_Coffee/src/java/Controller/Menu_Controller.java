@@ -64,14 +64,14 @@ public class Menu_Controller extends HttpServlet {
         }
         
              // Check if instruction is to add menu item
-              case "createQR" : {
+              case "addItemMenu" : {
                 // get parameters
-                String itemCode = request.getParameter("itemCode");
-                String itemName = request.getParameter("itemName"); 
-                String itemOption = request.getParameter("itemOption"); 
-                String itemPrice = request.getParameter("itemPrice"); 
-                String itemImage = request.getParameter("itemImage"); 
-                String itemClass = request.getParameter("itemClass"); 
+                String itemAddName = request.getParameter("itemAddName");
+                String itemAddImage = request.getParameter("itemAddImage"); 
+                String itemAddOption = request.getParameter("itemAddOption"); 
+                String itemAddPrice = request.getParameter("itemAddPrice"); 
+                String itemAddClassification = request.getParameter("itemAddClassification"); 
+                String itemAvailability = request.getParameter("itemAvailability"); 
                 /*
                 String fileName = getFileName(request.getPart("QRImage"));
                 Path source = Paths.get(destination + File.separator + fileName);
@@ -87,7 +87,7 @@ public class Menu_Controller extends HttpServlet {
                  */
                 // Check if the payment method already exists
                 ProductList checkEntry = new ProductList();
-                if (checkEntry.retrieveData(itemName, conn) != null) {
+                if (checkEntry.retrieveData(itemAddName, conn) != null) {
                     response.sendRedirect("adminMenu_page.jsp?imageexist");
                     return;
                 }
@@ -115,7 +115,7 @@ public class Menu_Controller extends HttpServlet {
                     */
                 // Insert the payment method into the database
                 ProductList insertEntry = new ProductList();
-                String insertSuccess = insertEntry.insertData(itemName, itemOption, itemPrice, itemImage, itemClass, conn);
+                String insertSuccess = insertEntry.insertData(itemAddName, itemAddOption, itemAddPrice, itemAddImage, itemAddClassification, conn);
                 if ("Yes".equals(insertSuccess)) {
                     response.sendRedirect("adminMenu_page.jsp?success");
                 } else {

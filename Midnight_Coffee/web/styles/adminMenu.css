@@ -12,7 +12,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 :root {
     --handle-size: 3rem;
-    --div-gap: .25rem;
+    --div-gap: .3rem;
+    --item-height: 24rem;
 }
 
 body {
@@ -28,8 +29,7 @@ body {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    width: 100%;
-    flex-grow: 1;
+  
 }
 
 .slider {
@@ -43,16 +43,16 @@ body {
 }
 
 /*items*/
-.slider > div {
+.slider > .itemContainer {
     flex: 0 0 calc(100% / var(--items-per-screen));
-    max-width: calc(100% / var(--items-per-screen));
-    aspect-ratio: 10/9;
+    margin-right:  0.5rem;
     padding: var(--div-gap);
     border-radius: 1rem;
+    background-color: #AEB3AF;
 }
 
 /*item container grid*/
-.item{
+.slider > .itemContainer >.item{
     display: grid;
     grid-template-areas:
         'itemName itemName  itemName  '
@@ -60,12 +60,28 @@ body {
         'itemOption itemOption  itemOption   '
         'itemPHPTag itemPrice  updateItemBtn  '
       'itemPHPTag itemPrice  availabilityItemBtn ';
-    gap: 5px;
-    background-color: #AEB3AF;
-    max-width: 400px;
-    max-height: 400px;
-    padding:10px;
-    border-radius: 10px;
+    gap: 0.5rem;
+    width:1rem;
+    padding:0.5rem;
+    margin-left: 1rem;
+    align-content: space-between;
+    align-items: stretch;
+    justify-items: stretch;
+    justify-content: start;
+}
+
+@media (min-width: 1500px) {
+ .slider > .itemContainer {
+    max-width: calc(100% / var(--items-per-screen));
+    }
+    
+}
+@media (min-width: 2000px) {
+
+    .slider > .itemContainer {
+     max-width: calc(80% / var(--items-per-screen));
+}
+
 }
 
 
@@ -73,8 +89,8 @@ body {
 /*item image*/
 .thumbnail{
     grid-area: thumbnail;
-    width: 100%;
-    height: 100%;
+    width: 18.75rem;
+    height: 12.5rem;
     margin: 0;
 
 }
@@ -83,15 +99,13 @@ body {
 /*item name*/
 .itemName{
     grid-area: itemName;
-    margin: 0;
-    color: black;
+    font-size: 2rem;
+    
 }
 
 /*item php*/
 .itemPHPTag{
     grid-area: itemPHPTag;
-    margin: 0;
-    color: black;
 }
 
 /*item option*/
@@ -101,19 +115,17 @@ body {
     border-radius: 10px;
     color: white;
     padding: 10px;
-    max-width: 100px;
+    max-width: 18.75rem;
 
 }
 
 /*item price*/
 .itemPrice{
     grid-area: itemPrice;
-    margin: 0;
-    color: black;
 }
 
 
-/*item quantity decrament*/
+/*item update*/
 .updateItemBtn{
     grid-area: updateItemBtn;
     margin: 0;
@@ -124,7 +136,7 @@ body {
     z-index: 10;
 }
 
-/*item quantity incrament*/
+/*item availability*/
 .availabilityItemBtn{
     grid-area: availabilityItemBtn;
     margin: 0;
@@ -136,8 +148,6 @@ body {
 }
 
 
-
-/*incrament decrament on hover*/
 .updateItemBtn:hover,
 .availabilityItemBtn:hover
 {
@@ -151,8 +161,9 @@ body {
     flex-grow: 0;
     flex-shrink: 0;
     background-color: #282747;
-    z-index: 10;
+    z-index: 2;
     margin: var(--div-gap) 0;
+    height: var(--item-height);
     width: var(--handle-size);
     cursor: pointer;
     font-size: 5rem;
@@ -162,6 +173,7 @@ body {
     color: white;
     line-height: 0;
     transition: background-color 150ms ease-in-out;
+
 }
 
 /*Left arrow*/
@@ -171,7 +183,7 @@ body {
 }
 
 /*Right arrow*/
-.right-handle {
+.right-handle { 
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -223,23 +235,7 @@ body {
     background-color: rgba(255, 255, 255, .9);
 }
 
-@media (max-width: 1000px) {
-    .slider {
-        --items-per-screen: 3;
-    }
-    .carouselContainer {
-        transform: scale(0.8);
-    }
-}
 
-@media (max-width: 500px) {
-    .slider {
-        --items-per-screen: 2;
-    }
-    .carouselContainer {
-        transform: scale(0.6);
-    }
-}
 
 
 /* Pop up*/
@@ -369,39 +365,33 @@ body {
 }  
 
 
+.addItem{
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    height: var(--item-height);
+    width: 250px;
+    transition: transform 0.2s ease;
+    border-radius: 10px; 
+    background-color: #282747;
+    
+}
+.addItem:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    z-index: 10;    
+    
+}
+
+
 #addCoffeeItem{
     background-image: url(https://i.postimg.cc/qvdywMwW/add-Button-Coffee.png);
-    background-size: cover;
-    border: none;
-    height: 400px;
-    width: 400px;
-    transition: transform 0.2s ease;
 }
-#addCoffeeItem:hover{
-    cursor: pointer;
-    transform: scale(1.2);
-}
-
 #addTeaItem{
     background-image: url(https://i.postimg.cc/qv9NZ3DL/add-Button-Tea.png);
-    background-size: cover;
-    border: none;
-    height: 200px;
-    width: 200px;
-    transition: transform 0.2s ease;
 }
-#addTeaItem:hover{
-    cursor: pointer;
-    transform: scale(1.2);
-}
-
 #addLatteItem{
     background-image: url(https://i.postimg.cc/G2qwtNfp/add-Button-Latte.png);
-    background-size: cover;
-    border: none;
-    height: 200px;
-    width: 200px;
-    transition: transform 0.2s ease;
 }
 
 
