@@ -14,7 +14,7 @@
 
         <title>Admin Menu</title>
     </head>
-    <body>
+    <body style="padding-bottom: 20px;">
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
         <!-- Check if menu is loaded-->
         <%
@@ -30,7 +30,7 @@
             };
         </script>
         <%
-                }%>
+            }%>
 
 
         <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
@@ -354,6 +354,7 @@
 
 
     </body>
+    <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
     <script>
         // Add click event listener to document and invoke onHandleClick function if handle is clicked
         document.addEventListener("click", e => {
