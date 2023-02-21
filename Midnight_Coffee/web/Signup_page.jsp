@@ -12,65 +12,66 @@
         <link rel='stylesheet' type='text/css' href='styles/loginSignup.css'>
         <link rel='stylesheet' type='text/css' href='styles/Signup_page.css'>
         <title>Sign up Page</title>
-                <!--Captcha API-->
+        <!--Captcha API-->
         <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <jsp:include page="loginSignup.jsp" /> <!-- Calls the header jsp -->
     <body>
         <div class="header"> 
         </div>
-       <form action="LoginSignup_Controller" method="post">  
-        <div class="login">
-          <h1>Sign up</h1>  
+        <form action="LoginSignup_Controller" method="post">  
+            <div class="login">
+                <h1>Sign up</h1>  
                 <div class="fullname">
-                <label id="First-Name" for="one">First name<input type="text" name="firstname" required>
-                 </label>         
+                    <label id="First-Name" for="one">First name<input type="text" name="firstname" required>
+                    </label>         
                     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label id="First-Name" for="one">Last name <input type="text" name="lastname" required>
-                 </label>
+                    <label id="First-Name" for="one">Last name <input type="text" name="lastname" required>
+                    </label>
                 </div>
-        <h3>Password</h3>
-        <input type="password" id="pass1" name="password" required>
-        
-        <!-- Password does not match -->
-        <h4 style="color:red;"></h4>
-        
-        <h3>Confirm Password</h3>
-        <input type="password" id="pass2" name="confirmpassword" required>
-        
-        <h3>Email</h3>
-        <input type="email" name="email" required>
-        
-        <h3>Mobile Number</h3>
-        <input type="number" placeholder="+63" name="mobilenumber" required>
-            
-         
-        <!-- Captcha -->
-        <div class="center">
-            <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;">             
-            </div>
-        
-       
-        <!-- Terms and conditions -->    
-        <div class="checkbox">
-        <input type="checkbox" id="checkbox" required><a>Agree to our</a> <a href="#" id="termsLink">Terms and conditions</a><br>
-        </div>
-        </div>
-        <button type="submit" id="btnSignup">Sign up</button>
+                <h3>Password</h3>
+                <input type="password" id="pass1" name="password" required>
+
+                <!-- Password does not match -->
+                <h4 style="color:red;"></h4>
+
+                <h3>Confirm Password</h3>
+                <input type="password" id="pass2" name="confirmpassword" required>
+
+                <h3>Email</h3>
+                <input type="email" name="email" required>
+
+                <h3>Mobile Number</h3>
+                <input type="tel" id="phone" placeholder="+63" name="mobilenumber"
+                       pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                       required>
+
+                <!-- Captcha -->
+                <div class="center">
+                    <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;">             
+                    </div>
+
+
+                    <!-- Terms and conditions -->    
+                    <div class="checkbox">
+                        <input type="checkbox" id="checkbox" required><a>Agree to our</a> <a href="#" id="termsLink">Terms and conditions</a><br>
+                    </div>
+                </div>
+                <button type="submit" id="btnSignup">Sign up</button>
         </form>
         <div class="center">
             <a  href="Login_page.jsp">Already have an account?</a><br>
-        
-            
-             <!-- Terms and conditions Popup Modal-->
+
+
+            <!-- Terms and conditions Popup Modal-->
             <div id="modal">
                 <h2>Terms and Conditions</h2>
                 <p>These are the terms and conditions</p>
                 <button id="acceptBtn">Accept Terms and conditions</button>
-                </div>
-                </div>
-            
-                      <%--Alerts --%>	
+            </div>
+        </div>
+
+        <%--Alerts --%>	
         <%
             if (request.getParameter("process") != null) {
                 int process = Integer.parseInt(request.getParameter("process"));
@@ -92,7 +93,7 @@
                     }
             }
         %>
-                <script>
+        <script>
 
             ///Password checker
             let pass1 = document.querySelector('#pass1');
@@ -118,25 +119,25 @@
 
 
 
-           /////Terms and conditions Popup
-           
-           ///Open Modal by clicking link
-            document.getElementById("termsLink").onclick = function(e) {
-              e.preventDefault();
-              document.getElementById("modal").style.visibility = 'visible';
+            /////Terms and conditions Popup
+
+            ///Open Modal by clicking link
+            document.getElementById("termsLink").onclick = function (e) {
+                e.preventDefault();
+                document.getElementById("modal").style.visibility = 'visible';
             };
-            
-            
+
+
             ///Close modal by pressing accept button
-                        document.getElementById("acceptBtn").onclick = function(e) {
-              e.preventDefault();
-              document.getElementById("modal").style.visibility = 'hidden';
-              
-              ///Check checkbox by pressing accept button
-               document.getElementById("checkbox").checked = true;
+            document.getElementById("acceptBtn").onclick = function (e) {
+                e.preventDefault();
+                document.getElementById("modal").style.visibility = 'hidden';
+
+                ///Check checkbox by pressing accept button
+                document.getElementById("checkbox").checked = true;
             };
-            
+
         </script>
-        </div>
-    </body>
+    </div>
+</body>
 </html>

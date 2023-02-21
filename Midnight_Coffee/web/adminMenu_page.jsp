@@ -59,10 +59,10 @@
 
 
                 <!-- Ingredients div start-->
-                <form id="ingredientForm" action="Menu_Controllera2" method="POST" enctype="multipart/form-data">
+                <form id="ingredientForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h1><label for="itemIngredient">Add Ingredients:</label></h1>
                     <input type="text" name="itemIngredient" placeholder="Ingredient" class="itemIngredient" required>
-                    <input type="number" placeholder="grams" name="ingredientGrams" class="ingredientGrams"  required>
+                    <input type="number" placeholder="grams" name="ingredientGrams" class="ingredientGrams" min="1" required>
                     <button class="add-ingredient-btn">+</button>
                     <button class="clearIngredientsBtn">CLEAR</button>
                     <h1><label for="added-ingredients">Ingredients:</label></h1>
