@@ -1,0 +1,57 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 02 22, 23, 3:47:23 AM
+    Author     : marca
+*/
+
+.errorpanel {
+    overflow: hidden;
+    background-color: #282747;
+    padding: 10px 45px 50px 45px;
+    border-radius: 10px;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    transition: transform 300ms, box-shadow 300ms;
+    box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+    color: #CFCBC2;
+    max-height: 100%;
+    
+}
+
+.errorpanel > h1 {
+    font-size: 40px;
+    text-align: center;
+}
+
+input[type=button]{
+    font-family: "Asap", sans-serif;
+    color: black;
+    font-size: 30px;
+    width: 422px;
+    border: 0;
+    padding: 10px 0px;
+    margin-top: 0px;
+    margin-left: -10px;
+    border-radius: 5px;
+    background-color: #CFCBC2;
+    transition: background-color 300ms;
+    text-indent: 0px;
+    text-align: center;
+    
+}
+
+body {
+ background: url("https://i.postimg.cc/6Qq2MFPv/image.png")no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+

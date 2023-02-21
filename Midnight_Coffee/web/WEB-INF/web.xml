@@ -3,7 +3,11 @@
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
-
+    
+    <error-page>  
+    <location>/error_page.jsp</location>  
+    </error-page>  
+       
     <context-param>
         <param-name>jdbcDriverURL</param-name>
         <param-value>jdbc:mysql</param-value>
