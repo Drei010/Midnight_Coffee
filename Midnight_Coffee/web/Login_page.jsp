@@ -24,10 +24,10 @@
         <div class="login">
         <h1>Login</h1>
         <h3>Email</h3>
-        <input type="email" name="Email Address" required>
+        <input type="email" name="email" required>
         
         <h3>Password</h3>
-        <input type="password" name="Password" required><br>
+        <input type="password" name="password" required><br>
         
         
         <!-- Captcha -->
