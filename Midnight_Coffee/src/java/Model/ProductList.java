@@ -33,8 +33,8 @@ public class ProductList {
         }
         return null;
     }
-
-    public ResultSet NonCoffee(Connection conn) {
+    
+    public ResultSet KremaLatte(Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
             PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -50,7 +50,24 @@ public class ProductList {
         }
         return null;
     }
-
+    
+    public ResultSet Tea(Connection conn) {
+        try {
+            String query = "SELECT * FROM products WHERE itemClass = ?";
+            PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ps.setString(1, "Tea");
+            ResultSet records = ps.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public ResultSet Snack(Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
@@ -67,7 +84,6 @@ public class ProductList {
         }
         return null;
     }
-    
     
     ///Insert menu item Data to the Database
     public String insertData(String itemName, String itemOption, String itemPrice, String itemImage, String itemClass, Connection conn) {

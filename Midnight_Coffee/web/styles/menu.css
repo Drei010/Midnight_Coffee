@@ -45,27 +45,30 @@ table{
 }
 
 /*items*/
-.slider > div {
+.slider > .itemContainer {
     flex: 0 0 calc(100% / var(--items-per-screen));
-    max-width: calc(100% / var(--items-per-screen));
+    margin-right:  0.5rem;
     padding: var(--div-gap);
     border-radius: 1rem;
+    background-color: #AEB3AF;
 }
 
 /*item container grid*/
-.item{
+.slider > .itemContainer >.item{
     display: grid;
     grid-template-areas:
         'itemName itemName itemName itemName itemName itemName '
         'thumbnail thumbnail thumbnail thumbnail thumbnail thumbnail '
         'itemOption itemOption itemOption itemOption itemOption itemOption '
         'itemPHPTag itemPrice itemPrice decrament itemQuantity incrament';
-    gap: 5px;
-    background-color: #AEB3AF;
-    max-width: 400px;
-    max-height: 500px;
-    padding:10px;
-    border-radius: 10px;
+    gap: 0.5rem;
+    width:1rem;
+    padding:0.5rem;
+    margin-left: 1rem;
+    align-content: space-between;
+    align-items: stretch;
+    justify-items: stretch;
+    justify-content: start;
 }
 
 

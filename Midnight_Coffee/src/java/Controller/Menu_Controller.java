@@ -45,7 +45,8 @@ public class Menu_Controller extends HttpServlet {
             request.setAttribute("loadedMenu", "yes");
             ProductList loadMenu = new ProductList();
             request.setAttribute("coffee", loadMenu.Coffee(conn));
-            request.setAttribute("noncoffee", loadMenu.NonCoffee(conn));
+            request.setAttribute("kremalatte", loadMenu.KremaLatte(conn));
+            request.setAttribute("tea", loadMenu.Tea(conn));
             request.setAttribute("snack", loadMenu.Snack(conn));
             HttpSession session = request.getSession();
 

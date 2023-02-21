@@ -84,44 +84,46 @@
                     <%
                         while (coffee.next()) {
                     %>
+                    <div class="itemContainer">
 
-                    <%-- Slider Item Start--%>      
-                    <div class="item">  
+                        <%-- Slider Item Start--%>      
+                        <div class="item">  
 
-                        <%-- Hidden fields for database submission--%>
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
+                            <%-- Hidden fields for database submission--%>
+                            <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                            <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
+                            <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
+                            <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
+                            <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
 
-                        <%-- Item Name--%>
-                        <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
+                            <%-- Item Name--%>
+                            <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
 
-                        <%-- Item Image--%>
-                        <img
-                            class="thumbnail"
-                            src="userImages/bg.png"
-                            alt="Sample Item Image">
+                            <%-- Item Image--%>
+                            <img
+                                class="thumbnail"
+                                src="userImages/bg.png"
+                                alt="Sample Item Image">
 
-                        <%-- Item Option--%>
-                        <h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
+                            <%-- Item Option--%>
+                            <h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
 
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
+                            <%-- Item PriceTag--%>
+                            <h3 class="itemPHPTag">PHP</h3>
 
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
+                            <%-- Item Price--%> 
+                            <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
 
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
+                            <%-- Quantity Decrament--%>
+                            <div class="dec">-</div>
 
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                            <%-- Quantity input field--%>
+                            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
+                            <%-- Quantity Incrament--%>
+                            <div class="inc">+</div>
 
+                        </div>
                     </div>
                     <%-- Slider Item End--%>   
 
@@ -136,14 +138,12 @@
             </div>
         </div>
 
-
-
-
+        <!--        For krema latte-->
         <div class="row">
 
             <%-- Carousel title and progress bar--%>    
             <div class="header-menu">
-                <h3 class="title">Non-Coffees</h3>
+                <h3 class="title">Kremalatte</h3>
                 <div class="progress-bar"></div>
             </div>
 
@@ -154,53 +154,55 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-                <%ResultSet noncoffee = (ResultSet) request.getAttribute("noncoffee");
-                    if (noncoffee != null) {%>
+                <%ResultSet kremalatte = (ResultSet) request.getAttribute("kremalatte");
+                    if (kremalatte != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
 
                     <%
-                        while (noncoffee.next()) {
+                        while (kremalatte.next()) {
                     %>
+                    <div class="itemContainer">
 
-                    <%-- Slider Item Start--%>      
-                    <div class="item">  
+                        <%-- Slider Item Start--%>      
+                        <div class="item">  
 
-                        <%-- Hidden fields for database submission--%>
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="<%=noncoffee.getString("itemCode")%>"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=noncoffee.getString("itemName")%>"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=noncoffee.getString("itemOption")%>"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=noncoffee.getString("itemPrice")%>" />
+                            <%-- Hidden fields for database submission--%>
+                            <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                            <input type="hidden" id="itemId" name="itemId" value="<%=kremalatte.getString("itemCode")%>"/>
+                            <input type="hidden" id="hiddenName" name="hiddenName" value="<%=kremalatte.getString("itemName")%>"/>
+                            <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=kremalatte.getString("itemOption")%>"/>
+                            <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=kremalatte.getString("itemPrice")%>" />
 
-                        <%-- Item Name--%>
-                        <h1 class="itemName"><%=noncoffee.getString("itemName")%></h1>     
+                            <%-- Item Name--%>
+                            <h1 class="itemName"><%=kremalatte.getString("itemName")%></h1>     
 
-                        <%-- Item Image--%>
-                        <img
-                            class="thumbnail"
-                            src="userImages/bg.png"
-                            alt="Sample Item Image">
+                            <%-- Item Image--%>
+                            <img
+                                class="thumbnail"
+                                src="userImages/bg.png"
+                                alt="Sample Item Image">
 
-                        <%-- Item Option--%>
-                        <h3 class="itemOption"><%=noncoffee.getString("itemOption")%></h3>
+                            <%-- Item Option--%>
+                            <h3 class="itemOption"><%=kremalatte.getString("itemOption")%></h3>
 
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
+                            <%-- Item PriceTag--%>
+                            <h3 class="itemPHPTag">PHP</h3>
 
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice"><%=noncoffee.getString("itemPrice")%></h3>
+                            <%-- Item Price--%> 
+                            <h3 class="itemPrice"><%=kremalatte.getString("itemPrice")%></h3>
 
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
+                            <%-- Quantity Decrament--%>
+                            <div class="dec">-</div>
 
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                            <%-- Quantity input field--%>
+                            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
+                            <%-- Quantity Incrament--%>
+                            <div class="inc">+</div>
 
+                        </div>
                     </div>
                     <%-- Slider Item End--%>   
 
@@ -213,13 +215,14 @@
                     <div class="text">&#8250;</div>
                 </button>
             </div>
-        </div>
+        </div>       
 
+        <!--        For teas-->
         <div class="row">
 
-            <%-- Carousel title and progress bar--%>       
+            <%-- Carousel title and progress bar--%>    
             <div class="header-menu">
-                <h3 class="title">Snacks</h3>
+                <h3 class="title">Handcrafted Teas</h3>
                 <div class="progress-bar"></div>
             </div>
 
@@ -230,53 +233,54 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-                <%ResultSet snack = (ResultSet) request.getAttribute("snack");
-                    if (snack != null) {%>
+                <%ResultSet tea = (ResultSet) request.getAttribute("tea");
+                    if (tea != null) {%>
 
                 <%-- Carousel Items container--%>
                 <div class="slider">
 
                     <%
-                        while (snack.next()) {
+                        while (tea.next()) {
                     %>
+                    <div class="itemContainer">
+                        <%-- Slider Item Start--%>      
+                        <div class="item">  
 
-                    <%-- Slider Item Start--%>      
-                    <div class="item">  
+                            <%-- Hidden fields for database submission--%>
+                            <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                            <input type="hidden" id="itemId" name="itemId" value="<%=tea.getString("itemCode")%>"/>
+                            <input type="hidden" id="hiddenName" name="hiddenName" value="<%=tea.getString("itemName")%>"/>
+                            <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=tea.getString("itemOption")%>"/>
+                            <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=tea.getString("itemPrice")%>" />
 
-                        <%-- Hidden fields for database submission--%>
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="<%=snack.getString("itemCode")%>"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=snack.getString("itemName")%>"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=snack.getString("itemOption")%>"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=snack.getString("itemPrice")%>" />
+                            <%-- Item Name--%>
+                            <h1 class="itemName"><%=tea.getString("itemName")%></h1>     
 
-                        <%-- Item Name--%>
-                        <h1 class="itemName"><%=snack.getString("itemName")%></h1>     
+                            <%-- Item Image--%>
+                            <img
+                                class="thumbnail"
+                                src="userImages/bg.png"
+                                alt="Sample Item Image">
 
-                        <%-- Item Image--%>
-                        <img
-                            class="thumbnail"
-                            src="userImages/bg.png"
-                            alt="Sample Item Image">
+                            <%-- Item Option--%>
+                            <h3 class="itemOption"><%=tea.getString("itemOption")%></h3>
 
-                        <%-- Item Option--%>
-                        <h3 class="itemOption"><%=snack.getString("itemOption")%></h3>
+                            <%-- Item PriceTag--%>
+                            <h3 class="itemPHPTag">PHP</h3>
 
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
+                            <%-- Item Price--%> 
+                            <h3 class="itemPrice"><%=tea.getString("itemPrice")%></h3>
 
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice"><%=snack.getString("itemPrice")%></h3>
+                            <%-- Quantity Decrament--%>
+                            <div class="dec">-</div>
 
-                        <%-- Quantity Decrament--%>
-                        <div class="dec">-</div>
+                            <%-- Quantity input field--%>
+                            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
-                        <%-- Quantity input field--%>
-                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                            <%-- Quantity Incrament--%>
+                            <div class="inc">+</div>
 
-                        <%-- Quantity Incrament--%>
-                        <div class="inc">+</div>
-
+                        </div>
                     </div>
                     <%-- Slider Item End--%>   
 
