@@ -45,15 +45,15 @@
                     <label for="itemAddName">Product Name:</label>
                     <input type="text" placeholder="Name" name="itemAddName" class="itemAddName" required>
                     <label for="itemAddImage">Image:</label>
-                    <input type="file" name="itemAddImage" class="itemAddImage" required>
+                    <input type="file" name="itemAddImage" class="itemAddImage" id="itemAddImage" required>
                     <label for="itemAddOption">Option:</label>
                     <input type="text" placeholder="Item Option" name="itemAddOption" class="itemAddOption" required>
                     <label for="itemAddPrice">Product Price:</label>
                     <input type="number" placeholder="Php" name="itemAddPrice" class="itemAddPrice"  required>
                     <input type="hidden" id="itemAddClassification" name="itemAddClassification" value="">
-                    <input type="hidden" name="itemAvailability" value="Out_of_Stock">
+                    <input type="hidden" name="itemAvailability" value="Out of Stock">
                     <input type="hidden" name="instruction" value="addItemMenu">
-                    <button type="submit" class="addProductBtn" >Add new product</button>
+                    <button type="submit"  class="addProductBtn" id="addProductBtn" >Add new product</button>
                 </form>
                 <div class="verticalDivider"></div>
 
@@ -79,7 +79,6 @@
 
             </div>
         </div>
-
 
         <div class="row">
 
@@ -119,6 +118,20 @@
                         <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
                         <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
                     </form>
+                    
+ 
+                    <!-- Set Availability form-->
+                    <form action="Menu_Controller" method="post" id="setStockClass1">
+                           <% if (coffee.getString("itemStock") == "Out of Stock") { %>
+                              <input type="hidden" name="itemStock" value="In Stock">
+                                      <% } else { %>
+                              <input type="hidden" name="itemStock" value="Out of Stock">
+                                      <% } %>
+                       <input type="hidden" name="itemAddClassification" value="Coffee">
+                       <input type="hidden" name="instruction" value="setStock">
+                     </form>
+                    
+                    
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
@@ -146,9 +159,8 @@
 
 
                             <!--Update Availability-->
-                            <button class="availabilityItemBtn">
-                                <a id="inStock">In Stock</a>
-                                <a id="outOfStock">Out of Stock</a>
+                            <button class="availabilityItemBtn" onclick="updateAvailabilityClass1()">
+                                    <a> <%=coffee.getString("itemStock")%> </a>                       
                             </button>
 
 
@@ -167,13 +179,6 @@
 
             </div>
         </div>
-
-
-
-
-
-
-
 
 
         <div class="row">
@@ -519,5 +524,34 @@
                 }
             });
         }
+        
+        
+        
+        
+        
+         //Disable buttons if the file type is not .png or .jpg
+            const addBtn = document.getElementById('addProductBtn');
+             const fileInput = document.getElementById('itemAddImage');
+
+
+            fileInput.addEventListener('change', function() {
+              const file = fileInput.files[0];
+              const fileName = file.name;
+              const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+              if (fileType === 'jpg' || fileType === 'png') {
+                addBtn.disabled = false;
+                updateBtn.disabled = false;
+              } else {
+                addBtn.disabled = true;
+                updateBtn.disabled = true;
+              }
+            });
+            
+            
+            //Update Availability
+            function updateAvailabilityClass1() {
+                document.getElementById("setStockClass1").submit();
+}
     </script>
 </html>

@@ -5,22 +5,57 @@
 package Controller;
 
 import Model.ProductList;
-import java.io.IOException;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 /**
  *
  * @author Andrei
  */
+@MultipartConfig 
 @WebServlet(name = "Menu_Controller", urlPatterns = {"/Menu_Controller"})
 public class Menu_Controller extends HttpServlet {
 
+    
+     //For image upload
+    private final static Logger LOGGER =   
+            Logger.getLogger(QR_Controller.class.getCanonicalName());
+
+    // getFileName() method to get the file name from the part  
+    private String getFileName(final Part part) {  
+        // get header(content-disposition) from the part  
+        final String partHeader = part.getHeader("content-disposition");  
+        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);  
+          
+        // code to get file name from the header  
+        for (String content : part.getHeader("content-disposition").split(";")) {  
+            if (content.trim().startsWith("filename")) {  
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");  
+            }  
+        }  
+        // it will return null when it doesn't get file name in the header   
+        return null;  
+    }
+    
+    
+    
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Get Connection
@@ -32,6 +67,9 @@ public class Menu_Controller extends HttpServlet {
         //Get Instruction
         String instruction = request.getParameter("instruction");
 
+        
+            //Get the destination file path of the MENUImage folder
+        String destination = (String)getServletContext().getAttribute("destination")+"/MENUImages";
         
         switch(instruction){
            
@@ -66,36 +104,30 @@ public class Menu_Controller extends HttpServlet {
         
              // Check if instruction is to add menu item
               case "addItemMenu" : {
+                  //desitantion
+                  
                 // get parameters
                 String itemAddName = request.getParameter("itemAddName");
-                String itemAddImage = request.getParameter("itemAddImage"); 
+                String itemAddImage = getFileName(request.getPart("itemAddImage"));
                 String itemAddOption = request.getParameter("itemAddOption"); 
                 String itemAddPrice = request.getParameter("itemAddPrice"); 
                 String itemAddClassification = request.getParameter("itemAddClassification"); 
                 String itemAvailability = request.getParameter("itemAvailability"); 
-                /*
-                String fileName = getFileName(request.getPart("QRImage"));
-                Path source = Paths.get(destination + File.separator + fileName);
+                
+                
+                Path source = Paths.get(destination + File.separator + itemAddImage);
 
-                // Only Supports png or jpg
-                String filetype = fileName.substring(fileName.length() - 3).toLowerCase();
-                if (!("jpg".equals(filetype) || "png".equals(filetype))) {
-                    response.sendRedirect("adminPayment_page.jsp?errorimage");
-                    return;
-                }
-
-                String newImagename = methodName + "." + filetype;
-                 */
+                           
                 // Check if the payment method already exists
                 ProductList checkEntry = new ProductList();
                 if (checkEntry.retrieveData(itemAddName, conn) != null) {
                     response.sendRedirect("adminMenu_page.jsp?imageexist");
                     return;
                 }
-                 /*
+          
                 // Store the image file
-                try (InputStream iptStream = request.getPart("QRImage").getInputStream();
-                     OutputStream otpStream = new FileOutputStream(new File(destination + File.separator + fileName))) {
+                try (InputStream iptStream = request.getPart("itemAddImage").getInputStream();
+                     OutputStream otpStream = new FileOutputStream(new File(destination + File.separator + itemAddImage))) {
                     int read;
                     byte[] bytes = new byte[1024];
                     while ((read = iptStream.read(bytes)) != -1) {
@@ -108,20 +140,22 @@ public class Menu_Controller extends HttpServlet {
 
                 // Rename the file in the same directory
                 try {
-                    Files.move(source, source.resolveSibling(newImagename));
+                    Files.move(source, source.resolveSibling(itemAddImage));
                 } catch (IOException e) {
                     response.sendRedirect("adminPayment_page.jsp?failedtoupload");
                     return;
                 }
-                    */
+                    
                 // Insert the payment method into the database
                 ProductList insertEntry = new ProductList();
-                String insertSuccess = insertEntry.insertData(itemAddName, itemAddOption, itemAddPrice, itemAddImage, itemAddClassification, conn);
+                String insertSuccess = insertEntry.insertData(itemAddName, itemAddOption, itemAddPrice, itemAddImage, itemAddClassification, itemAvailability, conn);
                 if ("Yes".equals(insertSuccess)) {
                     response.sendRedirect("adminMenu_page.jsp?success");
+                   
                 } else {
                     response.sendRedirect("adminMenu_page.jsp?failedtouploaddatabase");
                 }
+                break;
             }
             
 }

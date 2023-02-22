@@ -86,8 +86,8 @@ public class ProductList {
     }
     
     ///Insert menu item Data to the Database
-    public String insertData(String itemName, String itemOption, String itemPrice, String itemImage, String itemClass, Connection conn) {
-        String sql = "INSERT INTO products (itemName, itemOption, itemPrice, itemImage, itemClass) VALUES ( ?, ?, ?, ?, ?)";
+    public String insertData(String itemName, String itemOption, String itemPrice, String itemImage, String itemClass, String itemStock, Connection conn) {
+        String sql = "INSERT INTO products (itemName, itemOption, itemPrice, itemImage, itemClass, itemStock) VALUES ( ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.setString(1, itemName);
@@ -95,12 +95,13 @@ public class ProductList {
             stmnt.setString(3, itemPrice);
             stmnt.setString(4, itemImage);
             stmnt.setString(5, itemClass);
+            stmnt.setString(6, itemStock);
      
             stmnt.executeUpdate();
             stmnt.close();
             return "Yes";
         } catch (SQLException ex) {
-            Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 
@@ -119,7 +120,7 @@ public class ProductList {
             }
             stmnt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

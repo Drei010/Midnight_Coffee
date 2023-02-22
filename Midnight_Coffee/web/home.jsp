@@ -26,7 +26,8 @@
 </div>
 
 </div>
-
+    <!--Check if customer is logged in -->
+       <h1>Welcome <%= session.getAttribute("firstname") == null ? "Guest" : session.getAttribute("firstname") %></h1><br>
   <div class="column2">
 
         <div class="admin-home-container">

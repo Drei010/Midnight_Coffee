@@ -56,9 +56,10 @@ public class establishConn extends HttpServlet {
         
         getServletContext().setAttribute("conn",conn);
         
-        //Baguhin nyo yung file path para gumana yung sa QR nyo
-        getServletContext().setAttribute("destination",
-                "C:/Users/Andrei/Documents/NetBeansProjects/Midnight_Coffee/Midnight_Coffee/web/QRImages");
+        //Baguhin nyo yung file path para gumana yung sa QR at Menu Crud nyo
+        //sample
+        //C:/Users/Andrei/Documents/NetBeansProjects/Midnight_Coffee/Midnight_Coffee/web
+        getServletContext().setAttribute("destination","C:/Users/Andrei/Documents/NetBeansProjects/Midnight_Coffee/Midnight_Coffee/web");
     
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

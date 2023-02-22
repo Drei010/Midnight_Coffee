@@ -54,7 +54,8 @@ public class QR_Controller extends HttpServlet {
         }  
         // it will return null when it doesn't get file name in the header   
         return null;  
-    }void processRequest(HttpServletRequest request, HttpServletResponse response)
+    }
+    void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         
@@ -64,7 +65,7 @@ public class QR_Controller extends HttpServlet {
         }
         
         //Get the destination file path of the QRimage folder
-        String destination = (String)getServletContext().getAttribute("destination");
+        String destination = (String)getServletContext().getAttribute("destination")+"/QRImages";
         
         //Get Instruction
         String instruction = request.getParameter("instruction");
