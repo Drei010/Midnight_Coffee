@@ -62,14 +62,14 @@
                 <form id="ingredientForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h1><label for="itemIngredient">Add Ingredients:</label></h1>
                     <select name="itemIngredient" id="ingredientName" class="itemIngredient">
-                            <%ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
-                                if (ingredients != null) {
-                                    while (ingredients.next()) {%>
+                        <%ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
+                            if (ingredients != null) {
+                                while (ingredients.next()) {%>
 
-                            <option><%=ingredients.getString("ingredientName")%></option>
+                        <option><%=ingredients.getString("ingredientName")%></option>
 
-                            <%}
-                                }%>
+                        <%}
+                            }%>
                     </select>
                     <input type="number" placeholder="grams" name="ingredientGrams"  id="ingredientGrams" class="ingredientGrams" min="1" required>
                     <input type="button" class="add-ingredient-btn" onclick="addIngredient()">
@@ -575,12 +575,20 @@
             if (ingredientGram < 1) {
                 ingredientGram = 1;
             }
-            ingredients.push(ingredientName);
-            grams.push(ingredientGram);
 
-console.log(ingredients.length);
-            for(i=0;i<ingredients.length;i++){
-                console.log(ingredients[i] + " " + grams[i]);
+            var exist = "no";
+
+            for (i = 0; i < ingredients.length; i++) {
+                if (ingredients[i] === ingredientName) {
+                    grams[i] = parseInt(grams[i], 10) + parseInt(ingredientGram, 10);
+                    i = ingredients.length;
+                    exist = "yes";
+                }
+            }
+
+            if (exist === "no") {
+                ingredients.push(ingredientName);
+                grams.push(ingredientGram);
             }
 
             updateIngredient();
@@ -589,6 +597,7 @@ console.log(ingredients.length);
         function clearIngredient() {
             ingredients = [];
             grams = [];
+
             updateIngredient();
         }
 
