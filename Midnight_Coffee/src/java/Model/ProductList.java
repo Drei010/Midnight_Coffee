@@ -104,7 +104,6 @@ public class ProductList {
             Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-
     }
     
         public ResultSet retrieveData(String itemName, Connection conn) {
@@ -116,7 +115,6 @@ public class ProductList {
             if (records.next()) {
                 records.beforeFirst();
                 return records;
-
             }
             stmnt.close();
         } catch (SQLException ex) {

@@ -29,7 +29,7 @@ body {
     display: flex;
     justify-content: center;
     overflow: hidden;
-  
+
 }
 
 .slider {
@@ -59,7 +59,7 @@ body {
         'thumbnail thumbnail  thumbnail  '
         'itemOption itemOption  itemOption   '
         'itemPHPTag itemPrice  updateItemBtn  '
-      'itemPHPTag itemPrice  availabilityItemBtn ';
+        'itemPHPTag itemPrice  availabilityItemBtn ';
     gap: 0.5rem;
     width:1rem;
     padding:0.5rem;
@@ -71,16 +71,16 @@ body {
 }
 
 @media (min-width: 1500px) {
- .slider > .itemContainer {
-    max-width: calc(100% / var(--items-per-screen));
+    .slider > .itemContainer {
+        max-width: calc(100% / var(--items-per-screen));
     }
-    
+
 }
 @media (min-width: 2000px) {
 
     .slider > .itemContainer {
-     max-width: calc(80% / var(--items-per-screen));
-}
+        max-width: calc(80% / var(--items-per-screen));
+    }
 
 }
 
@@ -100,7 +100,7 @@ body {
 .itemName{
     grid-area: itemName;
     font-size: 2rem;
-    
+
 }
 
 /*item php*/
@@ -183,7 +183,7 @@ body {
 }
 
 /*Right arrow*/
-.right-handle { 
+.right-handle {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -240,17 +240,17 @@ body {
 
 /* Pop up*/
 #popupModal {
-  display: none;
-  position: fixed; 
-  z-index: 1; 
-  padding-top: 100px; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 /*Pop up container grid*/
@@ -268,7 +268,7 @@ body {
     padding: 20px;
     width: 60%;
     height: 500px;
-    z-index: 5; 
+    z-index: 5;
 }
 .itemAddName{
     grid-area: itemAddName;
@@ -284,15 +284,15 @@ body {
 }
 .addProductBtn{
     grid-area: addProductBtn;
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
 }
 .verticalDivider{
     grid-area: verticalDivider;
@@ -301,7 +301,7 @@ body {
     padding-left: 20px;
     padding-right: 20px;
     margin-left: 50px;
-  }
+}
 
 .itemIngredient{
     grid-area: itemIngredient;
@@ -325,13 +325,13 @@ body {
 .add-ingredient-btn{
     grid-area: add-ingredient-btn;
     background-color: #8DC075;
-    
-    
+
+
 }
 .clearIngredientsBtn{
     grid-area: clearIngredientsBtn;
     background-color: #C56161;
-        
+
 }
 .added-ingredients{
     grid-area: added-ingredients;
@@ -351,7 +351,7 @@ body {
     box-sizing: border-box;
     background: #CFCBC2;
     color: black;
-}  
+}
 
 .itemIngredient, .ingredientGrams{
     width: 30%;
@@ -362,7 +362,7 @@ body {
     box-sizing: border-box;
     background: #CFCBC2;
     color: black;
-}  
+}
 
 
 .addItem{
@@ -372,17 +372,33 @@ body {
     height: var(--item-height);
     width: 250px;
     transition: transform 0.2s ease;
-    border-radius: 10px; 
+    border-radius: 10px;
     background-color: #282747;
-    
+
 }
 .addItem:hover{
     cursor: pointer;
     transform: scale(1.2);
-    z-index: 10;    
-    
+    z-index: 10;
+
 }
 
+.added-ingredients {
+    overflow-y: scroll;
+    height: 22vh;
+}
+
+.ingredient-grams, .ingredient-names {
+    width: 50%;
+}
+
+.ingredient-names {
+    float: left;
+}
+
+.ingredient-grams {
+    float: right;
+}
 
 #addCoffeeItem{
     background-image: url(https://i.postimg.cc/qvdywMwW/add-Button-Coffee.png);

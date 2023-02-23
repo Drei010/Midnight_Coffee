@@ -61,13 +61,26 @@
                 <!-- Ingredients div start-->
                 <form id="ingredientForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h1><label for="itemIngredient">Add Ingredients:</label></h1>
-                    <input type="text" name="itemIngredient" placeholder="Ingredient" class="itemIngredient" required>
-                    <input type="number" placeholder="grams" name="ingredientGrams" class="ingredientGrams" min="1" required>
-                    <button class="add-ingredient-btn">+</button>
-                    <button class="clearIngredientsBtn">CLEAR</button>
+                    <select name="itemIngredient" id="ingredientName" class="itemIngredient">
+                            <%ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
+                                if (ingredients != null) {
+                                    while (ingredients.next()) {%>
+
+                            <option><%=ingredients.getString("ingredientName")%></option>
+
+                            <%}
+                                }%>
+                    </select>
+                    <input type="number" placeholder="grams" name="ingredientGrams"  id="ingredientGrams" class="ingredientGrams" min="1" required>
+                    <input type="button" class="add-ingredient-btn" onclick="addIngredient()">
+                    <input type="button" class="clearIngredientsBtn" onclick="clearIngredient()">
                     <h1><label for="added-ingredients">Ingredients:</label></h1>
-                    <div name="added-ingredients" class="added-ingredients">
-                        <h3>testeng</h3>
+                    <div name="added-ingredients" class="added-ingredients" id="added-ingredients">
+                        <h3><div class="ingredient-names" id="ingredient-names">
+                            </div>
+                            <div class="ingredient-grams" id="ingredient-grams">
+                            </div>
+                        </h3>
                     </div>
                 </form>
                 <!-- Ingredients div end-->
@@ -118,20 +131,20 @@
                         <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
                         <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
                     </form>
-                    
- 
+
+
                     <!-- Set Availability form-->
                     <form action="Menu_Controller" method="post" id="setStockClass1">
-                           <% if (coffee.getString("itemStock") == "Out of Stock") { %>
-                              <input type="hidden" name="itemStock" value="In Stock">
-                                      <% } else { %>
-                              <input type="hidden" name="itemStock" value="Out of Stock">
-                                      <% } %>
-                       <input type="hidden" name="itemAddClassification" value="Coffee">
-                       <input type="hidden" name="instruction" value="setStock">
-                     </form>
-                    
-                    
+                        <% if (coffee.getString("itemStock") == "Out of Stock") { %>
+                        <input type="hidden" name="itemStock" value="In Stock">
+                        <% } else { %>
+                        <input type="hidden" name="itemStock" value="Out of Stock">
+                        <% }%>
+                        <input type="hidden" name="itemAddClassification" value="Coffee">
+                        <input type="hidden" name="instruction" value="setStock">
+                    </form>
+
+
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
@@ -160,7 +173,7 @@
 
                             <!--Update Availability-->
                             <button class="availabilityItemBtn" onclick="updateAvailabilityClass1()">
-                                    <a> <%=coffee.getString("itemStock")%> </a>                       
+                                <a> <%=coffee.getString("itemStock")%> </a>                       
                             </button>
 
 
@@ -485,9 +498,6 @@
             };
         }
 
-
-
-
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             var modal = document.getElementById("popupModal");
@@ -524,34 +534,77 @@
                 }
             });
         }
-        
-        
-        
-        
-        
-         //Disable buttons if the file type is not .png or .jpg
-            const addBtn = document.getElementById('addProductBtn');
-             const fileInput = document.getElementById('itemAddImage');
 
 
-            fileInput.addEventListener('change', function() {
-              const file = fileInput.files[0];
-              const fileName = file.name;
-              const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
-              if (fileType === 'jpg' || fileType === 'png') {
+
+
+        //Disable buttons if the file type is not .png or .jpg
+        const addBtn = document.getElementById('addProductBtn');
+        const fileInput = document.getElementById('itemAddImage');
+
+
+        fileInput.addEventListener('change', function () {
+            const file = fileInput.files[0];
+            const fileName = file.name;
+            const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+            if (fileType === 'jpg' || fileType === 'png') {
                 addBtn.disabled = false;
                 updateBtn.disabled = false;
-              } else {
+            } else {
                 addBtn.disabled = true;
                 updateBtn.disabled = true;
-              }
-            });
-            
-            
-            //Update Availability
-            function updateAvailabilityClass1() {
-                document.getElementById("setStockClass1").submit();
-}
+            }
+        });
+
+
+        //Update Availability
+        function updateAvailabilityClass1() {
+            document.getElementById("setStockClass1").submit();
+        }
+
+        var ingredients = [];
+        var grams = [];
+
+        function addIngredient() {
+            var ingredientName = document.getElementById(`ingredientName`).value;
+            var ingredientGram = document.getElementById(`ingredientGrams`).value;
+
+
+            if (ingredientGram < 1) {
+                ingredientGram = 1;
+            }
+            ingredients.push(ingredientName);
+            grams.push(ingredientGram);
+
+console.log(ingredients.length);
+            for(i=0;i<ingredients.length;i++){
+                console.log(ingredients[i] + " " + grams[i]);
+            }
+
+            updateIngredient();
+        }
+
+        function clearIngredient() {
+            ingredients = [];
+            grams = [];
+            updateIngredient();
+        }
+
+        function updateIngredient() {
+            var ingredientNameList = document.getElementById(`ingredient-names`);
+            var ingredientGramList = document.getElementById(`ingredient-grams`);
+
+            ingredientNameList.innerHTML = "";
+            ingredientGramList.innerHTML = "";
+
+            for (i = 0; i < ingredients.length; i++) {
+                ingredientNameList.innerHTML += ingredients[i] + "<br>";
+                ingredientGramList.innerHTML += grams[i] + "<br>";
+            }
+
+        }
+
     </script>
 </html>
