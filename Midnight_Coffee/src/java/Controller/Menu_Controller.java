@@ -6,6 +6,7 @@ package Controller;
 
 import Model.IngredientList;
 import Model.ProductList;
+import Model.Recipes;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,6 +118,9 @@ public class Menu_Controller extends HttpServlet {
                 String itemAddPrice = request.getParameter("itemAddPrice");
                 String itemAddClassification = request.getParameter("itemAddClassification");
                 String itemAvailability = request.getParameter("itemAvailability");
+                
+                String ingredientList = request.getParameter("ingredientList");
+                String weightList = request.getParameter("GramList");
 
                 Path source = Paths.get(destination + File.separator + itemAddImage);
 
@@ -151,6 +155,8 @@ public class Menu_Controller extends HttpServlet {
                 // Insert the payment method into the database
                 ProductList insertEntry = new ProductList();
                 String insertSuccess = insertEntry.insertData(itemAddName, itemAddOption, itemAddPrice, itemAddImage, itemAddClassification, itemAvailability, conn);
+                Recipes insertRecipe = new Recipes();
+                insertRecipe.insertRecipe(itemAddName, itemAddOption, ingredientList.replaceAll("\\[|\\]|\"",""), weightList.replaceAll("\\[|\\]|\"",""), conn);
                 if ("Yes".equals(insertSuccess)) {
                     response.sendRedirect("adminMenu_page.jsp?success");
 

@@ -24,4 +24,8 @@ public class IngredientList {
         }
         return null;
     }
+    
+    public void insertIngredient(Connection conn){
+        
+    }
 }

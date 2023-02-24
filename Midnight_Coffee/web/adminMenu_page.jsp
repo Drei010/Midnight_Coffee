@@ -40,8 +40,10 @@
 
 
 
-                <form id="newProductForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
+                <form onsubmit="stringify()" id="newProductForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h2 id="popupTitleID" value=""></h2>
+                    <input type="hidden" name="ingredientList" id="hiddenIngredient">
+                    <input type="hidden" name="GramList" id="hiddenGram">
                     <label for="itemAddName">Product Name:</label>
                     <input type="text" placeholder="Name" name="itemAddName" class="itemAddName" required>
                     <label for="itemAddImage">Image:</label>
@@ -111,17 +113,18 @@
 
 
 
-                <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
-                    if (coffee != null) {%>
+
 
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
 
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
-                        <%
+
+                    <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
+                        if (coffee != null) {
                             while (coffee.next()) {
-                        %>
+                    %>
 
                     <%-- Hidden fields for update database submission--%>
                     <form action="updateddadsa" method="POST" enctype="multipart/form-data">
@@ -613,6 +616,14 @@
                 ingredientGramList.innerHTML += grams[i] + "<br>";
             }
 
+        }
+
+        function stringify() {
+            var hiddenIngredient = document.getElementById(`hiddenIngredient`);
+            var hiddenGram = document.getElementById(`hiddenGram`);
+
+            hiddenIngredient.value = JSON.stringify(ingredients);
+            hiddenGram.value = JSON.stringify(grams);
         }
 
     </script>
