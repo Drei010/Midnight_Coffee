@@ -31,7 +31,7 @@
             };
         </script>
         <%
-        }%>
+            }%>
         <div class="container">
             <div class="left">
                 <h2>New Ingredient</h2>
@@ -48,35 +48,40 @@
                     <button class="btn btn-green">Add Ingredient</button>
                 </form>
             </div>
-            <div class="right">
-                <table data-rows-per-page="6" id="table">
-                    <thead>
-                        <tr>
-                            <th>Ingredient</th>
-                            <th>Weight of Remaining Stocks</th>
-                            <th>Update</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody data-page="1">
-                        <%
-                            ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
-                            if (ingredients != null) {
-                                while (ingredients.next()) {%>
-                        <tr>
-                            <td><%=ingredients.getString("ingredientName")%></td>
-                            <td><%=ingredients.getString("ingredientWeight")%>g</td>
-                            <td><button class="btn btn-blue">Update</button></td>
-                            <td><button class="btn btn-red">Delete</button></td>
-                        </tr>
+            <form id="ingredientTable" action="Ingredient_Controller" method="POST">
+                <input type="hidden" id="action" name="action" value="">
+                <input type="hidden" id="ingredientName" name="ingredientName" value="">
+                <input type="hidden" id="ingredientWeight" name="ingredientWeight" value="">
+                <div class="right">
+                    <table data-rows-per-page="6" id="table">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Weight of Remaining Stocks</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody data-page="1">
+                            <%
+                                ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
+                                if (ingredients != null) {
+                                    while (ingredients.next()) {%>
+                            <tr>
+                                <td><%=ingredients.getString("ingredientName")%></td>
+                                <td><%=ingredients.getString("ingredientWeight")%>g</td>
+                                <td><input type="button" class="btn btn-blue" onclick="return buttonClick(this)" name="<%=ingredients.getString("ingredientName")%>" value="Update"></td>
+                                <td><input type="button" class="btn btn-red" onclick="return buttonClick(this) " name="<%=ingredients.getString("ingredientName")%>" value="Delete"></td>
+                            </tr>
 
-                        <%}
-                            }%>
+                            <%}
+                                }%>
 
-                        <!-- Repeat the above row for each item in the table -->
-                    </tbody>
-                </table>
-            </div>
+                            <!-- Repeat the above row for each item in the table -->
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
     </body>
 
@@ -117,5 +122,15 @@
             $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
             return $buttons;
         }
+
+        function buttonClick(button) {
+            document.getElementById('action').value = button.value;
+            document.getElementById('ingredientName').value = button.name;
+            console.log(document.getElementById('action').value);
+            console.log(document.getElementById('ingredientName').value);
+            document.forms['ingredientTable'].submit();
+            return true;
+        }
+        
     </script>
 </html>

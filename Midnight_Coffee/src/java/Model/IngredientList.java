@@ -84,4 +84,16 @@ public class IngredientList {
         }
         return false;
     }
+    
+    public void deleteIngredient(String ingredient, Connection conn){
+        try {
+                String query = "DELETE FROM ingredients WHERE ingredientName = ?";
+                PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                stmnt.setString(1, ingredient);
+                stmnt.executeUpdate();
+                stmnt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 }

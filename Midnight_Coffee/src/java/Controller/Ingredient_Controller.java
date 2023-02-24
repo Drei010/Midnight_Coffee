@@ -34,6 +34,13 @@ public class Ingredient_Controller extends HttpServlet {
                 addIngredient.insertIngredient(ingredient, weight, conn);
                 response.sendRedirect("adminIngredients_page.jsp?ingredientadded");
                 break;
+            case "Delete":
+                String ingredientName = request.getParameter("ingredientName");
+                System.out.println(ingredientName);
+                IngredientList delIngredient = new IngredientList();
+                delIngredient.deleteIngredient(ingredientName, conn);
+                response.sendRedirect("adminIngredients_page.jsp?ingredientdeleted");
+                break;
         }
         
     }
