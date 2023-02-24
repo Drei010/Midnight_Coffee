@@ -212,19 +212,14 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-
-
-
-                <%ResultSet kremalatte = (ResultSet) request.getAttribute("kremalatte");
-                    if (kremalatte != null) {%>
-
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
 
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
-                        <%
-                            while (kremalatte.next()) {
+                        <%ResultSet kremalatte = (ResultSet) request.getAttribute("kremalatte");
+                            if (kremalatte != null) {
+                                while (kremalatte.next()) {
                         %>
 
                     <%-- Hidden fields for update database submission--%>
@@ -300,19 +295,14 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-
-
-
-                <%ResultSet tea = (ResultSet) request.getAttribute("tea");
-                    if (tea != null) {%>
-
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
 
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
-                        <%
-                            while (tea.next()) {
+                        <%ResultSet tea = (ResultSet) request.getAttribute("tea");
+                            if (tea != null) {
+                                while (tea.next()) {
                         %>
 
                     <%-- Hidden fields for update database submission--%>
