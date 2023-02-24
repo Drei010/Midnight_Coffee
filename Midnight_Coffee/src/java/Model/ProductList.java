@@ -33,7 +33,7 @@ public class ProductList {
         }
         return null;
     }
-    
+
     public ResultSet KremaLatte(Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
@@ -50,7 +50,7 @@ public class ProductList {
         }
         return null;
     }
-    
+
     public ResultSet Tea(Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
@@ -67,7 +67,7 @@ public class ProductList {
         }
         return null;
     }
-    
+
     public ResultSet Snack(Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
@@ -84,7 +84,7 @@ public class ProductList {
         }
         return null;
     }
-    
+
     ///Insert menu item Data to the Database
     public String insertData(String itemName, String itemOption, String itemPrice, String itemImage, String itemClass, String itemStock, Connection conn) {
         String sql = "INSERT INTO products (itemName, itemOption, itemPrice, itemImage, itemClass, itemStock) VALUES ( ?, ?, ?, ?, ?, ?)";
@@ -96,7 +96,7 @@ public class ProductList {
             stmnt.setString(4, itemImage);
             stmnt.setString(5, itemClass);
             stmnt.setString(6, itemStock);
-     
+
             stmnt.executeUpdate();
             stmnt.close();
             return "Yes";
@@ -105,8 +105,8 @@ public class ProductList {
         }
         return null;
     }
-    
-        public ResultSet retrieveData(String itemName, Connection conn) {
+
+    public ResultSet retrieveData(String itemName, Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemName = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -123,23 +123,5 @@ public class ProductList {
 
         return null;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
