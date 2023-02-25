@@ -1,0 +1,78 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 25 Feb 2023, 10:56:18 pm
+    Author     : rvhin
+*/
+
+body {
+    margin: 0;
+    color: white;
+}
+
+.inner-container {
+    background-color: #282747;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.outer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.outer-container h2 {
+    color: #282747;
+    text-align: center;
+    border: 3px solid #282747;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #AEB3AF;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="submit"] {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    width: 100%;
+}
+
+input[type="submit"] {
+    background-color: #3b3e6d;
+    color: white;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #464a7a;
+}
+
+@media screen and (min-width: 768px) {
+    /* Styles for screens with a minimum width of 768px */
+    .outer-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="submit"] {
+        width: auto;
+    }
+}

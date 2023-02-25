@@ -6,6 +6,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 15 Feb 2023, 7:06:34 pm
     Author     : rvhin
 */
+body{
+    margin: 0;
+    padding-top: 150px;
+    background-color: #CFCBC2;
+}
 
 .container {
     display: flex;
@@ -24,6 +29,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     flex: inherit;
     border: solid white;
     background-color: #282747;
+    margin-top: 16px;
+}
+
+.left label{
+    font-size: 30px;
+    padding-top: 5px;
+}
+
+.left input{
+    font-size: 20px;
 }
 
 .right {
@@ -43,12 +58,13 @@ th, td {
     background-color: #282747;
 }
 
-th, td, label, h2 {
+th, td, label, h1 {
     color: white;
 }
 
 th {
     background-color: #282747;
+    font-size: 20px;
 }
 
 .btn {
@@ -62,6 +78,7 @@ th {
 .btn-green {
     background-color: #4CAF50;
     color: white;
+    margin-top: 10px;
 }
 
 .btn-blue {

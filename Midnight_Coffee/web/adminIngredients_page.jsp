@@ -10,7 +10,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/adminIngredients.css'>
         <title>Orders</title>
     </head>
@@ -34,7 +33,7 @@
             }%>
         <div class="container">
             <div class="left">
-                <h2>New Ingredient</h2>
+                <h1>New Ingredient</h1>
                 <form action="Ingredient_Controller" method="POST">
                     <input type="hidden" name="action" value="addIngredient">
                     <div class="form-group">

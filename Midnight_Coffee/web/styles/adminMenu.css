@@ -59,7 +59,9 @@ body {
         'thumbnail thumbnail  thumbnail  '
         'itemOption itemOption  itemOption   '
         'itemPHPTag itemPrice  updateItemBtn  '
-        'itemPHPTag itemPrice  availabilityItemBtn ';
+        'itemPHPTag itemPrice  availabilityItemBtn '
+        'itemPHPTag itemPrice deactivateItemBtn';
+    
     gap: 0.5rem;
     width:1rem;
     padding:0.5rem;
@@ -147,9 +149,20 @@ body {
     z-index: 10;
 }
 
+.deactivateItemBtn{
+    grid-area: deactivateItemBtn;
+    margin: 0;
+    background-color: #C56161;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+    z-index: 10;
+}
+
 
 .updateItemBtn:hover,
-.availabilityItemBtn:hover
+.availabilityItemBtn:hover,
+.deactivateItemBtn:hover
 {
     transform: scale(1.2);
 }

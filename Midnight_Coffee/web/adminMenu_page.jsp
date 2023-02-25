@@ -178,8 +178,11 @@
                             <button class="availabilityItemBtn" onclick="updateAvailabilityClass1()">
                                 <a> <%=coffee.getString("itemStock")%> </a>                       
                             </button>
-
-
+                            
+                            <!--Deactivate Availability-->
+                            <button class="deactivateItemBtn">
+                                <p> Deactivate </p>                       
+                            </button>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -260,6 +263,11 @@
                             <button class="availabilityItemBtn">
                                 <a id="inStock">In Stock</a>
                                 <a id="outOfStock">Out of Stock</a>
+                            </button>
+                            
+                            <!--Deactivate Availability-->
+                            <button class="deactivateItemBtn">
+                                <p> Deactivate </p>                       
                             </button>
 
 
@@ -345,7 +353,12 @@
                                 <a id="outOfStock">Out of Stock</a>
                             </button>
 
-
+                            <!--Deactivate Availability-->
+                            <button class="deactivateItemBtn">
+                                <p> Deactivate </p>                       
+                            </button>
+                            
+                            
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
