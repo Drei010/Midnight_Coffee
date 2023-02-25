@@ -53,21 +53,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>hello</td>
-                    <td>hello</td>
-                    <td>hello</td>
-                    <td>100</td>
-                    </tr>
-                                    <tr>
-                    <td>hello</td>
-                    <td>hello</td>
-                    <td>hello</td>
-                    <td>100</td>
-                    </tr>
             </tbody>      
 
         </table>
+                 
+                <!--Form-->
+                <form action="Payment_Controller" method="POST">
+                     <input type="text" name="customerID" value="<%=session.getAttribute("customerID")%>"/>
+                     
                       <input type="text" name="summaryQuantity" id="summaryQuantity" value=""/>
                       
                       <input type="text" name="summaryName" id="summaryName" value=""/>
@@ -75,9 +68,12 @@
                       <input type="text" name="summaryOption" id="summaryOption" value=""/>
 
                       <input type="text" name="summaryPrice" id="summaryPrice" value=""/>
-
-                <input type="text" name="total" id="totalSummary" value="0" disabled=""/>
-                <button id="paymentBtn"> Proceed to Payment</button>
+                   
+                      <input type="text" name="total" id="totalSummary" value="0" disabled=""/>
+                <button type="submit" class="paymentBtn"> Proceed to Payment</button>
+                </form>
+                    
+                    
                 </div>
             </div>
         
@@ -627,11 +623,6 @@
         };
 
 
-
-
-
-
-        const submitButton = document.getElementById('paymentBtn');
             // Get the table element and the input fields
             const table = document.getElementById('paymentTable');
             const quantityInput = document.getElementById('summaryQuantity');
@@ -666,10 +657,10 @@
               const priceString = prices.join(', ');
 
               // Set the values of the input fields
-              quantityInput.innerHTML = quantityString;
-              nameInput.innerHTML = nameString;
-              optionInput.innerHTML = optionString;
-              priceInput.innerHTML = priceString;
+              quantityInput.value = quantityString;
+              nameInput.value = nameString;
+              optionInput.value = optionString;
+              priceInput.value = priceString;
             }
 
             // Create a new MutationObserver
