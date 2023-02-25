@@ -22,18 +22,19 @@
   <div class="column1">
 
 <div class="pic1">
-<img class="mmc" src="https://scontent.fmnl5-2.fna.fbcdn.net/v/t39.30808-6/299640029_197416492628285_2614266720725062472_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a26aad&_nc_eui2=AeGxp0Uv2qGw2-bVJy-jivZ-hulqhk4lA9qG6WqGTiUD2n2IR5YiBVvc6vGphMQPZvuLYs8Z8_55ulGJgcigkKa1&_nc_ohc=KxNiLls2vGMAX-rPZ_E&_nc_ht=scontent.fmnl5-2.fna&oh=00_AfDfHFfoLfiULAXRseNCEDk97LZGdZGfNUm-ahf8FHk7dw&oe=63E6CC58">
-</div>
+    <img class="mmc" src="https://i.postimg.cc/m26m4V9R/299640029-197416492628285-2614266720725062472-n.jpg">
+     </div>
 
 </div>
     <!--Check if customer is logged in -->
-       <h1>Welcome <%= session.getAttribute("firstname") == null ? "Guest" : session.getAttribute("firstname") %></h1><br>
+       
   <div class="column2">
 
         <div class="admin-home-container">
             <div class="home-container-contents">
                 <div class="first-line">
-                    <p>Midnight Coffee</p>
+                    <p>Welcome <%= session.getAttribute("firstname") == null ? "Guest" : session.getAttribute("firstname") %><br>Midnight Coffee</p>
+                   
                     
                 </div>
                 <div class="second-line">
@@ -51,15 +52,17 @@
                       </div>
             </div>
                       
-          <div class="desc">
-            <div class="fourth-line">
+         
+            
+            
+          <div class="reviews">
+              
+              <div class="fourth-line">
                     <p>Comments from our customers</p>
                 </div>
            <div class="fifth-line">
                     <p>4 &#9733; average rating</p>
                 </div>
-            </div>
-          <div class"reviewes">
             
             <div class="review1">
                     <p>Good coffee, freshly brewed and roasted beans
@@ -81,7 +84,6 @@
     
 </div>
 
-</div>
     </body>
 
     <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->

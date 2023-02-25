@@ -41,7 +41,7 @@ body{
 
 .home-container-contents{
     margin-left: 30px;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 p{
@@ -80,12 +80,12 @@ p{
 .fourth-line{
     font-size: 30px;
     color: black;
-    padding-top: 30px;
+    padding-top: 10px;
       
 }
 
 .fourth-line p{
-  padding-top: 30x;
+  padding-top: 30px;
   text-align:center;
 }
 
@@ -116,7 +116,7 @@ p{
 
 .reviews{
    margin-left: 30px;
-   padding-top: 30px;
+   padding-top: 20px;   
    display: table;
 }
 .review1{
@@ -150,4 +150,8 @@ p{
 }
 .desc{
   padding-top: 10px;
+}
+
+h1{
+    font-size: 30px;
 }
