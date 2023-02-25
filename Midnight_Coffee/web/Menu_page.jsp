@@ -34,32 +34,57 @@
             }
             session = request.getSession();
         %>
-        <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
-        <table>
+        <!--<input type="hidden" id="role" value="<%=session.getAttribute("role")%>">-->
+        <input type="hidden" id="role" value="not guest">
+        
+                <%-- Open popup for the order summary --%>
+        <div id="popupModal">
+
+            <div class="container-popup">
+        <table id="paymentTable">
             <thead>
+                <tr>Order Summary</tr>
                 <tr>
                     <th>Quantity</th>
                     <th>Name</th>
-                    <th>Classification</th>
+                    <th>Option</th>
                     <th>Price</th>
-                    <th></th>
+                    
                 </tr>
             </thead>
             <tbody>
-            </tbody>      
-            <tfoot>
                 <tr>
-                    <th></th>
-                    <th></th>
-                    <th>Total</th>
-                    <th><input type="text" name="total" id="total" value="0" disabled=""/></th>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>100</td>
+                    </tr>
+                                    <tr>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>100</td>
+                    </tr>
+            </tbody>      
 
-                </tr>
-            </tfoot>
         </table>
+                      <input type="text" name="summaryQuantity" id="summaryQuantity" value=""/>
+                      
+                      <input type="text" name="summaryName" id="summaryName" value=""/>
 
+                      <input type="text" name="summaryOption" id="summaryOption" value=""/>
 
+                      <input type="text" name="summaryPrice" id="summaryPrice" value=""/>
 
+                <input type="text" name="total" id="totalSummary" value="0" disabled=""/>
+                <button id="paymentBtn"> Proceed to Payment</button>
+                </div>
+            </div>
+        
+         <!--Footer Total-->
+        <button id="checkoutBtn"> Proceed to Checkout</button>
+        <input type="text" id="totalFooter" value="0" disabled=""/>
+                  
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
@@ -83,6 +108,8 @@
 
                     <%
                         while (coffee.next()) {
+                        //display item if in stock
+                        //if("".equals(coffee.getString("itemCode"))){
                     %>
                     <div class="itemContainer">
 
@@ -128,6 +155,7 @@
                     <%-- Slider Item End--%>   
 
                     <%}
+                      // }
                         }%>
 
                 </div>
@@ -574,10 +602,82 @@
                 if (parseInt(arr[i].value))
                     total += parseInt(price[i].value) * parseInt(arr[i].value);
             }
-            document.getElementById('total').value = total;
+            document.getElementById('totalFooter').value = total;
+            document.getElementById('totalSummary').value = total;
 
         }
 
+
+
+ /////order summary Popup
+
+            ///Open Modal by clicking link
+            document.getElementById("checkoutBtn").onclick = function (e) {
+                e.preventDefault();
+                document.getElementById("popupModal").style.display = "block";
+            };
+
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            var modal = document.getElementById("popupModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+
+
+
+
+
+        const submitButton = document.getElementById('paymentBtn');
+            // Get the table element and the input fields
+            const table = document.getElementById('paymentTable');
+            const quantityInput = document.getElementById('summaryQuantity');
+            const nameInput = document.getElementById('summaryName');
+            const optionInput = document.getElementById('summaryOption');
+            const priceInput = document.getElementById('summaryPrice');
+
+            // Define a function to update the input fields
+            function updateInputFields() {
+              // Get all the rows in the table body
+              const rows = table.querySelectorAll('tbody tr');
+
+              // Initialize empty arrays for each column
+              let quantities = [];
+              let names = [];
+              let options = [];
+              let prices = [];
+
+              // Loop through the rows and extract the data from each column
+              rows.forEach(row => {
+                const tds = row.querySelectorAll('td');
+                quantities.push(tds[0].textContent.trim());
+                names.push(tds[1].textContent.trim());
+                options.push(tds[2].textContent.trim());
+                prices.push(tds[3].textContent.trim());
+              });
+
+              // Join the arrays into comma-separated strings
+              const quantityString = quantities.join(', ');
+              const nameString = names.join(', ');
+              const optionString = options.join(', ');
+              const priceString = prices.join(', ');
+
+              // Set the values of the input fields
+              quantityInput.innerHTML = quantityString;
+              nameInput.innerHTML = nameString;
+              optionInput.innerHTML = optionString;
+              priceInput.innerHTML = priceString;
+            }
+
+            // Create a new MutationObserver
+            const observer = new MutationObserver(updateInputFields);
+
+            // Configure the observer to watch for changes to the table body
+            const config = { childList: true, subtree: true };
+            observer.observe(table.querySelector('tbody'), config);
 
     </script>
 </html>
