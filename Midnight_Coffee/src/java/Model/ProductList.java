@@ -124,4 +124,17 @@ public class ProductList {
         return null;
     }
 
+    public void setStock(String availability, String itemName, Connection conn){
+            try {
+                String query = "UPDATE products SET itemStock = ? WHERE itemName = ?";
+                PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                stmnt.setString(1, availability);
+                stmnt.setString(2, itemName);
+                stmnt.executeUpdate();
+                stmnt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    
 }

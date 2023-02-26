@@ -53,7 +53,7 @@
                     <label for="itemAddPrice">Product Price:</label>
                     <input type="number" placeholder="Php" name="itemAddPrice" class="itemAddPrice"  required>
                     <input type="hidden" id="itemAddClassification" name="itemAddClassification" value="">
-                    <input type="hidden" name="itemAvailability" value="Out of Stock">
+                    <input type="hidden" name="itemAvailability" value="In Stock">
                     <input type="hidden" name="instruction" value="addItemMenu">
                     <button type="submit"  class="addProductBtn" id="addProductBtn" >Add new product</button>
                 </form>
@@ -94,6 +94,12 @@
 
             </div>
         </div>
+
+        <form method="post" action="StockAvailability_Controller" enctype="multipart/form-data">
+            <input type="hidden" name="names" value="a, b, c, d, e">
+            <input type="hidden" name="weights" value="10, 2, 3, 4, 5">
+            <input type="submit">
+        </form>
 
         <div class="row">
 
@@ -178,7 +184,7 @@
                             <button class="availabilityItemBtn" onclick="updateAvailabilityClass1()">
                                 <a> <%=coffee.getString("itemStock")%> </a>                       
                             </button>
-                            
+
                             <!--Deactivate Availability-->
                             <button class="deactivateItemBtn">
                                 <p> Deactivate </p>                       
@@ -264,7 +270,7 @@
                                 <a id="inStock">In Stock</a>
                                 <a id="outOfStock">Out of Stock</a>
                             </button>
-                            
+
                             <!--Deactivate Availability-->
                             <button class="deactivateItemBtn">
                                 <p> Deactivate </p>                       
@@ -357,8 +363,8 @@
                             <button class="deactivateItemBtn">
                                 <p> Deactivate </p>                       
                             </button>
-                            
-                            
+
+
                         </div>
                     </div>
                     <%-- Slider Item End--%>   

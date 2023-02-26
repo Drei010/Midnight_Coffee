@@ -44,6 +44,10 @@
                         <label for="weight">Weight in Stocks:</label>
                         <input type="number" id="weight" name="weight" required>
                     </div>
+                    <div class="form-group">
+                        <label for="weight">Minimum Stocks:</label>
+                        <input type="number" id="minimum" name="minimum" required>
+                    </div>
                     <button class="btn btn-green">Add Ingredient</button>
                 </form>
             </div>
@@ -56,7 +60,8 @@
                         <thead>
                             <tr>
                                 <th>Ingredient</th>
-                                <th>Weight of Remaining Stocks</th>
+                                <th>Remaining Weight</th>
+                                <th>Min Weight</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -69,6 +74,7 @@
                             <tr>
                                 <td><%=ingredients.getString("ingredientName")%></td>
                                 <td><%=ingredients.getString("ingredientWeight")%>g</td>
+                                <td><%=ingredients.getString("minimumWeight")%>g</td>
                                 <td><input type="button" class="btn btn-blue" onclick="return buttonClick(this)" name="<%=ingredients.getString("ingredientName")%>" value="Update"></td>
                                 <td><input type="button" class="btn btn-red" onclick="return buttonClick(this) " name="<%=ingredients.getString("ingredientName")%>" value="Delete"></td>
                             </tr>

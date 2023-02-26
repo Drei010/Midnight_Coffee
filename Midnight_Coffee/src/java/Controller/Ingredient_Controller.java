@@ -29,9 +29,10 @@ public class Ingredient_Controller extends HttpServlet {
             case "addIngredient":
                 String ingredient = request.getParameter("ingredient");
                 int weight = Integer.parseInt(request.getParameter("weight"));
+                int min = Integer.parseInt(request.getParameter("minimum"));
                 
                 IngredientList addIngredient = new IngredientList();
-                addIngredient.insertIngredient(ingredient, weight, conn);
+                addIngredient.addIngredient(ingredient, weight, min, conn);
                 response.sendRedirect("adminIngredients_page.jsp?ingredientadded");
                 break;
             case "Delete":
