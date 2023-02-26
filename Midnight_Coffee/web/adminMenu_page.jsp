@@ -181,7 +181,7 @@
 
 
                             <!--Update Availability-->
-                            <button class="availabilityItemBtn" onclick="updateAvailabilityClass1()">
+                            <button class="availabilityItemBtn">
                                 <a> <%=coffee.getString("itemStock")%> </a>                       
                             </button>
 
@@ -267,8 +267,7 @@
 
                             <!--Update Availability-->
                             <button class="availabilityItemBtn">
-                                <a id="inStock">In Stock</a>
-                                <a id="outOfStock">Out of Stock</a>
+                                <a> <%=kremalatte.getString("itemStock")%> </a>                       
                             </button>
 
                             <!--Deactivate Availability-->
@@ -355,8 +354,7 @@
 
                             <!--Update Availability-->
                             <button class="availabilityItemBtn">
-                                <a id="inStock">In Stock</a>
-                                <a id="outOfStock">Out of Stock</a>
+                                <a> <%=tea.getString("itemStock")%> </a>                       
                             </button>
 
                             <!--Deactivate Availability-->
