@@ -55,4 +55,59 @@ public class Payment_Model {
         }
         return null;
     }
+        
+            
+    
+    public String getingredientWeight(String ingredient, Connection conn) {
+    try {
+        String query = "SELECT * FROM ingredients WHERE ingredientName = ?";
+        PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        stmnt.setString(1, ingredient);
+        ResultSet records = stmnt.executeQuery();
+        if (records.next()) {
+            String ingredientWeight = records.getString("ingredientWeight");
+            stmnt.close();
+            return ingredientWeight;
+        }
+        stmnt.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+    
+    
+}
+          ///Retrieve grams of an ingredient  
+            public ResultSet retrieveGrams(String itemName, Connection conn) {
+        try {
+            String query = "SELECT * FROM recipes  WHERE itemName = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+            
+            
+                     public String updateStocks(String ingredientName, String ingredientWeight, Connection conn) throws SQLException {
+              String sql = "UPDATE ingredients SET ingredientWeight = ? WHERE ingredientName = ?";
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+             try {
+             stmnt.setString(1, ingredientWeight);  
+             stmnt.setString(2, ingredientName); 
+             stmnt.executeUpdate();
+             stmnt.close();
+             return "Yes";
+    }catch (SQLException ex){
+                    Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
+                }
+            return null;
+
+    }
 }

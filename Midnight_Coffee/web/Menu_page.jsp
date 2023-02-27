@@ -69,7 +69,8 @@
 
                       <input type="text" name="summaryPrice" id="summaryPrice" value=""/>
                    
-                      <input type="text" name="total" id="totalSummary" value="0" disabled=""/>
+                      <input type="text" name="orderTotal" id="totalSummary" value="" />
+                      
                 <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
                     
