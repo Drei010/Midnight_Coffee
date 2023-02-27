@@ -34,7 +34,7 @@ public class StockAvailability_Controller extends HttpServlet {
         IngredientList ingredientListMethod = new IngredientList();
         Recipes recipesMethod = new Recipes();
         ProductList productListMethod = new ProductList();
-
+        
         //loop through ingredients needed for order
         for (int i = 0; i < ingredientArray.length; i++) {
             try {
