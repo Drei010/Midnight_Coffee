@@ -10,79 +10,97 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='styles/home.css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
         <title>Home</title>
     </head>
 
     <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
 
     <body>
-      
-<div class="row">
-  
-  <div class="column1">
 
-<div class="pic1">
-    <img class="mmc" src="https://i.postimg.cc/m26m4V9R/299640029-197416492628285-2614266720725062472-n.jpg">
-     </div>
+        <div class="row">
 
-</div>
-    <!--Check if customer is logged in -->
-       
-  <div class="column2">
+            <div class="column1">
 
-        <div class="admin-home-container">
-            <div class="home-container-contents">
-                <div class="first-line">
-                    <p>Welcome <%= session.getAttribute("firstname") == null ? "Guest" : session.getAttribute("firstname") %><br>Midnight Coffee</p>
-                   
-                    
+                <div class="pic1">
+                    <img class="mmc" src="https://i.postimg.cc/m26m4V9R/299640029-197416492628285-2614266720725062472-n.jpg">
                 </div>
-                <div class="second-line">
-                    <p>It's more than just coffee.</p>
-                    
-                </div>
-                <div class="third-line">
-                    <p>Order Now!</p>
-                </div>
-              
-              <div class="logos">
-              <a href="https://www.facebook.com/midnightcoffee.philippines"> <img class="fblogo" src="https://i.postimg.cc/CLfpSMZ6/fblogo.png"></a>
-             <a href="https://www.instagram.com/midnightcoffee.ph/"> <img class="iglogo" src="https://i.postimg.cc/264T2J3G/iglogo.png"></a>
-                    <a href="https://www.tiktok.com/@midnightcoffee.ph"><img class="ttlogo" src="https://i.postimg.cc/9XbY0y9D/ttlogo.png"><a>
-                      </div>
+
             </div>
-                      
-         
-            
-            
-          <div class="reviews">
-              
-              <div class="fourth-line">
-                    <p>Comments from our customers</p>
-                </div>
-           <div class="fifth-line">
-                    <p>4 &#9733; average rating</p>
-                </div>
-            
-            <div class="review1">
-                    <p>Good coffee, freshly brewed and roasted beans
-<br>- R-vhin Picadizo</p>
-                </div>
-          <div class="review2">
-                    <p>I like the interior of the store, very elegant
+            <!--Check if customer is logged in -->
 
-<br>- Clark Mansibang</p>
-                </div>
-             <div class="review3">
-                    <p>Coffee is delicious, same as their pastries
+            <div class="column2">
 
-<br>- Kevin Ruiz</p>
+                <div class="admin-home-container">
+                    <div class="home-container-contents">
+                        <div class="first-line">
+                            <p>Welcome <%= session.getAttribute("firstname") == null ? "Guest" : session.getAttribute("firstname")%><br>Midnight Coffee</p>
+
+
+                        </div>
+                        <div class="second-line">
+                            <p>It's more than just coffee.</p>
+
+                        </div>
+                        <div class="third-line">
+                            <p>Order Now!</p>
+                        </div>
+
+                        <div class="logos">
+                            <a href=""https://www.facebook.com/midnightcoffee.philippines" target="_blank">
+                                <div class="button">
+                                    <div class="icon">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                    <span>Facebook</span>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/midnightcoffee.ph/" target="_blank">
+                                <div class="button">
+                                    <div class="icon">
+                                        <i class="fab fa-instagram"></i>
+                                    </div>
+                                    <span>Instagram</span>
+                                </div>       
+                            </a>
+                            <a href="https://www.tiktok.com/@midnightcoffee.ph" target="_blank">    
+                                <div class="button">
+                                    <div class="icon">
+                                        <i class="fab fa-tiktok"></i>
+                                    </div>
+                                    <span>Tiktok</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="reviews">
+
+                            <div class="fourth-line">
+                                <p>Comments from our customers</p>
+                            </div>
+                            <div class="fifth-line">
+                                <p>4 &#9733; average rating</p>
+                            </div>
+
+                            <div class="review1">
+                                <p>Good coffee, freshly brewed and roasted beans
+                                    <br>- R-vhin Picadizo</p>
+                            </div>
+                            <div class="review2">
+                                <p>I like the interior of the store, very elegant
+
+                                    <br>- Clark Mansibang</p>
+                            </div>
+                            <div class="review3">
+                                <p>Coffee is delicious, same as their pastries
+
+                                    <br>- Kevin Ruiz</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
-            </div>
-        </div>
-    
-</div>
 
     </body>
 

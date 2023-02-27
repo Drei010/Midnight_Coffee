@@ -283,3 +283,46 @@ body {
     height: 500px;
     z-index: 5;
 }
+
+footer {
+    background-color: #282747;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.footer-container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.checkoutBtn{
+  width: 180px;
+  color: #000;
+  border: 0;
+  color: black;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 0 #1b67c5;
+  transition: ease-out 0.3s;
+  font-size: 12px;
+  padding: 12px 0;
+  outline: none;
+
+}
+.checkoutBtn:hover {
+    box-shadow: inset 180px 0 0 0 #1b67c5;
+    color: white;
+}
+
+.totalFooter{
+    border: none;
+    background: none;
+    color: white;
+}
