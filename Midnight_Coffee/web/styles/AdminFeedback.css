@@ -18,14 +18,25 @@ table{
   margin-right: auto;
   height: auto;
   max-width:100%;
+  border-collapse: collapse;
+  border: 1px solid;
 }
 
 th, td{
     font-size: 20px;
+    border: 1px solid;
 }
 th{
     width: 1000vh;
     height: auto;
+    border: 1px solid;
+    background: #282747;
+    color: white;
+    border-collapse: collapse;
+}
+
+table tr:nth-child(even){
+    background-color: #AEB3AF;
 }
 .Cname, .Cbox{
     margin-top: 10px;
@@ -46,7 +57,7 @@ th{
     white-space:nowrap;
     cursor:default;
     font-size:30px;
-    color:#ccc;
+    color:#ddd;
 }
 .rate2:not(:checked) > label:before {
     content: '★ ';
