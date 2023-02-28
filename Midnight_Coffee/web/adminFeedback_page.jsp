@@ -34,9 +34,16 @@
                 }%>
 
             <div class="container1">
+
                 <table data-rows-per-page="6" id="table">
                     <tr>
-                        <th colspan="3">Latest Comments</th>
+                        <th colspan="3">
+
+                            <div class="LC">Latest Comments
+                            </div>
+
+
+                        </th>
                     </tr>
 
                     <%ResultSet feedbackList = (ResultSet) request.getAttribute("feedback");
@@ -44,7 +51,7 @@
                             while (feedbackList.next()) {%>
                     <tr>
                         <td class="CDetails"> 
-                            <div class="Cname">
+                            <div class="Cname">                             
                                 <%=feedbackList.getString("customerFirstname")%> <%=feedbackList.getString("customerLastname")%>
                             </div>
                             <div class="stars">
@@ -69,18 +76,31 @@
                             </div>
                         </td>
 
-                        <td class="Cbox">
-                            <%=feedbackList.getString("timestamp")%>
-                            <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
-                            <input type="checkbox" class="Cbox" name="Cbox">
-                            <span class="checkmark"></span>
+                        <td>
+                            <div class="TS">
+                                <%=feedbackList.getString("timestamp")%>
+
+                                
+                            </div>
                         </td>
+                        <td class="box">
+                            <label class="Cbox">
+                                    <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
+                                    <input type="checkbox" class="Cbox" name="Cbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
 
                     </tr>
                     <%}
                         }%>
                     <tr>
                 </table>
+                <div class="upBtn">
+                    <form>
+                        <input class="update" type="submit" name="action" value="Update">
+                    </form>
+                </div>
             </div>
             <p id="demo"></p>
     </body>
@@ -139,18 +159,18 @@
                     cbox[i].checked = cboxValues[($p - 1) * 5 + i][1];
                 })(i);
             }
-            for(i = 0; i < cboxValues.length; i++) {
-    console.log(cboxValues[i][1]);
-}
+            for (i = 0; i < cboxValues.length; i++) {
+                console.log(cboxValues[i][1]);
+            }
         }
 
         function pageButtons($pCount, $cur) {
             var $prevDis = ($cur === 1) ? "disabled" : "",
                     $nextDis = ($cur === $pCount) ? "disabled" : "",
-                    $buttons = "<input type='button' value='<< Prev' onclick='sort(" + ($cur - 1) + ")' " + $prevDis + ">";
+                    $buttons = "<div class='nextP'><input type='button' value='<< Prev' onclick='sort(" + ($cur - 1) + ")' " + $prevDis + ">";
             for ($i = 1; $i <= $pCount; $i++)
                 $buttons += "<input type='button' id='id" + $i + "'value='" + $i + "' onclick='sort(" + $i + ")'>";
-            $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
+            $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + "></div>";
 
             return $buttons;
         }
