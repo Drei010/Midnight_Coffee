@@ -71,7 +71,8 @@
 
                         <td class="Cbox">
                             <%=feedbackList.getString("timestamp")%>
-                            <input type="checkbox" class="Cbox" name="Cbox" checked="checked">
+                            <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
+                            <input type="checkbox" class="Cbox" name="Cbox">
                             <span class="checkmark"></span>
                         </td>
 
@@ -79,13 +80,6 @@
                     <%}
                         }%>
                     <tr>
-                        <td>a</td>
-                        <td class="Cbox">
-                            <input type="checkbox" class="Cbox" name="Cbox">
-                            <span class="checkmark"></span>
-                        </td>
-                    </tr>
-
                 </table>
             </div>
             <p id="demo"></p>
@@ -119,11 +113,18 @@
             document.getElementById("buttons").innerHTML = pageButtons($pageCount, $p);
             document.getElementById("id" + $p).setAttribute("class", "active");
             let ratings = document.getElementsByName("rating"),
-                    stars = document.getElementsByName("rate");
+                    stars = document.getElementsByName("rate"),
+                    isChecked = document.getElementsByName("checked");
 
             for (var i = 0; i < ratings.length; i++) {
                 stars[(i + 1) * 5 - ratings[i].value].checked = true;
+                if (isChecked[i].value === "Yes") {
+                    cbox[i].checked = true;
+                } else {
+                    cbox[i].checked = false;
+                }
             }
+
 
 
             for (var i = 0; i < cbox.length; i++) {
