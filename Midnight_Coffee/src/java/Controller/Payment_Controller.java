@@ -4,9 +4,7 @@
  */
 package Controller;
 
-import Model.IngredientList;
 import Model.Payment_Model;
-import Model.Recipes;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -63,37 +61,59 @@ public class Payment_Controller extends HttpServlet {
             
             // object for stocks computaton
             Payment_Model stocksComputation = new Payment_Model();
-       
+            
+            //declare variables
+            String trimmedItemName = "";
+            int itemQuantityInt = 0;
+            String ingredientList = "";
+            String weightList = "";
+            
             //get menu item name
             for(int i=0;i<ordersArrayLength;i++ ){
                 
                 //Remove whitespaces
-                String trimmedItemName = summaryNameArray[i].trim();
-                
+               trimmedItemName = summaryNameArray[i].trim();
+               
                 //Convert Item Quantity into int
-                int itemQuantityInt =  Integer.parseInt(summaryQuantityArray[i].trim());
+                itemQuantityInt =  Integer.parseInt(summaryQuantityArray[i].trim());
+                
+                
                 
                 // retrieve the amount of grams that will be subtracted. Set as Subtrahend
                         ResultSet ingredientResult = stocksComputation.retrieveGrams(trimmedItemName, conn);
-                                              
+                                                                     
                         try {
-                            String ingredientsList = ingredientResult.getString("ingredientsList");
-                            String weightList =ingredientResult.getString("weightList");
+                            
+                             // Ingredient Result is null error
+                        if (ingredientResult == null|| !ingredientResult.next()){
+                        response.sendRedirect("Menu_page.jsp?ingredientnotfound");
+                        }
+                        
+                            ingredientList = ingredientResult.getString("ingredientList");
+                             weightList =ingredientResult.getString("weightList");
 
+  
+                            
 
                                 //Convert string to array 
-                                        String[] ingredientsListArray = ingredientsList.split(",");
+                                        String[] ingredientsListArray = ingredientList.split(",");
                                         String[] weightListArray = weightList.split(",");
 
                                              //Get array length
                                            int ingredientsArrayLength = ingredientsListArray.length;
-
+                                           
+                                   /////Iterate through the array
                                     for(int j=0;j<ingredientsArrayLength;j++ ){
                                         
                                         //Remove whitespaces
-                                       String trimmedIngredientsName = ingredientsListArray[i].trim();
+                                       String trimmedIngredientsName = ingredientsListArray[j].trim();
                                         
                                     String stockWeight = stocksComputation.getingredientWeight(trimmedIngredientsName, conn);
+                                    
+                                            //stock does not exist
+                                            if (stockWeight == null){
+                                            response.sendRedirect("Menu_page.jsp?stock does not exist");
+                                            }
 
                                         //Subtract weight to the total stocks
                                          int newStockWeight =  Integer.parseInt(stockWeight) - (Integer.parseInt(weightListArray[j]) *itemQuantityInt);
@@ -103,8 +123,14 @@ public class Payment_Controller extends HttpServlet {
                         
                                          //update the difference into the database
                                        String updateSuccess = stocksComputation.updateStocks(trimmedIngredientsName, newStockWeightStr, conn);
-                        
+                                                    if (!"Yes".equals(updateSuccess)) {
+                                                  //Update did not work error
+                                            response.sendRedirect("Menu_page.jsp?updatefailed");
+                                          } 
                     }
+                                   
+                                    
+                                    
             } catch (SQLException ex) {
                 Logger.getLogger(Payment_Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -113,8 +139,6 @@ public class Payment_Controller extends HttpServlet {
         
             }
 
-            
-        
             //Insert into customer orders database
                       Payment_Model orderinsert = new Payment_Model();
                         String Yes = orderinsert.insertOrder(customerID, summaryQuantity, summaryName, summaryOption, summaryPrice, orderTotal, dateString, timeString, conn);
@@ -125,14 +149,7 @@ public class Payment_Controller extends HttpServlet {
                             //Order Failed
                             response.sendRedirect("Menu_page.jsp?orderFailed");
                         }
-        
-        //Subtract grams from the recipes table
-          //Payment_Model loadIngredientsTable = new Payment_Model();
-                    ///set data
-                   // ResultSet IngredientsTable = loadIngredientsTable.retrieveIngredients(conn);
-        
-        //
-        
+               
         
     }
 

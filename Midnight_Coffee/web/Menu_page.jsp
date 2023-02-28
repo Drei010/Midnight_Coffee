@@ -34,8 +34,8 @@
             }
             session = request.getSession();
         %>
-        <!--<input type="hidden" id="role" value="<%=session.getAttribute("role")%>">-->
-        <input type="hidden" id="role" value="not guest">
+        <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
+        
 
         <%-- Open popup for the order summary --%>
         <div id="popupModal">
@@ -59,17 +59,17 @@
 
                 <!--Form-->
                 <form action="Payment_Controller" method="POST">
-                    <input type="text" name="customerID" value="<%=session.getAttribute("customerID")%>"/>
+                    <input type="hidden" name="customerID" value="<%=session.getAttribute("customerID")%>"/>
 
-                    <input type="text" name="summaryQuantity" id="summaryQuantity" value=""/>
+                    <input type="hidden" name="summaryQuantity" id="summaryQuantity" value=""/>
 
-                    <input type="text" name="summaryName" id="summaryName" value=""/>
+                    <input type="hidden" name="summaryName" id="summaryName" value=""/>
 
-                    <input type="text" name="summaryOption" id="summaryOption" value=""/>
+                    <input type="hidden" name="summaryOption" id="summaryOption" value=""/>
 
-                    <input type="text" name="summaryPrice" id="summaryPrice" value=""/>
+                    <input type="hidden" name="summaryPrice" id="summaryPrice" value=""/>
 
-                    <input type="text" name="orderTotal" id="totalSummary" value="" />
+                    <input type="hidden" name="orderTotal" id="totalSummary" value="" />
 
                     <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
@@ -448,22 +448,8 @@
         var role = document.getElementById('role');
 
         if (role.value === "guest") {
-
-            for (let i = 0; i < incramentButton.length; i++) {
-                var button = incramentButton[i];
-                button.addEventListener('click', function () {
-                    window.location.href = "Login_page.jsp";
-                });
-            }
-
-            for (let i = 0; i < decramentButton.length; i++) {
-                var button = decramentButton[i];
-                button.addEventListener('click', function () {
-                    window.location.href = "Login_page.jsp";
-                });
-            }
-
-        }
+          checkoutBtn.disabled = true;
+        }else{checkoutBtn.disabled = false;}
 
 
         /////////////////////////////// Total orders computation//////////////////////

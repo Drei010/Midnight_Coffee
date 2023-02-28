@@ -38,26 +38,7 @@ public class Payment_Model {
         return null;
 
     }
-    
-    
-        public ResultSet retrieveIngredients(Connection conn) {
-        try {
-            String query = "SELECT * FROM recipes";
-            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet records = stmnt.executeQuery();
-            if (records.next()) {
-                records.beforeFirst();
-                return records;
-            }
-            stmnt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-        
-            
-    
+      
     public String getingredientWeight(String ingredient, Connection conn) {
     try {
         String query = "SELECT * FROM ingredients WHERE ingredientName = ?";
@@ -71,17 +52,18 @@ public class Payment_Model {
         }
         stmnt.close();
     } catch (SQLException ex) {
-        Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
     }
     return null;
     
     
 }
-          ///Retrieve grams of an ingredient  
+          // retrieve the amount of grams that will be subtracted. Set as Subtrahend
             public ResultSet retrieveGrams(String itemName, Connection conn) {
         try {
             String query = "SELECT * FROM recipes  WHERE itemName = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, itemName);
             ResultSet records = stmnt.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
@@ -89,13 +71,13 @@ public class Payment_Model {
             }
             stmnt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
             
-            
-                     public String updateStocks(String ingredientName, String ingredientWeight, Connection conn) throws SQLException {
+             //update the difference into the database
+             public String updateStocks(String ingredientName, String ingredientWeight, Connection conn) throws SQLException {
               String sql = "UPDATE ingredients SET ingredientWeight = ? WHERE ingredientName = ?";
             PreparedStatement stmnt = conn.prepareStatement(sql);
              try {
@@ -105,7 +87,7 @@ public class Payment_Model {
              stmnt.close();
              return "Yes";
     }catch (SQLException ex){
-                    Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
+                    Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE,null,ex);
                 }
             return null;
 
