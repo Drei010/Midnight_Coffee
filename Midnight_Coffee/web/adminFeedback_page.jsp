@@ -125,10 +125,8 @@
                 }
             }
 
-
-
             for (var i = 0; i < cbox.length; i++) {
-                if (cboxValues.length < $p * 5 - 5 + cbox.length) {
+                if (cboxValues.length < ($p - 1) * 5 + cbox.length) {
                     cboxValues.push([$p, cbox[i].checked]);
                 }
             }
@@ -141,8 +139,10 @@
                     cbox[i].checked = cboxValues[($p - 1) * 5 + i][1];
                 })(i);
             }
+            for(i = 0; i < cboxValues.length; i++) {
+    console.log(cboxValues[i][1]);
+}
         }
-
 
         function pageButtons($pCount, $cur) {
             var $prevDis = ($cur === 1) ? "disabled" : "",

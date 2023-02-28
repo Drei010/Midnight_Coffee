@@ -85,7 +85,6 @@ public class Menu_Controller extends HttpServlet {
                 request.setAttribute("coffee", loadMenu.Coffee(conn));
                 request.setAttribute("kremalatte", loadMenu.KremaLatte(conn));
                 request.setAttribute("tea", loadMenu.Tea(conn));
-                request.setAttribute("snack", loadMenu.Snack(conn));
 
                 if (page.equals("adminMenu_page.jsp")) {
                     request.setAttribute("ingredients", loadIngredients.Ingredients(conn));

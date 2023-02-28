@@ -95,12 +95,6 @@
             </div>
         </div>
 
-        <form method="post" action="StockAvailability_Controller" enctype="multipart/form-data">
-            <input type="hidden" name="names" value="a, b, c, d, e">
-            <input type="hidden" name="weights" value="10, 2, 3, 4, 5">
-            <input type="submit">
-        </form>
-
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
