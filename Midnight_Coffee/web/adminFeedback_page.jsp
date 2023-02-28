@@ -71,18 +71,29 @@
 
                         <td class="Cbox">
                             <%=feedbackList.getString("timestamp")%>
-                            <input type="checkbox" checked="checked">
+                            <input type="checkbox" class="Cbox" name="Cbox" checked="checked">
                             <span class="checkmark"></span>
                         </td>
 
                     </tr>
                     <%}
                         }%>
+                    <tr>
+                        <td>a</td>
+                        <td class="Cbox">
+                            <input type="checkbox" class="Cbox" name="Cbox">
+                            <span class="checkmark"></span>
+                        </td>
+                    </tr>
+
                 </table>
             </div>
             <p id="demo"></p>
     </body>
     <script>
+        let cbox = document.getElementsByName("Cbox");
+        var cboxValues = [];
+
         var $table = document.getElementById("table"),
                 $n = 5,
                 $rowCount = $table.rows.length,
@@ -113,6 +124,22 @@
             for (var i = 0; i < ratings.length; i++) {
                 stars[(i + 1) * 5 - ratings[i].value].checked = true;
             }
+
+
+            for (var i = 0; i < cbox.length; i++) {
+                if (cboxValues.length < $p * 5 - 5 + cbox.length) {
+                    cboxValues.push([$p, cbox[i].checked]);
+                }
+            }
+
+            for (i = 0; i < cbox.length; i++) {
+                (function (protectedIndex) {
+                    cbox[i].onclick = function () {
+                        cboxValues[($p - 1) * 5 + protectedIndex] = [$p, cbox[protectedIndex].checked ? true : false];
+                    };
+                    cbox[i].checked = cboxValues[($p - 1) * 5 + i][1];
+                })(i);
+            }
         }
 
 
@@ -123,10 +150,8 @@
             for ($i = 1; $i <= $pCount; $i++)
                 $buttons += "<input type='button' id='id" + $i + "'value='" + $i + "' onclick='sort(" + $i + ")'>";
             $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
+
             return $buttons;
         }
-
-
-
     </script>
 </html>
