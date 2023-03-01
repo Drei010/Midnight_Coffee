@@ -94,7 +94,6 @@
                     </tr>
                     <%}
                         }%>
-                    <tr>
                 </table>
                 <div class="upBtn">
                     <form>

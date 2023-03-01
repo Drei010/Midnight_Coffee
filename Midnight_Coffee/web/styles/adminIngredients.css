@@ -26,7 +26,6 @@ body{
 
 .left {
     padding: 20px;
-    flex: inherit;
     border: solid white;
     background-color: #282747;
     margin-top: 16px;
@@ -44,6 +43,7 @@ body{
 .right {
     overflow-x: auto;
     padding-left: 20px;
+    padding-top: 50px;
 }
 
 table {

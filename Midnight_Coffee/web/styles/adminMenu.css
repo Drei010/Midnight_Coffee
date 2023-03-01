@@ -27,8 +27,8 @@ body {
 /*carousel container*/
 .carouselContainer {
     display: flex;
-    justify-content: center;
     overflow: hidden;
+    align-items: center;
 
 }
 
@@ -186,19 +186,26 @@ body {
     color: white;
     line-height: 0;
     transition: background-color 150ms ease-in-out;
-
+    position: sticky;
 }
 
 /*Left arrow*/
 .left-handle {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    left: 0;
 }
 
 /*Right arrow*/
 .right-handle {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    right: 0;
+}
+
+.item{
+    display: flex;
+    align-items: center;
 }
 
 /*Arrow Hover*/
@@ -248,9 +255,6 @@ body {
     background-color: rgba(255, 255, 255, .9);
 }
 
-
-
-
 /* Pop up*/
 #popupModal {
     display: none;
@@ -278,10 +282,13 @@ body {
     background-color: #282747;
     border: solid white;
     margin: auto;
+    margin-top: 20px;
     padding: 20px;
     width: 60%;
     height: 500px;
     z-index: 5;
+    overflow: auto;
+    
 }
 .itemAddName{
     grid-area: itemAddName;
@@ -325,27 +332,30 @@ body {
 .add-ingredient-btn, .clearIngredientsBtn{
     color: white;
     padding: 12px 20px;
-    margin: 8px 0;
     border: none;
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
-    width: 100%;
-    max-width: 70px;
     transition: all 0.3s ease;
 }
 
 .add-ingredient-btn{
     grid-area: add-ingredient-btn;
     background-color: #8DC075;
-
-
 }
+.add-ingredient-btn:hover{
+    background-color: #4CAF50;
+}
+
 .clearIngredientsBtn{
     grid-area: clearIngredientsBtn;
     background-color: #C56161;
-
 }
+.clearIngredientsBtn:hover{
+    background-color: #ff3333;
+}
+
+
 .added-ingredients{
     grid-area: added-ingredients;
     align-items: center;
@@ -387,18 +397,39 @@ body {
     transition: transform 0.2s ease;
     border-radius: 10px;
     background-color: #282747;
-
+    margin-right: 20px;
 }
 .addItem:hover{
     cursor: pointer;
     transform: scale(1.2);
     z-index: 10;
-
 }
 
 .added-ingredients {
-    overflow-y: scroll;
-    height: 22vh;
+    overflow-y: auto;
+    max-height: 28vh;
+    border-top: solid white;
+    border-bottom: solid white;
+}
+.added-ingredients::-webkit-scrollbar {
+    width: 15px;
+}
+
+.added-ingredients::-webkit-scrollbar-track {
+    background-color: #AEB3AF;
+    border-radius: 10px;
+}
+
+.added-ingredients::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.added-ingredients::-webkit-scrollbar-thumb:hover {
+    background-color: #cccccc;
+}
+.added-ingredients h3{
+    padding-bottom: 20px;
 }
 
 .ingredient-grams, .ingredient-names {
