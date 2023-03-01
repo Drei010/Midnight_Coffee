@@ -63,7 +63,6 @@
                 </form>
                 <div class="verticalDivider"></div>
 
-
                 <!-- Ingredients div start-->
                 <form id="ingredientForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h1><label for="itemIngredient">Add Ingredients:</label></h1>
@@ -78,8 +77,8 @@
                             }%>
                     </select>
                     <input type="number" placeholder="grams" name="ingredientGrams"  id="ingredientGrams" class="ingredientGrams" min="1" required>
-                    <input type="button" class="add-ingredient-btn" onclick="addIngredient()">
-                    <input type="button" class="clearIngredientsBtn" onclick="clearIngredient()">
+                    <input type="button" class="add-ingredient-btn" onclick="addIngredient()" value="+">
+                    <input type="button" class="clearIngredientsBtn" onclick="clearIngredient()" value="CLEAR">
                     <h1><label for="added-ingredients">Ingredients:</label></h1>
                     <div name="added-ingredients" class="added-ingredients" id="added-ingredients">
                         <h3><div class="ingredient-names" id="ingredient-names">
@@ -90,12 +89,7 @@
                     </div>
                 </form>
                 <!-- Ingredients div end-->
-
-
-
-
-
-
+                
             </div>
         </div>
 
@@ -113,10 +107,6 @@
                 <button class="handle left-handle">
                     <div class="text">&#8249;</div>
                 </button>
-
-
-
-
 
 
                 <%-- Carousel Items Slider--%>
@@ -184,9 +174,7 @@
                             </button>
 
                             <!--Deactivate Availability-->
-                            <button class="deactivateItemBtn">
-                                <p> Deactivate </p>                       
-                            </button>
+                            <button class="deactivateItemBtn">Deactivate</button>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -269,9 +257,7 @@
                             </button>
 
                             <!--Deactivate Availability-->
-                            <button class="deactivateItemBtn">
-                                <p> Deactivate </p>                       
-                            </button>
+                            <button class="deactivateItemBtn">Deactivate</button>
 
 
                         </div>
@@ -356,9 +342,7 @@
                             </button>
 
                             <!--Deactivate Availability-->
-                            <button class="deactivateItemBtn">
-                                <p> Deactivate </p>                       
-                            </button>
+                            <button class="deactivateItemBtn">Deactivate</button>
 
 
                         </div>
