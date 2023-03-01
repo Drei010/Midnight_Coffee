@@ -94,7 +94,6 @@
                     </tr>
                     <%}
                         }%>
-                    <tr>
                 </table>
                 <div class="upBtn">
                     <form>
@@ -121,6 +120,8 @@
                 $i, $ii, $j = ($hasHead) ? 1 : 0,
                 $th = ($hasHead ? $table.rows[(0)].outerHTML : "");
         var $pageCount = Math.ceil($rowCount / $n);
+        console.log($pageCount);
+        console.log($rowCount);
         if ($pageCount > 1) {
             for ($i = $j, $ii = 0; $i < $rowCount; $i++, $ii++)
                 $tr[$ii] = $table.rows[$i].outerHTML;
@@ -154,9 +155,6 @@
                     };
                     cbox[i].checked = cboxValues[($p - 1) * 5 + i][1];
                 })(i);
-            }
-            for (i = 0; i < cboxValues.length; i++) {
-                console.log(cboxValues[i][1]);
             }
         }
 
