@@ -82,12 +82,15 @@ public class Menu_Controller extends HttpServlet {
                 ProductList loadMenu = new ProductList();
                 IngredientList loadIngredients = new IngredientList();
 
-                request.setAttribute("coffee", loadMenu.Coffee(conn));
-                request.setAttribute("kremalatte", loadMenu.KremaLatte(conn));
-                request.setAttribute("tea", loadMenu.Tea(conn));
-
                 if (page.equals("adminMenu_page.jsp")) {
                     request.setAttribute("ingredients", loadIngredients.Ingredients(conn));
+                    request.setAttribute("allcoffee", loadMenu.AllCoffee(conn));
+                    request.setAttribute("allkremalatte", loadMenu.AllKremaLatte(conn));
+                    request.setAttribute("alltea", loadMenu.AllTea(conn));
+                } else {
+                    request.setAttribute("coffee", loadMenu.Coffee(conn));
+                    request.setAttribute("kremalatte", loadMenu.KremaLatte(conn));
+                    request.setAttribute("tea", loadMenu.Tea(conn));
                 }
 
                 HttpSession session = request.getSession();
@@ -117,7 +120,7 @@ public class Menu_Controller extends HttpServlet {
                 String itemAddPrice = request.getParameter("itemAddPrice");
                 String itemAddClassification = request.getParameter("itemAddClassification");
                 String itemAvailability = request.getParameter("itemAvailability");
-                
+
                 String ingredientList = request.getParameter("ingredientList");
                 String weightList = request.getParameter("GramList");
 
@@ -155,7 +158,7 @@ public class Menu_Controller extends HttpServlet {
                 ProductList insertEntry = new ProductList();
                 String insertSuccess = insertEntry.insertData(itemAddName, itemAddOption, itemAddPrice, itemAddImage, itemAddClassification, itemAvailability, conn);
                 Recipes insertRecipe = new Recipes();
-                insertRecipe.insertRecipe(itemAddName, itemAddOption, ingredientList.replaceAll("\\[|\\]|\"",""), weightList.replaceAll("\\[|\\]|\"",""), conn);
+                insertRecipe.insertRecipe(itemAddName, itemAddOption, ingredientList.replaceAll("\\[|\\]|\"", ""), weightList.replaceAll("\\[|\\]|\"", ""), conn);
                 if ("Yes".equals(insertSuccess)) {
                     response.sendRedirect("adminMenu_page.jsp?success");
 

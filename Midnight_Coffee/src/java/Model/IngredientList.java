@@ -61,9 +61,9 @@ public class IngredientList {
                 stmnt.executeUpdate();
                 stmnt.close();
             }
-            
+
             setInStock(ingredient, conn);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,23 +100,25 @@ public class IngredientList {
         }
     }
 
-    public void setInStock(String ingredient, Connection conn){
+    public void setInStock(String ingredient, Connection conn) {
         try {
             ResultSet name = ingredientItem(ingredient, conn);
-            
-            if(name.getInt("ingredientWeight") > name.getInt("minimumWeight")){
+
+            if (name.getInt("ingredientWeight") > name.getInt("minimumWeight")) {
                 ProductList productListMethod = new ProductList();
                 Recipes recipesMethod = new Recipes();
-                
+
                 ResultSet productList = recipesMethod.RecipeList(conn);
-                while(productList.next()){
-                    if (productList.getString("ingredientList").contains(ingredient)) {
-                        String recipeArray[] = productList.getString("ingredientList").split(",");
-                        for (String currIngredient : recipeArray) {
-                            if (!currIngredient.equals(ingredient)) {
-                                ResultSet otherIngredient = ingredientItem(currIngredient, conn);
-                                if(otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")){
-                                    productListMethod.setStock("In Stock", productList.getString("itemName"), conn);
+                if (productList != null) {
+                    while (productList.next()) {
+                        if (productList.getString("ingredientList").contains(ingredient)) {
+                            String recipeArray[] = productList.getString("ingredientList").split(",");
+                            for (String currIngredient : recipeArray) {
+                                if (!currIngredient.equals(ingredient)) {
+                                    ResultSet otherIngredient = ingredientItem(currIngredient, conn);
+                                    if (otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")) {
+                                        productListMethod.setStock("In Stock", productList.getString("itemName"), conn);
+                                    }
                                 }
                             }
                         }
@@ -127,5 +129,5 @@ public class IngredientList {
             Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

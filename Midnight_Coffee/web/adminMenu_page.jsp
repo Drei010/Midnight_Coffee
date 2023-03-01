@@ -125,7 +125,7 @@
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
 
-                    <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
+                    <%ResultSet coffee = (ResultSet) request.getAttribute("allcoffee");
                         if (coffee != null) {
                             while (coffee.next()) {
                     %>
@@ -224,7 +224,7 @@
 
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
-                        <%ResultSet kremalatte = (ResultSet) request.getAttribute("kremalatte");
+                        <%ResultSet kremalatte = (ResultSet) request.getAttribute("allkremalatte");
                             if (kremalatte != null) {
                                 while (kremalatte.next()) {
                         %>
@@ -311,7 +311,7 @@
 
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
-                        <%ResultSet tea = (ResultSet) request.getAttribute("tea");
+                        <%ResultSet tea = (ResultSet) request.getAttribute("alltea");
                             if (tea != null) {
                                 while (tea.next()) {
                         %>
