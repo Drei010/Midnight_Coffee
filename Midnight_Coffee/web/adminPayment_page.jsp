@@ -59,7 +59,8 @@
                     <input class="NewMethodName" name="NewMethodName" type="text" required/> 
 
                     <h4 class="newQRLabel"><label for="QRImage"> New QR Image</label></h4>
-                     <input class="newQRImage" name="newQRImage"  type="file" required/> 
+                     <input class="newQRImage" name="newQRImage" id="QRImageUpdate" type="file" required/> 
+                      <a id="warningUpdate"></a>
                      
                       <!--Instruction is to update QR--> 
                      <input type="hidden" name="instruction" value="updateQR">
@@ -91,8 +92,8 @@
             <input name="methodName" id="methodName" type="text" required/> 
 
              <h4><label for="QRImage">QR Image</label></h4>
-             <input name="QRImage" id="QRImage" type="file" required/> 
-
+             <input name="QRImage" id="QRImageAdd" type="file" required/> 
+              <a id="warningAdd"></a>
             <br>
                  
            <!--Instruction is to create QR-->         
@@ -105,20 +106,40 @@
         <script>
             //Disable buttons if the file type is not .png or .jpg
             const addBtn = document.getElementById('addBtn');
-            const updateBtn = document.getElementById('updateBtn');
-            const fileInput = document.getElementById('QRImage');
+            const fileInputAdd = document.getElementById('QRImageAdd');
+            const warningAdd = document.getElementById("warningAdd");
 
-
-            fileInput.addEventListener('change', function() {
-              const file = fileInput.files[0];
+            fileInputAdd.addEventListener('change', function() {
+              const file = fileInputAdd.files[0];
               const fileName = file.name;
               const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
               if (fileType === 'jpg' || fileType === 'png') {
+                warningAdd.innerText = '';
                 addBtn.disabled = false;
+              } else {
+                warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                warningAdd.style.color = "red";
+                addBtn.disabled = true;
+              }
+            });
+            
+
+            const updateBtn = document.getElementById('updateBtn');
+            const fileInputUpdate = document.getElementById('QRImageUpdate');
+            const warningUpdate = document.getElementById("warningUpdate");
+            
+                        fileInputUpdate.addEventListener('change', function() {
+              const file = fileInputUpdate.files[0];
+              const fileName = file.name;
+              const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+              if (fileType === 'jpg' || fileType === 'png') {
+                updateBtn.innerText = '';
                 updateBtn.disabled = false;
               } else {
-                addBtn.disabled = true;
+                warningUpdate.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                warningUpdate.style.color = "red";
                 updateBtn.disabled = true;
               }
             });

@@ -45,9 +45,13 @@
                     <input type="hidden" name="ingredientList" id="hiddenIngredient">
                     <input type="hidden" name="GramList" id="hiddenGram">
                     <label for="itemAddName">Product Name:</label>
-                    <input type="text" placeholder="Name" name="itemAddName" class="itemAddName" required>
+                    <input type="text" placeholder="Name" name="itemAddName" id="itemAddName" class="itemAddName" required>
+                    <!-- Warning Message for comma usage-->
+                      <a id="warningComma"></a><br>
                     <label for="itemAddImage">Image:</label>
                     <input type="file" name="itemAddImage" class="itemAddImage" id="itemAddImage" required>
+                    <!-- Warning Message for incompatible file types-->
+                      <a id="warningAdd"></a><br>
                     <label for="itemAddOption">Option:</label>
                     <input type="text" placeholder="Item Option" name="itemAddOption" class="itemAddOption" required>
                     <label for="itemAddPrice">Product Price:</label>
@@ -158,7 +162,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                src="QRImages/test.png"
+                                src="MENUImages/<%=coffee.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -243,7 +247,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                src="QRImages/test.png"
+                                src="MENUImages/<%=kremalatte.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -330,7 +334,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                src="QRImages/test.png"
+                                src="MENUImages/<%=tea.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -546,7 +550,7 @@
         //Disable buttons if the file type is not .png or .jpg
         const addBtn = document.getElementById('addProductBtn');
         const fileInput = document.getElementById('itemAddImage');
-
+        const warningAdd = document.getElementById("warningAdd");
 
         fileInput.addEventListener('change', function () {
             const file = fileInput.files[0];
@@ -555,13 +559,31 @@
 
             if (fileType === 'jpg' || fileType === 'png') {
                 addBtn.disabled = false;
-                updateBtn.disabled = false;
+                warningAdd.innerText = '';
             } else {
                 addBtn.disabled = true;
-                updateBtn.disabled = true;
+                 warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                warningAdd.style.color = "red"; 
             }
         });
-
+        
+                    // Disable comma usage
+            const itemAddName = document.getElementById("itemAddName");
+            const warningComma = document.getElementById("warningComma");
+            // Add an event listener to the input box to check its value
+            itemAddName.addEventListener("input", function() {
+              // Check if the input box value contains a comma
+              if (itemAddName.value.includes(",")) {
+                // Disable the submit button
+                addBtn.disabled = true;
+                warningComma.innerText = 'The usage of comma (,) is not allowed';
+                warningComma.style.color = "red"; 
+              } else {
+                // Enable the submit button
+                addBtn.disabled = false;
+                warningComma.innerText = '';
+              }
+            });
 
         //Update Availability
         function updateAvailabilityClass1() {

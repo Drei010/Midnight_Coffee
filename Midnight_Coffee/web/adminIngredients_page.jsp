@@ -39,6 +39,8 @@
                     <div class="form-group">
                         <label for="ingredient">Ingredient:</label>
                         <input type="text" id="ingredient" name="ingredient" required>
+                        <!-- Warning Message for comma usage-->
+                     <br> <a id="warningComma"></a><br>
                     </div>  
                     <div class="form-group">
                         <label for="weight">Weight in Stocks:</label>
@@ -48,7 +50,9 @@
                         <label for="weight">Minimum Stocks:</label>
                         <input type="number" id="minimum" name="minimum" required>
                     </div>
-                    <button class="btn btn-green">Add Ingredient</button>
+                       <!-- Warning Message for weight limit-->
+                     <br> <a id="warningWeight"></a><br>
+                    <button id="addBtn" class="btn btn-green">Add Ingredient</button>
                 </form>
             </div>
             <form id="ingredientTable" action="Ingredient_Controller" method="POST">
@@ -136,6 +140,51 @@
             document.forms['ingredientTable'].submit();
             return true;
         }
+        
+        
+        
+                            // Disable comma usage
+            const addBtn = document.getElementById('addBtn');
+            const ingredient = document.getElementById("ingredient");
+            const warningComma = document.getElementById("warningComma");
+            // Add an event listener to the input box to check its value
+            ingredient.addEventListener("input", function() {
+              // Check if the input box value contains a comma
+              if (ingredient.value.includes(",")) {
+                // Disable the submit button
+                addBtn.disabled = true;
+                warningComma.innerText = 'The usage of comma (,) is not allowed';
+                warningComma.style.color = "red"; 
+              } else {
+                // Enable the submit button
+                addBtn.disabled = false;
+                warningComma.innerText = '';
+              }
+            });
+            
+            //Disable button if min weight is greater than 50% of the remaining weight
+            const weightInput = document.getElementById('weight');
+            const minimumInput = document.getElementById('minimum');
+             const warningWeight = document.getElementById('warningWeight');
+
+            // Attach an event listener to the weight and minimum input fields
+            weightInput.addEventListener('input', checkMinimumWeight);
+            minimumInput.addEventListener('input', checkMinimumWeight);
+
+            function checkMinimumWeight() {
+              const weight = Number(weightInput.value);
+              const minimum = Number(minimumInput.value);
+
+              if (minimum > weight * 0.5) {
+                addBtn.disabled = true;
+                warningWeight.innerText = 'The minimum weight should not exceed 50% of the remaining weight';
+                warningWeight.style.color = "red"; 
+              } else {
+                addBtn.disabled = false;
+                warningWeight.innerText = '';
+              }
+            }
+
         
     </script>
 </html>

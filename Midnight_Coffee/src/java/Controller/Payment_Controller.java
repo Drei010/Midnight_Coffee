@@ -118,7 +118,12 @@ public class Payment_Controller extends HttpServlet {
 
                     //Subtract weight to the total stocks
                     int newStockWeight = Integer.parseInt(stockWeight) - (Integer.parseInt(weightListArray[j]) * itemQuantityInt);
-
+ 
+                      //check if it exceedes the stock
+                   if(newStockWeight<=0){
+                               //Order Failed Stocks depleted
+                    response.sendRedirect("Menu_page.jsp?onlyfewstocks remaining");
+                   }               
                     //set the int to string
                     String newStockWeightStr = Integer.toString(newStockWeight);
 
@@ -145,8 +150,8 @@ public class Payment_Controller extends HttpServlet {
                                         //get current weights
                                         int remaining = ingredientListMethod.ingredientItem(trimmedIngredientsName, conn).getInt("ingredientWeight");
                                         int minimum = ingredientListMethod.ingredientItem(trimmedIngredientsName, conn).getInt("MinimumWeight");
-
-                                        //check if remaining stock is more than minimum requirement
+                                        
+                                         //check if remaining stock is more than minimum requirement
                                         if (remaining <= minimum) {
 
                                             //remaining stock is not more than minimum requirement so current product selected is set to out of stock
@@ -176,7 +181,7 @@ public class Payment_Controller extends HttpServlet {
         String Yes = orderinsert.insertOrder(customerID, summaryQuantity, summaryName, summaryOption, summaryPrice, orderTotal, dateString, timeString, conn);
         if ("Yes".equals(Yes)) {
             //Order Submited
-            response.sendRedirect("Customer_Paymentpage.jsp?");
+            response.sendRedirect("Paymentpage.jsp?");
         } else {
             //Order Failed
             response.sendRedirect("Menu_page.jsp?orderFailed");
