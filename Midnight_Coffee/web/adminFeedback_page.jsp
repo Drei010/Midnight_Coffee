@@ -80,16 +80,16 @@
                             <div class="TS">
                                 <%=feedbackList.getString("timestamp")%>
 
-                                
+
                             </div>
                         </td>
                         <td class="box">
                             <label class="Cbox">
-                                    <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
-                                    <input type="checkbox" class="Cbox" name="Cbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </td>
+                                <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
+                                <input type="checkbox" class="Cbox" name="Cbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
 
                     </tr>
                     <%}
@@ -105,8 +105,12 @@
             <p id="demo"></p>
     </body>
     <script>
-        let cbox = document.getElementsByName("Cbox");
+        let ratings = document.getElementsByName("rating"),
+                stars = document.getElementsByName("rate"),
+                isChecked = document.getElementsByName("checked"),
+                cbox = document.getElementsByName("Cbox");
         var cboxValues = [];
+
 
         var $table = document.getElementById("table"),
                 $n = 5,
@@ -122,6 +126,8 @@
                 $tr[$ii] = $table.rows[$i].outerHTML;
             $table.insertAdjacentHTML("afterend", "<div id='buttons'></div");
             sort(1);
+        } else {
+            checkItems();
         }
 
         function sort($p) {
@@ -132,18 +138,8 @@
             $table.innerHTML = $rows;
             document.getElementById("buttons").innerHTML = pageButtons($pageCount, $p);
             document.getElementById("id" + $p).setAttribute("class", "active");
-            let ratings = document.getElementsByName("rating"),
-                    stars = document.getElementsByName("rate"),
-                    isChecked = document.getElementsByName("checked");
 
-            for (var i = 0; i < ratings.length; i++) {
-                stars[(i + 1) * 5 - ratings[i].value].checked = true;
-                if (isChecked[i].value === "Yes") {
-                    cbox[i].checked = true;
-                } else {
-                    cbox[i].checked = false;
-                }
-            }
+            checkItems();
 
             for (var i = 0; i < cbox.length; i++) {
                 if (cboxValues.length < ($p - 1) * 5 + cbox.length) {
@@ -173,6 +169,17 @@
             $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + "></div>";
 
             return $buttons;
+        }
+
+        function checkItems() {
+            for (var i = 0; i < ratings.length; i++) {
+                stars[(i + 1) * 5 - ratings[i].value].checked = true;
+                if (isChecked[i].value === "Yes") {
+                    cbox[i].checked = true;
+                } else {
+                    cbox[i].checked = false;
+                }
+            }
         }
     </script>
 </html>
