@@ -85,6 +85,7 @@
                         </td>
                         <td class="box">
                             <label class="Cbox">
+                                <input type="hidden" name="customerid" value="<%=feedbackList.getInt("customerID")%>">
                                 <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
                                 <input type="checkbox" class="Cbox" name="Cbox">
                                 <span class="checkmark"></span>
@@ -96,7 +97,10 @@
                         }%>
                 </table>
                 <div class="upBtn">
-                    <form>
+                    <form action="Feedback_Controller" method="post" onsubmit="compareDiff()">
+                        <input type="hidden" name ="update" id="update">
+                        <input type="hidden" name ="updateId" id="updateId">
+                        <input type="hidden" name="instruction" value="update">
                         <input class="update" type="submit" name="action" value="Update">
                     </form>
                 </div>
@@ -106,10 +110,14 @@
     <script>
         let ratings = document.getElementsByName("rating"),
                 stars = document.getElementsByName("rate"),
+                id = document.getElementsByName("customerid"),
                 isChecked = document.getElementsByName("checked"),
                 cbox = document.getElementsByName("Cbox");
-        var cboxValues = [];
-
+        var cboxValues = [],
+                originalCboxValues = [],
+                updateCboxValues = [],
+                idValues = [],
+                updateIdValues = [];
 
         var $table = document.getElementById("table"),
                 $n = 5,
@@ -129,6 +137,7 @@
             sort(1);
         } else {
             checkItems();
+            pushItems(1);
         }
 
         function sort($p) {
@@ -141,12 +150,7 @@
             document.getElementById("id" + $p).setAttribute("class", "active");
 
             checkItems();
-
-            for (var i = 0; i < cbox.length; i++) {
-                if (cboxValues.length < ($p - 1) * 5 + cbox.length) {
-                    cboxValues.push([$p, cbox[i].checked]);
-                }
-            }
+            pushItems($p);
 
             for (i = 0; i < cbox.length; i++) {
                 (function (protectedIndex) {
@@ -178,6 +182,34 @@
                     cbox[i].checked = false;
                 }
             }
+        }
+
+        function pushItems($p) {
+            for (var i = 0; i < cbox.length; i++) {
+                if (cboxValues.length < ($p - 1) * 5 + cbox.length) {
+                    cboxValues.push([$p, cbox[i].checked]);
+                    originalCboxValues.push([$p, cbox[i].checked]);
+                    idValues.push([$p, id[i].value]);
+                    console.log(idValues[i]);
+                    console.log(id[i].value);
+                }
+            }
+        }
+
+        function compareDiff() {
+            var update = document.getElementById("update"),
+                    updateId = document.getElementById("updateId");
+            
+            for (var i = 0; i < originalCboxValues.length; i++) {
+                if (cboxValues[i][1] !== originalCboxValues[i][1]) {
+                    updateCboxValues.push(cboxValues[i][1]);
+                    updateIdValues.push(idValues[i][1]);
+                }
+            }
+            console.log(updateCboxValues);
+            console.log(updateIdValues);
+            update.value = JSON.stringify(updateCboxValues);
+            updateId.value = JSON.stringify(updateIdValues);
         }
     </script>
 </html>

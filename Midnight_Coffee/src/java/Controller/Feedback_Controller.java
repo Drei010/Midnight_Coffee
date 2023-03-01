@@ -1,4 +1,3 @@
-
 package Controller;
 
 import Model.FeedbackList;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Feedback_Controller", urlPatterns = {"/Feedback_Controller"})
 public class Feedback_Controller extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //Get Connection
@@ -21,19 +20,33 @@ public class Feedback_Controller extends HttpServlet {
         if (conn == null) {
             response.sendRedirect("home.jsp?noconnection");
         }
-        
+
         //Get Instruction
         String instruction = request.getParameter("instruction");
-        
-        switch(instruction){
+
+        switch (instruction) {
             case "load":
                 String page = request.getParameter("page");
-                
+
                 request.setAttribute("loadedFeedback", "yes");
                 FeedbackList feedbackList = new FeedbackList();
-                
+
                 request.setAttribute("feedback", feedbackList.FeedbackList(conn));
                 request.getRequestDispatcher(page).forward(request, response);
+                break;
+            case "update":
+                String update[] = request.getParameter("update").replaceAll("\\[|\\]", "").split(",");
+                String updateId[] = request.getParameter("updateId").replaceAll("\\[|\\]|\"", "").split(",");
+                FeedbackList updateList = new FeedbackList();
+                for (int i = 0; i < update.length; i++) {
+                    System.out.println(updateId[i] + " will be set to " + update[i]);
+                    if (update[i].equals("true")) {
+                        updateList.updateDisplayed("Yes", Integer.parseInt(updateId[i]), conn);
+                    } else {
+                        updateList.updateDisplayed("No", Integer.parseInt(updateId[i]), conn);
+                    }
+                }
+                response.sendRedirect("adminFeedback_page.jsp?updated");
                 break;
         }
     }
