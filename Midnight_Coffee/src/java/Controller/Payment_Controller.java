@@ -181,7 +181,7 @@ public class Payment_Controller extends HttpServlet {
         String Yes = orderinsert.insertOrder(customerID, summaryQuantity, summaryName, summaryOption, summaryPrice, orderTotal, dateString, timeString, conn);
         if ("Yes".equals(Yes)) {
             //Order Submited
-            response.sendRedirect("Paymentpage.jsp?");
+            response.sendRedirect("payment_page.jsp?");
         } else {
             //Order Failed
             response.sendRedirect("Menu_page.jsp?orderFailed");
