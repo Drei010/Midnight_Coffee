@@ -18,10 +18,11 @@ import java.util.logging.Logger;
 public class Orders_Model {
     
     //Get Orders
-        public ResultSet Orders(Connection conn) {
+        public ResultSet Orders(String orderDate, Connection conn) {
         try {
-            String query = "SELECT * FROM customer_credentials INNER JOIN customer_orders ON customer_credentials.customerID = customer_orders.customerID";
+            String query = "SELECT * FROM customer_credentials INNER JOIN customer_orders ON customer_credentials.customerID = customer_orders.customerID WHERE customer_orders.orderDate = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, orderDate);
             ResultSet records = stmnt.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
