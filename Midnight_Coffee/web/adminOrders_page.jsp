@@ -10,7 +10,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/><!--Icon Import -->  
         <link rel='stylesheet' type='text/css' href='styles/general.css'>
+         <link rel='stylesheet' type='text/css' href='styles/adminOrders.css'>
         <title>Orders</title>
     </head>
     <body>
@@ -30,26 +32,28 @@
         <%
             }%>
             
+            <div class="ordersBody">
             <!-- Header with download pdf buttons -->  
-            <div class="customerOrders">
+            <div class="ordersBtn">
             <h1>Customer Orders</h1>
             
             <!-- download transactions pdf onclick -->  
-            <button class="transactionBtn">Transaction Report</button>
+            <button class="transactionBtn"><i class='fa fa-print'></i> Transaction Report</button>
             
             <!-- download products pdf onclick -->  
-            <button class="productBtn">Product Report</button>
+            <button class="productBtn"><i class='fa fa-print'></i> Product Report</button>
             </div>
             
              <!-- Table of orders -->  
-            <div class="ordersTable">
+            <div class="ordersPanel">
                          
+                <h1>Orders for <%= session.getAttribute("ordersDate")%></h1>
                            <%
                 ResultSet customerOrders = (ResultSet) request.getAttribute("customerOrders");
                 if (customerOrders != null) {
                     while (customerOrders.next()) {%>
                     
-                    <div class="ordersTableContents">
+                    <div class="ordersPanelContents">
                         
                       <!-- Onclick change order Summary panel-->  
                   <!--0-->  <button  class="openSummaryBtn">
@@ -66,15 +70,21 @@
                    
                    <!-- Hidden fields for summary panel-->  
                   
-                      <!--1--> <input class="hiddenOrderID" type="text" value="<%=customerOrders.getString("orderId")%>">
-                       <!--2--><input class="hiddenOrderTotal" type="text" value="<%=customerOrders.getString("orderTotal")%>">
-                       <!--3--><input class="hiddensummaryName" type="text" value="<%=customerOrders.getString("summaryName")%>">
-                       <!--4--><input class="hiddensummaryPrice" type="text" value="<%=customerOrders.getString("summaryPrice")%>">
+                        <input class="hiddenOrderID" type="hidden" value="<%=customerOrders.getString("orderId")%>">
+                        <input class="hiddenOrderTotal" type="hidden" value="<%=customerOrders.getString("orderTotal")%>">
+                        <input class="hiddensummaryName" type="hidden" value="<%=customerOrders.getString("summaryName")%>">
+                        <input class="hiddenOption" type="hidden" value="<%=customerOrders.getString("summaryOption")%>">
+                        <input class="hiddenQuantity" type="hidden" value="<%=customerOrders.getString("summaryQuantity")%>">
+                        <input class="hiddensummaryPrice" type="hidden" value="<%=customerOrders.getString("summaryPrice")%>">
                      
                    
                    </div>
                       <%}
-                                }%>
+                                }
+                else{%>
+                     
+                 <h1>Looks Like there are no orders for this day.</h1>
+                <%}%>
                
                
            
@@ -101,6 +111,8 @@
                     <thead>
                         <tr>
                             <th>Items</th>
+                            <th>Option</th>
+                            <th>Quantity</th>
                             <th>Price</th>
                         </tr>
                     </thead>
@@ -110,10 +122,10 @@
                 </table>
              
             </div>
-            
+            </div>
             <script>
          //getbtn       
-        var openSummaryBtn = document.getElementsByClassName('openSummaryBtn');
+        var openSummaryBtn =  document.querySelector('.openSummaryBtn');
         
            for (var i = 0; i < openSummaryBtn.length; i++) {
               
@@ -123,20 +135,29 @@
                  
 
                 // orderID 
-                var hiddenOrderID = buttonClicked.parentElement.children[1];
+                var hiddenOrderID = buttonClicked.parentElement.querySelector('.hiddenOrderID');
                 document.getElementById('orderNumberValue').innerHTML = hiddenOrderID.value;
                 
                // OrderTotal 
-                var hiddenOrderTotal = buttonClicked.parentElement.children[2];
+                var hiddenOrderTotal = buttonClicked.parentElement.querySelector('.hiddenOrderTotal');
                 document.getElementById('priceTotalValue').innerHTML = hiddenOrderTotal.value;
                 
                // Name Array 
-                var hiddensummaryName = buttonClicked.parentElement.children[3];
+                var hiddensummaryName = buttonClicked.parentElement.querySelector('.hiddensummaryName');
                 var itemsArray = hiddensummaryName.value.split(",");
+                              
+               // Option Array 
+                var hiddenOption = buttonClicked.parentElement.querySelector('.hiddenOption');
+                var optionArray = hiddenOption.value.split(",");
+       
+
+               // Quantity array 
+                var hiddenQuantity = buttonClicked.parentElement.querySelector('.hiddenQuantity');
+                 var quantityArray = hiddenQuantity.value.split(",");
        
 
                // Price array 
-                var hiddensummaryPrice = buttonClicked.parentElement.children[4];
+                var hiddensummaryPrice = buttonClicked.parentElement.querySelector('.hiddensummaryPrice');
                  var priceArray = hiddensummaryPrice.value.split(",");
                 
               var tableBody = document.getElementById("summaryTable").getElementsByTagName('tbody')[0];
@@ -148,8 +169,12 @@
               for (var i = 0; i < itemsArray.length; i++) {
                 var row = tableBody.insertRow(i);
                 var itemCell = row.insertCell(0);
-                var priceCell = row.insertCell(1);
+                var optionCell = row.insertCell(1);
+                var quantityCell = row.insertCell(2);
+                var priceCell = row.insertCell(3);
                 itemCell.innerHTML = itemsArray[i];
+                optionCell.innerHTML = optionArray[i];
+                quantityCell.innerHTML = quantityArray[i];
                 priceCell.innerHTML = priceArray[i];
               }
 

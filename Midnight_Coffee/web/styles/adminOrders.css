@@ -1,0 +1,107 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 15 Feb 2023, 7:06:34 pm
+    Author     : rvhin
+*/
+body{
+    margin: 0;
+    padding-top: 150px;
+}
+
+.ordersBody{
+    display: grid;
+    grid-template-areas:
+        'ordersBtn selectDate'
+        'ordersPanel orderSummary';
+
+    gap: 5px;
+    max-width: 80%;
+    max-height: 600px;
+    padding:10px;
+    margin:auto;
+}
+
+.ordersBtn{
+    grid-area: ordersBtn;
+    padding: 15px;
+    
+}
+.ordersPanel{
+    grid-area: ordersPanel;
+    padding: 15px;
+    
+}
+.selectDate{
+    grid-area: selectDate;
+    padding: 15px;
+    background-color: #282747;
+    border-radius: 0.3rem;
+    color:white;
+    
+}
+.orderSummary{
+    grid-area: orderSummary;
+    padding: 15px;
+    background-color: #282747;
+    border-radius: 0.3rem;
+    color:white;
+    
+}
+.transactionBtn,.productBtn{
+    font-size: 1.5rem;
+    color:white;
+    background-color: #282747;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 0.3rem;
+    
+    
+}
+
+.ordersPanel{
+    background-color: #AEB3AF;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    height:270px;
+    width:600px;
+    border-radius: 0.3rem;
+}
+.openSummaryBtn{
+    background-color: #282747;
+    color:white;
+    font-size: 1rem;
+    width:600px;
+
+}
+
+.inputDate{
+    display: block;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #E6E6E6;
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 15px -10px;
+    text-indent: 20px;
+}
+.dateBtn {
+    cursor: pointer;
+    color: white;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    width: 10rem;
+    border: 0;
+    padding: 10px 0;
+    margin: -10px 0 0 -10px;
+    border-radius: 5px;
+    background-color: #8DC075;
+    text-indent: 0;
+    text-align: center;
+}
