@@ -17,7 +17,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 body {
-    margin-top: 40px;
+    color: white;
+    margin: 0;
+    padding-top: 100px;
+    background-color: #CFCBC2;
 }
 
 table{
@@ -71,7 +74,9 @@ table{
     justify-content: start;
 }
 
-
+.itemContainer{
+    max-width: 292px;
+}
 
 /*item image*/
 .thumbnail{
@@ -146,6 +151,7 @@ table{
 .dec:hover,
 .dec:focus {
     transform: scale(1.2);
+    cursor: pointer;
 }
 /*item quantity input field*/
 .itemQuantity{
@@ -172,18 +178,26 @@ table{
     color: white;
     line-height: 0;
     transition: background-color 150ms ease-in-out;
+    position: sticky;
 }
 
 /*Left arrow*/
 .left-handle {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    left: 0;
 }
 
 /*Right arrow*/
 .right-handle {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    right: 0;
+}
+
+.item{
+    display: flex;
+    align-items: center;
 }
 
 /*Arrow Hover*/
@@ -251,12 +265,6 @@ table{
     }
 }
 
-body {
-    color: white;
-    padding-top: 100px;
-}
-
-
 /* Pop up*/
 #popupModal {
     display: none;
@@ -297,7 +305,7 @@ footer {
 }
 
 .footer-container {
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
     text-align: center;
 }
@@ -319,6 +327,7 @@ footer {
 .checkoutBtn:hover {
     box-shadow: inset 180px 0 0 0 #1b67c5;
     color: white;
+    cursor: pointer;
 }
 
 .totalFooter{

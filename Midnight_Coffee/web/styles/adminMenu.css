@@ -24,11 +24,14 @@ body {
 }
 
 
+
 /*carousel container*/
 .carouselContainer {
     display: flex;
+    justify-content: center;
     overflow: hidden;
-    align-items: center;
+    width: 100%;
+    flex-grow: 1;
 
 }
 
