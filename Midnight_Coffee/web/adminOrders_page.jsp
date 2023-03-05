@@ -125,7 +125,7 @@
             </div>
             <script>
          //getbtn       
-        var openSummaryBtn =  document.querySelector('.openSummaryBtn');
+       var openSummaryBtn = document.getElementsByClassName('openSummaryBtn');
         
            for (var i = 0; i < openSummaryBtn.length; i++) {
               
