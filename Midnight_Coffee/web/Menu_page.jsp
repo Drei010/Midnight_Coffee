@@ -35,7 +35,7 @@
             session = request.getSession();
         %>
         <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
-        
+
 
         <%-- Open popup for the order summary --%>
         <div id="popupModal">
@@ -71,6 +71,8 @@
 
                     <input type="hidden" name="orderTotal" id="totalSummary" value="" />
 
+                    <input type="hidden" name="summaryItemCode" id="summaryItemCode" value=""/>
+
                     <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
 
@@ -82,8 +84,8 @@
         <footer>
             <div class="footer-container">
                 <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
-                    <label>Total &#8369;:</label>
-                    <input type="text" class ="totalFooter" id="totalFooter" value="0" disabled=""/>
+                <label>Total &#8369;:</label>
+                <input type="text" class ="totalFooter" id="totalFooter" value="0" disabled=""/>
             </div>
         </footer>
 
@@ -448,8 +450,10 @@
         var role = document.getElementById('role');
 
         if (role.value === "guest") {
-          checkoutBtn.disabled = true;
-        }else{checkoutBtn.disabled = false;}
+            checkoutBtn.disabled = true;
+        } else {
+            checkoutBtn.disabled = false;
+        }
 
 
         /////////////////////////////// Total orders computation//////////////////////
@@ -508,6 +512,10 @@
                             //Item Price  
                             + buttonClicked.parentElement.children[4].value +
                             `</td>
+                    <td hidden>`
+                            + buttonClicked.parentElement.children[1].value +
+                            `</td>
+                            
             </tr>`;
                 } else {
 
@@ -622,6 +630,7 @@
         const nameInput = document.getElementById('summaryName');
         const optionInput = document.getElementById('summaryOption');
         const priceInput = document.getElementById('summaryPrice');
+        const itemCodeInput = document.getElementById('summaryItemCode');
 
         // Define a function to update the input fields
         function updateInputFields() {
@@ -629,10 +638,11 @@
             const rows = table.querySelectorAll('tbody tr');
 
             // Initialize empty arrays for each column
-            let quantities = [];
-            let names = [];
-            let options = [];
-            let prices = [];
+            let quantities = [],
+                    names = [],
+                    options = [],
+                    prices = [],
+                    itemCodes = [];
 
             // Loop through the rows and extract the data from each column
             rows.forEach(row => {
@@ -641,6 +651,7 @@
                 names.push(tds[1].textContent.trim());
                 options.push(tds[2].textContent.trim());
                 prices.push(tds[3].textContent.trim());
+                itemCodes.push(tds[4].textContent.trim());
             });
 
             // Join the arrays into comma-separated strings
@@ -648,12 +659,14 @@
             const nameString = names.join(', ');
             const optionString = options.join(', ');
             const priceString = prices.join(', ');
+            const itemCodeString = itemCodes.join(', ');
 
             // Set the values of the input fields
             quantityInput.value = quantityString;
             nameInput.value = nameString;
             optionInput.value = optionString;
             priceInput.value = priceString;
+            itemCodeInput.value = itemCodeString;
         }
 
         // Create a new MutationObserver

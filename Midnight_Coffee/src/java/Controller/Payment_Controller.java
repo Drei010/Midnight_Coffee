@@ -47,6 +47,7 @@ public class Payment_Controller extends HttpServlet {
         String summaryOption = request.getParameter("summaryOption");
         String summaryPrice = request.getParameter("summaryPrice");
         String orderTotal = request.getParameter("orderTotal");
+        String summaryItemCode = request.getParameter("summaryItemCode");
 
         // Get the current date and time
         LocalDateTime now = LocalDateTime.now();
@@ -58,6 +59,8 @@ public class Payment_Controller extends HttpServlet {
         //Convert string to array 
         String[] summaryQuantityArray = summaryQuantity.split(",");
         String[] summaryNameArray = summaryName.split(",");
+        String[] summaryItemCodeArray = summaryItemCode.split(",");
+        String[] summaryOptionArray = summaryOption.split(",");
 
         //Get array length the item menu
         int ordersArrayLength = summaryNameArray.length;
@@ -67,21 +70,30 @@ public class Payment_Controller extends HttpServlet {
         Recipes recipes = new Recipes();
         ProductList productListMethod = new ProductList();
         IngredientList ingredientListMethod = new IngredientList();
-        
+
         //declare variables
         String trimmedItemName = "";
         int itemQuantityInt = 0;
         String ingredientList = "";
         String weightList = "";
+        int trimmedItemCode = 0;
+        String trimmedOption = "";
 
         //get menu item name
         for (int i = 0; i < ordersArrayLength; i++) {
 
             //Remove whitespaces
+            trimmedOption = summaryOptionArray[i].trim();
             trimmedItemName = summaryNameArray[i].trim();
+            trimmedItemCode = Integer.parseInt(summaryItemCodeArray[i].trim());
 
             //Convert Item Quantity into int
             itemQuantityInt = Integer.parseInt(summaryQuantityArray[i].trim());
+
+            System.out.println("itemcode" + trimmedItemCode);
+            System.out.println("itemname" + trimmedItemName);
+            System.out.println("itemoption" + trimmedOption);
+            System.out.println("itemquant" + itemQuantityInt);
 
             // retrieve the amount of grams that will be subtracted. Set as Subtrahend
             ResultSet ingredientResult = stocksComputation.retrieveGrams(trimmedItemName, conn);
@@ -103,6 +115,8 @@ public class Payment_Controller extends HttpServlet {
                 //Get array length
                 int ingredientsArrayLength = ingredientsListArray.length;
 
+                stocksComputation.addProductSold(trimmedItemCode, trimmedItemName, trimmedOption, itemQuantityInt, conn);
+
                 /////Iterate through the array
                 for (int j = 0; j < ingredientsArrayLength; j++) {
 
@@ -118,12 +132,12 @@ public class Payment_Controller extends HttpServlet {
 
                     //Subtract weight to the total stocks
                     int newStockWeight = Integer.parseInt(stockWeight) - (Integer.parseInt(weightListArray[j]) * itemQuantityInt);
- 
-                      //check if it exceedes the stock
-                   if(newStockWeight<=0){
-                               //Order Failed Stocks depleted
-                    response.sendRedirect("Menu_page.jsp?onlyfewstocks remaining");
-                   }               
+
+                    //check if it exceedes the stock
+                    if (newStockWeight <= 0) {
+                        //Order Failed Stocks depleted
+                        response.sendRedirect("Menu_page.jsp?onlyfewstocks remaining");
+                    }
                     //set the int to string
                     String newStockWeightStr = Integer.toString(newStockWeight);
 
@@ -150,8 +164,8 @@ public class Payment_Controller extends HttpServlet {
                                         //get current weights
                                         int remaining = ingredientListMethod.ingredientItem(trimmedIngredientsName, conn).getInt("ingredientWeight");
                                         int minimum = ingredientListMethod.ingredientItem(trimmedIngredientsName, conn).getInt("MinimumWeight");
-                                        
-                                         //check if remaining stock is more than minimum requirement
+
+                                        //check if remaining stock is more than minimum requirement
                                         if (remaining <= minimum) {
 
                                             //remaining stock is not more than minimum requirement so current product selected is set to out of stock
