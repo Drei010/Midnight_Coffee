@@ -26,6 +26,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -72,7 +74,7 @@ public class Menu_Controller extends HttpServlet {
         switch (instruction) {
 
             //load adminPayment_page
-            case "loadMenu": {
+            case "loadMenu":
 
                 //Get page location
                 String page = request.getParameter("page");
@@ -84,13 +86,13 @@ public class Menu_Controller extends HttpServlet {
 
                 if (page.equals("adminMenu_page.jsp")) {
                     request.setAttribute("ingredients", loadIngredients.Ingredients(conn));
-                    request.setAttribute("allcoffee", loadMenu.AllCoffee(conn));
-                    request.setAttribute("allkremalatte", loadMenu.AllKremaLatte(conn));
-                    request.setAttribute("alltea", loadMenu.AllTea(conn));
+                    request.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
+                    request.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
+                    request.setAttribute("alltea", loadMenu.AdminProducts("Tea", conn));
                 } else {
-                    request.setAttribute("coffee", loadMenu.Coffee(conn));
-                    request.setAttribute("kremalatte", loadMenu.KremaLatte(conn));
-                    request.setAttribute("tea", loadMenu.Tea(conn));
+                    request.setAttribute("coffee", loadMenu.CustomerProducts("Coffee", conn));
+                    request.setAttribute("kremalatte", loadMenu.CustomerProducts("Kremalatte", conn));
+                    request.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
                 }
 
                 HttpSession session = request.getSession();
@@ -100,17 +102,18 @@ public class Menu_Controller extends HttpServlet {
                 }
                 if (session.getAttribute("isGuest").equals("yes")) {
                     session.setAttribute("role", "guest");
-                } else {
+                } else if(session.getAttribute("isGuest").equals("no")){
                     session.setAttribute("role", "customer");
+                } else{
+                    session.setAttribute("role", "admin");
                 }
 
                 //go to either menu page or adminMenu page
                 request.getRequestDispatcher(page).forward(request, response);
                 break;
-            }
 
             // Check if instruction is to add menu item
-            case "addItemMenu": {
+            case "addItemMenu":
                 //desitantion
 
                 // get parameters
@@ -166,8 +169,14 @@ public class Menu_Controller extends HttpServlet {
                     response.sendRedirect("adminMenu_page.jsp?failedtouploaddatabase");
                 }
                 break;
-            }
 
+            case "deactivate":
+            case "reactivate":
+                int product = Integer.parseInt(request.getParameter("product"));
+                ProductList change = new ProductList();
+                change.changeActivation(instruction, product, conn);
+                response.sendRedirect("adminMenu_page.jsp?changeActivation");
+                break;
         }
     }
 

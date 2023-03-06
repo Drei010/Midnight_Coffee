@@ -162,10 +162,21 @@ body {
     z-index: 10;
 }
 
+.reactivateItemBtn{
+    grid-area: deactivateItemBtn;
+    margin: 0;
+    background-color: #8DC075;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+    z-index: 10;
+}
+
 
 .updateItemBtn:hover,
 .availabilityItemBtn:hover,
-.deactivateItemBtn:hover
+.deactivateItemBtn:hover,
+.reactivateItemBtn:hover
 {
     transform: scale(1.2);
 }

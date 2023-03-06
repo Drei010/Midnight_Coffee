@@ -17,12 +17,13 @@ import java.util.logging.Logger;
  */
 public class ProductList {
 
-    public ResultSet Coffee(Connection conn) {
+    public ResultSet CustomerProducts(String itemClass, Connection conn) {
         try {
-            String query = "SELECT * FROM products WHERE itemClass = ? AND itemStock = ?";
+            String query = "SELECT * FROM products WHERE itemClass = ? AND itemStock = ? AND deactivated = ?";
             PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Coffee");
+            ps.setString(1, itemClass);
             ps.setString(2, "In Stock");
+            ps.setString(3, "No");
             ResultSet records = ps.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
@@ -35,81 +36,11 @@ public class ProductList {
         return null;
     }
 
-    public ResultSet KremaLatte(Connection conn) {
-        try {
-            String query = "SELECT * FROM products WHERE itemClass = ? AND itemStock = ?";
-            PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Kremalatte");
-            ps.setString(2, "In Stock");
-            ResultSet records = ps.executeQuery();
-            if (records.next()) {
-                records.beforeFirst();
-                return records;
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public ResultSet Tea(Connection conn) {
-        try {
-            String query = "SELECT * FROM products WHERE itemClass = ? AND itemStock = ?";
-            PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Tea");
-            ps.setString(2, "In Stock");
-            ResultSet records = ps.executeQuery();
-            if (records.next()) {
-                records.beforeFirst();
-                return records;
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    public ResultSet AllCoffee(Connection conn) {
+    public ResultSet AdminProducts(String itemClass, Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemClass = ?";
             PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Coffee");
-            ResultSet records = ps.executeQuery();
-            if (records.next()) {
-                records.beforeFirst();
-                return records;
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public ResultSet AllKremaLatte(Connection conn) {
-        try {
-            String query = "SELECT * FROM products WHERE itemClass = ?";
-            PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Kremalatte");
-            ResultSet records = ps.executeQuery();
-            if (records.next()) {
-                records.beforeFirst();
-                return records;
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public ResultSet AllTea(Connection conn) {
-        try {
-            String query = "SELECT * FROM products WHERE itemClass = ?";
-            PreparedStatement ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ps.setString(1, "Tea");
+            ps.setString(1, itemClass);
             ResultSet records = ps.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
@@ -161,17 +92,33 @@ public class ProductList {
         return null;
     }
 
-    public void setStock(String availability, String itemName, Connection conn){
-            try {
-                String query = "UPDATE products SET itemStock = ? WHERE itemName = ?";
-                PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                stmnt.setString(1, availability);
-                stmnt.setString(2, itemName);
-                stmnt.executeUpdate();
-                stmnt.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public void setStock(String availability, String itemName, Connection conn) {
+        try {
+            String query = "UPDATE products SET itemStock = ? WHERE itemName = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, availability);
+            stmnt.setString(2, itemName);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
+    public void changeActivation(String instruction, int itemCode, Connection conn) {
+        try {
+            String query = "UPDATE products SET deactivated = ? WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            if (instruction.equals("deactivate")) {
+                stmnt.setString(1, "Yes");
+            } else {
+                stmnt.setString(1, "No");
+            }
+            stmnt.setInt(2, itemCode);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

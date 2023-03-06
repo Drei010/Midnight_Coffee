@@ -47,11 +47,11 @@
                     <label for="itemAddName">Product Name:</label>
                     <input type="text" placeholder="Name" name="itemAddName" id="itemAddName" class="itemAddName" required>
                     <!-- Warning Message for comma usage-->
-                      <a id="warningComma"></a><br>
+                    <a id="warningComma"></a><br>
                     <label for="itemAddImage">Image:</label>
                     <input type="file" name="itemAddImage" class="itemAddImage" id="itemAddImage" required>
                     <!-- Warning Message for incompatible file types-->
-                      <a id="warningAdd"></a><br>
+                    <a id="warningAdd"></a><br>
                     <label for="itemAddOption">Option:</label>
                     <input type="text" placeholder="Item Option" name="itemAddOption" class="itemAddOption" required>
                     <label for="itemAddPrice">Product Price:</label>
@@ -89,7 +89,7 @@
                     </div>
                 </form>
                 <!-- Ingredients div end-->
-                
+
             </div>
         </div>
 
@@ -132,7 +132,7 @@
 
                     <!-- Set Availability form-->
                     <form action="Menu_Controller" method="post" id="setStockClass1">
-                        <% if (coffee.getString("itemStock") == "Out of Stock") { %>
+                        <% if (coffee.getString("itemStock").equals("Out of Stock")) { %>
                         <input type="hidden" name="itemStock" value="In Stock">
                         <% } else { %>
                         <input type="hidden" name="itemStock" value="Out of Stock">
@@ -165,8 +165,9 @@
                             <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
 
                             <!--Update Menu Item-->
+                            <form>
                             <button class="updateItemBtn">Update</button>
-
+                            </form>
 
                             <!--Update Availability-->
                             <button class="availabilityItemBtn">
@@ -174,7 +175,16 @@
                             </button>
 
                             <!--Deactivate Availability-->
-                            <button class="deactivateItemBtn">Deactivate</button>
+                            <form action="Menu_Controller" method="post">
+                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
+                                <%if(coffee.getString("deactivated").equals("No")){%>
+                                <input type="hidden" name="instruction" value="deactivate">
+                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                <%}else{%>
+                                <input type="hidden" name="instruction" value="reactivate">
+                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <%}%>
+                            </form>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -257,9 +267,16 @@
                             </button>
 
                             <!--Deactivate Availability-->
-                            <button class="deactivateItemBtn">Deactivate</button>
-
-
+                            <form action="Menu_Controller" method="post">
+                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
+                                <%if(coffee.getString("deactivated").equals("No")){%>
+                                <input type="hidden" name="instruction" value="deactivate">
+                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                <%}else{%>
+                                <input type="hidden" name="instruction" value="reactivate">
+                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <%}%>
+                            </form>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -342,9 +359,16 @@
                             </button>
 
                             <!--Deactivate Availability-->
-                            <button class="deactivateItemBtn">Deactivate</button>
-
-
+                            <form action="Menu_Controller" method="post">
+                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
+                                <%if(coffee.getString("deactivated").equals("No")){%>
+                                <input type="hidden" name="instruction" value="deactivate">
+                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                <%}else{%>
+                                <input type="hidden" name="instruction" value="reactivate">
+                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <%}%>
+                            </form>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -546,28 +570,28 @@
                 warningAdd.innerText = '';
             } else {
                 addBtn.disabled = true;
-                 warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
-                warningAdd.style.color = "red"; 
+                warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                warningAdd.style.color = "red";
             }
         });
-        
-                    // Disable comma usage
-            const itemAddName = document.getElementById("itemAddName");
-            const warningComma = document.getElementById("warningComma");
-            // Add an event listener to the input box to check its value
-            itemAddName.addEventListener("input", function() {
-              // Check if the input box value contains a comma
-              if (itemAddName.value.includes(",")) {
+
+        // Disable comma usage
+        const itemAddName = document.getElementById("itemAddName");
+        const warningComma = document.getElementById("warningComma");
+        // Add an event listener to the input box to check its value
+        itemAddName.addEventListener("input", function () {
+            // Check if the input box value contains a comma
+            if (itemAddName.value.includes(",")) {
                 // Disable the submit button
                 addBtn.disabled = true;
                 warningComma.innerText = 'The usage of comma (,) is not allowed';
-                warningComma.style.color = "red"; 
-              } else {
+                warningComma.style.color = "red";
+            } else {
                 // Enable the submit button
                 addBtn.disabled = false;
                 warningComma.innerText = '';
-              }
-            });
+            }
+        });
 
         //Update Availability
         function updateAvailabilityClass1() {
