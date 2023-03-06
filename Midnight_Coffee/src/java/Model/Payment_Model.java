@@ -59,11 +59,11 @@ public class Payment_Model {
     }
 
     // retrieve the amount of grams that will be subtracted. Set as Subtrahend
-    public ResultSet retrieveGrams(String itemName, Connection conn) {
+    public ResultSet retrieveGrams(int itemCode, Connection conn) {
         try {
-            String query = "SELECT * FROM recipes  WHERE itemName = ?";
+            String query = "SELECT * FROM recipes  WHERE itemCode = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmnt.setString(1, itemName);
+            stmnt.setInt(1, itemCode);
             ResultSet records = stmnt.executeQuery();
             if (records.next()) {
                 records.beforeFirst();

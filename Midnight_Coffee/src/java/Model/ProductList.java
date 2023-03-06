@@ -92,12 +92,12 @@ public class ProductList {
         return null;
     }
 
-    public void setStock(String availability, String itemName, Connection conn) {
+    public void setStock(String availability, int itemCode, Connection conn) {
         try {
-            String query = "UPDATE products SET itemStock = ? WHERE itemName = ?";
+            String query = "UPDATE products SET itemStock = ? WHERE itemCode = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmnt.setString(1, availability);
-            stmnt.setString(2, itemName);
+            stmnt.setInt(2, itemCode);
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
@@ -112,7 +112,7 @@ public class ProductList {
             if (instruction.equals("deactivate")) {
                 stmnt.setString(1, "Yes");
             } else {
-                stmnt.setString(1, "No");
+                stmnt.setString(1, "No");  
             }
             stmnt.setInt(2, itemCode);
             stmnt.executeUpdate();

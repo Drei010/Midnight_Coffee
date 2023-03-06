@@ -117,7 +117,7 @@ public class IngredientList {
                                 if (!currIngredient.equals(ingredient)) {
                                     ResultSet otherIngredient = ingredientItem(currIngredient, conn);
                                     if (otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")) {
-                                        productListMethod.setStock("In Stock", productList.getString("itemName"), conn);
+                                        productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
                                     }
                                 }
                             }

@@ -96,7 +96,7 @@ public class Payment_Controller extends HttpServlet {
             System.out.println("itemquant" + itemQuantityInt);
 
             // retrieve the amount of grams that will be subtracted. Set as Subtrahend
-            ResultSet ingredientResult = stocksComputation.retrieveGrams(trimmedItemName, conn);
+            ResultSet ingredientResult = stocksComputation.retrieveGrams(trimmedItemCode, conn);
 
             try {
 
@@ -169,14 +169,14 @@ public class Payment_Controller extends HttpServlet {
                                         if (remaining <= minimum) {
 
                                             //remaining stock is not more than minimum requirement so current product selected is set to out of stock
-                                            productListMethod.setStock("Out of Stock", productList.getString("itemName"), conn);
+                                            productListMethod.setStock("Out of Stock", productList.getInt("itemCode"), conn);
                                         }
                                     }
                                 }
                             }
                         }
                     } catch (SQLException ex) {
-                        Logger.getLogger(StockAvailability_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Payment_Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     if (!"Yes".equals(updateSuccess)) {
                         //Update did not work error
