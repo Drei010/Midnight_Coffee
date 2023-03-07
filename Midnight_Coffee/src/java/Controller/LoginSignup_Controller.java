@@ -17,12 +17,51 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+import org.apache.commons.codec.binary.Base64;
+
 /**
  *
  * @author Andrei
  */
 @WebServlet(name = "LoginSignup_Controller", urlPatterns = {"/LoginSignup_Controller"})
 public class LoginSignup_Controller extends HttpServlet {
+    
+    
+//Encryption
+private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0x48,0x49,0x44,0x41,0x4C,0x47};
+
+        public static String encrypt(String strToEncrypt) {
+            String encryptedString = null;
+            try {
+                Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
+                final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+                IvParameterSpec iv = new IvParameterSpec(new byte[16]);
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
+                encryptedString = Base64.encodeBase64String(cipher.doFinal(strToEncrypt.getBytes()));
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+            return encryptedString;
+        }
+
+        public static String decrypt(String codeDecrypt){
+            String decryptedString = null;
+            try{
+                Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING", "SunJCE");
+                final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+                IvParameterSpec iv = new IvParameterSpec(new byte[16]);
+                cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
+                decryptedString = new String(cipher.doFinal(Base64.decodeBase64(codeDecrypt)));
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+            return decryptedString;
+        }
+
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,7 +90,7 @@ public class LoginSignup_Controller extends HttpServlet {
               
             }
 
-            String Yes = signUp.insertData(firstname, lastname, password, email, mobilenumber, conn);
+            String Yes = signUp.insertData(firstname, lastname, encrypt(password), email, mobilenumber, conn);
             if ("Yes".equals(Yes)) {
                 //Account Creation Successful data inserted to the database
                 response.sendRedirect("Login_page.jsp?process=1");
@@ -72,7 +111,7 @@ public class LoginSignup_Controller extends HttpServlet {
             }else{
                 
                     //Check if password matches with password in the database
-                    String checkPassword = results.getString("customerPassword");
+                    String checkPassword = decrypt(results.getString("customerPassword"));
                     if (!checkPassword.equals(password)) {
 
                         //Password does not match
