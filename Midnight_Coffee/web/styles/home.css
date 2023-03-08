@@ -37,7 +37,7 @@ body{
     width: auto;
     max-height: 250px;
     background-color: #282747;
-    padding-bottom: 10px;
+    padding-bottom: 75px;
 }
 
 .home-container-contents{
@@ -200,8 +200,8 @@ h1{
 }
 
 .reviews{
-   margin-left: 30px;
-   padding-top: 50px;   
+   padding-left: 35px;
+   padding-top: 10px;   
    display: table;
 }
 .review1{

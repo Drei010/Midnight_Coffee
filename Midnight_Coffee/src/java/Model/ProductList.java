@@ -55,7 +55,7 @@ public class ProductList {
 
     ///Insert menu item Data to the Database
     public String insertData(String itemName, String itemOption, String itemPrice, String itemImage, String itemClass, String itemStock, Connection conn) {
-        String sql = "INSERT INTO products (itemName, itemOption, itemPrice, itemImage, itemClass, itemStock) VALUES ( ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO products (itemName, itemOption, itemPrice, itemImage, itemClass, itemStock, deactivated) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.setString(1, itemName);
@@ -64,6 +64,7 @@ public class ProductList {
             stmnt.setString(4, itemImage);
             stmnt.setString(5, itemClass);
             stmnt.setString(6, itemStock);
+            stmnt.setString(7, "No");
 
             stmnt.executeUpdate();
             stmnt.close();
