@@ -29,8 +29,7 @@
                 document.forms['load'].submit();
             };
         </script>
-        <%
-            }%>
+        <%}%>
         <div class="container">
             <div class="left">
                 <h1>New Ingredient</h1>
@@ -38,7 +37,7 @@
                     <input type="hidden" name="action" value="addIngredient">
                     <div class="form-group">
                         <label for="ingredient">Ingredient:</label>
-                        <input type="text" id="ingredient" name="ingredient" required>
+                        <input type="text" id="ingredient" name="ingredientName" required>
                         <!-- Warning Message for comma usage-->
                      <br> <a id="warningComma"></a><br>
                     </div>  

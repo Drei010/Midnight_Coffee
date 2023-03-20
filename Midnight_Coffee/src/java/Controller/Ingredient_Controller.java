@@ -4,6 +4,7 @@ package Controller;
 import Model.IngredientList;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,29 +23,44 @@ public class Ingredient_Controller extends HttpServlet {
         if (conn == null) {
             response.sendRedirect("home.jsp?noconnection");
         }
+
+        
+        // Declare model
+        IngredientList ingredientsProcess = new IngredientList();
         
         String instruction = request.getParameter("action");
         switch(instruction){
             case "load":
-                IngredientList loadIngredients = new IngredientList();
-                request.setAttribute("ingredients", loadIngredients.Ingredients(conn));
+                //Load Ingredients
+                request.setAttribute("ingredients", ingredientsProcess.Ingredients(conn));
                 request.setAttribute("loadedIngredients", "yes");
                 request.getRequestDispatcher("adminIngredients_page.jsp").forward(request, response);
                 break;
-            case "addIngredient":
-                String ingredient = request.getParameter("ingredient");
+                
+            case "addIngredient": 
+                 //Get Parameters
+                String ingredientName = request.getParameter("ingredientName");
                 int weight = Integer.parseInt(request.getParameter("weight"));
                 int min = Integer.parseInt(request.getParameter("minimum"));
                 
-                IngredientList addIngredient = new IngredientList();
-                addIngredient.addIngredient(ingredient, weight, min, conn);
+                //Check if Ingredient Exist
+                ResultSet results = ingredientsProcess.ingredientItem(ingredientName, conn);
+                
+                //Redirect to adminIngredients page if ingredients exist
+                 if (results != null) {
+                response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
+                }
+                 else{
+                //Add Ingredient
+                ingredientsProcess.addIngredient(ingredientName, weight, min, conn);
                 response.sendRedirect("adminIngredients_page.jsp?ingredientadded");
+                 }
                 break;
+                
             case "Delete":
-                String ingredientName = request.getParameter("ingredientName");
-                System.out.println(ingredientName);
-                IngredientList delIngredient = new IngredientList();
-                delIngredient.deleteIngredient(ingredientName, conn);
+                String ingredientNameDeleted = request.getParameter("ingredientName");
+                //Delete Ingredient
+                ingredientsProcess.deleteIngredient(ingredientNameDeleted, conn);
                 response.sendRedirect("adminIngredients_page.jsp?ingredientdeleted");
                 break;
         }
