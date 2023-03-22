@@ -86,7 +86,7 @@ public class Payment_Controller extends HttpServlet {
             trimmedOption = summaryOptionArray[i].trim();
             trimmedItemName = summaryNameArray[i].trim();
             trimmedItemCode = Integer.parseInt(summaryItemCodeArray[i].trim());
-
+            
             //Convert Item Quantity into int
             itemQuantityInt = Integer.parseInt(summaryQuantityArray[i].trim());
 

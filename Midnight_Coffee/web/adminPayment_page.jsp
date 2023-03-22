@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Payment Page</title>
-        <link rel='stylesheet' type='text/css' href='styles/payment_page.css'>
+        <link rel='stylesheet' type='text/css' href='styles/adminPayment.css'>
     </head>
     <body>
          <jsp:include page="adminHeader.jsp" /> <!-- Calls the header for admin-->

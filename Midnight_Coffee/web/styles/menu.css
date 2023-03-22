@@ -292,6 +292,51 @@ table{
     z-index: 5;
 }
 
+/* Table styles */
+#paymentTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+#paymentTable thead tr {
+  background-color: #282747;
+  text-align: center;
+  color: white;
+}
+
+#paymentTable th, #paymentTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Button styles */
+.paymentBtn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #282747;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paymentBtn:hover {
+  background-color: #0062cc;
+}
+
+/* Order Summary header styles */
+#paymentTable thead tr:first-child {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
 footer {
     background-color: #282747;
     position: fixed;

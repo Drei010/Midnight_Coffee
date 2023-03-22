@@ -1,0 +1,152 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 23, 2023, 5:06:58 AM
+    Author     : Acer Predator Helios
+*/
+
+body {
+    margin: 0;
+    background-color: #CFCBC2;
+}
+
+
+.QRBody{
+    display: grid;
+    grid-template-areas:
+        'updateQRItemTitle createQRItemTitle  '
+        'updateQRItem createQRItem  '
+        'updateQRItem createQRItem  ';
+
+    gap: 5px;
+    max-width: 800px;
+    max-height: 600px;
+    padding:10px;
+    margin:auto;
+}
+
+.createQRItemTitle{
+    grid-area: createQRItemTitle;
+    padding: 15px;
+    
+}
+.updateQRItemTitle{
+    grid-area: updateQRItemTitle;
+    padding: 15px;
+    
+}
+
+.createQRItem{
+    grid-area: createQRItem;
+    padding: 25px;
+    background-color: #282747;
+    max-width: 600px;
+    max-height: 600px;
+    color:white;
+    border-radius: 10px;
+    
+}
+
+.updateQRItem{
+    grid-area: updateQRItem;
+    padding: 25px;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    height:390px;
+    width:600px;
+}
+
+/*item container grid*/
+.QRItem{
+    display: grid;
+    grid-template-areas:
+        'oldQRItem newQRItem  '
+        'oldQRItem newQRItem  ';
+
+    gap: 5px;
+    background-color: #AEB3AF;
+    max-width: 600px;
+    max-height: 600px;
+    padding:10px;
+    margin:auto;
+    border-radius: 10px;
+}
+
+
+.QRImages{
+   grid-area: QRImages;
+   width: 250px;
+   height: 250px;
+}
+
+.oldQRItem{
+    grid-area: oldQRItem;
+    margin: auto;
+    padding: 25px;
+    color: black;
+    
+}
+
+.newQRItem{
+    grid-area: newQRItem;
+    margin: auto;
+    padding: 25px;
+    color: black;
+}
+
+.methodName{
+    grid-area: methodName;
+}
+
+.methodNameLabel{
+    grid-area: methodNameLabel;
+}
+.newMethodName{
+    grid-area: newMethodName;
+}
+.newQRLabel{
+    grid-area: newQRLabel;
+}
+.newQRImage{
+    grid-area: newQRImage;
+}
+.addBtn{
+      grid-area: addBtn;
+      background-color: #4CAF50;  
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.75rem;
+      margin: 4px 2px;
+      cursor: pointer;
+}
+.updateBtn{
+      grid-area: updateBtn;
+      background-color: #008CBA;  
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.75rem;
+      margin: 4px 2px;
+      cursor: pointer;
+}
+
+.deleteBtn{
+      grid-area: deleteBtn;
+      background-color: #f44336;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.75rem;
+      margin: 4px 2px;
+      cursor: pointer;
+}

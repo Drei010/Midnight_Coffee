@@ -72,7 +72,7 @@
                     <input type="hidden" name="orderTotal" id="totalSummary" value="" />
 
                     <input type="hidden" name="summaryItemCode" id="summaryItemCode" value=""/>
-
+                    
                     <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
 
@@ -675,6 +675,6 @@
         // Configure the observer to watch for changes to the table body
         const config = {childList: true, subtree: true};
         observer.observe(table.querySelector('tbody'), config);
-
+          
     </script>
 </html>
