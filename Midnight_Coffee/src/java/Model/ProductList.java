@@ -106,20 +106,55 @@ public class ProductList {
         }
     }
 
-    public void changeActivation(String instruction, int itemCode, Connection conn) {
+    public void changeActivation(String instruction, int itemCode, String timestamp, Connection conn) {
         try {
-            String query = "UPDATE products SET deactivated = ? WHERE itemCode = ?";
+            String query = "UPDATE products SET deactivated = ?, deactivationtimestamp = ? WHERE itemCode = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             if (instruction.equals("deactivate")) {
                 stmnt.setString(1, "Yes");
+                stmnt.setString(2, timestamp);
             } else {
                 stmnt.setString(1, "No");  
+                 stmnt.setString(2, null);
             }
-            stmnt.setInt(2, itemCode);
+            stmnt.setInt(3, itemCode);
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+        ///Deletes product from database
+    public String deleteProduct(int itemCode, Connection conn){
+             String sql ="DELETE FROM products WHERE itemCode = ?";
+              try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setInt(1, itemCode);
+            stmnt.executeUpdate();
+            stmnt.close();
+    return "Yes";
+                }catch (SQLException ex){
+                    Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
+                }
+        return null;
+          }
+    
+    
+    
+        public ResultSet retrieveProducts( Connection conn) {
+        try {
+            String query = "SELECT * FROM products";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                return null;
+          }
 }

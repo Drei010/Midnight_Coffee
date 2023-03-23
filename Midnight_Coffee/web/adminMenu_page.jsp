@@ -180,9 +180,10 @@
                                 <%if(coffee.getString("deactivated").equals("No")){%>
                                 <input type="hidden" name="instruction" value="deactivate">
                                 <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%}else{%>
+                                 <%}else{%>
                                 <input type="hidden" name="instruction" value="reactivate">
                                 <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <p style="color:red">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
                                 <%}%>
                             </form>
                         </div>
