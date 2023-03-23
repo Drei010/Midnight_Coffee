@@ -5,6 +5,13 @@ import Model.IngredientList;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +42,43 @@ public class Ingredient_Controller extends HttpServlet {
                 request.setAttribute("ingredients", ingredientsProcess.Ingredients(conn));
                 request.setAttribute("loadedIngredients", "yes");
                 request.getRequestDispatcher("adminIngredients_page.jsp").forward(request, response);
+                
+                
+                
+                
+                              //delete entry after 30 days of deactivation
+                    // get the current date and time
+                    Calendar calendar = Calendar.getInstance();
+                    Date now = calendar.getTime();
+                    
+                    // format the date and time into a string
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String timestamp = dateFormat.format(now);
+                    
+                    //get current time stamp
+                    Timestamp current = Timestamp.valueOf(timestamp);
+                   /// loadMenu.deleteProduct(timestamp, conn);
+                    
+                    // retrieve ingredients
+                    ResultSet resultsLoad = ingredientsProcess.Ingredients(conn);
+                   
+                try {
+                    while (resultsLoad.next()) {
+                        
+                        if(resultsLoad.getString("deactivationtimestamp")!=null){
+                            //get timestamp of the ingredients when it was deactivated
+                            Timestamp old = Timestamp.valueOf(resultsLoad.getString("deactivationtimestamp"));
+                            
+                            //old is before the current
+                            if(old.compareTo(current) < 0){
+                               ingredientsProcess.deleteIngredient(Integer.parseInt(resultsLoad.getString("itemCode")), conn);
+                                
+                            }
+                        }
+                    }    } catch (SQLException ex) {
+                    Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 break;
                 
             case "addIngredient": 
@@ -43,6 +87,12 @@ public class Ingredient_Controller extends HttpServlet {
                 int weight = Integer.parseInt(request.getParameter("weight"));
                 int min = Integer.parseInt(request.getParameter("minimum"));
                 
+                // Validate Parameters
+                if (ingredientName == null || ingredientName.trim().isEmpty() ||
+                    request.getParameter("weight") == null || request.getParameter("minimum") == null) {
+                    response.sendRedirect("adminIngredients_page.jsp?invalidinput");
+                    return;
+                }
                 //Check if Ingredient Exist
                 ResultSet results = ingredientsProcess.ingredientItem(ingredientName, conn);
                 
@@ -57,10 +107,22 @@ public class Ingredient_Controller extends HttpServlet {
                  }
                 break;
                 
-            case "Delete":
-                String ingredientNameDeleted = request.getParameter("ingredientName");
-                //Delete Ingredient
-                ingredientsProcess.deleteIngredient(ingredientNameDeleted, conn);
+            case "Reactivate":    
+            case "Deactivate":
+                String ingredientDeactivated = request.getParameter("itemCode");
+                
+                     // get the current date and time
+                    Calendar calendarDeactivated = Calendar.getInstance();
+                    Date nowDeactivated = calendarDeactivated.getTime();
+                    nowDeactivated.setDate(nowDeactivated.getDate() + 30);
+                    
+                    // format the date and time into a string
+                    SimpleDateFormat dateFormatDeactivated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String timestampDeactivated = dateFormatDeactivated.format(nowDeactivated);
+                
+                    
+                    ingredientsProcess.changeActivation(instruction, Integer.parseInt(ingredientDeactivated), timestampDeactivated, conn);
+
                 response.sendRedirect("adminIngredients_page.jsp?ingredientdeleted");
                 break;
         }

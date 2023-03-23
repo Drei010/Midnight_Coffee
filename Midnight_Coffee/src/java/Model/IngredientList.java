@@ -73,12 +73,30 @@ public class IngredientList {
         ResultSet records = ingredientItem(ingredient, conn);
         return records != null;
     }
-
-    public void deleteIngredient(String ingredient, Connection conn) {
+    
+        public void changeActivation(String instruction, int itemCode, String timestamp, Connection conn) {
         try {
-            String query = "DELETE FROM ingredients WHERE ingredientName = ?";
+            String query = "UPDATE ingredients SET deactivationtimestamp = ? WHERE itemCode = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmnt.setString(1, ingredient);
+            if (instruction.equals("Deactivate")) {
+                stmnt.setString(1, timestamp);
+            } else { 
+                 stmnt.setString(1, null);
+            }
+            stmnt.setInt(2, itemCode);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    public void deleteIngredient(int itemCode, Connection conn) {
+        try {
+            String query = "DELETE FROM ingredients WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setInt(1, itemCode);
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {

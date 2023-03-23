@@ -43,20 +43,21 @@
                     </div>  
                     <div class="form-group">
                         <label for="weight">Weight in Stocks:</label>
-                        <input type="number" id="weight" name="weight" required>
+                        <input type="number" id="weight" name="weight" min="1" required>
                     </div>
                     <div class="form-group">
                         <label for="weight">Minimum Stocks:</label>
-                        <input type="number" id="minimum" name="minimum" required>
+                        <input type="number" id="minimum" name="minimum" min="1" required>
                     </div>
                        <!-- Warning Message for weight limit-->
                      <br> <a id="warningWeight"></a><br>
                     <button id="addBtn" class="btn btn-green">Add Ingredient</button>
                 </form>
             </div>
+            <!-- Ingredients form-->
             <form id="ingredientTable" action="Ingredient_Controller" method="POST">
                 <input type="hidden" id="action" name="action" value="">
-                <input type="hidden" id="ingredientName" name="ingredientName" value="">
+                <input type="hidden" id="itemCode" name="itemCode" value="">
                 <input type="hidden" id="ingredientWeight" name="ingredientWeight" value="">
                 <div class="right">
                     <table data-rows-per-page="6" id="table">
@@ -66,7 +67,8 @@
                                 <th>Remaining Weight</th>
                                 <th>Min Weight</th>
                                 <th>Update</th>
-                                <th>Delete</th>
+                                <th>Deactivate/Reactivate</th>
+                                <th>Deletion Date</th>
                             </tr>
                         </thead>
                         <tbody data-page="1">
@@ -78,8 +80,15 @@
                                 <td><%=ingredients.getString("ingredientName")%></td>
                                 <td><%=ingredients.getString("ingredientWeight")%>g</td>
                                 <td><%=ingredients.getString("minimumWeight")%>g</td>
-                                <td><input type="button" class="btn btn-blue" onclick="return buttonClick(this)" name="<%=ingredients.getString("ingredientName")%>" value="Update"></td>
-                                <td><input type="button" class="btn btn-red" onclick="return buttonClick(this) " name="<%=ingredients.getString("ingredientName")%>" value="Delete"></td>
+                                <td><input type="button" class="btn btn-blue" onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Update"></td>
+                                
+                                 <% if(ingredients.getString("deactivationtimestamp")==null){%>
+                                 <td><input type="button" class="btn btn-red" onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Deactivate"></td>
+                                <td></td>
+                                 <%} else {%>
+                                <td><input type="button" class="btn btn-green"  onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Reactivate"></td>
+                                 <td><p class="warningDeactivate"><%=ingredients.getString("deactivationtimestamp")%></p></td>
+                                <%}%>
                             </tr>
 
                             <%}
@@ -133,9 +142,9 @@
 
         function buttonClick(button) {
             document.getElementById('action').value = button.value;
-            document.getElementById('ingredientName').value = button.name;
+            document.getElementById('itemCode').value = button.name;
             console.log(document.getElementById('action').value);
-            console.log(document.getElementById('ingredientName').value);
+            console.log(document.getElementById('itemCode').value);
             document.forms['ingredientTable'].submit();
             return true;
         }
