@@ -221,7 +221,7 @@
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
 
-                    <%-- Add Coffee Item Button --%>
+                    <%-- Add Kremalatte Item Button --%>
                     <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
                         <%ResultSet kremalatte = (ResultSet) request.getAttribute("allkremalatte");
                             if (kremalatte != null) {
@@ -313,7 +313,7 @@
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
 
-                    <%-- Add Coffee Item Button --%>
+                    <%-- Add Tea Item Button --%>
                     <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
                         <%ResultSet tea = (ResultSet) request.getAttribute("alltea");
                             if (tea != null) {
@@ -523,8 +523,6 @@
             }
         };
 
-
-
         //Add item button
         const buttons = document.querySelectorAll('.addItem');
         for (let i = 0; i < buttons.length; i++) {
@@ -551,10 +549,6 @@
                 }
             });
         }
-
-
-
-
 
         //Disable buttons if the file type is not .png or .jpg
         const addBtn = document.getElementById('addProductBtn');

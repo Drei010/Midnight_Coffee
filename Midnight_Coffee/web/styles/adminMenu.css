@@ -23,8 +23,6 @@ body {
     background-color: #CFCBC2;
 }
 
-
-
 /*carousel container*/
 .carouselContainer {
     display: flex;
@@ -32,7 +30,6 @@ body {
     overflow: hidden;
     width: 100%;
     flex-grow: 1;
-
 }
 
 .slider {
@@ -79,17 +76,13 @@ body {
     .slider > .itemContainer {
         max-width: calc(100% / var(--items-per-screen));
     }
-
 }
 @media (min-width: 2000px) {
 
     .slider > .itemContainer {
         max-width: calc(80% / var(--items-per-screen));
     }
-
 }
-
-
 
 /*item image*/
 .thumbnail{
@@ -97,9 +90,7 @@ body {
     width: 18.75rem;
     height: 12.5rem;
     margin: 0;
-
 }
-
 
 /*item name*/
 .itemName{
@@ -121,14 +112,12 @@ body {
     color: white;
     padding: 10px;
     max-width: 18.75rem;
-
 }
 
 /*item price*/
 .itemPrice{
     grid-area: itemPrice;
 }
-
 
 /*item update*/
 .updateItemBtn{
@@ -171,7 +160,6 @@ body {
     padding: 5px;
     z-index: 10;
 }
-
 
 .updateItemBtn:hover,
 .availabilityItemBtn:hover,
@@ -227,7 +215,6 @@ body {
 .handle:focus {
     background-color: rgba(255, 255, 255, .5);
 }
-
 
 .text {
     transition: transform 150ms ease-in-out;
@@ -301,9 +288,9 @@ body {
     width: 60%;
     height: 500px;
     z-index: 5;
-    overflow: auto;
-    
+    overflow: auto; 
 }
+
 .itemAddName{
     grid-area: itemAddName;
 }
@@ -326,8 +313,8 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-
 }
+
 .verticalDivider{
     grid-area: verticalDivider;
     border-left: 6px solid white;
@@ -369,14 +356,11 @@ body {
     background-color: #ff3333;
 }
 
-
 .added-ingredients{
     grid-area: added-ingredients;
     align-items: center;
     justify-content: center;
 }
-
-
 
 .itemAddName, .itemAddImage,
 .itemAddOption, .itemAddPrice{
@@ -401,7 +385,6 @@ body {
     color: black;
 }
 
-
 .addItem{
     background-size: contain;
     background-repeat: no-repeat;
@@ -413,6 +396,7 @@ body {
     background-color: #282747;
     margin-right: 20px;
 }
+
 .addItem:hover{
     cursor: pointer;
     transform: scale(1.2);
@@ -442,6 +426,7 @@ body {
 .added-ingredients::-webkit-scrollbar-thumb:hover {
     background-color: #cccccc;
 }
+
 .added-ingredients h3{
     padding-bottom: 20px;
 }

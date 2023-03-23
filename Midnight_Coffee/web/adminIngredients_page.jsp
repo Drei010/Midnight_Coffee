@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='styles/adminIngredients.css'>
-        <title>Orders</title>
+        <title>Ingredients</title>
     </head>
 
 
@@ -39,7 +39,7 @@
                         <label for="ingredient">Ingredient:</label>
                         <input type="text" id="ingredient" name="ingredientName" required>
                         <!-- Warning Message for comma usage-->
-                     <br> <a id="warningComma"></a><br>
+                        <br> <a id="warningComma"></a><br>
                     </div>  
                     <div class="form-group">
                         <label for="weight">Weight in Stocks:</label>
@@ -49,9 +49,10 @@
                         <label for="weight">Minimum Stocks:</label>
                         <input type="number" id="minimum" name="minimum" min="1" required>
                     </div>
-                       <!-- Warning Message for weight limit-->
-                     <br> <a id="warningWeight"></a><br>
-                    <button id="addBtn" class="btn btn-green">Add Ingredient</button>
+                    <!-- Warning Message for weight limit-->
+                    <br> <a id="warningWeight"></a><br>
+                    <button id="addBtn" class="btn btn-green">Add Entry</button>
+                    <button id="updateBtn" class="btn btn-blue" onclick="buttonClickPopup()">Update Existing</button>>
                 </form>
             </div>
             <!-- Ingredients form-->
@@ -66,8 +67,7 @@
                                 <th>Ingredient</th>
                                 <th>Remaining Weight</th>
                                 <th>Min Weight</th>
-                                <th>Update</th>
-                                <th>Deactivate/Reactivate</th>
+                                <th>Status</th>
                                 <th>Deletion Date</th>
                             </tr>
                         </thead>
@@ -80,17 +80,15 @@
                                 <td><%=ingredients.getString("ingredientName")%></td>
                                 <td><%=ingredients.getString("ingredientWeight")%>g</td>
                                 <td><%=ingredients.getString("minimumWeight")%>g</td>
-                                <td><input type="button" class="btn btn-blue" onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Update"></td>
-                                
-                                 <% if(ingredients.getString("deactivationtimestamp")==null){%>
-                                 <td><input type="button" class="btn btn-red" onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Deactivate"></td>
-                                <td></td>
-                                 <%} else {%>
-                                <td><input type="button" class="btn btn-green"  onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Reactivate"></td>
-                                 <td><p class="warningDeactivate"><%=ingredients.getString("deactivationtimestamp")%></p></td>
-                                <%}%>
-                            </tr>
 
+                                <% if (ingredients.getString("deactivationtimestamp") == null) {%>
+                                <td><input type="button" class="btn btn-red" onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Deactivate"></td>
+                                <td></td>
+                                <%} else {%>
+                                <td><input type="button" class="btn btn-green"  onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Reactivate"></td>
+                                <td><p class="warningDeactivate"><%=ingredients.getString("deactivationtimestamp")%></p></td>
+                                    <%}%>
+                            </tr>
                             <%}
                                 }%>
 
@@ -99,10 +97,91 @@
                     </table>
                 </div>
             </form>
+            <div id="popup-overlay"></div>
+            <div id="popupModalIngredients">
+                <div class="popup-container">
+                    <form id="updateIngredientForm">
+                        <h2>Update Ingredient</h2>
+
+                        <div class="update-ingredient-name">
+                            <label for="ingredientSelect">Ingredient:</label>
+                            <select id="selectIngredient" name="selectIngredientName" required >
+                                <option>UpdateIngrList</option>
+                            </select>
+                        </div>  
+
+                        <div class="update-weight">
+                            <div class="label-weightText">
+                                <div>
+                                    <p>Update Weight:</p>
+                                    <input type="number" id="updateWeight" name="updateWeightNumber" required>
+                                </div>
+                                <div>
+                                    <p>Current Weight:</p>
+                                    <h3 id="currentWeight"> </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="update-min-weight">
+                            <div class="label-min-weight">
+                                <div>
+                                    <p>Update Minimum:</p>
+                                    <input type="number" id="updateMinimum" name="updateMinimumNumber" required>
+                                </div>
+                                <div>
+                                    <p>Current Minimum:</p>
+                                    <h3 id="currentMinimum"> </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="updateBtn-popup" class="btn btn-green">Update</button>
+                    </form>
+
+                    <div class="verticalDivider"></div>
+
+                    <form id="addIngredientStockForm">
+                        <h2>Add Available Stocks</h2>
+                        <div class="add-ingredient-name">
+                            <label for="addIngredientSelect">Ingredient:</label>
+                            <select id="addSelectIngredient" name="addSelectIngredientName" required >
+                                <option>AddIngrList</option>
+                            </select>
+                        </div>
+
+                        <div class="add-weight">
+                            <div class="label-weightText">
+                                <div>
+                                    <p>Add Weight:</p>
+                                    <input type="number" id="addWeight" name="addWeightNumber" required>
+                                </div>
+                                <div>
+                                    <p>Current Weight:</p>
+                                    <h3 id="currentWeight"> </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="addBtn-popup" class="btn btn-green">Add</button>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </body>
 
     <script>
+
+        function buttonClickPopup() {
+            document.getElementById("popupModalIngredients").style.display = 'block';
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById("popupModalIngredients");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
         var $table = document.getElementById("table"),
                 $n = 5,
                 $rowCount = $table.rows.length,
@@ -148,51 +227,49 @@
             document.forms['ingredientTable'].submit();
             return true;
         }
-        
-        
-        
-                            // Disable comma usage
-            const addBtn = document.getElementById('addBtn');
-            const ingredient = document.getElementById("ingredient");
-            const warningComma = document.getElementById("warningComma");
-            // Add an event listener to the input box to check its value
-            ingredient.addEventListener("input", function() {
-              // Check if the input box value contains a comma
-              if (ingredient.value.includes(",")) {
+
+
+
+        // Disable comma usage
+        const addBtn = document.getElementById('addBtn');
+        const ingredient = document.getElementById("ingredient");
+        const warningComma = document.getElementById("warningComma");
+        // Add an event listener to the input box to check its value
+        ingredient.addEventListener("input", function () {
+            // Check if the input box value contains a comma
+            if (ingredient.value.includes(",")) {
                 // Disable the submit button
                 addBtn.disabled = true;
                 warningComma.innerText = 'The usage of comma (,) is not allowed';
-                warningComma.style.color = "red"; 
-              } else {
+                warningComma.style.color = "red";
+            } else {
                 // Enable the submit button
                 addBtn.disabled = false;
                 warningComma.innerText = '';
-              }
-            });
-            
-            //Disable button if min weight is greater than 50% of the remaining weight
-            const weightInput = document.getElementById('weight');
-            const minimumInput = document.getElementById('minimum');
-             const warningWeight = document.getElementById('warningWeight');
+            }
+        });
 
-            // Attach an event listener to the weight and minimum input fields
-            weightInput.addEventListener('input', checkMinimumWeight);
-            minimumInput.addEventListener('input', checkMinimumWeight);
+        //Disable button if min weight is greater than 50% of the remaining weight
+        const weightInput = document.getElementById('weight');
+        const minimumInput = document.getElementById('minimum');
+        const warningWeight = document.getElementById('warningWeight');
 
-            function checkMinimumWeight() {
-              const weight = Number(weightInput.value);
-              const minimum = Number(minimumInput.value);
+        // Attach an event listener to the weight and minimum input fields
+        weightInput.addEventListener('input', checkMinimumWeight);
+        minimumInput.addEventListener('input', checkMinimumWeight);
 
-              if (minimum > weight * 0.5) {
+        function checkMinimumWeight() {
+            const weight = Number(weightInput.value);
+            const minimum = Number(minimumInput.value);
+
+            if (minimum > weight * 0.5) {
                 addBtn.disabled = true;
                 warningWeight.innerText = 'The minimum weight should not exceed 50% of the remaining weight';
-                warningWeight.style.color = "red"; 
-              } else {
+                warningWeight.style.color = "red";
+            } else {
                 addBtn.disabled = false;
                 warningWeight.innerText = '';
-              }
             }
-
-        
+        }
     </script>
 </html>
