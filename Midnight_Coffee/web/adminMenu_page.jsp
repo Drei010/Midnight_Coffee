@@ -141,7 +141,7 @@
 
                             <!--Update Menu Item-->
                             <form>
-                            <button class="updateItemBtn">Update</button>
+                                <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
                             </form>
 
                             <!--Update Availability-->
@@ -152,10 +152,10 @@
                             <!--Deactivate Availability-->
                             <form action="Menu_Controller" method="post">
                                 <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
-                                <%if(coffee.getString("deactivated").equals("No")){%>
+                                <%if (coffee.getString("deactivated").equals("No")) {%>
                                 <input type="hidden" name="instruction" value="deactivate">
                                 <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                 <%}else{%>
+                                <%} else {%>
                                 <input type="hidden" name="instruction" value="reactivate">
                                 <button type="submit" class="reactivateItemBtn">Reactivate</button>
                                 <p style="color:red">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
@@ -226,7 +226,7 @@
                             <h3 class="itemPrice"><%=kremalatte.getString("itemPrice")%></h3>
 
                             <!--Update Menu Item-->
-                            <button class="updateItemBtn">Update</button>
+                            <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
 
 
                             <!--Update Availability-->
@@ -237,10 +237,10 @@
                             <!--Deactivate Availability-->
                             <form action="Menu_Controller" method="post">
                                 <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
-                                <%if(kremalatte.getString("deactivated").equals("No")){%>
+                                <%if (kremalatte.getString("deactivated").equals("No")) {%>
                                 <input type="hidden" name="instruction" value="deactivate">
                                 <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%}else{%>
+                                <%} else {%>
                                 <input type="hidden" name="instruction" value="reactivate">
                                 <button type="submit" class="reactivateItemBtn">Reactivate</button>
                                 <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
@@ -311,7 +311,7 @@
                             <h3 class="itemPrice"><%=tea.getString("itemPrice")%></h3>
 
                             <!--Update Menu Item-->
-                            <button class="updateItemBtn">Update</button>
+                            <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
 
 
                             <!--Update Availability-->
@@ -322,10 +322,10 @@
                             <!--Deactivate Availability-->
                             <form action="Menu_Controller" method="post">
                                 <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
-                                <%if(tea.getString("deactivated").equals("No")){%>
+                                <%if (tea.getString("deactivated").equals("No")) {%>
                                 <input type="hidden" name="instruction" value="deactivate">
                                 <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%}else{%>
+                                <%} else {%>
                                 <input type="hidden" name="instruction" value="reactivate">
                                 <button type="submit" class="reactivateItemBtn">Reactivate</button>
                                 <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
@@ -343,12 +343,75 @@
                     <div class="text">&#8250;</div>
                 </button>
 
-
             </div>
         </div>
 
+        <div id="popupModalUpdate">
 
+            <div class="container-popup-update">
+                <form id="updateProductForm">
+                    <h2>Update Product</h2>
+                    <h3 id="updateProductName">Name value nung pinindot</h3>
+                    <div class="updateCategory">
+                        <div class="label-updateCategory">
+                            <div>
+                                <p>Category:</p>
+                                <input type="text" id="categoryInput" placeholder="Coffee, Kremalatte, Tea" required>
+                            </div>
+                            <div>
+                                <p>Current:</p>
+                                <h4 id="currentCategory">*Category*</h4>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="updateOption">
+                        <div class="label-updateOption">
+                            <div>
+                                <p>Option:</p>
+                                <input type="text" id="optionInput" placeholder="Ex. Hot" required>
+                            </div>
+                            <div>
+                                <p>Current:</p>
+                                <h4 id="currentOption">*Option*</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="updatePrice">
+                        <div class="label-updatePrice">
+                            <div>
+                                <p>Price:</p>
+                                <input type="number" id="priceInput" placeholder="Php" required>
+                            </div>
+                            <div>
+                                <p>Current Price:</p>
+                                <h4 id="currentPrice">*Php*</h4>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="verticalDivider"></div>
+
+                <form id="updateProductImgForm">
+                    <div class="UpdateImage">
+
+                        <h2>Update Image</h2>
+                        <div>
+                            <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage" required>
+
+                            <p>Active Image: </p>
+                            <img class="currentImage" src="" alt="Current Product Image">
+                            
+                            <p>Current File Name: </p>
+                            <p id="currentFileName">*Value ng current file name*</p>
+                            <button id="saveChangesBtn" class="save">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
     <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
     <script>
@@ -391,7 +454,7 @@
             const itemCount = slider.children.length;
             const itemsPerScreen = (parseInt(
                     getComputedStyle(slider).getPropertyValue("--items-per-screen")
-                    )*1);
+                    ) * 1);
 
             // Get the slider index and number of progress bar items
             let sliderIndex = parseInt(
@@ -479,8 +542,10 @@
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
             var modal = document.getElementById("popupModal");
-            if (event.target === modal) {
+            var modalUpdate = document.getElementById("popupModalUpdate");
+            if (event.target === modal || event.target === modalUpdate) {
                 modal.style.display = "none";
+                modalUpdate.style.display = "none";
             }
         };
 
@@ -510,6 +575,13 @@
                 }
             });
         }
+
+        //Update item button
+        function buttonClickPopupUpdate() {
+            document.getElementById("popupModalUpdate").style.display = 'block';
+        }
+
+
 
         //Disable buttons if the file type is not .png or .jpg
         const addBtn = document.getElementById('addProductBtn');
