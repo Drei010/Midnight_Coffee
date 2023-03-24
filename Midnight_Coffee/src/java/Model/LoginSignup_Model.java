@@ -60,4 +60,44 @@ public class LoginSignup_Model {
         return null;
 
     }
+        public ResultSet retrieveAdminData(String email, String adminkey, Connection conn) {
+        try {
+            String query = "SELECT * FROM customer_credentials WHERE customerEmail = ? and customerLastName = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, email);
+            stmnt.setString(2, adminkey);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            else{
+                //records dont exist;
+                       }
+            stmnt.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+       
+    public String updateAdminData(String adminkeyUpdate,  String customerEmail, String passwordUpdate, int customerID, Connection conn) {
+        String sql = "UPDATE customer_credentials SET customerLastName = ?, customerEmail = ?  WHERE customerID = ?";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, adminkeyUpdate);
+            stmnt.setString(2, customerEmail);
+            stmnt.setString(3, passwordUpdate);
+            stmnt.setInt(4, customerID);
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
