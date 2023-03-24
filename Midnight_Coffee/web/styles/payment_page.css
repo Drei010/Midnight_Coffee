@@ -13,10 +13,20 @@ body {
   height: 100px;
 }
 
+.payment-message {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+}
+
 .carousel-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .carousel {
@@ -27,7 +37,15 @@ body {
 }
 
 .carousel-item {
-  display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.carousel-item h1, .carousel-item p {
+    margin: 10px;
 }
 
 .carousel-item:first-child {
@@ -58,6 +76,11 @@ body {
 .prev-button:hover,
 .next-button:hover {
   background-color: #ddd;
+}
+
+.instructions{
+    text-align: center;
+    color: white;
 }
 
 .container{
@@ -134,7 +157,8 @@ body {
   padding: 10px 20px;
   font-size: 18px;
   cursor: pointer;
-  height: auto; /* add this line */
+  height: 100px;
+  width: 50%;
 }
 
 .prev-button:hover,
@@ -160,3 +184,4 @@ body {
 .nextBtn:hover {
   background-color: #ddd;
 }
+

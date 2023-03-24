@@ -8,12 +8,11 @@
         <title>Customer Payment Page</title>
     </head>
     <body>
-        <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
+        <jsp:include page="loginSignup.jsp" />
 
-        <!--        <div class="login">
-                    <h1>Your order will be processed once payment is completed</h1>
-                </div>
-        -->
+        <div class="payment-message">
+            <h1>Your order will be processed once payment is completed</h1>
+        </div>
         <div class="container">
             <div class="carousel-container">
                 <div class="arrow left-arrow">
@@ -38,8 +37,6 @@
                     <div class="carousel-item">
                         <img class="QRImages" src="QRImages/<%=QRTable.getString("QRImage")%>" alt="The QR Code image">
                         <h1><%=QRTable.getString("methodName")%></h1>
-                        <p>Amount to pay: php 495</p>
-                        <p>Please take a screenshot of your receipt</p>
                     </div>
 
                     <% }
@@ -48,9 +45,15 @@
                 </div>
                 <div class="arrow right-arrow">
                     <button class="next-button" onclick="changeSlide(1)">&#10095;</button>
-                </div>
+                </div>           
             </div>
-            <button type="submit" class="nextBtn"> Next</button>
+
+            <div class ="instructions">
+                <p>Amount to pay: PHP </p>
+                <p>Please take a screenshot of your receipt</p>
+            </div>
+
+            <a href ="instruction_page.jsp"> <button type="submit" class="nextBtn"> Next</button></a>
         </div>
 
         <script>

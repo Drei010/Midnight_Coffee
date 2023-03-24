@@ -70,7 +70,7 @@ public class QR_Controller extends HttpServlet {
         //Get Instruction
         String instruction = request.getParameter("instruction");
         
-        
+
                     //load adminPayment_page
             if("loadQR".equals(instruction)){
                  
