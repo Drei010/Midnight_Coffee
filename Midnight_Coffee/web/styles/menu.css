@@ -60,10 +60,10 @@ table{
 .slider > .itemContainer >.item{
     display: grid;
     grid-template-areas:
-        'itemName itemName itemName itemName itemName itemName '
-        'thumbnail thumbnail thumbnail thumbnail thumbnail thumbnail '
-        'itemOption itemOption itemOption itemOption itemOption itemOption '
-        'itemPHPTag itemPrice itemPrice decrament itemQuantity incrament';
+        'itemName itemName  itemName itemName itemName '
+        'thumbnail thumbnail  thumbnail thumbnail thumbnail '
+        'itemOption itemOption  itemOption itemOption itemOption '
+        'itemPHPTag itemPrice  decrament itemQuantity incrament';
     gap: 0.5rem;
     width:1rem;
     padding:0.5rem;
@@ -75,14 +75,14 @@ table{
 }
 
 .itemContainer{
-    max-width: 292px;
+    max-width: 420px;
 }
 
 /*item image*/
 .thumbnail{
     grid-area: thumbnail;
-    width: 100%;
-    height: 100%;
+    width: 18.75rem;
+    height: 12.5rem;
     margin: 0;
 
 }

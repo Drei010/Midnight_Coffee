@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 :root {
     --handle-size: 3rem;
     --div-gap: .3rem;
-    --item-height: 24rem;
+    --item-height: 34rem;
 }
 
 body {
@@ -71,18 +71,11 @@ body {
     justify-items: stretch;
     justify-content: start;
 }
-
-@media (min-width: 1500px) {
-    .slider > .itemContainer {
-        max-width: calc(100% / var(--items-per-screen));
-    }
+.itemContainer{
+    max-width: 420px;
+    
 }
-@media (min-width: 2000px) {
 
-    .slider > .itemContainer {
-        max-width: calc(80% / var(--items-per-screen));
-    }
-}
 
 /*item image*/
 .thumbnail{
@@ -455,4 +448,20 @@ body {
 
 
 
+@media (max-width: 1000px) {
+    .slider {
+        --items-per-screen: 3;
+    }
+/*    .carouselContainer {
+        transform: scale(0.8);
+    }*/
+}
 
+@media (max-width: 500px) {
+    .slider {
+        --items-per-screen: 2;
+    }
+    .carouselContainer {
+        transform: scale(0.6);
+    }
+}

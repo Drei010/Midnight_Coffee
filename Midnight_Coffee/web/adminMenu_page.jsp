@@ -38,8 +38,6 @@
 
             <div class="container-popup">
 
-
-
                 <form onsubmit="stringify()" id="newProductForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h2 id="popupTitleID" value=""></h2>
                     <input type="hidden" name="ingredientList" id="hiddenIngredient">
@@ -119,29 +117,6 @@
                         if (coffee != null) {
                             while (coffee.next()) {
                     %>
-
-                    <%-- Hidden fields for update database submission--%>
-                    <form action="updateddadsa" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
-                    </form>
-
-
-                    <!-- Set Availability form-->
-                    <form action="Menu_Controller" method="post" id="setStockClass1">
-                        <% if (coffee.getString("itemStock").equals("Out of Stock")) { %>
-                        <input type="hidden" name="itemStock" value="In Stock">
-                        <% } else { %>
-                        <input type="hidden" name="itemStock" value="Out of Stock">
-                        <% }%>
-                        <input type="hidden" name="itemAddClassification" value="Coffee">
-                        <input type="hidden" name="instruction" value="setStock">
-                    </form>
-
-
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
@@ -228,14 +203,6 @@
                                 while (kremalatte.next()) {
                         %>
 
-                    <%-- Hidden fields for update database submission--%>
-                    <form action="updateddadsa" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="<%=kremalatte.getString("itemCode")%>"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=kremalatte.getString("itemName")%>"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=kremalatte.getString("itemOption")%>"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=kremalatte.getString("itemPrice")%>" />
-                    </form>
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
@@ -269,13 +236,14 @@
 
                             <!--Deactivate Availability-->
                             <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
-                                <%if(coffee.getString("deactivated").equals("No")){%>
+                                <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
+                                <%if(kremalatte.getString("deactivated").equals("No")){%>
                                 <input type="hidden" name="instruction" value="deactivate">
                                 <button type="submit" class="deactivateItemBtn">Deactivate</button>
                                 <%}else{%>
                                 <input type="hidden" name="instruction" value="reactivate">
                                 <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
                                 <%}%>
                             </form>
                         </div>
@@ -320,14 +288,6 @@
                                 while (tea.next()) {
                         %>
 
-                    <%-- Hidden fields for update database submission--%>
-                    <form action="updateddadsa" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                        <input type="hidden" id="itemId" name="itemId" value="<%=tea.getString("itemCode")%>"/>
-                        <input type="hidden" id="hiddenName" name="hiddenName" value="<%=tea.getString("itemName")%>"/>
-                        <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=tea.getString("itemOption")%>"/>
-                        <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=tea.getString("itemPrice")%>" />
-                    </form>
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
@@ -361,13 +321,14 @@
 
                             <!--Deactivate Availability-->
                             <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
-                                <%if(coffee.getString("deactivated").equals("No")){%>
+                                <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
+                                <%if(tea.getString("deactivated").equals("No")){%>
                                 <input type="hidden" name="instruction" value="deactivate">
                                 <button type="submit" class="deactivateItemBtn">Deactivate</button>
                                 <%}else{%>
                                 <input type="hidden" name="instruction" value="reactivate">
                                 <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
                                 <%}%>
                             </form>
                         </div>
@@ -430,7 +391,7 @@
             const itemCount = slider.children.length;
             const itemsPerScreen = (parseInt(
                     getComputedStyle(slider).getPropertyValue("--items-per-screen")
-                    ) * 2);
+                    )*1);
 
             // Get the slider index and number of progress bar items
             let sliderIndex = parseInt(

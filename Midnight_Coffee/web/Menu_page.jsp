@@ -113,8 +113,6 @@
 
                     <%
                         while (coffee.next()) {
-                            //display item if in stock
-                            //if("".equals(coffee.getString("itemCode"))){
                     %>
                     <div class="itemContainer">
 
@@ -134,7 +132,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                src="userImages/bg.png"
+                                src="MENUImages/<%=coffee.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -214,7 +212,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                src="userImages/bg.png"
+                                 src="MENUImages/<%=kremalatte.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -292,7 +290,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                src="userImages/bg.png"
+                                 src="MENUImages/<%=tea.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>

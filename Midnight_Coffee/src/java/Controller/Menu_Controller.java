@@ -129,7 +129,11 @@ public class Menu_Controller extends HttpServlet {
                     // retrieve products
                     ResultSet results = loadMenu.retrieveProducts(conn);
                    
+                     if (results == null) {
+                     request.getRequestDispatcher(page).forward(request, response);
+                    }
                 try {
+                    
                     while (results.next()) {
                         
                         if(results.getString("deactivationtimestamp")!=null){
