@@ -60,10 +60,10 @@ table{
 .slider > .itemContainer >.item{
     display: grid;
     grid-template-areas:
-        'itemName itemName itemName itemName itemName itemName '
-        'thumbnail thumbnail thumbnail thumbnail thumbnail thumbnail '
-        'itemOption itemOption itemOption itemOption itemOption itemOption '
-        'itemPHPTag itemPrice itemPrice decrament itemQuantity incrament';
+        'itemName itemName  itemName itemName itemName '
+        'thumbnail thumbnail  thumbnail thumbnail thumbnail '
+        'itemOption itemOption  itemOption itemOption itemOption '
+        'itemPHPTag itemPrice  decrament itemQuantity incrament';
     gap: 0.5rem;
     width:1rem;
     padding:0.5rem;
@@ -75,14 +75,14 @@ table{
 }
 
 .itemContainer{
-    max-width: 292px;
+    max-width: 420px;
 }
 
 /*item image*/
 .thumbnail{
     grid-area: thumbnail;
-    width: 100%;
-    height: 100%;
+    width: 18.75rem;
+    height: 12.5rem;
     margin: 0;
 
 }
@@ -290,6 +290,51 @@ table{
     width: 60%;
     height: 500px;
     z-index: 5;
+}
+
+/* Table styles */
+#paymentTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+#paymentTable thead tr {
+  background-color: #282747;
+  text-align: center;
+  color: white;
+}
+
+#paymentTable th, #paymentTable td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Button styles */
+.paymentBtn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #282747;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paymentBtn:hover {
+  background-color: #0062cc;
+}
+
+/* Order Summary header styles */
+#paymentTable thead tr:first-child {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 
 footer {

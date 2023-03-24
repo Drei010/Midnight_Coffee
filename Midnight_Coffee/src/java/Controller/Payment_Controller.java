@@ -86,7 +86,7 @@ public class Payment_Controller extends HttpServlet {
             trimmedOption = summaryOptionArray[i].trim();
             trimmedItemName = summaryNameArray[i].trim();
             trimmedItemCode = Integer.parseInt(summaryItemCodeArray[i].trim());
-
+            
             //Convert Item Quantity into int
             itemQuantityInt = Integer.parseInt(summaryQuantityArray[i].trim());
 
@@ -94,6 +94,7 @@ public class Payment_Controller extends HttpServlet {
             System.out.println("itemname" + trimmedItemName);
             System.out.println("itemoption" + trimmedOption);
             System.out.println("itemquant" + itemQuantityInt);
+            System.out.println("itemTotal" + orderTotal);
 
             // retrieve the amount of grams that will be subtracted. Set as Subtrahend
             ResultSet ingredientResult = stocksComputation.retrieveGrams(trimmedItemCode, conn);

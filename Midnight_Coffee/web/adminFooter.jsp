@@ -22,6 +22,7 @@
             align-items: center;
             justify-content: center;
             z-index: 2;
+            margin-left: -30px;
         }
 
         .footer-container {

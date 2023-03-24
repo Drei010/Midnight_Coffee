@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="logos">
-                            <a href=""https://www.facebook.com/midnightcoffee.philippines" target="_blank">
+                            <a href="https://www.facebook.com/midnightcoffee.philippines" target="_blank">
                                 <div class="button">
                                     <div class="icon">
                                         <i class="fab fa-facebook-f"></i>
@@ -72,34 +72,35 @@
                                 </div>
                             </a>
                         </div>
+                        
+                    </div>
 
-                        <div class="reviews">
+                </div>
+                            <br>
+                <div class="reviews">
 
-                            <div class="fourth-line">
-                                <p>Comments from our customers</p>
-                            </div>
-                            <div class="fifth-line">
-                                <p>4 &#9733; average rating</p>
-                            </div>
+                    <div class="fourth-line">
+                        <p>Comments from our customers</p>
+                    </div>
+                    <div class="fifth-line">
+                        <p>4 &#9733; average rating</p>
+                    </div>
 
-                            <div class="review1">
-                                <p>Good coffee, freshly brewed and roasted beans
-                                    <br>- R-vhin Picadizo</p>
-                            </div>
-                            <div class="review2">
-                                <p>I like the interior of the store, very elegant
+                    <div class="review1">
+                        <p>Good coffee, freshly brewed and roasted beans
+                            <br>- R-vhin Picadizo</p>
+                    </div>
+                    <div class="review2">
+                        <p>I like the interior of the store, very elegant
 
-                                    <br>- Clark Mansibang</p>
-                            </div>
-                            <div class="review3">
-                                <p>Coffee is delicious, same as their pastries
+                            <br>- Clark Mansibang</p>
+                    </div>
+                    <div class="review3">
+                        <p>Coffee is delicious, same as their pastries
 
-                                    <br>- Kevin Ruiz</p>
-                            </div>
-                        </div>
+                            <br>- Kevin Ruiz</p>
                     </div>
                 </div>
-
             </div>
 
     </body>
