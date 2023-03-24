@@ -1,0 +1,114 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 24, 2023, 4:15:12 PM
+    Author     : Acer Predator Helios
+*/
+
+body {
+    margin: 0;
+    background-color: #CFCBC2;
+    background: url("https://i.postimg.cc/6Qq2MFPv/image.png")no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.container{
+  max-width: 800px;
+  background: #282747;
+  width: 800px;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  margin-top: 200px;
+}
+
+.rateText{
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.commentText{
+    color: white;
+    margin-bottom: 20px;
+}
+
+.squareInputField {
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box; /* This ensures that the width includes padding and border */
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.rate2 {
+    display: flex;
+    justify-content: center; /* Horizontally center .rate2 */
+    align-items: center; /* Vertically center .rate2 */
+    margin: 0 auto; /* Center .rate2 within its parent container */
+    height: 46px;
+    flex-direction: row-reverse;
+}
+
+.rate2:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate2:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:default;
+    font-size:30px;
+    color:#ddd;
+}
+.rate2:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate2 > input:checked ~ label {
+    color: #ffc700;    
+}
+
+.container2{
+  max-width: 800px;
+  background: #282747;
+  width: 800px;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.container2Text{
+    text-align: center;
+    color: white;
+}
+
+.submitBtn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #282747;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 300px;
+  outline: 5px solid white;
+  margin-bottom: 20px;
+}
+
+.submitBtn:hover {
+  background-color: #ddd;
+  color: black;
+}

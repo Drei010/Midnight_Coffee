@@ -28,7 +28,7 @@
                 <p>Store Address:</p>
                 <p>1039 G. Tolentino St., Sampaloc Manila</p>
             </div>
-            <button type="submit" class="doneBtn">DONE</button>
+            <a href = "rating_page.jsp"> <button type="submit" class="doneBtn">DONE</button> </a>
         </div>
         
 </body>
