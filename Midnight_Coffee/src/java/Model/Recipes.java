@@ -1,4 +1,3 @@
-
 package Model;
 
 import java.sql.Connection;
@@ -9,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Recipes {
+
     public ResultSet RecipeList(Connection conn) {
         try {
             String query = "SELECT * FROM recipes";
@@ -24,8 +24,8 @@ public class Recipes {
         }
         return null;
     }
-    
-    public void insertRecipe(String itemName, String itemOption, String ingredientList, String weightList, Connection conn){
+
+    public void insertRecipe(String itemName, String itemOption, String ingredientList, String weightList, Connection conn) {
         try {
             String query = "INSERT INTO recipes (itemName, itemOption, ingredientList, weightList) VALUES ( ?, ?, ?, ? )";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -38,6 +38,19 @@ public class Recipes {
         } catch (SQLException ex) {
             Logger.getLogger(Recipes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+    }
+
+    public void UpdateRecipe(int itemCode, String list, Connection conn) {
+        try {
+            String query = "UPDATE recipes SET ingredientList = ? WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, list);
+            stmnt.setInt(2, itemCode);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Recipes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

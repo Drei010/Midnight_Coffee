@@ -19,7 +19,7 @@
     <body>
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->  
         <%
-            if (request.getAttribute("loadedIngredients") == null) {
+            if (request.getAttribute("loadedIngredients") == null || request.getAttribute("loadedActive") == null) {
         %>
         <form action="Ingredient_Controller" method="post" name="load">
             <input type="hidden" name="action" value="load">
@@ -34,7 +34,7 @@
             <div class="left">
                 <h1>New Ingredient</h1>
                 <form action="Ingredient_Controller" method="POST">
-                    <input type="hidden" name="action" value="addIngredient">
+                    <input type="hidden" name="action" value="insertIngredient">
                     <div class="form-group">
                         <label for="ingredient">Ingredient:</label>
                         <input type="text" id="ingredient" name="ingredientName" required>
@@ -52,7 +52,7 @@
                     <!-- Warning Message for weight limit-->
                     <br> <a id="warningWeight"></a><br>
                     <button id="addBtn" class="btn btn-green">Add Entry</button>
-                    <button id="updateBtn" class="btn btn-blue" onclick="buttonClickPopup()">Update Existing</button>>
+                    <input type="button" id="updateBtn" class="btn btn-blue" onclick="buttonClickPopup()" value="Update Existing">
                 </form>
             </div>
             <!-- Ingredients form-->
@@ -100,13 +100,26 @@
             <div id="popup-overlay"></div>
             <div id="popupModalIngredients">
                 <div class="popup-container">
-                    <form id="updateIngredientForm">
+                    <form id="updateIngredientForm" action="Ingredient_Controller" method="POST">
+                        <input type="hidden" name="action" value="updateIngredient">
+                        <input type="hidden" id="updateIngredientName" name="ingredientName">
                         <h2>Update Ingredient</h2>
 
                         <div class="update-ingredient-name">
+                            <p>Update Name:</p>
+                            <input type="text" id="updateName" name="updatedName" required>     
                             <label for="ingredientSelect">Ingredient:</label>
-                            <select id="selectIngredient" name="selectIngredientName" required >
-                                <option>UpdateIngrList</option>
+                            <select id="updateSelectIngredient" name="selectIngredientName" onchange="setUpdateWeights()" required>
+                                <option selected disabled hidden>Select Ingredient</option>
+                                <%
+                                    ResultSet active = (ResultSet) request.getAttribute("active");
+                                    if (active != null) {
+                                        while (active.next()) {%>
+
+                                <option value="<%=active.getString("minimumWeight")+","+active.getString("ingredientWeight")%>"><%=active.getString("ingredientName")%></option>
+
+                                <%}
+                                    }%>
                             </select>
                         </div>  
 
@@ -114,11 +127,11 @@
                             <div class="label-weightText">
                                 <div>
                                     <p>Update Weight:</p>
-                                    <input type="number" id="updateWeight" name="updateWeightNumber" required>
+                                    <input type="number" id="updateWeight" name="updateWeightNumber" min="1" required>
                                 </div>
                                 <div>
                                     <p>Current Weight:</p>
-                                    <h3 id="currentWeight"> </h3>
+                                    <h3 id="currentWeightUpdate"> </h3>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +140,7 @@
                             <div class="label-min-weight">
                                 <div>
                                     <p>Update Minimum:</p>
-                                    <input type="number" id="updateMinimum" name="updateMinimumNumber" required>
+                                    <input type="number" id="updateMinimum" name="updateMinimumNumber" min="1" required>
                                 </div>
                                 <div>
                                     <p>Current Minimum:</p>
@@ -135,17 +148,28 @@
                                 </div>
                             </div>
                         </div>
-                        <button id="updateBtn-popup" class="btn btn-green">Update</button>
+                        <input type="submit" id="updateBtn-popup" class="btn btn-green" value="Update">
                     </form>
 
                     <div class="verticalDivider"></div>
 
-                    <form id="addIngredientStockForm">
+                    <form id="addIngredientStockForm" action="Ingredient_Controller" method="POST">
+                        <input type="hidden" id="addIngredientName" name="ingredientName">
+                        <input type="hidden" name="action" value="addIngredient">
                         <h2>Add Available Stocks</h2>
                         <div class="add-ingredient-name">
                             <label for="addIngredientSelect">Ingredient:</label>
-                            <select id="addSelectIngredient" name="addSelectIngredientName" required >
-                                <option>AddIngrList</option>
+                            <select id="addSelectIngredient" name="addSelectIngredientName" onchange="setAddWeight()" required >
+                                <option selected disabled hidden>Select Ingredient</option>
+                                <%
+                                    if (active != null) {
+                                        active.beforeFirst();
+                                        while (active.next()) {%>
+
+                                <option value="<%=active.getString("minimumWeight")+","+active.getString("ingredientWeight")%>"><%=active.getString("ingredientName")%></option>
+
+                                <%}
+                                    }%>
                             </select>
                         </div>
 
@@ -153,15 +177,15 @@
                             <div class="label-weightText">
                                 <div>
                                     <p>Add Weight:</p>
-                                    <input type="number" id="addWeight" name="addWeightNumber" required>
+                                    <input type="number" id="addWeight" name="weight" min="1" required>
                                 </div>
                                 <div>
                                     <p>Current Weight:</p>
-                                    <h3 id="currentWeight"> </h3>
+                                    <h3 id="currentWeightAdd"> </h3>
                                 </div>
                             </div>
                         </div>
-                        <button id="addBtn-popup" class="btn btn-green">Add</button>
+                        <input type="submit"  id="addBtn-popup" class="btn btn-green" value="Add">
 
                     </form>
                 </div>
@@ -170,6 +194,28 @@
     </body>
 
     <script>
+
+        function setUpdateWeights(){
+            let select = document.getElementById("updateSelectIngredient"),
+                    current = document.getElementById("currentWeightUpdate"),
+                        min = document.getElementById("currentMinimum"),
+                            updateIngredientName = document.getElementById("updateIngredientName"),
+                                array = select.options[select.selectedIndex].value.split(",");
+                
+                    min.innerHTML = array[0] + "g";
+                    current.innerHTML = array[1] + "g";
+                    updateIngredientName.value = select.options[select.selectedIndex].text;
+        }
+        
+        function setAddWeight(){
+            let select = document.getElementById("addSelectIngredient"),
+                    current = document.getElementById("currentWeightAdd"),
+                        addIngredientName = document.getElementById("addIngredientName"),
+                            array = select.options[select.selectedIndex].value.split(",");
+                
+                    current.innerHTML = array[1] + "g";
+                    addIngredientName.value = select.options[select.selectedIndex].text;
+        }
 
         function buttonClickPopup() {
             document.getElementById("popupModalIngredients").style.display = 'block';

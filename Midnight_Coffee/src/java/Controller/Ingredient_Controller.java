@@ -1,7 +1,8 @@
-
 package Controller;
 
 import Model.IngredientList;
+import Model.ProductList;
+import Model.Recipes;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class Ingredient_Controller extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //Get Connection
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
@@ -31,102 +32,159 @@ public class Ingredient_Controller extends HttpServlet {
             response.sendRedirect("home.jsp?noconnection");
         }
 
-        
         // Declare model
         IngredientList ingredientsProcess = new IngredientList();
-        
+
         String instruction = request.getParameter("action");
-        switch(instruction){
+        switch (instruction) {
             case "load":
                 //Load Ingredients
                 request.setAttribute("ingredients", ingredientsProcess.Ingredients(conn));
+                request.setAttribute("active", ingredientsProcess.ActiveIngredients(conn));
                 request.setAttribute("loadedIngredients", "yes");
+                request.setAttribute("loadedActive", "yes");
                 request.getRequestDispatcher("adminIngredients_page.jsp").forward(request, response);
-                
-                
-                
-                
-                              //delete entry after 30 days of deactivation
-                    // get the current date and time
-                    Calendar calendar = Calendar.getInstance();
-                    Date now = calendar.getTime();
-                    
-                    // format the date and time into a string
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String timestamp = dateFormat.format(now);
-                    
-                    //get current time stamp
-                    Timestamp current = Timestamp.valueOf(timestamp);
-                   /// loadMenu.deleteProduct(timestamp, conn);
-                    
-                    // retrieve ingredients
-                    ResultSet resultsLoad = ingredientsProcess.Ingredients(conn);
-                   
+
+                //delete entry after 30 days of deactivation
+                // get the current date and time
+                Calendar calendar = Calendar.getInstance();
+                Date now = calendar.getTime();
+
+                // format the date and time into a string
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestamp = dateFormat.format(now);
+
+                //get current time stamp
+                Timestamp current = Timestamp.valueOf(timestamp);
+                /// loadMenu.deleteProduct(timestamp, conn);
+
+                // retrieve ingredients
+                ResultSet resultsLoad = ingredientsProcess.Ingredients(conn);
+
                 try {
                     while (resultsLoad.next()) {
-                        
-                        if(resultsLoad.getString("deactivationtimestamp")!=null){
+
+                        if (resultsLoad.getString("deactivationtimestamp") != null) {
                             //get timestamp of the ingredients when it was deactivated
                             Timestamp old = Timestamp.valueOf(resultsLoad.getString("deactivationtimestamp"));
-                            
+
                             //old is before the current
-                            if(old.compareTo(current) < 0){
-                               ingredientsProcess.deleteIngredient(Integer.parseInt(resultsLoad.getString("itemCode")), conn);
-                                
+                            if (old.compareTo(current) < 0) {
+                                ingredientsProcess.deleteIngredient(Integer.parseInt(resultsLoad.getString("itemCode")), conn);
+
                             }
                         }
-                    }    } catch (SQLException ex) {
+                    }
+                } catch (SQLException ex) {
                     Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 break;
-                
-            case "addIngredient": 
-                 //Get Parameters
+
+            case "insertIngredient":
+                //Get Parameters
                 String ingredientName = request.getParameter("ingredientName");
                 int weight = Integer.parseInt(request.getParameter("weight"));
                 int min = Integer.parseInt(request.getParameter("minimum"));
-                
+
                 // Validate Parameters
-                if (ingredientName == null || ingredientName.trim().isEmpty() ||
-                    request.getParameter("weight") == null || request.getParameter("minimum") == null) {
+                if (ingredientName == null || ingredientName.trim().isEmpty()
+                        || request.getParameter("weight") == null || request.getParameter("minimum") == null) {
                     response.sendRedirect("adminIngredients_page.jsp?invalidinput");
                     return;
                 }
                 //Check if Ingredient Exist
                 ResultSet results = ingredientsProcess.ingredientItem(ingredientName, conn);
-                
+
                 //Redirect to adminIngredients page if ingredients exist
-                 if (results != null) {
-                response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
+                if (results != null) {
+                    response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
+                } else {
+                    //Add Ingredient
+                    ingredientsProcess.addIngredient(ingredientName, weight, min, conn);
+                    response.sendRedirect("adminIngredients_page.jsp?ingredientadded");
                 }
-                 else{
-                //Add Ingredient
-                ingredientsProcess.addIngredient(ingredientName, weight, min, conn);
-                response.sendRedirect("adminIngredients_page.jsp?ingredientadded");
-                 }
+
                 break;
-                
-            case "Reactivate":    
+
+            case "addIngredient":
+                ingredientName = request.getParameter("ingredientName");
+                weight = Integer.parseInt(request.getParameter("weight"));
+
+                if (ingredientName == null || ingredientName.trim().isEmpty()) {
+                    response.sendRedirect("adminIngredients_page.jsp?invalidinput");
+                    return;
+                }
+
+                results = ingredientsProcess.ingredientItem(ingredientName, conn);
+
+                //Redirect to adminIngredients page if ingredients exist
+                if (results == null) {
+                    response.sendRedirect("adminIngredients_page.jsp?ingredientdoesnotexist");
+                } else {
+                    //Add Ingredient
+                    ingredientsProcess.addIngredient(ingredientName, weight, 0, conn);
+                    response.sendRedirect("adminIngredients_page.jsp?addedweightsuccess");
+                }
+
+                break;
+
+            case "updateIngredient":
+
+                ingredientName = request.getParameter("ingredientName");
+                String updateName = request.getParameter("updatedName");
+                weight = Integer.parseInt(request.getParameter("updateWeightNumber"));
+                min = Integer.parseInt(request.getParameter("updateMinimumNumber"));
+
+                if (ingredientName == null || ingredientName.trim().isEmpty()) {
+                    response.sendRedirect("adminIngredients_page.jsp?invalidinput");
+                    return;
+                }
+
+                results = ingredientsProcess.ingredientItem(updateName, conn);
+
+                //Redirect to adminIngredients page if ingredients exist
+                if (results != null) {
+                    response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
+                } else {
+                    try {
+                        //Update Ingredient
+                        ResultSet ingredients = ingredientsProcess.ingredientItem(ingredientName, conn);
+                        ingredientsProcess.UpdateIngredient(ingredients.getInt("itemCode"), updateName, weight, min, conn);
+                        Recipes recipes = new Recipes();
+                        ResultSet list = recipes.RecipeList(conn);
+                        while (list.next()) {
+                            if(list.getString("ingredientList").contains(ingredientName)){
+                                recipes.UpdateRecipe(list.getInt("itemCode"), list.getString("ingredientList").replace(ingredientName,updateName), conn);
+                            }
+                        }
+                        response.sendRedirect("adminIngredients_page.jsp?ingredientupdated");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                break;
+
+            case "Reactivate":
             case "Deactivate":
                 String ingredientDeactivated = request.getParameter("itemCode");
-                
-                     // get the current date and time
-                    Calendar calendarDeactivated = Calendar.getInstance();
-                    Date nowDeactivated = calendarDeactivated.getTime();
-                    nowDeactivated.setDate(nowDeactivated.getDate() + 30);
-                    
-                    // format the date and time into a string
-                    SimpleDateFormat dateFormatDeactivated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String timestampDeactivated = dateFormatDeactivated.format(nowDeactivated);
-                
-                    
-                    ingredientsProcess.changeActivation(instruction, Integer.parseInt(ingredientDeactivated), timestampDeactivated, conn);
+
+                // get the current date and time
+                Calendar calendarDeactivated = Calendar.getInstance();
+                Date nowDeactivated = calendarDeactivated.getTime();
+                nowDeactivated.setDate(nowDeactivated.getDate() + 30);
+
+                // format the date and time into a string
+                SimpleDateFormat dateFormatDeactivated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestampDeactivated = dateFormatDeactivated.format(nowDeactivated);
+
+                ingredientsProcess.changeActivation(instruction, Integer.parseInt(ingredientDeactivated), timestampDeactivated, conn);
 
                 response.sendRedirect("adminIngredients_page.jsp?ingredientdeleted");
                 break;
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
