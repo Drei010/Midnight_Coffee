@@ -133,18 +133,47 @@ public class Ingredient_Controller extends HttpServlet {
 
                 ingredientName = request.getParameter("ingredientName");
                 String updateName = request.getParameter("updatedName");
-                weight = Integer.parseInt(request.getParameter("updateWeightNumber"));
-                min = Integer.parseInt(request.getParameter("updateMinimumNumber"));
+                String weightS = request.getParameter("updateWeightNumber");
+                String minS = request.getParameter("updateMinimumNumber");
+                weight = 0;
+                min = 0;
 
                 if (ingredientName == null || ingredientName.trim().isEmpty()) {
                     response.sendRedirect("adminIngredients_page.jsp?invalidinput");
                     return;
                 }
 
+                if (updateName == null || updateName.trim().isEmpty()) {
+                    updateName = ingredientName;
+                }
+
+                results = ingredientsProcess.ingredientItem(ingredientName, conn);
+
+                if (weightS == null || weightS.trim().isEmpty()) {
+                    try {
+                        weight = results.getInt("ingredientWeight");
+                        System.out.println(results.getInt("ingredientWeight"));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    weight = Integer.parseInt(weightS);
+                }
+                
+                if (minS == null || minS.trim().isEmpty()) {
+                    try {
+                        min = results.getInt("minimumWeight");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    min = Integer.parseInt(minS);
+                }
+
                 results = ingredientsProcess.ingredientItem(updateName, conn);
 
                 //Redirect to adminIngredients page if ingredients exist
-                if (results != null) {
+                if (results != null && !updateName.equals(ingredientName)) {
                     response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
                 } else {
                     try {
@@ -154,8 +183,8 @@ public class Ingredient_Controller extends HttpServlet {
                         Recipes recipes = new Recipes();
                         ResultSet list = recipes.RecipeList(conn);
                         while (list.next()) {
-                            if(list.getString("ingredientList").contains(ingredientName)){
-                                recipes.UpdateRecipe(list.getInt("itemCode"), list.getString("ingredientList").replace(ingredientName,updateName), conn);
+                            if (list.getString("ingredientList").contains(ingredientName)) {
+                                recipes.UpdateRecipe(list.getInt("itemCode"), list.getString("ingredientList").replace(ingredientName, updateName), conn);
                             }
                         }
                         response.sendRedirect("adminIngredients_page.jsp?ingredientupdated");

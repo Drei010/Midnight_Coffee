@@ -152,7 +152,11 @@ public class IngredientList {
                             for (String currIngredient : recipeArray) {
                                 if (!currIngredient.equals(ingredient)) {
                                     ResultSet otherIngredient = ingredientItem(currIngredient, conn);
-                                    if (otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")) {
+                                    if (otherIngredient != null) {
+                                        if (otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")) {
+                                            productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
+                                        }
+                                    } else {
                                         productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
                                     }
                                 }
@@ -199,22 +203,6 @@ public class IngredientList {
             stmnt.close();
 
             setInStock(updateName, conn);
-
-//            ResultSet name = ingredientItem(updateName, conn);
-//            Recipes recipesMethod = new Recipes();
-//            ProductList productListMethod = new ProductList();
-//            ResultSet productList = recipesMethod.RecipeList(conn);
-//            if (name.getInt("ingredientWeight") > name.getInt("minimumWeight")) {
-//                if (productList != null) {
-//                    while (productList.next()) {
-//                        if (productList.getString("ingredientList").contains(updateName)){
-//                            
-//                        }
-//                    }
-//                }
-//            } else {
-//
-//            }
         } catch (SQLException ex) {
             Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
         }

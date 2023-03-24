@@ -107,7 +107,7 @@
 
                         <div class="update-ingredient-name">
                             <p>Update Name:</p>
-                            <input type="text" id="updateName" name="updatedName" required>     
+                            <input type="text" id="updateName" name="updatedName">     
                             <label for="ingredientSelect">Ingredient:</label>
                             <select id="updateSelectIngredient" name="selectIngredientName" onchange="setUpdateWeights()" required>
                                 <option selected disabled hidden>Select Ingredient</option>
@@ -127,7 +127,7 @@
                             <div class="label-weightText">
                                 <div>
                                     <p>Update Weight:</p>
-                                    <input type="number" id="updateWeight" name="updateWeightNumber" min="1" required>
+                                    <input type="number" id="updateWeight" name="updateWeightNumber" min="1" >
                                 </div>
                                 <div>
                                     <p>Current Weight:</p>
@@ -140,7 +140,7 @@
                             <div class="label-min-weight">
                                 <div>
                                     <p>Update Minimum:</p>
-                                    <input type="number" id="updateMinimum" name="updateMinimumNumber" min="1" required>
+                                    <input type="number" id="updateMinimum" name="updateMinimumNumber" min="1">
                                 </div>
                                 <div>
                                     <p>Current Minimum:</p>
