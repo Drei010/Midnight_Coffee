@@ -16,17 +16,17 @@
         <script src="https://www.google.com/recaptcha/api.js"></script>
 
     </head>
-    <jsp:include page="loginSignup.jsp" /> <!-- Calls the header jsp -->
     <body>
-        <div class="header"></div>
-        
-          <form action="LoginSignup_Controller" id="login-form" method="post">
+         <jsp:include page="loginSignup.jsp" /> <!-- Calls the header jsp -->
+       <form action="AdminAccount_Controller" id="login-form" method="POST">
         <div class="login">
-        <h1>Login</h1>
+       
+        <input type="hidden" name="action" value="adminLogin">    
+        <h1>Admin Login</h1>
         <h3>Email</h3>
         <input type="email" name="email" required>
         <h3>Admin Key</h3>
-        <input type="password" name="password" required>
+        <input type="password" name="adminkey" required>
         <h3>Password</h3>
         <input type="password" name="password" required><br>
         
@@ -36,7 +36,6 @@
         <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;"></div>
         <br>
 
-        <a  href="Signup_page.jsp">Don’t have an account?</a><br>
         </div>
         <br>
         <button type="submit">Login</button>
