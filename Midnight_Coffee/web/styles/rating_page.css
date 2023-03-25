@@ -18,6 +18,19 @@ body {
     background-size: cover;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #282747;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+
 .container{
   max-width: 800px;
   background: #282747;
@@ -26,6 +39,7 @@ body {
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   margin: 0 auto;
   margin-top: 200px;
+  border-radius: 5px;
 }
 
 .rateText{
@@ -84,6 +98,7 @@ body {
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   margin: 0 auto;
   margin-top: 10px;
+  border-radius: 5px;
 }
 
 .container2Text{

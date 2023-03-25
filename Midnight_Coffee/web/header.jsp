@@ -15,9 +15,9 @@
         <nav class="header">
             <div class="header-left">
                 <div class="logo-container">
-                    <img src="https://i.postimg.cc/X7LBNhbz/MNC-Updated-Logo-White-Transparent.png" alt="MNC_Logo" width="100px" height="100px">
+                    <img src="https://i.postimg.cc/X7LBNhbz/MNC-Updated-Logo-White-Transparent.png" alt="MNC_Logo" width="100px" height="100px" onclick="window.location.href='home.jsp'">
                 </div>
-                <h1 class="header-title">MIDNIGHT COFFEE</h1>
+                <h1 class="header-title" onclick="window.location.href='home.jsp'">MIDNIGHT COFFEE</h1>
             </div>
             <ul class="header-nav header-right">
                 <li class="header-nav-item">

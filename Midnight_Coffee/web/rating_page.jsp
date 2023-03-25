@@ -14,7 +14,15 @@
     </head>
 
     <body>
-        <jsp:include page="loginSignup.jsp" />
+        <header>
+            <nav class="header">
+                <div class="header-left">
+                    <div class="logo-container">
+                        <img src="https://i.postimg.cc/X7LBNhbz/MNC-Updated-Logo-White-Transparent.png" alt="MNC_Logo" width="100px" height="100px">
+                    </div>
+                </div>
+            </nav>
+        </header>
         <div class="container">
             <form action ="Feedback_Controller" method ="POST">
                 
