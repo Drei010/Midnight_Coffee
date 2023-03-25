@@ -155,4 +155,34 @@ public class ProductList {
         }
         return null;
     }
+    
+    public void UpdateProduct(String name, String option, String price, String image, String category, int code, Connection conn){
+        try {
+            String query = "UPDATE products SET itemName = ?, itemOption = ?, itemPrice = ?, itemImage = ?, itemClass = ? WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, name);
+            stmnt.setString(2, option);
+            stmnt.setString(3, price);
+            stmnt.setString(4, image);
+            stmnt.setString(5, category);
+            stmnt.setInt(6, code);
+            stmnt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void UpdateSalescountProduct(String name, String option, int code, Connection conn){
+        try {
+            String query = "UPDATE salescount SET itemName = ?, itemOption = ? WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, name);
+            stmnt.setString(2, option);
+            stmnt.setInt(3, code);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Recipes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

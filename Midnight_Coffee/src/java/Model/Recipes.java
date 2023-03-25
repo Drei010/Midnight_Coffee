@@ -53,4 +53,18 @@ public class Recipes {
             Logger.getLogger(Recipes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void UpdateProduct(String name, String option, int code, Connection conn){
+        try {
+            String query = "UPDATE recipes SET itemName = ?, itemOption = ? WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, name);
+            stmnt.setString(2, option);
+            stmnt.setInt(3, code);
+            stmnt.executeUpdate();
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Recipes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

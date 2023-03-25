@@ -120,7 +120,7 @@
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
-
+                            <input type="hidden" class="itemCode" name="<%=coffee.getString("itemCode")%>">
                             <input type="hidden" class="itemClass" name="<%=coffee.getString("itemClass")%>">
                             <%-- Item Name--%>
                             <a class="itemName" name="<%=coffee.getString("itemName")%>"><%=coffee.getString("itemName")%></a>     
@@ -206,28 +206,30 @@
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
-
+                            <input type="hidden" class="itemCode" name="<%=kremalatte.getString("itemCode")%>">
+                            <input type="hidden" class="itemClass" name="<%=kremalatte.getString("itemClass")%>">
                             <%-- Item Name--%>
-                            <a class="itemName"><%=kremalatte.getString("itemName")%></a>     
+                            <a class="itemName" name="<%=kremalatte.getString("itemName")%>"><%=kremalatte.getString("itemName")%></a>     
 
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
                                 src="MENUImages/<%=kremalatte.getString("itemImage")%>"
-                                alt="Sample Item Image">
+                                alt="Sample Item Image" id="<%=kremalatte.getString("itemImage")%>">
 
                             <%-- Item Option--%>
-                            <a class="itemOption"><%=kremalatte.getString("itemOption")%></a>
+                            <a class="itemOption" name="<%=kremalatte.getString("itemOption")%>"><%=kremalatte.getString("itemOption")%></a>
 
                             <%-- Item PriceTag--%>
                             <h3 class="itemPHPTag">PHP</h3>
 
                             <%-- Item Price--%> 
-                            <h3 class="itemPrice"><%=kremalatte.getString("itemPrice")%></h3>
+                            <h3 class="itemPrice" id="<%=kremalatte.getString("itemPrice")%>"><%=kremalatte.getString("itemPrice")%></h3>
 
                             <!--Update Menu Item-->
-                            <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
-
+                            <form>
+                                <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                            </form>
 
                             <!--Update Availability-->
                             <button class="availabilityItemBtn">
@@ -291,28 +293,30 @@
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item">  
-
+                            <input type="hidden" class="itemCode" name="<%=tea.getString("itemCode")%>">
+                            <input type="hidden" class="itemClass" name="<%=tea.getString("itemClass")%>">
                             <%-- Item Name--%>
-                            <a class="itemName"><%=tea.getString("itemName")%></a>     
+                            <a class="itemName" name="<%=tea.getString("itemName")%>"><%=tea.getString("itemName")%></a>     
 
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
                                 src="MENUImages/<%=tea.getString("itemImage")%>"
-                                alt="Sample Item Image">
+                                alt="Sample Item Image" id="<%=tea.getString("itemImage")%>">
 
                             <%-- Item Option--%>
-                            <a class="itemOption"><%=tea.getString("itemOption")%></a>
+                            <a class="itemOption" name="<%=tea.getString("itemOption")%>"><%=tea.getString("itemOption")%></a>
 
                             <%-- Item PriceTag--%>
                             <h3 class="itemPHPTag">PHP</h3>
 
                             <%-- Item Price--%> 
-                            <h3 class="itemPrice"><%=tea.getString("itemPrice")%></h3>
+                            <h3 class="itemPrice" id="<%=tea.getString("itemPrice")%>"><%=tea.getString("itemPrice")%></h3>
 
                             <!--Update Menu Item-->
-                            <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
-
+                            <form>
+                                <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                            </form>
 
                             <!--Update Availability-->
                             <button class="availabilityItemBtn">
@@ -349,7 +353,10 @@
         <div id="popupModalUpdate">
 
             <div class="container-popup-update">
-                <form id="updateProductPopupForm">
+                <form id="updateProductPopupForm" action="Menu_Controller" method="post">
+                    <input type="hidden" name="instruction" value="updateItemMenu">
+                    <input type="hidden" id="updateItemCode" name="itemCode">
+                    <input type="hidden" id="currentItemName" name="currentItemName">
                     <div id="updateProductDiv">
                         <h2>Update Product</h2>
                         <div class="updateCategory">
@@ -369,7 +376,7 @@
                                 <div>
                                     <p>Category:</p>
                                     <select id="categoryInput" name="categoryInput">
-                                        <option selected disabled hidden>Select Category</option>
+                                        <option id="default" selected disabled hidden>Select Category</option>
                                         <option>Coffee</option>
                                         <option>Kremalatte</option>
                                         <option>Tea</option>
@@ -402,7 +409,7 @@
                                     <input type="number" id="priceInput" name="priceInput" placeholder="Php">
                                 </div>
                                 <div>
-                                    <p>Current Price:</p>
+                                    <p>Current:</p>
                                     <h4 id="currentPrice">*Php*</h4>
                                 </div>
                             </div>
@@ -603,12 +610,17 @@
                         itemOptionArray = document.getElementsByClassName('itemOption'),
                         itemPriceArray = document.getElementsByClassName('itemPrice'),
                         itemImageArray = document.getElementsByClassName('thumbnail'),
+                        itemCodeArray = document.getElementsByClassName('itemCode'),
                         itemName = document.getElementById('currentName'),
                         itemClass = document.getElementById('currentCategory'),
                         itemOption = document.getElementById('currentOption'),
                         itemPrice = document.getElementById('currentPrice'),
                         itemImage = document.getElementById('currentImage'),
-                        itemFilename = document.getElementById('currentFileName');
+                        itemFilename = document.getElementById('currentFileName'),
+                        itemCode = document.getElementById('updateItemCode'),
+                        itemNameHidden = document.getElementById('currentItemName'),
+                        category = document.getElementById('categoryInput'),
+                        option = document.getElementById('default');
 
                 itemName.innerHTML = itemNameArray[index].name;
                 itemClass.innerHTML = itemClassArray[index].name;
@@ -616,6 +628,9 @@
                 itemPrice.innerHTML = "Php " + itemPriceArray[index].id;
                 itemImage.src = "MENUImages/" + itemImageArray[index].id;
                 itemFilename.innerHTML = itemImageArray[index].id;
+                itemCode.value = itemCodeArray[index].name;
+                itemNameHidden.value = itemNameArray[index].name;
+                category.value = option.value;
             });
         });
 
