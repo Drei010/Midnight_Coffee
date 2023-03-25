@@ -406,7 +406,6 @@
                             </div>
                         </div>
                     </div>
-                    <button id="saveChangesBtn" class="save">Save Changes</button>
                 </form>
 
                 <div class="verticalDivider"></div>
@@ -422,6 +421,7 @@
                             <img class="currentImage" id="currentImage" src="MENUImages/" alt="Current Product Image">
                             <p id="currentFileName">*Value ng current file name*</p>
 
+                            <button id="saveChangesBtn" class="save">Save Changes</button>
                         </div>
                     </div>
                 </form>
@@ -607,7 +607,7 @@
                         itemPrice = document.getElementById('currentPrice'),
                         itemImage = document.getElementById('currentImage'),
                         itemFilename = document.getElementById('currentFileName');
-                        
+
                 itemName.innerHTML = itemNameArray[index].name;
                 itemClass.innerHTML = itemClassArray[index].name;
                 itemOption.innerHTML = itemOptionArray[index].name;
