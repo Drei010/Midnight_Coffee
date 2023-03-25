@@ -46,6 +46,7 @@ public class Feedback_Controller extends HttpServlet {
                         updateList.updateDisplayed("No", Integer.parseInt(updateId[i]), conn);
                     }
                 }
+                
                 response.sendRedirect("adminFeedback_page.jsp?updated");
                 break;
             case "add":
