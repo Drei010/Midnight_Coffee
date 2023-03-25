@@ -79,7 +79,7 @@ body {
     width:1em;
     overflow:hidden;
     white-space:nowrap;
-    cursor:default;
+    cursor:pointer;
     font-size:30px;
     color:#ddd;
 }
@@ -88,6 +88,18 @@ body {
 }
 .rate2 > input:checked ~ label {
     color: #ffc700;    
+}
+
+.rate2:not(:checked) > label:hover,
+.rate2:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate2 > input:checked + label:hover,
+.rate2 > input:checked + label:hover ~ label,
+.rate2 > input:checked ~ label:hover,
+.rate2 > input:checked ~ label:hover ~ label,
+.rate2 > label:hover ~ input:checked ~ label {
+    color: #c59b08;
 }
 
 .container2{

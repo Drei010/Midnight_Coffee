@@ -25,7 +25,7 @@
         </header>
         <div class="container">
             <form action ="Feedback_Controller" method ="POST">
-                
+                <input type="hidden" id="rating" name="rating">
                 <div class ="rateText">
                     <h1>Please rate our service!</h1>
                 </div>
