@@ -59,6 +59,7 @@ body {
     box-sizing: border-box; /* This ensures that the width includes padding and border */
     padding: 10px;
     border: 1px solid black;
+    resize: vertical;
 }
 
 .rate2 {

@@ -24,8 +24,9 @@
             </nav>
         </header>
         <div class="container">
-            <form action ="Feedback_Controller" method ="POST">
+            <form action ="Feedback_Controller" method="POST" name="ratingForm">
                 <input type="hidden" id="rating" name="rating">
+                <input type="hidden" id="add" name="instruction" value="add">
                 <div class ="rateText">
                     <h1>Please rate our service!</h1>
                 </div>
@@ -50,20 +51,34 @@
                 </div>
 
                 <div class="commentInput">
-                    <textarea class="squareInputField" placeholder="Add your comment here..." required maxlength="500"></textarea>
+                    <textarea class="squareInputField" placeholder="Add your comment here..." required maxlength="500" name="message"></textarea>
                 </div>
 
 
-                <button type="submit" class="submitBtn">SUBMIT</button>
+                <input type="button" class="submitBtn" value="SUBMIT" onclick="setRating()">
             </form>
         </div>
 
         <div class="container2">
             <div class ="container2Text">
-            <p>Thank you for rating, this will help us know what to improve in our service.</p>
-            <p>Happy Sippin'!</p>
+                <p>Thank you for rating, this will help us know what to improve in our service.</p>
+                <p>Happy Sippin'!</p>
             </div>
         </div>
 
     </body>
+    <script>
+        function setRating() {
+            var radioSelected = document.querySelector('input[name="rate"]:checked'),
+                    rating = document.getElementById('rating');
+
+            if (radioSelected === null) {
+                rating.value = "0";
+            } else {
+                rating.value = radioSelected.value;
+            }
+            
+            document.forms['ratingForm'].submit();
+        }
+    </script>
 </html>

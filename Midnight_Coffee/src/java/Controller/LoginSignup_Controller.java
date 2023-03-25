@@ -28,40 +28,37 @@ import org.apache.commons.codec.binary.Base64;
  */
 @WebServlet(name = "LoginSignup_Controller", urlPatterns = {"/LoginSignup_Controller"})
 public class LoginSignup_Controller extends HttpServlet {
-    
-    
+
 //Encryption
-private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0x48,0x49,0x44,0x41,0x4C,0x47};
+    private static byte[] key = {0x41, 0x4E, 0x44, 0x52, 0x45, 0x49, 0x4B, 0x59, 0x4C, 0x45, 0x48, 0x49, 0x44, 0x41, 0x4C, 0x47};
 
-        public static String encrypt(String strToEncrypt) {
-            String encryptedString = null;
-            try {
-                Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
-                final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-                IvParameterSpec iv = new IvParameterSpec(new byte[16]);
-                cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
-                encryptedString = Base64.encodeBase64String(cipher.doFinal(strToEncrypt.getBytes()));
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-            return encryptedString;
+    public static String encrypt(String strToEncrypt) {
+        String encryptedString = null;
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
+            final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+            IvParameterSpec iv = new IvParameterSpec(new byte[16]);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
+            encryptedString = Base64.encodeBase64String(cipher.doFinal(strToEncrypt.getBytes()));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
+        return encryptedString;
+    }
 
-        public static String decrypt(String codeDecrypt){
-            String decryptedString = null;
-            try{
-                Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING", "SunJCE");
-                final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-                IvParameterSpec iv = new IvParameterSpec(new byte[16]);
-                cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
-                decryptedString = new String(cipher.doFinal(Base64.decodeBase64(codeDecrypt)));
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-            return decryptedString;
+    public static String decrypt(String codeDecrypt) {
+        String decryptedString = null;
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING", "SunJCE");
+            final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+            IvParameterSpec iv = new IvParameterSpec(new byte[16]);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
+            decryptedString = new String(cipher.doFinal(Base64.decodeBase64(codeDecrypt)));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-
-
+        return decryptedString;
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,14 +66,14 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-         response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("home.jsp?noconnection");
         }
-        
+
         // get parameters
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String password = request.getParameter("password");
-    String email = request.getParameter("email");
+        String email = request.getParameter("email");
         String mobilenumber = request.getParameter("mobilenumber");
 
         //check if login or signup
@@ -87,7 +84,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
             //check if Account already exist! Before Sign up
             if (signUp.retrieveData(email, conn) != null) {
                 response.sendRedirect("Signup_page.jsp?process=1");
-              
+
             }
 
             String Yes = signUp.insertData(firstname, lastname, encrypt(password), email, mobilenumber, conn);
@@ -102,14 +99,14 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
         } else {
             LoginSignup_Model logIn = new LoginSignup_Model();
             ResultSet results = logIn.retrieveData(email, conn);
-              try {
-            //check if account exists
-            if (results == null|| !results.next()) {
-                //Account does not exist
-                response.sendRedirect("Login_page.jsp?process=2");
-                results.close();
-            }else{
-                
+            try {
+                //check if account exists
+                if (results == null || !results.next()) {
+                    //Account does not exist
+                    response.sendRedirect("Login_page.jsp?process=2");
+                    results.close();
+                } else {
+
                     //Check if password matches with password in the database
                     String checkPassword = decrypt(results.getString("customerPassword"));
                     if (!checkPassword.equals(password)) {
@@ -117,21 +114,19 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                         //Password does not match
                         response.sendRedirect("Login_page.jsp?process=3");
                         results.close();
-                    }
-                    else{
-                    //Set Attributes
-                    HttpSession session = request.getSession();
-                    session.setAttribute("firstname", results.getString("customerFirstname"));
-                    session.setAttribute("lastname", results.getString("customerLastname"));
-                    session.setAttribute("customerID", results.getString("customerID"));
-                    session.setAttribute("isGuest","no");
+                    } else {
+                        //Set Attributes
+                        HttpSession session = request.getSession();
+                        session.setAttribute("firstname", results.getString("customerFirstname"));
+                        session.setAttribute("lastname", results.getString("customerLastname"));
+                        session.setAttribute("customerID", results.getString("customerID"));
+                        session.setAttribute("isGuest", "no");
 
-                    //go to homepage if login is successful       
-               
-                    request.getRequestDispatcher("home.jsp?LoginSuccess").forward(request, response);
+                        //go to homepage if login is successful       
+                        request.getRequestDispatcher("home.jsp?LoginSuccess").forward(request, response);
                     }
-            }
-                
+                }
+
             } catch (SQLException ex) {
                 Logger.getLogger(LoginSignup_Controller.class.getName()).log(Level.SEVERE, null, ex);
             }

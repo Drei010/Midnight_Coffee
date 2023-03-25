@@ -37,4 +37,22 @@ public class FeedbackList {
             Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void insertFeedback(String message, int rating, int id, Connection conn){
+        try {
+            LoginSignup_Model db = new LoginSignup_Model();
+            ResultSet customerData = db.getCustomerData(id, conn);
+            String query = "INSERT INTO feedbacklist (rating, message, customerID, customerFirstName, customerLastName, displayed) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setInt(1, rating);
+            stmnt.setString(2, message);
+            stmnt.setInt(3, id);
+            stmnt.setString(4, customerData.getString("customerFirstName"));
+            stmnt.setString(5, customerData.getString("customerLastName"));
+            stmnt.setString(6, "No");
+            stmnt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

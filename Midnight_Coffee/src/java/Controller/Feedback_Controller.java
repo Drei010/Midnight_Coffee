@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Feedback_Controller", urlPatterns = {"/Feedback_Controller"})
 public class Feedback_Controller extends HttpServlet {
@@ -39,7 +40,6 @@ public class Feedback_Controller extends HttpServlet {
                 String updateId[] = request.getParameter("updateId").replaceAll("\\[|\\]|\"", "").split(",");
                 FeedbackList updateList = new FeedbackList();
                 for (int i = 0; i < update.length; i++) {
-                    System.out.println(updateId[i] + " will be set to " + update[i]);
                     if (update[i].equals("true")) {
                         updateList.updateDisplayed("Yes", Integer.parseInt(updateId[i]), conn);
                     } else {
@@ -47,6 +47,17 @@ public class Feedback_Controller extends HttpServlet {
                     }
                 }
                 response.sendRedirect("adminFeedback_page.jsp?updated");
+                break;
+            case "add":
+                HttpSession session = request.getSession();
+                FeedbackList add = new FeedbackList();
+                String idString = (String) session.getAttribute("customerID");
+                String message = request.getParameter("message");
+                int rating = Integer.parseInt(request.getParameter("rating"));
+                int id = Integer.parseInt(idString);
+                
+                add.insertFeedback(message, rating, id, conn);
+                response.sendRedirect("home.jsp?addedfeedback");
                 break;
         }
     }

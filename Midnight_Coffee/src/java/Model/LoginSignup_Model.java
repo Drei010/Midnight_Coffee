@@ -100,4 +100,20 @@ public class LoginSignup_Model {
         }
         return null;
     }
+    
+    public ResultSet getCustomerData(int id, Connection conn){
+        try {
+            String query = "SELECT * FROM customer_credentials WHERE customerID = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setInt(1, id);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.first();
+                return records;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

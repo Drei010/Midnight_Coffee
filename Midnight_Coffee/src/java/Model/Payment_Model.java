@@ -97,10 +97,8 @@ public class Payment_Model {
         String query = "";
         if (count == 0) {
             query = "INSERT INTO salescount (count, itemCode, itemOption, itemName) VALUES (?, ?, ?, ?)";
-            System.out.println("pumasok");
         } else {
             query = "UPDATE salescount SET count = ? WHERE itemCode = ? AND itemOption = ? AND itemName = ?";
-            System.out.println("nagupdate");
         }
         try {
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
