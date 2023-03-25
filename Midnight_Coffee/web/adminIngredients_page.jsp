@@ -108,7 +108,7 @@
                         <div class="update-ingredient-name">
                             <p>Update Name:</p>
                             <input type="text" id="updateName" name="updatedName">     
-                            <label for="ingredientSelect">Ingredient:</label>
+                            <p>Ingredient:</p>
                             <select id="updateSelectIngredient" name="selectIngredientName" onchange="setUpdateWeights()" required>
                                 <option selected disabled hidden>Select Ingredient</option>
                                 <%
@@ -158,7 +158,7 @@
                         <input type="hidden" name="action" value="addIngredient">
                         <h2>Add Available Stocks</h2>
                         <div class="add-ingredient-name">
-                            <label for="addIngredientSelect">Ingredient:</label>
+                            <p>Ingredient:</p>
                             <select id="addSelectIngredient" name="addSelectIngredientName" onchange="setAddWeight()" required >
                                 <option selected disabled hidden>Select Ingredient</option>
                                 <%
@@ -258,10 +258,10 @@
         function pageButtons($pCount, $cur) {
             var $prevDis = ($cur === 1) ? "disabled" : "",
                     $nextDis = ($cur === $pCount) ? "disabled" : "",
-                    $buttons = "<input type='button' value='<< Prev' onclick='sort(" + ($cur - 1) + ")' " + $prevDis + ">";
+                    $buttons = "<input type='button' class='prev' value='<< Prev' onclick='sort(" + ($cur - 1) + ")' " + $prevDis + ">";
             for ($i = 1; $i <= $pCount; $i++)
                 $buttons += "<input type='button' id='id" + $i + "'value='" + $i + "' onclick='sort(" + $i + ")'>";
-            $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
+            $buttons += "<input type='button' class='next' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + ">";
             return $buttons;
         }
 
