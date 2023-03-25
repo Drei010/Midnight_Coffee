@@ -178,7 +178,6 @@
             </div>
         </div>
 
-
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
