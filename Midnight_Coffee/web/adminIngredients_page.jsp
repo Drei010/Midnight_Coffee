@@ -268,8 +268,6 @@
         function buttonClick(button) {
             document.getElementById('action').value = button.value;
             document.getElementById('itemCode').value = button.name;
-            console.log(document.getElementById('action').value);
-            console.log(document.getElementById('itemCode').value);
             document.forms['ingredientTable'].submit();
             return true;
         }

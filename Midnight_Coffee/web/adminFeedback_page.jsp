@@ -128,8 +128,6 @@
                 $i, $ii, $j = ($hasHead) ? 1 : 0,
                 $th = ($hasHead ? $table.rows[(0)].outerHTML : "");
         var $pageCount = Math.ceil($rowCount / $n);
-        console.log($pageCount);
-        console.log($rowCount);
         if ($pageCount > 1) {
             for ($i = $j, $ii = 0; $i < $rowCount; $i++, $ii++)
                 $tr[$ii] = $table.rows[$i].outerHTML;
@@ -190,8 +188,6 @@
                     cboxValues.push([$p, cbox[i].checked]);
                     originalCboxValues.push([$p, cbox[i].checked]);
                     idValues.push([$p, id[i].value]);
-                    console.log(idValues[i]);
-                    console.log(id[i].value);
                 }
             }
         }
@@ -206,8 +202,6 @@
                     updateIdValues.push(idValues[i][1]);
                 }
             }
-            console.log(updateCboxValues);
-            console.log(updateIdValues);
             update.value = JSON.stringify(updateCboxValues);
             updateId.value = JSON.stringify(updateIdValues);
         }

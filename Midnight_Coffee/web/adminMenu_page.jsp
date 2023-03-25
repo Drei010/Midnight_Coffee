@@ -121,23 +121,24 @@
                         <%-- Slider Item Start--%>      
                         <div class="item">  
 
+                            <input type="hidden" class="itemClass" name="<%=coffee.getString("itemClass")%>">
                             <%-- Item Name--%>
-                            <a class="itemName"><%=coffee.getString("itemName")%></a>     
+                            <a class="itemName" name="<%=coffee.getString("itemName")%>"><%=coffee.getString("itemName")%></a>     
 
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
                                 src="MENUImages/<%=coffee.getString("itemImage")%>"
-                                alt="Sample Item Image">
+                                alt="Sample Item Image" id="<%=coffee.getString("itemImage")%>">
 
                             <%-- Item Option--%>
-                            <a class="itemOption"><%=coffee.getString("itemOption")%></a>
+                            <a class="itemOption" name="<%=coffee.getString("itemOption")%>"><%=coffee.getString("itemOption")%></a>
 
                             <%-- Item PriceTag--%>
                             <h3 class="itemPHPTag">PHP</h3>
 
                             <%-- Item Price--%> 
-                            <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
+                            <h3 class="itemPrice" id="<%=coffee.getString("itemPrice")%>"><%=coffee.getString("itemPrice")%></h3>
 
                             <!--Update Menu Item-->
                             <form>
@@ -351,12 +352,28 @@
             <div class="container-popup-update">
                 <form id="updateProductForm">
                     <h2>Update Product</h2>
-                    <h3 id="updateProductName">Name value nung pinindot</h3>
+                    <div class="updateCategory">
+                        <div class="label-updateCategory">
+                            <div>
+                                <p>Product Name:</p>
+                                <input type="text" id="nameInput" name="nameInput" placeholder="Name">
+                            </div>
+                            <div>
+                                <p>Current:</p>
+                                <h4 id="currentName">*Name*</h4>
+                            </div>
+                        </div>
+                    </div>
                     <div class="updateCategory">
                         <div class="label-updateCategory">
                             <div>
                                 <p>Category:</p>
-                                <input type="text" id="categoryInput" placeholder="Coffee, Kremalatte, Tea" required>
+                                <select id="categoryInput" name="categoryInput">
+                                    <option selected disabled hidden>Select Category</option>
+                                    <option>Coffee</option>
+                                    <option>Kremalatte</option>
+                                    <option>Tea</option>
+                                </select>
                             </div>
                             <div>
                                 <p>Current:</p>
@@ -369,7 +386,7 @@
                         <div class="label-updateOption">
                             <div>
                                 <p>Option:</p>
-                                <input type="text" id="optionInput" placeholder="Ex. Hot" required>
+                                <input type="text" id="optionInput" name="optionInput" placeholder="Hot">
                             </div>
                             <div>
                                 <p>Current:</p>
@@ -382,7 +399,7 @@
                         <div class="label-updatePrice">
                             <div>
                                 <p>Price:</p>
-                                <input type="number" id="priceInput" placeholder="Php" required>
+                                <input type="number" id="priceInput" name="priceInput" placeholder="Php">
                             </div>
                             <div>
                                 <p>Current Price:</p>
@@ -390,6 +407,7 @@
                             </div>
                         </div>
                     </div>
+                    <button id="saveChangesBtn" class="save">Save Changes</button>
                 </form>
 
                 <div class="verticalDivider"></div>
@@ -399,14 +417,12 @@
 
                         <h2>Update Image</h2>
                         <div>
-                            <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage" required>
+                            <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage">
 
-                            <p>Active Image: </p>
-                            <img class="currentImage" src="" alt="Current Product Image">
-                            
-                            <p>Current File Name: </p>
+                            <p>Current Image: </p>
+                            <img class="currentImage" id="currentImage" src="MENUImages/" alt="Current Product Image">
                             <p id="currentFileName">*Value ng current file name*</p>
-                            <button id="saveChangesBtn" class="save">Save Changes</button>
+
                         </div>
                     </div>
                 </form>
@@ -576,12 +592,37 @@
             });
         }
 
+        const updateBtns = document.querySelectorAll('.updateItemBtn');
+
+        updateBtns.forEach(updateBtn => {
+            updateBtn.addEventListener("click", (e) => {
+                const index = Array.from(updateBtns).indexOf(e.target);
+                let itemNameArray = document.getElementsByClassName('itemName'),
+                        itemClassArray = document.getElementsByClassName('itemClass'),
+                        itemOptionArray = document.getElementsByClassName('itemOption'),
+                        itemPriceArray = document.getElementsByClassName('itemPrice'),
+                        itemImageArray = document.getElementsByClassName('thumbnail'),
+                        itemName = document.getElementById('currentName'),
+                        itemClass = document.getElementById('currentCategory'),
+                        itemOption = document.getElementById('currentOption'),
+                        itemPrice = document.getElementById('currentPrice'),
+                        itemImage = document.getElementById('currentImage'),
+                        itemFilename = document.getElementById('currentFileName');
+                        
+                itemName.innerHTML = itemNameArray[index].name;
+                itemClass.innerHTML = itemClassArray[index].name;
+                itemOption.innerHTML = itemOptionArray[index].name;
+                itemPrice.innerHTML = "Php " + itemPriceArray[index].id;
+                itemImage.src = "MENUImages/" + itemImageArray[index].id;
+                itemFilename.innerHTML = itemImageArray[index].id;
+            });
+        });
+
         //Update item button
         function buttonClickPopupUpdate() {
+
             document.getElementById("popupModalUpdate").style.display = 'block';
         }
-
-
 
         //Disable buttons if the file type is not .png or .jpg
         const addBtn = document.getElementById('addProductBtn');
