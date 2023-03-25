@@ -327,26 +327,26 @@ p{
     margin: auto;
     margin-top: 150px;
     padding: 20px;
-    width: 70%;
+    width: max-content;
     height: auto;
     width: 60%;
-    max-width: fit-content;
-    min-width: fit-content;
+    max-width: 900px;
+    min-width: 900px;
     overflow: auto;
     z-index: 99;
 }
 
-#updateProductForm{
+#updateProductDiv{
     max-width: 400px;
     min-width: 400px;
 }
 
-#updateProductImgForm{
-    max-width: 265px;
-    min-width: 265px;
+#updateProductImgDiv{
+    max-width: fit-content;
+    min-width: fit-content;
 }
 
-#updateProductImgForm .currentImage{
+#updateProductImgDiv .currentImage{
     width: 300px;
     height: 200px;
 }
@@ -454,8 +454,9 @@ input[type=file] .itemUpdateImage{
 
 .itemAddName, .itemAddImage,
 .itemAddOption, .itemAddPrice, 
-.container-popup-update input, 
-#updateProductImgForm .currentImage{
+.container-popup-update input,
+.container-popup-update select, 
+#updateProductImgDiv .currentImage{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -464,6 +465,13 @@ input[type=file] .itemUpdateImage{
     box-sizing: border-box;
     background: #CFCBC2;
     color: black;
+}
+
+.container-popup-update select, 
+.container-popup-update input,
+#updateProductImgDiv .currentImage{
+    max-width: 204px;
+    min-width: 204px;
 }
 
 .itemIngredient, .ingredientGrams{

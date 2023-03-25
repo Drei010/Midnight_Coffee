@@ -349,79 +349,81 @@
         <div id="popupModalUpdate">
 
             <div class="container-popup-update">
-                <form id="updateProductForm">
-                    <h2>Update Product</h2>
-                    <div class="updateCategory">
-                        <div class="label-updateCategory">
-                            <div>
-                                <p>Product Name:</p>
-                                <input type="text" id="nameInput" name="nameInput" placeholder="Name">
+                <form id="updateProductPopupForm">
+                    <div id="updateProductDiv">
+                        <h2>Update Product</h2>
+                        <div class="updateCategory">
+                            <div class="label-updateCategory">
+                                <div>
+                                    <p>Product Name:</p>
+                                    <input type="text" id="nameInput" name="nameInput" placeholder="Name">
+                                </div>
+                                <div>
+                                    <p>Current:</p>
+                                    <h4 id="currentName">*Name*</h4>
+                                </div>
                             </div>
-                            <div>
-                                <p>Current:</p>
-                                <h4 id="currentName">*Name*</h4>
+                        </div>
+                        <div class="updateCategory">
+                            <div class="label-updateCategory">
+                                <div>
+                                    <p>Category:</p>
+                                    <select id="categoryInput" name="categoryInput">
+                                        <option selected disabled hidden>Select Category</option>
+                                        <option>Coffee</option>
+                                        <option>Kremalatte</option>
+                                        <option>Tea</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <p>Current:</p>
+                                    <h4 id="currentCategory">*Category*</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="updateOption">
+                            <div class="label-updateOption">
+                                <div>
+                                    <p>Option:</p>
+                                    <input type="text" id="optionInput" name="optionInput" placeholder="Hot">
+                                </div>
+                                <div>
+                                    <p>Current:</p>
+                                    <h4 id="currentOption">*Option*</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="updatePrice">
+                            <div class="label-updatePrice">
+                                <div>
+                                    <p>Price:</p>
+                                    <input type="number" id="priceInput" name="priceInput" placeholder="Php">
+                                </div>
+                                <div>
+                                    <p>Current Price:</p>
+                                    <h4 id="currentPrice">*Php*</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="updateCategory">
-                        <div class="label-updateCategory">
+
+                    <div class="verticalDividerUpdate"></div>
+
+                    <div id="updateProductImgDiv">
+                        <div class="UpdateImage">
+
+                            <h2>Update Image</h2>
                             <div>
-                                <p>Category:</p>
-                                <select id="categoryInput" name="categoryInput">
-                                    <option selected disabled hidden>Select Category</option>
-                                    <option>Coffee</option>
-                                    <option>Kremalatte</option>
-                                    <option>Tea</option>
-                                </select>
+                                <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage">
+
+                                <p>Current Image: </p>
+                                <img class="currentImage" id="currentImage" src="MENUImages/" alt="Current Product Image">
+                                <p id="currentFileName">*Value ng current file name*</p>
+
+                                <button id="saveChangesBtn" class="save">Save Changes</button>
                             </div>
-                            <div>
-                                <p>Current:</p>
-                                <h4 id="currentCategory">*Category*</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="updateOption">
-                        <div class="label-updateOption">
-                            <div>
-                                <p>Option:</p>
-                                <input type="text" id="optionInput" name="optionInput" placeholder="Hot">
-                            </div>
-                            <div>
-                                <p>Current:</p>
-                                <h4 id="currentOption">*Option*</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="updatePrice">
-                        <div class="label-updatePrice">
-                            <div>
-                                <p>Price:</p>
-                                <input type="number" id="priceInput" name="priceInput" placeholder="Php">
-                            </div>
-                            <div>
-                                <p>Current Price:</p>
-                                <h4 id="currentPrice">*Php*</h4>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="verticalDivider"></div>
-
-                <form id="updateProductImgForm">
-                    <div class="UpdateImage">
-
-                        <h2>Update Image</h2>
-                        <div>
-                            <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage">
-
-                            <p>Current Image: </p>
-                            <img class="currentImage" id="currentImage" src="MENUImages/" alt="Current Product Image">
-                            <p id="currentFileName">*Value ng current file name*</p>
-
-                            <button id="saveChangesBtn" class="save">Save Changes</button>
                         </div>
                     </div>
                 </form>
