@@ -19,11 +19,12 @@
 
         <!-- Check if menu is loaded-->
         <%
-            if (request.getAttribute("loadedMenu") == null) {
+            String data = request.getParameter("loaded");
+            if (!"yes".equals(data)) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
             <input type="hidden" name="instruction" value="loadMenu">
-            <input type="hidden" name="page" value="Menu_page.jsp">
+            <input type="hidden" name="page" value="Menu">
         </form>
         <script>
             window.onload = function () {
@@ -32,7 +33,6 @@
         </script>
         <%
             }
-            session = request.getSession();
         %>
         <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
 
@@ -105,7 +105,7 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-                <%ResultSet coffee = (ResultSet) request.getAttribute("coffee");
+                <%ResultSet coffee = (ResultSet) session.getAttribute("coffee");
                     if (coffee != null) {%>
 
                 <%-- Carousel Items container--%>
@@ -185,7 +185,7 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-                <%ResultSet kremalatte = (ResultSet) request.getAttribute("kremalatte");
+                <%ResultSet kremalatte = (ResultSet) session.getAttribute("kremalatte");
                     if (kremalatte != null) {%>
 
                 <%-- Carousel Items container--%>
@@ -264,7 +264,7 @@
                     <div class="text">&#8249;</div>
                 </button>
 
-                <%ResultSet tea = (ResultSet) request.getAttribute("tea");
+                <%ResultSet tea = (ResultSet) session.getAttribute("tea");
                     if (tea != null) {%>
 
                 <%-- Carousel Items container--%>

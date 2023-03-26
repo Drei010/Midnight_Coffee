@@ -34,11 +34,9 @@ public class Feedback_Controller extends HttpServlet {
             switch (page) {
                 case "Home":
                     session.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
-                    url = "/Home";
                     break;
                 case "AdminFeedback":
                     session.setAttribute("feedback", feedbackList.FeedbackList(conn));
-                    url = "/AdminFeedback";
                     break;
                 default:
                     response.sendRedirect("/Error");
