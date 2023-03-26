@@ -18,7 +18,9 @@
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
         <!-- Check if menu is loaded-->
         <%
-            if (request.getAttribute("loadedMenu") == null) {
+            String data = request.getParameter("loaded");
+            if (!"yes".equals(data)) {
+           // if (request.getAttribute("loadedMenu") == null) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
             <input type="hidden" name="instruction" value="loadMenu">
@@ -27,6 +29,7 @@
         <script>
             window.onload = function () {
                 document.forms['loadMenu'].submit();
+                
             };
         </script>
         <%
@@ -53,7 +56,7 @@
                     <label for="itemAddOption">Option:</label>
                     <input type="text" placeholder="Item Option" name="itemAddOption" class="itemAddOption" required>
                     <label for="itemAddPrice">Product Price:</label>
-                    <input type="number" placeholder="Php" name="itemAddPrice" class="itemAddPrice"  required>
+                    <input type="number" placeholder="Php" name="itemAddPrice" class="itemAddPrice" min="1" required>
                     <input type="hidden" id="itemAddClassification" name="itemAddClassification" value="">
                     <input type="hidden" name="itemAvailability" value="In Stock">
                     <input type="hidden" name="instruction" value="addItemMenu">
@@ -353,7 +356,7 @@
         <div id="popupModalUpdate">
 
             <div class="container-popup-update">
-                <form id="updateProductPopupForm" action="Menu_Controller" method="post">
+                <form id="updateProductPopupForm" action="Menu_Controller" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="instruction" value="updateItemMenu">
                     <input type="hidden" id="updateItemCode" name="itemCode">
                     <input type="hidden" id="currentItemName" name="currentItemName">
@@ -406,7 +409,7 @@
                             <div class="label-updatePrice">
                                 <div>
                                     <p>Price:</p>
-                                    <input type="number" id="priceInput" name="priceInput" placeholder="Php">
+                                    <input type="number" id="priceInput" name="priceInput" placeholder="Php" min="1">
                                 </div>
                                 <div>
                                     <p>Current:</p>
