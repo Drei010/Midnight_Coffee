@@ -13,7 +13,7 @@
         <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/menu.css'>
     </head>
-
+    <title>Menu</title>
     <body> 
         <jsp:include page="header.jsp" /> <!-- Calls the header for admin-->
 

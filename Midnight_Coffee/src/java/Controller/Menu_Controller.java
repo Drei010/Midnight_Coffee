@@ -133,7 +133,7 @@ public class Menu_Controller extends HttpServlet {
                 ResultSet results = loadMenu.retrieveProducts(conn);
 
                 if (results == null) {
-                    request.getRequestDispatcher(page).forward(request, response);
+                    response.sendRedirect(url+"?loaded=yes");
                 }
                 try {
 
@@ -179,7 +179,7 @@ public class Menu_Controller extends HttpServlet {
                 // Check if the payment method already exists
                 ProductList checkEntry = new ProductList();
                 if (checkEntry.retrieveData(itemAddName, conn) != null) {
-                    response.sendRedirect("adminMenu_page.jsp?imageexist");
+                    response.sendRedirect("/AdminMenu?imageexist");
                     return;
                 }
 
@@ -192,7 +192,7 @@ public class Menu_Controller extends HttpServlet {
                         otpStream.write(bytes, 0, read);
                     }
                 } catch (IOException e) {
-                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    response.sendRedirect("/AdminPayment?failedtoupload");
                     return;
                 }
 
@@ -200,7 +200,7 @@ public class Menu_Controller extends HttpServlet {
                 try {
                     Files.move(source, source.resolveSibling(itemAddImage));
                 } catch (IOException e) {
-                    response.sendRedirect("adminPayment_page.jsp?failedtoupload");
+                    response.sendRedirect("/AdminPayment?failedtoupload");
                     return;
                 }
 
@@ -210,10 +210,10 @@ public class Menu_Controller extends HttpServlet {
                 Recipes insertRecipe = new Recipes();
                 insertRecipe.insertRecipe(itemAddName, itemAddOption, ingredientList.replaceAll("\\[|\\]|\"", ""), weightList.replaceAll("\\[|\\]|\"", ""), conn);
                 if ("Yes".equals(insertSuccess)) {
-                    response.sendRedirect("adminMenu_page.jsp?success");
+                    response.sendRedirect("/AdminMenu?success");
 
                 } else {
-                    response.sendRedirect("adminMenu_page.jsp?failedtouploaddatabase");
+                    response.sendRedirect("/AdminMenu?failedtouploaddatabase");
                 }
                 break;
 
@@ -237,7 +237,7 @@ public class Menu_Controller extends HttpServlet {
 
                 ResultSet list = productList.retrieveData(updateName, conn);
                 if (list != null && !updateName.equals(itemName)) {
-                    response.sendRedirect("adminMenu_page.jsp?productalreadyexists");
+                    response.sendRedirect("/AdminMenu?productalreadyexists");
                 } else {
                     try {
                         list = productList.retrieveData(itemName, conn);
@@ -267,7 +267,7 @@ public class Menu_Controller extends HttpServlet {
                         Logger.getLogger(Menu_Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    response.sendRedirect("adminMenu_page.jsp?updatedproductsuccess");
+                    response.sendRedirect("/AdminMenu?updatedproductsuccess");
                 }
                 break;
 
@@ -290,7 +290,7 @@ public class Menu_Controller extends HttpServlet {
                 int productDeactivate = Integer.parseInt(request.getParameter("product"));
                 change.changeActivation(instruction, productDeactivate, timestampDeactivated, conn);
 
-                response.sendRedirect("adminMenu_page.jsp?changeActivation");
+                response.sendRedirect("/AdminMenu?changeActivation");
                 break;
 
         }
