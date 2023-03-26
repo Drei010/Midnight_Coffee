@@ -4,8 +4,161 @@
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
     
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <jsp-file>/Login_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Menu</servlet-name>
+        <jsp-file>/Menu_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Menu</servlet-name>
+        <url-pattern>/Menu</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Signup</servlet-name>
+        <jsp-file>/Signup_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Signup</servlet-name>
+        <url-pattern>/Signup</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminAccount</servlet-name>
+        <jsp-file>/adminAccount_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminAccount</servlet-name>
+        <url-pattern>/AdminAccount</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminFeedback</servlet-name>
+        <jsp-file>/adminFeedback_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminFeedback</servlet-name>
+        <url-pattern>/AdminFeedback</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminHome</servlet-name>
+        <jsp-file>/adminHome_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminHome</servlet-name>
+        <url-pattern>/AdminHome</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminIngredients</servlet-name>
+        <jsp-file>/adminIngredients_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminIngredients</servlet-name>
+        <url-pattern>/AdminIngredients</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminLogin</servlet-name>
+        <jsp-file>/adminLogin_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/AdminLogin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminMenu</servlet-name>
+        <jsp-file>/adminMenu_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminMenu</servlet-name>
+        <url-pattern>/AdminMenu</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminOrders</servlet-name>
+        <jsp-file>/adminOrders_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOrders</servlet-name>
+        <url-pattern>/AdminOrders</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminPayment</servlet-name>
+        <jsp-file>/adminPayment_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminPayment</servlet-name>
+        <url-pattern>/AdminPayment</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Error</servlet-name>
+        <jsp-file>/error_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Error</servlet-name>
+        <url-pattern>/Error</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Feedback</servlet-name>
+        <jsp-file>/feedback_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Feedback</servlet-name>
+        <url-pattern>/Feedback</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <jsp-file>/home.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Instruction</servlet-name>
+        <jsp-file>/instruction_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Instruction</servlet-name>
+        <url-pattern>/Instruction</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Payment</servlet-name>
+        <jsp-file>/payment_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Payment</servlet-name>
+        <url-pattern>/Payment</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Rating</servlet-name>
+        <jsp-file>/rating_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Rating</servlet-name>
+        <url-pattern>/Rating</url-pattern>
+    </servlet-mapping>
+    
     <error-page>  
-    <location>/error_page.jsp</location>  
+        <location>/error_page.jsp</location>  
     </error-page>  
        
     <context-param>
