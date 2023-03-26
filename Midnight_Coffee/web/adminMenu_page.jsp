@@ -24,7 +24,7 @@
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
             <input type="hidden" name="instruction" value="loadMenu">
-            <input type="hidden" name="page" value="adminMenu_page.jsp">
+            <input type="hidden" name="page" value="AdminMenu">
         </form>
         <script>
             window.onload = function () {
