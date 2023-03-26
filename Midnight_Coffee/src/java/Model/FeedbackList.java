@@ -29,10 +29,35 @@ public class FeedbackList {
         try {
             String query = "SELECT * FROM feedbacklist WHERE displayed = ? ORDER BY RAND() LIMIT 3";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setString(1, "Yes");
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
         } catch (SQLException ex) {
             Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public double averageRating(Connection conn) {
+        ResultSet list = FeedbackList(conn);
+        if (list != null) {
+            try {
+                double totalRating = 0;
+                double totalFeedback = 0;
+                while (list.next()) {
+                    totalRating += list.getInt("rating");
+                    totalFeedback++;
+                }
+                return totalRating/totalFeedback;
+            } catch (SQLException ex) {
+                Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return 0;
     }
 
     public void updateDisplayed(String displayed, int customerID, Connection conn) {

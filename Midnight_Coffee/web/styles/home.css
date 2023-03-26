@@ -236,3 +236,28 @@ h1{
 .desc{
   padding-top: 10px;
 }
+
+.rate2 {
+    float: left;
+    height: 46px;
+}
+
+.rate2:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate2:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:default;
+    font-size:30px;
+    color:#ddd;
+}
+.rate2:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate2 > input:checked ~ label {
+    color: #ffc700;    
+}

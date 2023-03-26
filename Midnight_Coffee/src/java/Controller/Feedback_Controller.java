@@ -32,7 +32,12 @@ public class Feedback_Controller extends HttpServlet {
                 request.setAttribute("loadedFeedback", "yes");
                 FeedbackList feedbackList = new FeedbackList();
 
-                request.setAttribute("feedback", feedbackList.FeedbackList(conn));
+                if (page.equals("home.jsp")) {
+                    request.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
+                } else {
+                    request.setAttribute("feedback", feedbackList.FeedbackList(conn));
+                }
+                request.setAttribute("averageRating", feedbackList.averageRating(conn));
                 request.getRequestDispatcher(page).forward(request, response);
                 break;
             case "update":
@@ -40,15 +45,15 @@ public class Feedback_Controller extends HttpServlet {
                 String updateId[] = request.getParameter("updateId").replaceAll("\\[|\\]|\"", "").split(",");
                 FeedbackList updateList = new FeedbackList();
                 for (int i = 0; i < update.length; i++) {
-                    
-                System.out.println(updateId[i]);
+
+                    System.out.println(updateId[i]);
                     if (update[i].equals("true")) {
                         updateList.updateDisplayed("Yes", Integer.parseInt(updateId[i]), conn);
                     } else {
                         updateList.updateDisplayed("No", Integer.parseInt(updateId[i]), conn);
                     }
                 }
-                
+
                 response.sendRedirect("adminFeedback_page.jsp?updated");
                 break;
             case "add":
@@ -58,7 +63,7 @@ public class Feedback_Controller extends HttpServlet {
                 String message = request.getParameter("message");
                 int rating = Integer.parseInt(request.getParameter("rating"));
                 int id = Integer.parseInt(idString);
-                
+
                 add.insertFeedback(message, rating, id, conn);
                 response.sendRedirect("home.jsp?addedfeedback");
                 break;
