@@ -97,7 +97,7 @@
                         }%>
                 </table>
                 <div class="upBtn">
-                    <form action="Feedback_Controller" method="post" onsubmit="compareDiff()">
+                    <form action="Feedback_Controller" name="form" method="post" onsubmit="compareDiff()">
                         <input type="hidden" name ="update" id="update">
                         <input type="hidden" name ="updateId" id="updateId">
                         <input type="hidden" name="instruction" value="update">
@@ -136,6 +136,15 @@
         } else {
             checkItems();
             pushItems(1);
+            
+            for (i = 0; i < cbox.length; i++) {
+                (function (protectedIndex) {
+                    cbox[i].onclick = function () {
+                        cboxValues[protectedIndex] = [1, cbox[protectedIndex].checked ? true : false];
+                    };
+                    cbox[i].checked = cboxValues[i][1];
+                })(i);
+            }
         }
 
         function sort($p) {
@@ -195,7 +204,7 @@
         function compareDiff() {
             var update = document.getElementById("update"),
                     updateId = document.getElementById("updateId");
-            
+            console.log(cboxValues);
             for (var i = 0; i < originalCboxValues.length; i++) {
                 if (cboxValues[i][1] !== originalCboxValues[i][1]) {
                     updateCboxValues.push(cboxValues[i][1]);
@@ -204,6 +213,8 @@
             }
             update.value = JSON.stringify(updateCboxValues);
             updateId.value = JSON.stringify(updateIdValues);
+            
+            document.forms['form'].submit();
         }
     </script>
 </html>

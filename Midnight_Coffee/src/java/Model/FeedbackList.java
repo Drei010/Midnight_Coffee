@@ -25,6 +25,16 @@ public class FeedbackList {
         return null;
     }
 
+    public ResultSet getRandomFeedback(Connection conn) {
+        try {
+            String query = "SELECT * FROM feedbacklist WHERE displayed = ? ORDER BY RAND() LIMIT 3";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        } catch (SQLException ex) {
+            Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public void updateDisplayed(String displayed, int customerID, Connection conn) {
         try {
             String query = "UPDATE feedbacklist SET displayed = ? WHERE customerID = ?";
@@ -37,8 +47,8 @@ public class FeedbackList {
             Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void insertFeedback(String message, int rating, int id, Connection conn){
+
+    public void insertFeedback(String message, int rating, int id, Connection conn) {
         try {
             LoginSignup_Model db = new LoginSignup_Model();
             ResultSet customerData = db.getCustomerData(id, conn);

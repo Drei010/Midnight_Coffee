@@ -40,6 +40,8 @@ public class Feedback_Controller extends HttpServlet {
                 String updateId[] = request.getParameter("updateId").replaceAll("\\[|\\]|\"", "").split(",");
                 FeedbackList updateList = new FeedbackList();
                 for (int i = 0; i < update.length; i++) {
+                    
+                System.out.println(updateId[i]);
                     if (update[i].equals("true")) {
                         updateList.updateDisplayed("Yes", Integer.parseInt(updateId[i]), conn);
                     } else {
