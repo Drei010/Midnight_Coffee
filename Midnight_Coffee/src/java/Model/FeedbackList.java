@@ -1,9 +1,11 @@
 package Model;
 
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,22 +44,24 @@ public class FeedbackList {
         return null;
     }
 
-    public double averageRating(Connection conn) {
+    public String averageRating(Connection conn) {
         ResultSet list = FeedbackList(conn);
         if (list != null) {
             try {
+                DecimalFormat df = new DecimalFormat("0.0");
                 double totalRating = 0;
                 double totalFeedback = 0;
                 while (list.next()) {
                     totalRating += list.getInt("rating");
                     totalFeedback++;
                 }
-                return totalRating/totalFeedback;
+                df.setRoundingMode(RoundingMode.UP);
+                return df.format(totalRating/totalFeedback);
             } catch (SQLException ex) {
                 Logger.getLogger(FeedbackList.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return 0;
+        return "";
     }
 
     public void updateDisplayed(String displayed, int customerID, Connection conn) {

@@ -18,19 +18,21 @@
     <jsp:include page="header.jsp" /> <!-- Calls the header jsp -->
 
     <body>
-
+        
         <%
-            if (request.getAttribute("loadedFeedback") == null) {
+            if (!"yes".equals(session.getAttribute("loaded"))) {
         %>
+
         <form action="Feedback_Controller" method="post" name="load">
             <input type="hidden" name="instruction" value="load">
-            <input type="hidden" name="page" value="feedback_page.jsp">
+            <input type="hidden" name="page" value="Feedback">
             <script>
                 window.onload = function () {
                     document.forms['load'].submit();
                 };
             </script>
-            <%
+             <%} else {
+                    session.setAttribute("loaded", "no");
                 }%>
 
             <div class="container1">
@@ -46,7 +48,7 @@
                         </th>
                     </tr>
 
-                    <%ResultSet feedbackList = (ResultSet) request.getAttribute("feedback");
+                    <%ResultSet feedbackList = (ResultSet) session.getAttribute("feedback");
                         if (feedbackList != null) {
                             while (feedbackList.next()) {%>
                     <tr>

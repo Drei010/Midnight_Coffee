@@ -30,20 +30,21 @@ public class Feedback_Controller extends HttpServlet {
                 HttpSession session = request.getSession();
                 String page = request.getParameter("page");
                 String url = "";
-                session.setAttribute("loaded","yes");
+                session.setAttribute("loaded", "yes");
                 FeedbackList feedbackList = new FeedbackList();
-            switch (page) {
-                case "Home":
-                    session.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
-                    break;
-                case "AdminFeedback":
-                    session.setAttribute("feedback", feedbackList.FeedbackList(conn));
-                    break;
-                default:
-                    page = "Error";
-                    break;
-            }
-            url = "/" + page;
+                switch (page) {
+                    case "Home":
+                        session.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
+                        break;
+                    case "Feedback":
+                    case "AdminFeedback":
+                        session.setAttribute("feedback", feedbackList.FeedbackList(conn));
+                        break;
+                    default:
+                        page = "Error";
+                        break;
+                }
+                url = "/" + page;
                 session.setAttribute("averageRating", feedbackList.averageRating(conn));
                 response.sendRedirect(url);
                 break;
