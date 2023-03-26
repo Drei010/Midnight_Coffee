@@ -27,18 +27,21 @@ public class Feedback_Controller extends HttpServlet {
 
         switch (instruction) {
             case "load":
+                HttpSession session = request.getSession();
                 String page = request.getParameter("page");
-
-                request.setAttribute("loadedFeedback", "yes");
+                String url = "";
                 FeedbackList feedbackList = new FeedbackList();
-
-                if (page.equals("home.jsp")) {
-                    request.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
-                } else {
-                    request.setAttribute("feedback", feedbackList.FeedbackList(conn));
+                if (page.equals("Home")) {
+                    session.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
+                    url = "/Home";
+                } else if(page.equals("AdminFeedback")){
+                    session.setAttribute("feedback", feedbackList.FeedbackList(conn));
+                    url = "/AdminFeedback";
+                } else{
+                    url = "/Error";
                 }
-                request.setAttribute("averageRating", feedbackList.averageRating(conn));
-                request.getRequestDispatcher(page).forward(request, response);
+                session.setAttribute("averageRating", feedbackList.averageRating(conn));
+                response.sendRedirect(url+"?loaded=yes");
                 break;
             case "update":
                 String update[] = request.getParameter("update").replaceAll("\\[|\\]", "").split(",");
@@ -57,7 +60,7 @@ public class Feedback_Controller extends HttpServlet {
                 response.sendRedirect("adminFeedback_page.jsp?updated");
                 break;
             case "add":
-                HttpSession session = request.getSession();
+                session = request.getSession();
                 FeedbackList add = new FeedbackList();
                 String idString = (String) session.getAttribute("customerID");
                 String message = request.getParameter("message");

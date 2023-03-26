@@ -19,18 +19,19 @@
 
     <body>
         <%
-            if (request.getAttribute("loadedFeedback") == null) {
+            String data = request.getParameter("loaded");
+            System.out.println("yes".equals(data));
+            if (!"yes".equals(data)) {
         %>
         <form action="Feedback_Controller" method="post" name="load">
             <input type="hidden" name="instruction" value="load">
-            <input type="hidden" name="page" value="home.jsp">
+            <input type="hidden" name="page" value="Home">
             <script>
                 window.onload = function () {
                     document.forms['load'].submit();
                 };
             </script>
-            <%
-                }%>
+            <%                }%>
 
             <div class="row">
 
@@ -96,10 +97,10 @@
                         <div class="fourth-line">
                             <p>Comments from our customers</p>
                         </div>
-                        <%ResultSet feedback = (ResultSet) request.getAttribute("feedback");
+                        <%ResultSet feedback = (ResultSet) session.getAttribute("feedback");
                             if (feedback != null) {%>
                         <div class="fifth-line">
-                            <p><%=request.getAttribute("averageRating")%> &#9733; average rating</p>
+                            <p><%=session.getAttribute("averageRating")%> &#9733; average rating</p>
                         </div>
 
                         <div class="review1">
