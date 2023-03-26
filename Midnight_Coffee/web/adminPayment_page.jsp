@@ -13,95 +13,99 @@
         <link rel='stylesheet' type='text/css' href='styles/adminPayment.css'>
     </head>
     <body>
-         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header for admin-->
-         <br> <br><br>
-        <div class="QRBody">      
-        <%
-            if (request.getAttribute("QRTable") == null) {
-            %>
-              <form action="QR_Controller" method="post" name="loadTable">
-                <input type="hidden" name="instruction" value="loadQR">
-                <input type="hidden" name="page" value="adminPayment_page.jsp">
-              </form>
-              <script>
-                window.onload = function() {
-                  document.forms['loadTable'].submit();
-                };
-              </script>
-            <%
-              } else {%>
-              <h1 class="updateQRItemTitle"> Update QR Codes</h1>
-              <div class="updateQRItem">
-                
-              <%
-                 
-                  if (request.getAttribute("QRTableEmpty") == null){
-                ResultSet QRTable = (ResultSet) request.getAttribute("QRTable");
-                               while (QRTable.next()) {
-            %>
-                 <div class="QRItem">
-                     
-            <div class="oldQRItem">
-                 <img
-          class="QRImages"
-          src="QRImages/<%=QRTable.getString("QRImage")%>"
-          alt="The QR Code image">   
-          <h1 class="methodName"> <%=QRTable.getString("methodName")%></h1>
-          </div>
-          
-          <div class="newQRItem">
+        <jsp:include page="adminHeader.jsp" /> <!-- Calls the header for admin-->
+        <div class="QRContainer">
+            <div class="QRBody">      
+                <%
+                    if (request.getAttribute("QRTable") == null) {
+                %>
+                <form action="QR_Controller" method="post" name="loadTable">
+                    <input type="hidden" name="instruction" value="loadQR">
+                    <input type="hidden" name="page" value="adminPayment_page.jsp">
+                </form>
+                <script>
+                    window.onload = function () {
+                        document.forms['loadTable'].submit();
+                    };
+                </script>
+                <%
+                } else {%>
 
-                 <form action="QR_Controller" method="POST" enctype="multipart/form-data">
-                 <input type="hidden" name="methodID" value="<%=QRTable.getInt("methodId")%>">
-                 <input type="hidden" name="OldMethodName" value="<%=QRTable.getString("methodName")%>">
-                 
-                    <h4 class="newMethodNameLabel"><label for="methodName">New Payment Method Name</label></h4>
-                    <input class="NewMethodName" name="NewMethodName" type="text" required/> 
+                <div class="updateQRItem">
+                    <h1 class="updateQRItemTitle"> Update QR Codes</h1>
 
-                    <h4 class="newQRLabel"><label for="QRImage"> New QR Image</label></h4>
-                     <input class="newQRImage" name="newQRImage" id="QRImageUpdate" type="file" required/> 
-                      <a id="warningUpdate"></a>
-                     
-                      <!--Instruction is to update QR--> 
-                     <input type="hidden" name="instruction" value="updateQR">
-                     <input class="updateBtn" id="updateBtn" type="submit"  value="Update payment method">
-                  
-                  </form>
-                 
-           <form action="QR_Controller" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="methodName" id="methodName" value="<%=QRTable.getString("methodName")%>"/> 
+                    <%
 
-                   <!--Instruction is to create QR-->         
-                    <input type="hidden" name="instruction" value="deleteQR">
-                    <input class="deleteBtn" type="submit"  value="Delete payment method">
- 
-        </form>
-          </div>
-                 </div>
-          <br>
-             <%
-            }
-               }
-                    }
-            %>
-        </div>
-        <h1 class="createQRItemTitle">Add New QR code</h1>
-               <div class="createQRItem">
-                  <form action="QR_Controller" method="POST" enctype="multipart/form-data">
-             <h4><label for="methodName">Payment Method Name</label></h4>
-            <input name="methodName" id="methodName" type="text" required/> 
+                        if (request.getAttribute("QRTableEmpty") == null) {
+                            ResultSet QRTable = (ResultSet) request.getAttribute("QRTable");
+                            while (QRTable.next()) {
+                    %>
+                    <div class="QRItem">
 
-             <h4><label for="QRImage">QR Image</label></h4>
-             <input name="QRImage" id="QRImageAdd" type="file" required/> 
-              <a id="warningAdd"></a>
-            <br>
-                 
-           <!--Instruction is to create QR-->         
-            <input type="hidden" name="instruction" value="createQR">
-            <input class="addBtn" id="addBtn" type="submit"  value="Add payment method">
- 
-        </form>
-       </div>
+                        <div class="oldQRItem">
+                            <img
+                                class="QRImages"
+                                src="QRImages/<%=QRTable.getString("QRImage")%>"
+                                alt="The QR Code image">   
+                            <h1 class="methodName"> <%=QRTable.getString("methodName")%></h1>
+                        </div>
+
+                        <div class="newQRItem">
+
+                            <form action="QR_Controller" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="methodID" value="<%=QRTable.getInt("methodId")%>">
+                                <input type="hidden" name="OldMethodName" value="<%=QRTable.getString("methodName")%>">
+
+                                <h4 class="newMethodNameLabel"><label for="methodName">New Payment Method Name</label></h4>
+                                <input class="NewMethodName" name="NewMethodName" type="text" required/> 
+
+                                <h4 class="newQRLabel"><label for="QRImage"> New QR Image</label></h4>
+                                <input class="newQRImage" name="newQRImage" id="QRImageUpdate" type="file" required/> 
+                                <a id="warningUpdate"></a>
+
+                                <!--Instruction is to update QR--> 
+                                <input type="hidden" name="instruction" value="updateQR">
+                                <input class="updateBtn" id="updateBtn" type="submit"  value="Update payment method">
+
+                            </form>
+
+                            <form action="QR_Controller" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="methodName" id="methodName" value="<%=QRTable.getString("methodName")%>"/> 
+
+                                <!--Instruction is to create QR-->         
+                                <input type="hidden" name="instruction" value="deleteQR">
+                                <input class="deleteBtn" type="submit"  value="Delete payment method">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="horizontalDivider"></div>
+
+                    <%
+                                }
+                            }
+                        }
+                    %>
+                </div>
+
+                <div class="createQRItem">
+                    <h1 class="createQRItemTitle">Add New QR code</h1>
+                    <form action="QR_Controller" method="POST" enctype="multipart/form-data">
+                        <h4><label for="methodName">Payment Method Name</label></h4>
+                        <input name="methodName" id="methodName" type="text" required/> 
+
+                        <h4><label for="QRImage">QR Image</label></h4>
+                        <input name="QRImage" id="QRImageAdd" type="file" required/> 
+                        <a id="warningAdd"></a>
+                        <br>
+
+                        <!--Instruction is to create QR-->         
+                        <input type="hidden" name="instruction" value="createQR">
+                        <input class="addBtn" id="addBtn" type="submit"  value="Add payment method">
+
+                    </form>
+                </div>
+            </div>
         </div>
         <script>
             //Disable buttons if the file type is not .png or .jpg
@@ -109,41 +113,41 @@
             const fileInputAdd = document.getElementById('QRImageAdd');
             const warningAdd = document.getElementById("warningAdd");
 
-            fileInputAdd.addEventListener('change', function() {
-              const file = fileInputAdd.files[0];
-              const fileName = file.name;
-              const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+            fileInputAdd.addEventListener('change', function () {
+                const file = fileInputAdd.files[0];
+                const fileName = file.name;
+                const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
-              if (fileType === 'jpg' || fileType === 'png') {
-                warningAdd.innerText = '';
-                addBtn.disabled = false;
-              } else {
-                warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
-                warningAdd.style.color = "red";
-                addBtn.disabled = true;
-              }
+                if (fileType === 'jpg' || fileType === 'png') {
+                    warningAdd.innerText = '';
+                    addBtn.disabled = false;
+                } else {
+                    warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                    warningAdd.style.color = "red";
+                    addBtn.disabled = true;
+                }
             });
-            
+
 
             const updateBtn = document.getElementById('updateBtn');
             const fileInputUpdate = document.getElementById('QRImageUpdate');
             const warningUpdate = document.getElementById("warningUpdate");
-            
-                        fileInputUpdate.addEventListener('change', function() {
-              const file = fileInputUpdate.files[0];
-              const fileName = file.name;
-              const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
-              if (fileType === 'jpg' || fileType === 'png') {
-                updateBtn.innerText = '';
-                updateBtn.disabled = false;
-              } else {
-                warningUpdate.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
-                warningUpdate.style.color = "red";
-                updateBtn.disabled = true;
-              }
+            fileInputUpdate.addEventListener('change', function () {
+                const file = fileInputUpdate.files[0];
+                const fileName = file.name;
+                const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+                if (fileType === 'jpg' || fileType === 'png') {
+                    updateBtn.innerText = '';
+                    updateBtn.disabled = false;
+                } else {
+                    warningUpdate.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                    warningUpdate.style.color = "red";
+                    updateBtn.disabled = true;
+                }
             });
-</script>
-                 
+        </script>
+
     </body>
 </html>
