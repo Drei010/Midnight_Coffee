@@ -30,6 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .close:hover {
   opacity: 0.3;
+  cursor: pointer;
 }
 .close:before, .close:after {
   position: absolute;

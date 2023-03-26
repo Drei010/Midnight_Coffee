@@ -19,7 +19,7 @@ public class Feedback_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
 
         //Get Instruction
@@ -27,19 +27,28 @@ public class Feedback_Controller extends HttpServlet {
 
         switch (instruction) {
             case "load":
+                HttpSession session = request.getSession();
                 String page = request.getParameter("page");
-
-                request.setAttribute("loadedFeedback", "yes");
+                String url = "";
                 FeedbackList feedbackList = new FeedbackList();
-
-                if (page.equals("home.jsp")) {
-                    request.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
-                } else {
-                    request.setAttribute("feedback", feedbackList.FeedbackList(conn));
-                }
-                request.setAttribute("averageRating", feedbackList.averageRating(conn));
-                request.getRequestDispatcher(page).forward(request, response);
+            switch (page) {
+                case "Home":
+                    session.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
+                    url = "/Home";
+                    break;
+                case "AdminFeedback":
+                    session.setAttribute("feedback", feedbackList.FeedbackList(conn));
+                    url = "/AdminFeedback";
+                    break;
+                default:
+                    response.sendRedirect("/Error");
+                    break;
+            }
+            url = "/" + page;
+                session.setAttribute("averageRating", feedbackList.averageRating(conn));
+                response.sendRedirect(url+"?loaded=yes");
                 break;
+
             case "update":
                 String update[] = request.getParameter("update").replaceAll("\\[|\\]", "").split(",");
                 String updateId[] = request.getParameter("updateId").replaceAll("\\[|\\]|\"", "").split(",");
@@ -54,10 +63,10 @@ public class Feedback_Controller extends HttpServlet {
                     }
                 }
 
-                response.sendRedirect("adminFeedback_page.jsp?updated");
+                response.sendRedirect("/AdminFeedback?updated");
                 break;
             case "add":
-                HttpSession session = request.getSession();
+                session = request.getSession();
                 FeedbackList add = new FeedbackList();
                 String idString = (String) session.getAttribute("customerID");
                 String message = request.getParameter("message");
@@ -65,7 +74,7 @@ public class Feedback_Controller extends HttpServlet {
                 int id = Integer.parseInt(idString);
 
                 add.insertFeedback(message, rating, id, conn);
-                response.sendRedirect("home.jsp?addedfeedback");
+                response.sendRedirect("/Home?addedfeedback");
                 break;
         }
     }

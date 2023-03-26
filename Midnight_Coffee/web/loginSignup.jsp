@@ -18,7 +18,11 @@
                     <img src="https://i.postimg.cc/X7LBNhbz/MNC-Updated-Logo-White-Transparent.png" alt="MNC_Logo" width="100px" height="100px">
                 </div>
             </div>
-               <a href="home.jsp" class="close"></a>
+            <form action="Feedback_Controller" method="post" name="load">
+            <input type="hidden" name="instruction" value="load">
+            <input type="hidden" name="page" value="Home">
+               <a class="close" onclick="document.forms['load'].submit()"></a>
+            </form>
         </nav>
     </header>
 </html>

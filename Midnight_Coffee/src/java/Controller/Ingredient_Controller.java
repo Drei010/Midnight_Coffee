@@ -43,7 +43,7 @@ public class Ingredient_Controller extends HttpServlet {
                 request.setAttribute("active", ingredientsProcess.ActiveIngredients(conn));
                 request.setAttribute("loadedIngredients", "yes");
                 request.setAttribute("loadedActive", "yes");
-                request.getRequestDispatcher("adminIngredients_page.jsp").forward(request, response);
+                response.sendRedirect("adminIngredients.jsp");
 
                 //delete entry after 30 days of deactivation
                 // get the current date and time

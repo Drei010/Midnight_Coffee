@@ -68,7 +68,7 @@ public class Menu_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
         //Get Instruction
         String instruction = request.getParameter("instruction");
@@ -89,7 +89,7 @@ public class Menu_Controller extends HttpServlet {
                 ProductList loadMenu = new ProductList();
                 IngredientList loadIngredients = new IngredientList();
 
-                if (page.equals("adminMenu_page.jsp")) {
+                if (page.equals("AdminMenu")) {
                     request.setAttribute("ingredients", loadIngredients.Ingredients(conn));
                     request.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
                     request.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));

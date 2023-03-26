@@ -4,8 +4,6 @@
  */
 package Controller;
 
-import static Controller.LoginSignup_Controller.decrypt;
-import static Controller.LoginSignup_Controller.encrypt;
 import Model.LoginSignup_Model;
 import java.io.IOException;
 import java.sql.Connection;
