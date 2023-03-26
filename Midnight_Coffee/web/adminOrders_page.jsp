@@ -37,11 +37,15 @@
             <div class="ordersBtn">
             <h1>Customer Orders</h1>
             
+            <form method="POST" action="GeneratePDF">
             <!-- download transactions pdf onclick -->  
-            <button class="transactionBtn"><i class='fa fa-print'></i> Transaction Report</button>
+            <button class="transactionBtn" ><i class='fa fa-print'></i> Transaction Report</button>
+            </form>
             
             <!-- download products pdf onclick -->  
-            <button class="productBtn"><i class='fa fa-print'></i> Product Report</button>
+            <form method="POST" action="GenerateProduct">
+            <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
+            </form>
             </div>
             
              <!-- Table of orders -->  
@@ -70,7 +74,7 @@
                    
                    <!-- Hidden fields for summary panel-->  
                   
-                        <input class="hiddenOrderID" type="hidden" value="<%=customerOrders.getString("orderId")%>">
+                        <input class="hiddenOrderID" type="hidden" name="orderID" value="<%=customerOrders.getString("orderId")%>">
                         <input class="hiddenOrderTotal" type="hidden" value="<%=customerOrders.getString("orderTotal")%>">
                         <input class="hiddensummaryName" type="hidden" value="<%=customerOrders.getString("summaryName")%>">
                         <input class="hiddenOption" type="hidden" value="<%=customerOrders.getString("summaryOption")%>">
