@@ -30,7 +30,7 @@
                     document.forms['load'].submit();
                 };
             </script>
-            <%                }%>
+            <%}%>
 
             <div class="row">
 
