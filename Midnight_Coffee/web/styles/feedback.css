@@ -1,0 +1,194 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Feb 26, 2023, 12:21:33 AM
+    Author     : Nard PC
+*/
+.container1{
+  margin: auto;
+  width: 50%;
+  padding: 30px;
+}
+
+table{
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  max-width:100%;
+  border-collapse: collapse;
+  border: 1px solid;
+}
+
+th, td{
+    font-size: 20px;
+    border-bottom: 1px solid;
+    padding-left: 10px;
+    
+}
+th{
+    padding-top: 5px;
+    font-size: 25px;
+    width: 1000vh;
+    height: auto;
+    border: 1px solid;
+    border-color: black;
+    background: #282747;
+    color: white;
+    border-collapse: collapse;
+    text-align: -webkit-center;
+}
+
+table tr:nth-child(even){
+    background-color: #AEB3AF;
+}
+
+.Cname, Cbox{
+    margin-top: 10px;
+}
+
+input.Cbox{
+    width: 20px;
+    height: 20px;
+}
+
+.Cbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.Cbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+
+.Cbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+
+.Cbox input:checked ~ .checkmark {
+  background-color: #282747;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+
+.Cbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+
+.Cbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.rate2 {
+    float: left;
+    height: 46px;
+}
+.rate2:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate2:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:default;
+    font-size:30px;
+    color:#ddd;
+}
+.rate2:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate2 > input:checked ~ label {
+    color: #ffc700;    
+}
+.TS{
+    float: right;
+    font-size: 15px;
+    padding-right: 10px;
+}
+.CB{
+    float:right;
+    padding-right: 10px;
+}
+.update {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #282747;
+    color: white;
+    margin-top: 10px;
+}
+input[type="button"] {
+	transition: all .3s;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+	font-size: 15px;
+}
+
+input[type="button"]:not(.active) {
+	background-color:transparent;
+}
+
+.active {
+	background-color: #282747;
+	color :#fff;
+}
+
+input[type="button"]:hover:not(.active) {
+	background-color: #ddd;
+}
+.nextP{
+    justify-content: center;
+    display: flex;
+    padding-top: 10px;
+}
+
+.LC{
+    display: inline-block;
+}
+.box{
+    width: 20px;
+}
