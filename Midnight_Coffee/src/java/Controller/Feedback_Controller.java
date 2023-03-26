@@ -19,7 +19,7 @@ public class Feedback_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
 
         //Get Instruction
@@ -44,6 +44,7 @@ public class Feedback_Controller extends HttpServlet {
                     response.sendRedirect("/Error");
                     break;
             }
+            url = "/" + page;
                 session.setAttribute("averageRating", feedbackList.averageRating(conn));
                 response.sendRedirect(url+"?loaded=yes");
                 break;

@@ -72,4 +72,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .logo-container img {
   width: 100px;
   height: 100px;
+  cursor: pointer;
 }

@@ -66,7 +66,7 @@ public class LoginSignup_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
 
         // get parameters
@@ -83,17 +83,17 @@ public class LoginSignup_Controller extends HttpServlet {
 
             //check if Account already exist! Before Sign up
             if (signUp.retrieveData(email, conn) != null) {
-                response.sendRedirect("Signup_page.jsp?process=1");
+                response.sendRedirect("/Signup?process=1");
 
             }
 
             String Yes = signUp.insertData(firstname, lastname, encrypt(password), email, mobilenumber, conn);
             if ("Yes".equals(Yes)) {
                 //Account Creation Successful data inserted to the database
-                response.sendRedirect("Login_page.jsp?process=1");
+                response.sendRedirect("/Login?process=1");
             } else {
                 //Account Creation Failed
-                response.sendRedirect("Signup_page.jsp?process=2");
+                response.sendRedirect("/Signup?process=2");
             }
 
         } else {
@@ -103,7 +103,7 @@ public class LoginSignup_Controller extends HttpServlet {
                 //check if account exists
                 if (results == null || !results.next()) {
                     //Account does not exist
-                    response.sendRedirect("Login_page.jsp?process=2");
+                    response.sendRedirect("/Login?process=2");
                     results.close();
                 } else {
 
@@ -112,7 +112,7 @@ public class LoginSignup_Controller extends HttpServlet {
                     if (!checkPassword.equals(password)) {
 
                         //Password does not match
-                        response.sendRedirect("Login_page.jsp?process=3");
+                        response.sendRedirect("/Login?process=3");
                         results.close();
                     } else {
                         //Set Attributes
