@@ -20,11 +20,12 @@
     <body>
 
         <%
-            if (request.getAttribute("loadedFeedback") == null) {
+            String data = request.getParameter("loaded");
+            if (!"yes".equals(data)) {
         %>
         <form action="Feedback_Controller" method="post" name="load">
             <input type="hidden" name="instruction" value="load">
-            <input type="hidden" name="page" value="adminFeedback_page.jsp">
+            <input type="hidden" name="page" value="AdminFeedback">
             <script>
                 window.onload = function () {
                     document.forms['load'].submit();
@@ -46,7 +47,7 @@
                         </th>
                     </tr>
 
-                    <%ResultSet feedbackList = (ResultSet) request.getAttribute("feedback");
+                    <%ResultSet feedbackList = (ResultSet) session.getAttribute("feedback");
                         if (feedbackList != null) {
                             while (feedbackList.next()) {%>
                     <tr>

@@ -20,7 +20,6 @@
     <body>
         <%
             String data = request.getParameter("loaded");
-            System.out.println("yes".equals(data));
             if (!"yes".equals(data)) {
         %>
         <form action="Feedback_Controller" method="post" name="load">

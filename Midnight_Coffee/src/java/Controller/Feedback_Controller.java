@@ -31,18 +31,23 @@ public class Feedback_Controller extends HttpServlet {
                 String page = request.getParameter("page");
                 String url = "";
                 FeedbackList feedbackList = new FeedbackList();
-                if (page.equals("Home")) {
+            switch (page) {
+                case "Home":
                     session.setAttribute("feedback", feedbackList.getRandomFeedback(conn));
                     url = "/Home";
-                } else if(page.equals("AdminFeedback")){
+                    break;
+                case "AdminFeedback":
                     session.setAttribute("feedback", feedbackList.FeedbackList(conn));
                     url = "/AdminFeedback";
-                } else{
-                    url = "/Error";
-                }
+                    break;
+                default:
+                    response.sendRedirect("/Error");
+                    break;
+            }
                 session.setAttribute("averageRating", feedbackList.averageRating(conn));
                 response.sendRedirect(url+"?loaded=yes");
                 break;
+
             case "update":
                 String update[] = request.getParameter("update").replaceAll("\\[|\\]", "").split(",");
                 String updateId[] = request.getParameter("updateId").replaceAll("\\[|\\]|\"", "").split(",");
@@ -57,7 +62,7 @@ public class Feedback_Controller extends HttpServlet {
                     }
                 }
 
-                response.sendRedirect("adminFeedback_page.jsp?updated");
+                response.sendRedirect("/AdminFeedback?updated");
                 break;
             case "add":
                 session = request.getSession();
@@ -68,7 +73,7 @@ public class Feedback_Controller extends HttpServlet {
                 int id = Integer.parseInt(idString);
 
                 add.insertFeedback(message, rating, id, conn);
-                response.sendRedirect("home.jsp?addedfeedback");
+                response.sendRedirect("/Home?addedfeedback");
                 break;
         }
     }
