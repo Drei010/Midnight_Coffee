@@ -26,7 +26,7 @@ public class Logout extends HttpServlet {
         session.removeAttribute("lastname"); 
         session.removeAttribute("isGuest");
         session.invalidate();
-        response.sendRedirect("home.jsp");
+        response.sendRedirect("/Home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

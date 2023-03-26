@@ -17,20 +17,20 @@
                 <div class="logo-container">
                     <img src="https://i.postimg.cc/X7LBNhbz/MNC-Updated-Logo-White-Transparent.png" alt="MNC_Logo" width="100px" height="100px" onclick="window.location.href='home.jsp'">
                 </div>
-                <h1 class="header-title" onclick="window.location.href='home.jsp'">MIDNIGHT COFFEE</h1>
+                <h1 class="header-title" onclick="window.location.href='/Home'">MIDNIGHT COFFEE</h1>
             </div>
             <ul class="header-nav header-right">
                 <li class="header-nav-item">
-                    <a href="home.jsp"> Home </a>
+                    <a href="/Home"> Home </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="Menu_page.jsp"> Menu </a>
+                    <a href="/Menu"> Menu </a>
                 </li>
                 <li class="header-nav-item">
                     <!-- If logged in -->
                     <a  id="logoutBtn" href="Logout">Log Out</a>
                     <!-- If logged out -->
-                    <a id="loginBtn" href="Login_page.jsp">Log in</a>
+                    <a id="loginBtn" href="/Login">Log in</a>
                 </li>
             </ul>
         </nav>

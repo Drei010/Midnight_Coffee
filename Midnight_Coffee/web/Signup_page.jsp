@@ -60,7 +60,7 @@
                 <button type="submit" id="btnSignup">Sign up</button>
         </form>
         <div class="center">
-            <a  href="Login_page.jsp">Already have an account?</a><br>
+            <a  href="/Login">Already have an account?</a><br>
 
 
             <!-- Terms and conditions Popup Modal-->

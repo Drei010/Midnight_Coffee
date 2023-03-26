@@ -19,8 +19,7 @@
 
     <body>
         <%
-            String data = request.getParameter("loaded");
-            if (!"yes".equals(data)) {
+            if (!"yes".equals(session.getAttribute("loaded"))) {
         %>
         <form action="Feedback_Controller" method="post" name="load">
             <input type="hidden" name="instruction" value="load">
@@ -30,7 +29,9 @@
                     document.forms['load'].submit();
                 };
             </script>
-            <%}%>
+            <%} else {
+                    session.setAttribute("loaded","no");
+                }%>
 
             <div class="row">
 

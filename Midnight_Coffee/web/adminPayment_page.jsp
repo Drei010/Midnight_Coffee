@@ -17,11 +17,11 @@
         <div class="QRContainer">
             <div class="QRBody">      
                 <%
-                    if (request.getAttribute("QRTable") == null) {
+                    if (session.getAttribute("QRTable") == null) {
                 %>
                 <form action="QR_Controller" method="post" name="loadTable">
                     <input type="hidden" name="instruction" value="loadQR">
-                    <input type="hidden" name="page" value="adminPayment_page.jsp">
+                    <input type="hidden" name="page" value="AdminPayment">
                 </form>
                 <script>
                     window.onload = function () {
@@ -29,15 +29,15 @@
                     };
                 </script>
                 <%
-                } else {%>
+                } else {
+                %>
 
                 <div class="updateQRItem">
                     <h1 class="updateQRItemTitle"> Update QR Codes</h1>
 
                     <%
-
-                        if (request.getAttribute("QRTableEmpty") == null) {
-                            ResultSet QRTable = (ResultSet) request.getAttribute("QRTable");
+                        if (session.getAttribute("QRTableEmpty") == null) {
+                            ResultSet QRTable = (ResultSet) session.getAttribute("QRTable");
                             while (QRTable.next()) {
                     %>
                     <div class="QRItem">

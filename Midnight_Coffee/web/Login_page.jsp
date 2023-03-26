@@ -35,7 +35,7 @@
                     <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;"></div>
                     <br>
 
-                    <a  href="Signup_page.jsp">Don’t have an account?</a><br>
+                    <a  href="/Signup">Don’t have an account?</a><br>
                 </div>
                 <br>
                 <button type="submit">Login</button>

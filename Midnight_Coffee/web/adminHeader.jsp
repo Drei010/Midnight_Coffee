@@ -22,25 +22,25 @@
             </div>
             <ul class="header-nav header-right">
                 <li class="header-nav-item">
-                    <a href="adminHome_page.jsp"> Home </a>
+                    <a href="/AdminHome"> Home </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="adminMenu_page.jsp"> Menu </a>
+                    <a href="/AdminMenu"> Menu </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="adminOrders_page.jsp"> Orders </a>
+                    <a href="/AdminOrders"> Orders </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="adminAccount_page.jsp"> Account </a>
+                    <a href="/AdminAccount"> Account </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="adminFeedback_page.jsp"> Feedback </a>
+                    <a href="/AdminFeedback"> Feedback </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="adminPayment_page.jsp"> QR </a>
+                    <a href="/AdminPayment"> QR </a>
                 </li>
                 <li class="header-nav-item">
-                    <a href="adminIngredients_page.jsp"> Ingredients </a>
+                    <a href="/AdminIngredients"> Ingredients </a>
                 </li>
             </ul>
         </nav>

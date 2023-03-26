@@ -64,7 +64,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-         response.sendRedirect("home.jsp?noconnection");
+         response.sendRedirect("/Home?noconnection");
         }
         LoginSignup_Model adminAccountProcess = new LoginSignup_Model();
         String instruction = request.getParameter("action");
@@ -83,7 +83,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
             //check if account exists
             if (results == null|| !results.next()) {
                 //Account does not exist
-                response.sendRedirect("adminLogin_page.jsp?process=2");
+                response.sendRedirect("/AdminLogin?process=2");
                 results.close();
             }else{
                 
@@ -92,7 +92,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     if (!checkPassword.equals(password)) {
 
                         //Password does not match
-                        response.sendRedirect("adminLogin_page.jsp?process=3");
+                        response.sendRedirect("/AdminLogin?process=3");
                         results.close();
                     }
                     else{
@@ -105,7 +105,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     
                     //go to homepage if login is successful       
                
-                    request.getRequestDispatcher("adminHome_page.jsp?LoginSuccess").forward(request, response);
+                    response.sendRedirect("/AdminLogin?LoginSuccess");
                     }
             }
                 
@@ -130,7 +130,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
             //check if account exists
             if (resultsUpdate == null|| !resultsUpdate.next()) {
                 //Account does not exist
-                response.sendRedirect("adminAccount_page.jsp?process=2");
+                response.sendRedirect("/AdminAccount?process=2");
                 resultsUpdate.close();
             }else{
                 
@@ -139,7 +139,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     if (!checkPassword.equals(passwordOld)) {
 
                         //Password does not match
-                        response.sendRedirect("adminAccount_page.jsp?process=3");
+                        response.sendRedirect("/AdminAccount?process=3");
                         resultsUpdate.close();
                     }
                     else{
@@ -147,7 +147,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
              // adminAccountProcess.updateAdminData(adminkeyUpdate,emailUpdate ,encrypt(passwordUpdate) , Integer.parseInt(adminID), conn);
 
                
-                    request.getRequestDispatcher("adminAccount_page.jsp?UpdateSuccess").forward(request, response);
+                    request.getRequestDispatcher("/AdminAccount?UpdateSuccess").forward(request, response);
                     }
             }
                 

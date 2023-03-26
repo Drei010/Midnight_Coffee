@@ -38,7 +38,7 @@ public class Payment_Controller extends HttpServlet {
 
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
         // get parameters
         String customerID = request.getParameter("customerID");
@@ -97,7 +97,7 @@ public class Payment_Controller extends HttpServlet {
 
                 // Ingredient Result is null error
                 if (ingredientResult == null || !ingredientResult.next()) {
-                    response.sendRedirect("Menu_page.jsp?ingredientnotfound");
+                    response.sendRedirect("/Menu?ingredientnotfound");
                 }
 
                 ingredientList = ingredientResult.getString("ingredientList");
@@ -122,7 +122,7 @@ public class Payment_Controller extends HttpServlet {
 
                     //stock does not exist
                     if (stockWeight == null) {
-                        response.sendRedirect("Menu_page.jsp?stock does not exist");
+                        response.sendRedirect("/Menu?stockdoesnotexist");
                     }
 
                     //Subtract weight to the total stocks
@@ -131,7 +131,7 @@ public class Payment_Controller extends HttpServlet {
                     //check if it exceedes the stock
                     if (newStockWeight <= 0) {
                         //Order Failed Stocks depleted
-                        response.sendRedirect("Menu_page.jsp?onlyfewstocks remaining");
+                        response.sendRedirect("/Menu?fewstocksremaining");
                     }
                     //set the int to string
                     String newStockWeightStr = Integer.toString(newStockWeight);
@@ -175,7 +175,7 @@ public class Payment_Controller extends HttpServlet {
                     }
                     if (!"Yes".equals(updateSuccess)) {
                         //Update did not work error
-                        response.sendRedirect("Menu_page.jsp?updatefailed");
+                        response.sendRedirect("/Menu?updatefailed");
                     }
                 }
 
@@ -190,10 +190,10 @@ public class Payment_Controller extends HttpServlet {
         String Yes = orderinsert.insertOrder(customerID, summaryQuantity, summaryName, summaryOption, summaryPrice, orderTotal, dateString, timeString, conn);
         if ("Yes".equals(Yes)) {
             //Order Submited
-            response.sendRedirect("payment_page.jsp?");
+            response.sendRedirect("/Payment");
         } else {
             //Order Failed
-            response.sendRedirect("Menu_page.jsp?orderFailed");
+            response.sendRedirect("/Menu?orderFailed");
         }
 
     }

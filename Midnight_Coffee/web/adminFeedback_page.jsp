@@ -20,8 +20,7 @@
     <body>
 
         <%
-            String data = request.getParameter("loaded");
-            if (!"yes".equals(data)) {
+            if (!"yes".equals(session.getAttribute("loaded"))) {
         %>
         <form action="Feedback_Controller" method="post" name="load">
             <input type="hidden" name="instruction" value="load">
@@ -31,7 +30,8 @@
                     document.forms['load'].submit();
                 };
             </script>
-            <%
+            <%} else {
+                    session.setAttribute("loaded", "no");
                 }%>
 
             <div class="container1">
@@ -137,7 +137,7 @@
         } else {
             checkItems();
             pushItems(1);
-            
+
             for (i = 0; i < cbox.length; i++) {
                 (function (protectedIndex) {
                     cbox[i].onclick = function () {
@@ -214,7 +214,7 @@
             }
             update.value = JSON.stringify(updateCboxValues);
             updateId.value = JSON.stringify(updateIdValues);
-            
+
             document.forms['form'].submit();
         }
     </script>

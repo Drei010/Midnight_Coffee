@@ -19,7 +19,7 @@
     <body>
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->  
         <%
-            if (request.getAttribute("loadedIngredients") == null || request.getAttribute("loadedActive") == null) {
+            if (!"yes".equals(session.getAttribute("loadedIngredients"))) {
         %>
         <form action="Ingredient_Controller" method="post" name="load">
             <input type="hidden" name="action" value="load">
@@ -29,7 +29,9 @@
                 document.forms['load'].submit();
             };
         </script>
-        <%}%>
+        <%} else {
+                    session.setAttribute("loadedIngredients", "no");
+                }%>
         <div class="container">
             <div class="left">
                 <h1>New Ingredient</h1>
@@ -73,7 +75,7 @@
                         </thead>
                         <tbody data-page="1">
                             <%
-                                ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
+                                ResultSet ingredients = (ResultSet) session.getAttribute("ingredients");
                                 if (ingredients != null) {
                                     while (ingredients.next()) {%>
                             <tr>
@@ -112,7 +114,7 @@
                             <select id="updateSelectIngredient" name="selectIngredientName" onchange="setUpdateWeights()" required>
                                 <option selected disabled hidden>Select Ingredient</option>
                                 <%
-                                    ResultSet active = (ResultSet) request.getAttribute("active");
+                                    ResultSet active = (ResultSet) session.getAttribute("active");
                                     if (active != null) {
                                         while (active.next()) {%>
 

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Orders_Controller", urlPatterns = {"/Orders_Controller"})
 public class Orders_Controller extends HttpServlet {
+
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -26,36 +27,35 @@ public class Orders_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
-        
-                // Get the current date
+
+        // Get the current date
         LocalDateTime now = LocalDateTime.now();
 
         // Format the date
         String dateString = now.format(DATE_FORMATTER);
-        
+
         String instruction = request.getParameter("action");
-        
+
         HttpSession session = request.getSession();
         Orders_Model processOrders = new Orders_Model();
-        switch(instruction){
+        switch (instruction) {
             case "load":
-                request.setAttribute("customerOrders", processOrders.Orders(dateString, conn));
-                request.setAttribute("loadedOrders", "yes");
+                session.setAttribute("customerOrders", processOrders.Orders(dateString, conn));
+                session.setAttribute("loadedOrders", "yes");
                 session.setAttribute("ordersDate", dateString);
-                request.getRequestDispatcher("adminOrders_page.jsp").forward(request, response);
+                response.sendRedirect("/AdminOrders");
                 break;
             case "changeDate":
                 String inputDate = request.getParameter("inputDate");
-                 request.setAttribute("customerOrders", processOrders.Orders(inputDate, conn));
-                 request.setAttribute("loadedOrders", "yes");
-                 session.setAttribute("ordersDate", inputDate);
-                request.getRequestDispatcher("adminOrders_page.jsp").forward(request, response);
+                session.setAttribute("customerOrders", processOrders.Orders(inputDate, conn));
+                session.setAttribute("loadedOrders", "yes");
+                session.setAttribute("ordersDate", inputDate);
+                response.sendRedirect("/AdminOrders");
                 break;
         }
-        
-    
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

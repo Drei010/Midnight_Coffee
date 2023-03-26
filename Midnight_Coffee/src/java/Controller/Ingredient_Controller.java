@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Ingredient_Controller", urlPatterns = {"/Ingredient_Controller"})
 public class Ingredient_Controller extends HttpServlet {
@@ -29,21 +30,20 @@ public class Ingredient_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("home.jsp?noconnection");
+            response.sendRedirect("/Home?noconnection");
         }
 
         // Declare model
         IngredientList ingredientsProcess = new IngredientList();
-
+        HttpSession session = request.getSession();
         String instruction = request.getParameter("action");
         switch (instruction) {
             case "load":
                 //Load Ingredients
-                request.setAttribute("ingredients", ingredientsProcess.Ingredients(conn));
-                request.setAttribute("active", ingredientsProcess.ActiveIngredients(conn));
-                request.setAttribute("loadedIngredients", "yes");
-                request.setAttribute("loadedActive", "yes");
-                response.sendRedirect("adminIngredients.jsp");
+                session.setAttribute("ingredients", ingredientsProcess.Ingredients(conn));
+                session.setAttribute("active", ingredientsProcess.ActiveIngredients(conn));
+                session.setAttribute("loadedIngredients", "yes");
+                session.setAttribute("loadedActive", "yes");
 
                 //delete entry after 30 days of deactivation
                 // get the current date and time
@@ -78,7 +78,8 @@ public class Ingredient_Controller extends HttpServlet {
                 } catch (SQLException ex) {
                     Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                response.sendRedirect("/AdminIngredients");
+                
                 break;
 
             case "insertIngredient":
@@ -90,7 +91,7 @@ public class Ingredient_Controller extends HttpServlet {
                 // Validate Parameters
                 if (ingredientName == null || ingredientName.trim().isEmpty()
                         || request.getParameter("weight") == null || request.getParameter("minimum") == null) {
-                    response.sendRedirect("adminIngredients_page.jsp?invalidinput");
+                    response.sendRedirect("/AdminIngredients?invalidinput");
                     return;
                 }
                 //Check if Ingredient Exist
@@ -98,11 +99,11 @@ public class Ingredient_Controller extends HttpServlet {
 
                 //Redirect to adminIngredients page if ingredients exist
                 if (results != null) {
-                    response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
+                    response.sendRedirect("/AdminIngredients?ingredientalreadyexists");
                 } else {
                     //Add Ingredient
                     ingredientsProcess.addIngredient(ingredientName, weight, min, conn);
-                    response.sendRedirect("adminIngredients_page.jsp?ingredientadded");
+                    response.sendRedirect("/AdminIngredients?ingredientadded");
                 }
 
                 break;
@@ -112,7 +113,7 @@ public class Ingredient_Controller extends HttpServlet {
                 weight = Integer.parseInt(request.getParameter("weight"));
 
                 if (ingredientName == null || ingredientName.trim().isEmpty()) {
-                    response.sendRedirect("adminIngredients_page.jsp?invalidinput");
+                    response.sendRedirect("/AdminIngredients?invalidinput");
                     return;
                 }
 
@@ -120,11 +121,11 @@ public class Ingredient_Controller extends HttpServlet {
 
                 //Redirect to adminIngredients page if ingredients exist
                 if (results == null) {
-                    response.sendRedirect("adminIngredients_page.jsp?ingredientdoesnotexist");
+                    response.sendRedirect("/AdminIngredients?ingredientdoesnotexist");
                 } else {
                     //Add Ingredient
                     ingredientsProcess.addIngredient(ingredientName, weight, 0, conn);
-                    response.sendRedirect("adminIngredients_page.jsp?addedweightsuccess");
+                    response.sendRedirect("/AdminIngredients?addedweightsuccess");
                 }
 
                 break;
@@ -139,7 +140,7 @@ public class Ingredient_Controller extends HttpServlet {
                 min = 0;
 
                 if (ingredientName == null || ingredientName.trim().isEmpty()) {
-                    response.sendRedirect("adminIngredients_page.jsp?invalidinput");
+                    response.sendRedirect("/AdminIngredients?invalidinput");
                     return;
                 }
 
@@ -174,7 +175,7 @@ public class Ingredient_Controller extends HttpServlet {
 
                 //Redirect to adminIngredients page if ingredients exist
                 if (results != null && !updateName.equals(ingredientName)) {
-                    response.sendRedirect("adminIngredients_page.jsp?ingredientalreadyexists");
+                    response.sendRedirect("/AdminIngredients?ingredientalreadyexists");
                 } else {
                     try {
                         //Update Ingredient
@@ -187,7 +188,7 @@ public class Ingredient_Controller extends HttpServlet {
                                 recipes.UpdateRecipe(list.getInt("itemCode"), list.getString("ingredientList").replace(ingredientName, updateName), conn);
                             }
                         }
-                        response.sendRedirect("adminIngredients_page.jsp?ingredientupdated");
+                        response.sendRedirect("/AdminIngredients?ingredientupdated");
                     } catch (SQLException ex) {
                         Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -210,7 +211,7 @@ public class Ingredient_Controller extends HttpServlet {
 
                 ingredientsProcess.changeActivation(instruction, Integer.parseInt(ingredientDeactivated), timestampDeactivated, conn);
 
-                response.sendRedirect("adminIngredients_page.jsp?ingredientdeleted");
+                response.sendRedirect("/AdminIngredients?ingredientdeleted");
                 break;
         }
 
