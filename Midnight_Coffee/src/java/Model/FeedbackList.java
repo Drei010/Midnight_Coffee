@@ -27,7 +27,7 @@ public class FeedbackList {
 
     public ResultSet getRandomFeedback(Connection conn) {
         try {
-            String query = "SELECT * FROM feedbacklist WHERE displayed = ? ORDER BY RAND() LIMIT 3";
+            String query = "SELECT * FROM feedbacklist WHERE displayed = ? ORDER BY RAND() LIMIT 4";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmnt.setString(1, "Yes");
             ResultSet records = stmnt.executeQuery();
