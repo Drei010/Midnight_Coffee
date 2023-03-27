@@ -14,10 +14,10 @@
     </head>
     <body>
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header for admin-->
-        <div class="QRContainer">
-            <div class="QRBody">      
-                <%
-                    if (session.getAttribute("QRTable") == null) {
+        <!-- Check if QR is loaded-->
+            <% 
+              if (!"yes".equals(session.getAttribute("loadedQRTable"))) {
+                   
                 %>
                 <form action="QR_Controller" method="post" name="loadTable">
                     <input type="hidden" name="instruction" value="loadQR">
@@ -30,17 +30,20 @@
                 </script>
                 <%
                 } else {
+                session.setAttribute("loadedQRTable", "no");
+            }
                 %>
+        <div class="QRContainer">
+            <div class="QRBody">      
 
                 <div class="updateQRItem">
                     <h1 class="updateQRItemTitle"> Update QR Codes</h1>
 
                     <%
-                        if (session.getAttribute("QRTableEmpty") == null) {
                             ResultSet QRTable = (ResultSet) session.getAttribute("QRTable");
-                            while (QRTable.next()) {
-                    %>
-                    <div class="QRItem">
+                            if (QRTable != null){
+                         while (QRTable.next()) {%>
+                  <div class="QRItem">
 
                         <div class="oldQRItem">
                             <img
@@ -81,10 +84,13 @@
                     </div>
                     <div class="horizontalDivider"></div>
 
+                        
+
+
                     <%
-                                }
+                        }   
                             }
-                        }
+                        
                     %>
                 </div>
 
