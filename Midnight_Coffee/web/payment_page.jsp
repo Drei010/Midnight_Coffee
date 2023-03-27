@@ -9,7 +9,7 @@
     </head>
     <body>
         <%
-            if (!"customer".equals(session.getAttribute("role"))||!"payment".equals(session.getAttribute("orderStep"))) {
+            if (!"customer".equals(session.getAttribute("role")) || !"payment".equals(session.getAttribute("orderStep"))) {
                 response.sendRedirect("/Login");
             }%>
         <jsp:include page="loginSignup.jsp" />
@@ -23,19 +23,23 @@
                     <button class="prev-button" onclick="changeSlide(-1)">&#10094;</button>
                 </div>
                 <div class="carousel">
-                    <% if (request.getAttribute("QRTable") == null) { %>
+                    <%
+                        if (!"yes".equals(session.getAttribute("loadedQRTable"))) {
+
+                    %>
                     <form action="QR_Controller" method="post" name="loadTable">
                         <input type="hidden" name="instruction" value="loadQR">
-                        <input type="hidden" name="page" value="payment_page.jsp">
+                        <input type="hidden" name="page" value="Payment">
                     </form>
                     <script>
                         window.onload = function () {
                             document.forms['loadTable'].submit();
                         };
                     </script>
-                    <% } else {
+                    <%                    } else {
+                        session.setAttribute("loadedQRTable", "no");
                         if (request.getAttribute("QRTableEmpty") == null) {
-                            ResultSet QRTable = (ResultSet) request.getAttribute("QRTable");
+                            ResultSet QRTable = (ResultSet) session.getAttribute("QRTable");
                             while (QRTable.next()) {%>
 
                     <div class="carousel-item">
@@ -58,7 +62,7 @@
             </div>
 
             <form action="Orders_Controller" method="post">
-                <input type="hidden" name="instruction" value="instruction">
+                <input type="hidden" name="action" value="instruction">
                 <button type="submit" class="nextBtn"> Next</button>
             </form>
         </div>

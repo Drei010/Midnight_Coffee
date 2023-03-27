@@ -41,7 +41,7 @@
                 <p>1039 G. Tolentino St., Sampaloc Manila</p>
             </div>
             <form action="Orders_Controller" method="post">
-                <input type="hidden" name="instruction" value="rating">
+                <input type="hidden" name="action" value="rating">
                 <button type="submit" class="doneBtn"> DONE</button>
             </form>
         </div>
