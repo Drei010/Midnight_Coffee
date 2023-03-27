@@ -68,7 +68,7 @@
                 <form id="ingredientForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h1><label for="itemIngredient">Add Ingredients:</label></h1>
                     <select name="itemIngredient" id="ingredientName" class="itemIngredient">
-                        <%ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
+                        <%ResultSet ingredients = (ResultSet) session.getAttribute("ingredients");
                             if (ingredients != null) {
                                 while (ingredients.next()) {%>
 
@@ -116,7 +116,7 @@
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
 
-                    <%ResultSet coffee = (ResultSet) request.getAttribute("allcoffee");
+                    <%ResultSet coffee = (ResultSet) session.getAttribute("allcoffee");
                         if (coffee != null) {
                             while (coffee.next()) {
                     %>
@@ -201,7 +201,7 @@
 
                     <%-- Add Kremalatte Item Button --%>
                     <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
-                        <%ResultSet kremalatte = (ResultSet) request.getAttribute("allkremalatte");
+                        <%ResultSet kremalatte = (ResultSet) session.getAttribute("allkremalatte");
                             if (kremalatte != null) {
                                 while (kremalatte.next()) {
                         %>
@@ -288,7 +288,7 @@
 
                     <%-- Add Tea Item Button --%>
                     <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
-                        <%ResultSet tea = (ResultSet) request.getAttribute("alltea");
+                        <%ResultSet tea = (ResultSet) session.getAttribute("alltea");
                             if (tea != null) {
                                 while (tea.next()) {
                         %>
