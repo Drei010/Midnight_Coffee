@@ -18,22 +18,22 @@
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
         <!-- Check if menu is loaded-->
         <%
-            //String data = request.getParameter("loaded");
-           // if (!"yes".equals(data)) {
-          if (request.getAttribute("loadedMenu") == null) {
+            if (!"yes".equals(session.getAttribute("loadedMenu"))) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
             <input type="hidden" name="instruction" value="loadMenu">
-            <input type="hidden" name="page" value="adminMenu_page.jsp">
+            <input type="hidden" name="page" value="AdminMenu">
         </form>
         <script>
             window.onload = function () {
                 document.forms['loadMenu'].submit();
-                
             };
         </script>
         <%
-            }%>
+            } else {
+                session.setAttribute("loadedMenu", "no");
+            }
+        %>
 
 
         <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>

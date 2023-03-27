@@ -19,8 +19,7 @@
 
         <!-- Check if menu is loaded-->
         <%
-            String data = request.getParameter("loaded");
-            if (!"yes".equals(data)) {
+            if (!"yes".equals(session.getAttribute("loadedMenu"))) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
             <input type="hidden" name="instruction" value="loadMenu">
@@ -32,6 +31,8 @@
             };
         </script>
         <%
+            } else {
+                session.setAttribute("loadedMenu", "no");
             }
         %>
         <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
@@ -72,7 +73,7 @@
                     <input type="hidden" name="orderTotal" id="totalSummary" value="" />
 
                     <input type="hidden" name="summaryItemCode" id="summaryItemCode" value=""/>
-                    
+
                     <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
 
@@ -212,7 +213,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                 src="MENUImages/<%=kremalatte.getString("itemImage")%>"
+                                src="MENUImages/<%=kremalatte.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -290,7 +291,7 @@
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
-                                 src="MENUImages/<%=tea.getString("itemImage")%>"
+                                src="MENUImages/<%=tea.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
@@ -673,6 +674,6 @@
         // Configure the observer to watch for changes to the table body
         const config = {childList: true, subtree: true};
         observer.observe(table.querySelector('tbody'), config);
-          
+
     </script>
 </html>

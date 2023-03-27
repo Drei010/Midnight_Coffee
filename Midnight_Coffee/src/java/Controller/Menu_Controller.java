@@ -81,26 +81,26 @@ public class Menu_Controller extends HttpServlet {
             //load adminPayment_page
             case "loadMenu":
 
+                HttpSession session = request.getSession();
+                
                 //Get page location
                 String page = request.getParameter("page");
-
+                String url = "/" + page;
                 //go to menupage
-                request.setAttribute("loadedMenu", "yes");
+                session.setAttribute("loadedMenu", "yes");
                 ProductList loadMenu = new ProductList();
                 IngredientList loadIngredients = new IngredientList();
 
                 if (page.equals("adminMenu_page.jsp")) {
-                    request.setAttribute("ingredients", loadIngredients.Ingredients(conn));
-                    request.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
-                    request.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
-                    request.setAttribute("alltea", loadMenu.AdminProducts("Tea", conn));
+                    session.setAttribute("ingredients", loadIngredients.Ingredients(conn));
+                    session.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
+                    session.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
+                    session.setAttribute("alltea", loadMenu.AdminProducts("Tea", conn));
                 } else {
-                    request.setAttribute("coffee", loadMenu.CustomerProducts("Coffee", conn));
-                    request.setAttribute("kremalatte", loadMenu.CustomerProducts("Kremalatte", conn));
-                    request.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
+                    session.setAttribute("coffee", loadMenu.CustomerProducts("Coffee", conn));
+                    session.setAttribute("kremalatte", loadMenu.CustomerProducts("Kremalatte", conn));
+                    session.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
                 }
-
-                HttpSession session = request.getSession();
 
                 if (session.getAttribute("isGuest") != "yes" && session.getAttribute("isGuest") != "no") {
                     session.setAttribute("isGuest", "yes");
@@ -130,7 +130,7 @@ public class Menu_Controller extends HttpServlet {
                 ResultSet results = loadMenu.retrieveProducts(conn);
 
                 if (results == null) {
-                    request.getRequestDispatcher(page).forward(request, response);
+                    response.sendRedirect(url);
                 }
                 try {
 
@@ -152,7 +152,7 @@ public class Menu_Controller extends HttpServlet {
                 }
 
                 //go to either menu page or adminMenu page
-                request.getRequestDispatcher(page).forward(request, response);
+                response.sendRedirect(url);
                 break;
 
             // Check if instruction is to add menu item

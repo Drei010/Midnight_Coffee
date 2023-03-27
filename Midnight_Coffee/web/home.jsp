@@ -40,7 +40,7 @@
                     <div class="oneContent">
                         <p>Your neighborhood specialty coffee</p>
                         <p>shop in downtown Manila</p>
-                        <button class="cta-button" onclick="location.href = 'Menu_page.jsp';">View Menu</button>
+                        <button class="cta-button" onclick="location.href = '/Menu';">View Menu</button>
                     </div>
                 </section>
 
