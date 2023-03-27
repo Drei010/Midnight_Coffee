@@ -201,8 +201,8 @@ public class ProductList {
         }
         return null;
     }
-    
-    public ResultSet getProductBySales(Connection conn){
+
+    public ResultSet getProductBySales(Connection conn) {
         try {
             String query = "SELECT p.*, IFNULL(s.count, 0) as count FROM products p LEFT JOIN salescount s ON p.itemCode = s.itemCode ORDER BY s.count DESC, p.itemCode ASC";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -221,25 +221,26 @@ public class ProductList {
     public ResultSet bestSellers(Connection conn) {
         try {
             ResultSet top = getBestSellers(conn);
+            if (top != null) {
+                String query = "SELECT * FROM products WHERE itemCode IN (?, ?, ?)";
 
-            String query = "SELECT * FROM products WHERE itemCode IN (?, ?, ?)";
-
-            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            if (top.next()) {
-                stmnt.setInt(1, top.getInt("itemCode"));
+                PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                if (top.next()) {
+                    stmnt.setInt(1, top.getInt("itemCode"));
+                }
+                if (top.next()) {
+                    stmnt.setInt(2, top.getInt("itemCode"));
+                }
+                if (top.next()) {
+                    stmnt.setInt(3, top.getInt("itemCode"));
+                }
+                ResultSet records = stmnt.executeQuery();
+                if (records.next()) {
+                    records.beforeFirst();
+                    return records;
+                }
+                stmnt.close();
             }
-            if (top.next()) {
-                stmnt.setInt(2, top.getInt("itemCode"));
-            }
-            if (top.next()) {
-                stmnt.setInt(3, top.getInt("itemCode"));
-            }
-            ResultSet records = stmnt.executeQuery();
-            if (records.next()) {
-                records.beforeFirst();
-                return records;
-            }
-            stmnt.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
         }
