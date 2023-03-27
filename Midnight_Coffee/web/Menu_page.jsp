@@ -19,17 +19,6 @@
 
         <!-- Check if menu is loaded-->
         <%
-            if ("customer".equals(session.getAttribute("role"))) {
-                if ("payment".equals(session.getAttribute("orderStep"))) {
-                    response.sendRedirect("/Payment");
-                }
-                if ("instruction".equals(session.getAttribute("orderStep"))) {
-                    response.sendRedirect("/Instruction");
-                }
-                if ("rating".equals(session.getAttribute("orderStep"))) {
-                    response.sendRedirect("/Rating");
-                }
-            }
             if (!"yes".equals(session.getAttribute("loadedMenu"))) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">

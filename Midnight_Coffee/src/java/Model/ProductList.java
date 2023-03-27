@@ -221,25 +221,54 @@ public class ProductList {
     public ResultSet bestSellers(Connection conn) {
         try {
             ResultSet top = getBestSellers(conn);
+            int count = 0;
+            String query = "";
+            PreparedStatement stmnt = null;
             if (top != null) {
-                String query = "SELECT * FROM products WHERE itemCode IN (?, ?, ?)";
-
-                PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                if (top.next()) {
-                    stmnt.setInt(1, top.getInt("itemCode"));
+                while (top.next()) {
+                    count++;
                 }
-                if (top.next()) {
-                    stmnt.setInt(2, top.getInt("itemCode"));
+                top.beforeFirst();
+                switch (count) {
+                    case 1:
+                        query = "SELECT * FROM products WHERE itemCode IN (?)";
+                        stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                        if (top.next()) {
+                            stmnt.setInt(1, top.getInt("itemCode"));
+                        }
+                        break;
+                    case 2:
+                        query = "SELECT * FROM products WHERE itemCode IN (?, ?)";
+                        stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                        if (top.next()) {
+                            stmnt.setInt(1, top.getInt("itemCode"));
+                        }
+                        if (top.next()) {
+                            stmnt.setInt(2, top.getInt("itemCode"));
+                        }
+                        break;
+                    case 3:
+                        query = "SELECT * FROM products WHERE itemCode IN (?, ?, ?)";
+                        stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                        if (top.next()) {
+                            stmnt.setInt(1, top.getInt("itemCode"));
+                        }
+                        if (top.next()) {
+                            stmnt.setInt(2, top.getInt("itemCode"));
+                        }
+                        if (top.next()) {
+                            stmnt.setInt(3, top.getInt("itemCode"));
+                        }
+                        break;
                 }
-                if (top.next()) {
-                    stmnt.setInt(3, top.getInt("itemCode"));
+                if (count != 0) {
+                    ResultSet records = stmnt.executeQuery();
+                    if (records.next()) {
+                        records.beforeFirst();
+                        return records;
+                    }
+                    stmnt.close();
                 }
-                ResultSet records = stmnt.executeQuery();
-                if (records.next()) {
-                    records.beforeFirst();
-                    return records;
-                }
-                stmnt.close();
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
