@@ -140,7 +140,6 @@ public class IngredientList {
             Recipes recipesMethod = new Recipes();
             ResultSet productList = recipesMethod.RecipeList(conn);
 
-            System.out.println("AAAAAAAAAA " + (name.getInt("ingredientWeight") > name.getInt("minimumWeight")));
             if (name.getInt("ingredientWeight") > name.getInt("minimumWeight")) {
                 if (productList != null) {
                     while (productList.next()) {

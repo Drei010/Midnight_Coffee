@@ -19,6 +19,17 @@
 
         <!-- Check if menu is loaded-->
         <%
+            if ("customer".equals(session.getAttribute("role"))) {
+                if ("payment".equals(session.getAttribute("orderStep"))) {
+                    response.sendRedirect("/Payment");
+                }
+                if ("instruction".equals(session.getAttribute("orderStep"))) {
+                    response.sendRedirect("/Instruction");
+                }
+                if ("rating".equals(session.getAttribute("orderStep"))) {
+                    response.sendRedirect("/Rating");
+                }
+            }
             if (!"yes".equals(session.getAttribute("loadedMenu"))) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
@@ -37,6 +48,138 @@
         %>
         <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
 
+        <%ResultSet best = (ResultSet) session.getAttribute("best");
+            if (best != null) {
+                if (best.next()) {%>
+        <div class="itemContainer">
+
+            <%-- Slider Item Start--%>      
+            <div class="item">  
+
+                <%-- Hidden fields for database submission--%>
+                <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+
+                <%-- Item Name--%>
+                <h1 class="itemName"><%=best.getString("itemName")%></h1>     
+
+                <%-- Item Image--%>
+                <img
+                    class="thumbnail"
+                    src="MENUImages/<%=best.getString("itemImage")%>"
+                    alt="Sample Item Image">
+
+                <%-- Item Option--%>
+                <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+
+                <%-- Item PriceTag--%>
+                <h3 class="itemPHPTag">PHP</h3>
+
+                <%-- Item Price--%> 
+                <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+
+                <%-- Quantity Decrament--%>
+                <div class="dec">-</div>
+
+                <%-- Quantity input field--%>
+                <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                <%-- Quantity Incrament--%>
+                <div class="inc">+</div>
+
+            </div>
+        </div>
+        <%}
+            if (best.next()) {%>
+        <div class="itemContainer">
+
+            <%-- Slider Item Start--%>      
+            <div class="item">  
+
+                <%-- Hidden fields for database submission--%>
+                <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+
+                <%-- Item Name--%>
+                <h1 class="itemName"><%=best.getString("itemName")%></h1>     
+
+                <%-- Item Image--%>
+                <img
+                    class="thumbnail"
+                    src="MENUImages/<%=best.getString("itemImage")%>"
+                    alt="Sample Item Image">
+
+                <%-- Item Option--%>
+                <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+
+                <%-- Item PriceTag--%>
+                <h3 class="itemPHPTag">PHP</h3>
+
+                <%-- Item Price--%> 
+                <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+
+                <%-- Quantity Decrament--%>
+                <div class="dec">-</div>
+
+                <%-- Quantity input field--%>
+                <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                <%-- Quantity Incrament--%>
+                <div class="inc">+</div>
+
+            </div>
+        </div>
+        <%}
+            if (best.next()) {%>
+        <div class="itemContainer">
+
+            <%-- Slider Item Start--%>      
+            <div class="item">  
+
+                <%-- Hidden fields for database submission--%>
+                <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+
+                <%-- Item Name--%>
+                <h1 class="itemName"><%=best.getString("itemName")%></h1>     
+
+                <%-- Item Image--%>
+                <img
+                    class="thumbnail"
+                    src="MENUImages/<%=best.getString("itemImage")%>"
+                    alt="Sample Item Image">
+
+                <%-- Item Option--%>
+                <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+
+                <%-- Item PriceTag--%>
+                <h3 class="itemPHPTag">PHP</h3>
+
+                <%-- Item Price--%> 
+                <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+
+                <%-- Quantity Decrament--%>
+                <div class="dec">-</div>
+
+                <%-- Quantity input field--%>
+                <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                <%-- Quantity Incrament--%>
+                <div class="inc">+</div>
+
+            </div>
+        </div>
+        <%}
+            }%>
 
         <%-- Open popup for the order summary --%>
         <div id="popupModal">
@@ -73,8 +216,6 @@
                     <input type="hidden" name="orderTotal" id="totalSummary" value="" />
 
                     <input type="hidden" name="summaryItemCode" id="summaryItemCode" value=""/>
-                    
-                    <input type="hidden" name="summaryClass" id="summaryClass" value="" />
 
                     <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
@@ -450,10 +591,10 @@
         var decramentButton = document.getElementsByClassName('dec');
         var role = document.getElementById('role');
 
-        if (role.value === "guest") {
-            checkoutBtn.disabled = true;
-        } else {
+        if (role.value === "customer") {
             checkoutBtn.disabled = false;
+        } else {
+            checkoutBtn.disabled = true;
         }
 
 

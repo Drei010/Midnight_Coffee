@@ -39,7 +39,7 @@
               <%
            ///Check if user is logged in
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            if(session.getAttribute("firstname")!=null){  
+            if("customer".equals(session.getAttribute("role"))){  
             %>
                  <script>
                    // Hide the login button and show the logout button 

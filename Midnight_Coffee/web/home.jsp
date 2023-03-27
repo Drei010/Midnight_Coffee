@@ -21,6 +21,17 @@
 
     <body>
         <%
+            if ("customer".equals(session.getAttribute("role"))) {
+                if ("payment".equals(session.getAttribute("orderStep"))) {
+                    response.sendRedirect("/Payment");
+                }
+                if ("instruction".equals(session.getAttribute("orderStep"))) {
+                    response.sendRedirect("/Instruction");
+                }
+                if ("rating".equals(session.getAttribute("orderStep"))) {
+                    response.sendRedirect("/Rating");
+                }
+            }
             if (!"yes".equals(session.getAttribute("loaded"))) {
         %>
         <form action="Feedback_Controller" method="get" name="load">
@@ -185,7 +196,7 @@
                             <%}%>
 
                         </div>
-                            
+
 
                         <div class="testimonial-box">
                             <div class="box-top">

@@ -92,13 +92,29 @@ public class Payment_Model {
         return null;
     }
 
+    public String getProductClass(int itemCode, Connection conn) {
+        try {
+            String query = "SELECT * FROM products WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setInt(1, itemCode);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                return records.getString("itemClass");
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public void addProductSold(int itemCode, String itemName, String itemOption, int quantity, Connection conn) {
         int count = retrieveSalesCount(itemCode, conn);
         String query = "";
         if (count == 0) {
-            query = "INSERT INTO salescount (count, itemCode, itemOption, itemName) VALUES (?, ?, ?, ?)";
+            query = "INSERT INTO salescount (count, itemCode, itemOption, itemName, itemClass) VALUES (?, ?, ?, ?, ?)";
         } else {
-            query = "UPDATE salescount SET count = ? WHERE itemCode = ? AND itemOption = ? AND itemName = ?";
+            query = "UPDATE salescount SET count = ? WHERE itemCode = ? AND itemOption = ? AND itemName = ? AND itemClass = ?";
         }
         try {
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -106,6 +122,7 @@ public class Payment_Model {
             stmnt.setInt(2, itemCode);
             stmnt.setString(3, itemOption);
             stmnt.setString(4, itemName);
+            stmnt.setString(5, getProductClass(itemCode, conn));
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {

@@ -155,8 +155,8 @@ public class ProductList {
         }
         return null;
     }
-    
-    public void UpdateProduct(String name, String option, String price, String image, String category, int code, Connection conn){
+
+    public void UpdateProduct(String name, String option, String price, String image, String category, int code, Connection conn) {
         try {
             String query = "UPDATE products SET itemName = ?, itemOption = ?, itemPrice = ?, itemImage = ?, itemClass = ? WHERE itemCode = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -171,8 +171,8 @@ public class ProductList {
             Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void UpdateSalescountProduct(String name, String option, int code, Connection conn){
+
+    public void UpdateSalescountProduct(String name, String option, int code, Connection conn) {
         try {
             String query = "UPDATE salescount SET itemName = ?, itemOption = ? WHERE itemCode = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -185,4 +185,66 @@ public class ProductList {
             Logger.getLogger(Recipes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public ResultSet getBestSellers(Connection conn) {
+        try {
+            String query = "SELECT s1.* FROM salescount s1 LEFT JOIN salescount s2 ON s1.itemClass = s2.itemClass AND s1.count < s2.count WHERE s2.count IS NULL;";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public ResultSet getProductBySales(Connection conn){
+        try {
+            String query = "SELECT p.*, IFNULL(s.count, 0) as count FROM products p LEFT JOIN salescount s ON p.itemCode = s.itemCode ORDER BY s.count DESC, p.itemCode ASC";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ResultSet bestSellers(Connection conn) {
+        try {
+            ResultSet top = getBestSellers(conn);
+
+            String query = "SELECT * FROM products WHERE itemCode IN (?, ?, ?)";
+
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            if (top.next()) {
+                stmnt.setInt(1, top.getInt("itemCode"));
+            }
+            if (top.next()) {
+                stmnt.setInt(2, top.getInt("itemCode"));
+            }
+            if (top.next()) {
+                stmnt.setInt(3, top.getInt("itemCode"));
+            }
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
 }

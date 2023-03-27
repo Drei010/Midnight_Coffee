@@ -92,15 +92,17 @@ public class Menu_Controller extends HttpServlet {
 
                 if (page.equals("AdminMenu")) {
                     session.setAttribute("ingredients", loadIngredients.Ingredients(conn));
-                    session.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
-                    session.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
-                    session.setAttribute("alltea", loadMenu.AdminProducts("Tea", conn));
+                    session.setAttribute("coffee", loadMenu.AdminProducts("Coffee", conn));
+                    session.setAttribute("kremalatte", loadMenu.AdminProducts("Kremalatte", conn));
+                    session.setAttribute("tea", loadMenu.AdminProducts("Tea", conn));
+                    session.setAttribute("best", loadMenu.getProductBySales(conn));
                 } else {
                     session.setAttribute("coffee", loadMenu.CustomerProducts("Coffee", conn));
                     session.setAttribute("kremalatte", loadMenu.CustomerProducts("Kremalatte", conn));
                     session.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
+                    session.setAttribute("best", loadMenu.bestSellers(conn));
                 }
-
+                    
                 if (session.getAttribute("isGuest") != "yes" && session.getAttribute("isGuest") != "no") {
                     session.setAttribute("isGuest", "yes");
                 }

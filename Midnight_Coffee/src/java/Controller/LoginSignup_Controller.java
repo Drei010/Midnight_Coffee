@@ -121,6 +121,7 @@ public class LoginSignup_Controller extends HttpServlet {
                         session.setAttribute("lastname", results.getString("customerLastname"));
                         session.setAttribute("customerID", results.getString("customerID"));
                         session.setAttribute("role", "customer");
+                        session.setAttribute("isGuest", "no");
                         session.setAttribute("loadedFeedback", null);
 
                         //go to homepage if login is successful       

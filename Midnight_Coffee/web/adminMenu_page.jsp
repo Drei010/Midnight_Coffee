@@ -113,10 +113,76 @@
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
 
+                    <%ResultSet best = (ResultSet) session.getAttribute("best");
+                        if (best != null) {
+                            while (best.next()) {
+                    %>
+                    <div class="itemContainer"> 
+                        <%-- Slider Item Start--%>      
+                        <div class="item">  
+                            <input type="hidden" class="itemCode" name="<%=best.getString("itemCode")%>">
+                            <input type="hidden" class="itemClass" name="<%=best.getString("itemClass")%>">
+                            <%-- Item Name--%>
+                            <a class="itemName" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
+
+                            <%-- Item Image--%>
+                            <img
+                                class="thumbnail"
+                                src="MENUImages/<%=best.getString("itemImage")%>"
+                                alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
+
+                            <%-- Item Option--%>
+                            <a class="itemOption" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
+
+                            <%-- Item PriceTag--%>
+                            <h3 class="itemPHPTag">PHP</h3>
+
+                            <%-- Item Price--%> 
+                            <h3 class="itemPrice" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
+
+                            <form>
+                                Sales:<%=best.getInt("count")%>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <%-- Slider Item End--%>   
+
+                    <%}
+                        }%>
+                </div>
+                <%-- Right Arrow Button--%>
+                <button class="handle right-handle">
+                    <div class="text">&#8250;</div>
+                </button>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <%-- Carousel title and progress bar--%>       
+            <div class="header-menu">
+                <h3 class="title">Coffee</h3>
+                <div class="progress-bar"></div>
+            </div>
+
+            <div class="carouselContainer">
+
+                <%-- Left Arrow Button--%>
+                <button class="handle left-handle">
+                    <div class="text">&#8249;</div>
+                </button>
+
+
+                <%-- Carousel Items Slider--%>
+                <div class="slider">
+
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
 
-                    <%ResultSet coffee = (ResultSet) session.getAttribute("allcoffee");
+                    <%ResultSet coffee = (ResultSet) session.getAttribute("coffee");
                         if (coffee != null) {
                             while (coffee.next()) {
                     %>
@@ -201,7 +267,7 @@
 
                     <%-- Add Kremalatte Item Button --%>
                     <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
-                        <%ResultSet kremalatte = (ResultSet) session.getAttribute("allkremalatte");
+                        <%ResultSet kremalatte = (ResultSet) session.getAttribute("kremalatte");
                             if (kremalatte != null) {
                                 while (kremalatte.next()) {
                         %>
@@ -288,7 +354,7 @@
 
                     <%-- Add Tea Item Button --%>
                     <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
-                        <%ResultSet tea = (ResultSet) session.getAttribute("alltea");
+                        <%ResultSet tea = (ResultSet) session.getAttribute("tea");
                             if (tea != null) {
                                 while (tea.next()) {
                         %>
@@ -427,9 +493,9 @@
                             <h2>Update Image</h2>
                             <div>
                                 <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage">
-                        
-                                    <!-- Warning Message for incompatible file types-->
-                                   <a id="warningUpdate"></a><br>
+
+                                <!-- Warning Message for incompatible file types-->
+                                <a id="warningUpdate"></a><br>
                                 <p>Current Image: </p>
                                 <input type="hidden" name="currentImageName" id="currentImageName">
                                 <img class="currentImage" id="currentImage" src="MENUImages/" alt="Current Product Image">
@@ -667,11 +733,11 @@
                 warningAdd.style.color = "red";
             }
         });
-        
-        
-        
-        
-                //Disable buttons if the file type is not .png or .jpg for update
+
+
+
+
+        //Disable buttons if the file type is not .png or .jpg for update
         const updateBtn = document.getElementById('saveChangesBtn');
         const updatefileInput = document.getElementById('itemUpdateImage');
         const warningUpdate = document.getElementById("warningUpdate");
