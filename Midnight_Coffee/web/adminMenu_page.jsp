@@ -18,12 +18,13 @@
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
         <!-- Check if menu is loaded-->
         <%
-            String data = request.getParameter("loaded");
-            if (!"yes".equals(data)) {
+            //String data = request.getParameter("loaded");
+           // if (!"yes".equals(data)) {
+          if (request.getAttribute("loadedMenu") == null) {
         %>
         <form action="Menu_Controller" method="post" name="loadMenu">
             <input type="hidden" name="instruction" value="loadMenu">
-            <input type="hidden" name="page" value="AdminMenu">
+            <input type="hidden" name="page" value="adminMenu_page.jsp">
         </form>
         <script>
             window.onload = function () {
@@ -67,7 +68,7 @@
                 <form id="ingredientForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h1><label for="itemIngredient">Add Ingredients:</label></h1>
                     <select name="itemIngredient" id="ingredientName" class="itemIngredient">
-                        <%ResultSet ingredients = (ResultSet) session.getAttribute("ingredients");
+                        <%ResultSet ingredients = (ResultSet) request.getAttribute("ingredients");
                             if (ingredients != null) {
                                 while (ingredients.next()) {%>
 
@@ -115,7 +116,7 @@
                     <%-- Add Coffee Item Button --%>
                     <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
 
-                    <%ResultSet coffee = (ResultSet) session.getAttribute("allcoffee");
+                    <%ResultSet coffee = (ResultSet) request.getAttribute("allcoffee");
                         if (coffee != null) {
                             while (coffee.next()) {
                     %>
@@ -200,7 +201,7 @@
 
                     <%-- Add Kremalatte Item Button --%>
                     <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
-                        <%ResultSet kremalatte = (ResultSet) session.getAttribute("allkremalatte");
+                        <%ResultSet kremalatte = (ResultSet) request.getAttribute("allkremalatte");
                             if (kremalatte != null) {
                                 while (kremalatte.next()) {
                         %>
@@ -287,7 +288,7 @@
 
                     <%-- Add Tea Item Button --%>
                     <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
-                        <%ResultSet tea = (ResultSet) session.getAttribute("alltea");
+                        <%ResultSet tea = (ResultSet) request.getAttribute("alltea");
                             if (tea != null) {
                                 while (tea.next()) {
                         %>
@@ -355,7 +356,7 @@
         <div id="popupModalUpdate">
 
             <div class="container-popup-update">
-                <form id="updateProductPopupForm" action="Menu_Controller" method="post" enctype="multipart/form-data">
+                <form id="updateProductPopupForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="instruction" value="updateItemMenu">
                     <input type="hidden" id="updateItemCode" name="itemCode">
                     <input type="hidden" id="currentItemName" name="currentItemName">
@@ -426,8 +427,11 @@
                             <h2>Update Image</h2>
                             <div>
                                 <input type="file" name="itemUpdateImage" class="itemUpdateImage" id="itemUpdateImage">
-
+                        
+                                    <!-- Warning Message for incompatible file types-->
+                                   <a id="warningUpdate"></a><br>
                                 <p>Current Image: </p>
+                                <input type="hidden" name="currentImageName" id="currentImageName">
                                 <img class="currentImage" id="currentImage" src="MENUImages/" alt="Current Product Image">
                                 <p id="currentFileName">*Value ng current file name*</p>
 
@@ -618,6 +622,7 @@
                         itemOption = document.getElementById('currentOption'),
                         itemPrice = document.getElementById('currentPrice'),
                         itemImage = document.getElementById('currentImage'),
+                        itemCurrentImage = document.getElementById('currentImageName'),
                         itemFilename = document.getElementById('currentFileName'),
                         itemCode = document.getElementById('updateItemCode'),
                         itemNameHidden = document.getElementById('currentItemName'),
@@ -630,6 +635,7 @@
                 itemPrice.innerHTML = "Php " + itemPriceArray[index].id;
                 itemImage.src = "MENUImages/" + itemImageArray[index].id;
                 itemFilename.innerHTML = itemImageArray[index].id;
+                itemCurrentImage.value = itemImageArray[index].id;
                 itemCode.value = itemCodeArray[index].name;
                 itemNameHidden.value = itemNameArray[index].name;
                 category.value = option.value;
@@ -642,7 +648,7 @@
             document.getElementById("popupModalUpdate").style.display = 'block';
         }
 
-        //Disable buttons if the file type is not .png or .jpg
+        //Disable buttons if the file type is not .png or .jpg for add
         const addBtn = document.getElementById('addProductBtn');
         const fileInput = document.getElementById('itemAddImage');
         const warningAdd = document.getElementById("warningAdd");
@@ -659,6 +665,29 @@
                 addBtn.disabled = true;
                 warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
                 warningAdd.style.color = "red";
+            }
+        });
+        
+        
+        
+        
+                //Disable buttons if the file type is not .png or .jpg for update
+        const updateBtn = document.getElementById('saveChangesBtn');
+        const updatefileInput = document.getElementById('itemUpdateImage');
+        const warningUpdate = document.getElementById("warningUpdate");
+
+        updatefileInput.addEventListener('change', function () {
+            const file = updatefileInput.files[0];
+            const fileName = file.name;
+            const fileType = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+            if (fileType === 'jpg' || fileType === 'png') {
+                updateBtn.disabled = false;
+                warningUpdate.innerText = '';
+            } else {
+                updateBtn.disabled = true;
+                warningUpdate.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                warningUpdate.style.color = "red";
             }
         });
 

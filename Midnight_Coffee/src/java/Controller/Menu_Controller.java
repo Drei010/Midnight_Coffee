@@ -68,14 +68,14 @@ public class Menu_Controller extends HttpServlet {
         Connection conn = (Connection) getServletContext().getAttribute("conn");
         //Test Connection
         if (conn == null) {
-            response.sendRedirect("/Home?noconnection");
+            response.sendRedirect("/home?noconnection");
         }
         //Get Instruction
         String instruction = request.getParameter("instruction");
 
         //Get the destination file path of the MENUImage folder
         String destination = (String) getServletContext().getAttribute("destination") + "/MENUImages";
-        HttpSession session = request.getSession();
+
         switch (instruction) {
 
             //load adminPayment_page
@@ -83,27 +83,24 @@ public class Menu_Controller extends HttpServlet {
 
                 //Get page location
                 String page = request.getParameter("page");
-                String url = "/" + page;
+
                 //go to menupage
+                request.setAttribute("loadedMenu", "yes");
                 ProductList loadMenu = new ProductList();
                 IngredientList loadIngredients = new IngredientList();
 
-            switch (page) {
-                case "AdminMenu":
-                    session.setAttribute("ingredients", loadIngredients.Ingredients(conn));
-                    session.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
-                    session.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
-                    session.setAttribute("alltea", loadMenu.AdminProducts("Tea", conn));
-                    break;
-                case "Menu":
-                    session.setAttribute("coffee", loadMenu.CustomerProducts("Coffee", conn));
-                    session.setAttribute("kremalatte", loadMenu.CustomerProducts("Kremalatte", conn));
-                    session.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
-                    break;
-                default:
-                    response.sendRedirect("/Error");
-                    break;
-            }
+                if (page.equals("adminMenu_page.jsp")) {
+                    request.setAttribute("ingredients", loadIngredients.Ingredients(conn));
+                    request.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
+                    request.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
+                    request.setAttribute("alltea", loadMenu.AdminProducts("Tea", conn));
+                } else {
+                    request.setAttribute("coffee", loadMenu.CustomerProducts("Coffee", conn));
+                    request.setAttribute("kremalatte", loadMenu.CustomerProducts("Kremalatte", conn));
+                    request.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
+                }
+
+                HttpSession session = request.getSession();
 
                 if (session.getAttribute("isGuest") != "yes" && session.getAttribute("isGuest") != "no") {
                     session.setAttribute("isGuest", "yes");
@@ -133,7 +130,7 @@ public class Menu_Controller extends HttpServlet {
                 ResultSet results = loadMenu.retrieveProducts(conn);
 
                 if (results == null) {
-                    response.sendRedirect(url+"?loaded=yes");
+                    request.getRequestDispatcher(page).forward(request, response);
                 }
                 try {
 
@@ -155,13 +152,12 @@ public class Menu_Controller extends HttpServlet {
                 }
 
                 //go to either menu page or adminMenu page
-                response.sendRedirect(url+"?loaded=yes");
+                request.getRequestDispatcher(page).forward(request, response);
                 break;
-
 
             // Check if instruction is to add menu item
             case "addItemMenu":
-                //desitantion
+               
 
                 // get parameters
                 String itemAddName = request.getParameter("itemAddName");
@@ -192,15 +188,23 @@ public class Menu_Controller extends HttpServlet {
                         otpStream.write(bytes, 0, read);
                     }
                 } catch (IOException e) {
-                    response.sendRedirect("/AdminPayment?failedtoupload");
+                    response.sendRedirect("/AdminMenu?failedtoupload");
                     return;
                 }
+                                    // Check if the file is in .png or .jpg format
+                    String fileType = itemAddImage.substring(itemAddImage.length() - 3).toLowerCase();
+                    if (!"jpg".equals(fileType) && !"png".equals(fileType)) {
+                      response.sendRedirect("/AdminMenu?errorimage");
+                      return;
+                    }
 
                 // Rename the file in the same directory
-                try {
+           
+                try { 
+                    itemAddImage = itemAddName + "." + fileType;
                     Files.move(source, source.resolveSibling(itemAddImage));
                 } catch (IOException e) {
-                    response.sendRedirect("/AdminPayment?failedtoupload");
+                    response.sendRedirect("/AdminMenu?failedtoupload");
                     return;
                 }
 
@@ -216,60 +220,118 @@ public class Menu_Controller extends HttpServlet {
                     response.sendRedirect("/AdminMenu?failedtouploaddatabase");
                 }
                 break;
+                
+                
+                
+                
+             case "updateItemMenu":
+              int itemCode = Integer.parseInt(request.getParameter("itemCode"));
+            String itemName = request.getParameter("currentItemName");
+            String updateName = request.getParameter("nameInput");
+            String category = request.getParameter("categoryInput");
+            String option = request.getParameter("optionInput");
+            String priceS = request.getParameter("priceInput");
+            String image = getFileName(request.getPart("itemUpdateImage"));
+            String itemOldImage = request.getParameter("currentImageName");
 
-            case "updateItemMenu":
-                int itemCode = Integer.parseInt(request.getParameter("itemCode"));
-                String itemName = request.getParameter("currentItemName");
-                String updateName = request.getParameter("nameInput");
-                String category = request.getParameter("categoryInput");
-                String option = request.getParameter("optionInput");
-                String priceS = request.getParameter("priceInput");
-                String image = request.getParameter("itemUpdateImage");
-                ProductList productList = new ProductList();
-                Recipes recipes = new Recipes();
-
-                System.out.println(updateName);
-                System.out.println(itemName);
-
-                if (updateName == null || updateName.trim().isEmpty()) {
-                    updateName = itemName;
+            ProductList productList = new ProductList();
+            Recipes recipes = new Recipes();
+            String newImagename ="";
+            
+           if (updateName == null || updateName.trim().isEmpty()) {
+                updateName = itemName;
+                
+                
+                
+                
+            }
+            
+            if (image != null && !image.trim().isEmpty()) {
+                
+            
+            Path fileUpdate = Paths.get(destination, itemOldImage);
+            if (Files.exists(fileUpdate)) {
+                try (FileOutputStream outputStream = new FileOutputStream(fileUpdate.toFile())) {
+                    outputStream.close(); // close the output stream before deleting the file
+                    Files.delete(fileUpdate);
+                } catch (IOException e) {
+                    // handle the exception
                 }
+}
+                       
+                     // Image upload
+            Part filePartUpdate = request.getPart("itemUpdateImage");
+            
+                  // Get the extention
+            String fileTypeUpdate = image.substring(image.length() - 3).toLowerCase();
+            
+            
+                        // Save the image to the destination directory
+             newImagename = updateName+ "." + fileTypeUpdate;
+            Path targetUpdate = Paths.get(destination, newImagename);
 
-                ResultSet list = productList.retrieveData(updateName, conn);
-                if (list != null && !updateName.equals(itemName)) {
-                    response.sendRedirect("/AdminMenu?productalreadyexists");
-                } else {
-                    try {
+            try (InputStream iptStreamUpdate = filePartUpdate.getInputStream();
+                 OutputStream otpStreamUpdate = new FileOutputStream(targetUpdate.toFile())) {
+
+                byte[] bufferUpdate = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = iptStreamUpdate.read(bufferUpdate)) != -1) {
+                    otpStreamUpdate.write(bufferUpdate, 0, bytesRead);
+                }
+            } catch (IOException e) {
+                response.sendRedirect("/AdminMenu?failedtoupload");
+                return;
+            }
+
+            }
+            
+           
+            
+            ResultSet list = productList.retrieveData(updateName, conn);
+                 if (list != null && !updateName.equals(itemName)) {
+                     response.sendRedirect("/AdminMenu?productalreadyexists");
+                }                
+                else {
+                     try{
                         list = productList.retrieveData(itemName, conn);
                         list.next();
-
-                        if (category == null || category.trim().isEmpty()) {
-                            category = list.getString("itemClass");
-                        }
-
-                        if (option == null || option.trim().isEmpty()) {
-                            option = list.getString("itemOption");
-                        }
-
-                        if (priceS == null || priceS.trim().isEmpty()) {
-                            priceS = list.getString("itemPrice");
-                        }
-
-                        if (image == null || image.trim().isEmpty()) {
-                            image = list.getString("itemImage");
-                        }
-
-                        productList.UpdateProduct(updateName, option, priceS, image, category, itemCode, conn);
-                        productList.UpdateSalescountProduct(updateName, option, itemCode, conn);
-                        recipes.UpdateProduct(updateName, option, itemCode, conn);
-
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Menu_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    if (category == null || category.trim().isEmpty()) {
+                        category = list.getString("itemClass");
                     }
 
-                    response.sendRedirect("/AdminMenu?updatedproductsuccess");
-                }
-                break;
+                    if (option == null || option.trim().isEmpty()) {
+                        option = list.getString("itemOption");
+                    }
+
+                    if (priceS == null || priceS.trim().isEmpty()) {
+                        priceS = list.getString("itemPrice");
+                    }
+
+                    // If the image is not specified, use the old image name
+                    if (image == null || image.trim().isEmpty()) {
+                        image = itemOldImage;
+                    }else{
+                      image = newImagename;
+                    }
+                    
+                    
+                    
+                    
+                 // Update the product with the new information
+             productList.UpdateProduct(updateName, option, priceS, image, category, itemCode, conn);
+             productList.UpdateSalescountProduct(updateName, option, itemCode, conn);
+             recipes.UpdateProduct(updateName, option, itemCode, conn);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+
+
+            // Redirect to a success page
+            response.sendRedirect("/AdminMenu?updatedproductsuccess");
+                 }
+            
+                  break;
 
             //delete after 30 days
             case "deactivate":
