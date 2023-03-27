@@ -80,7 +80,6 @@ public class Menu_Controller extends HttpServlet {
 
             //load adminPayment_page
             case "loadMenu":
-
                 HttpSession session = request.getSession();
                 
                 //Get page location
@@ -91,7 +90,7 @@ public class Menu_Controller extends HttpServlet {
                 ProductList loadMenu = new ProductList();
                 IngredientList loadIngredients = new IngredientList();
 
-                if (page.equals("adminMenu_page.jsp")) {
+                if (page.equals("AdminMenu")) {
                     session.setAttribute("ingredients", loadIngredients.Ingredients(conn));
                     session.setAttribute("allcoffee", loadMenu.AdminProducts("Coffee", conn));
                     session.setAttribute("allkremalatte", loadMenu.AdminProducts("Kremalatte", conn));
