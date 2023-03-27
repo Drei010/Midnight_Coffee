@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -190,6 +191,8 @@ public class Payment_Controller extends HttpServlet {
         String Yes = orderinsert.insertOrder(customerID, summaryQuantity, summaryName, summaryOption, summaryPrice, orderTotal, dateString, timeString, conn);
         if ("Yes".equals(Yes)) {
             //Order Submited
+            HttpSession session = request.getSession();
+            session.setAttribute("orderStep","payment");
             response.sendRedirect("/Payment");
         } else {
             //Order Failed

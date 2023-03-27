@@ -73,6 +73,7 @@ public class Feedback_Controller extends HttpServlet {
                 int rating = Integer.parseInt(request.getParameter("rating"));
                 int id = Integer.parseInt(idString);
 
+                session.setAttribute("orderStep", null);
                 add.insertFeedback(message, rating, id, conn);
                 response.sendRedirect("/Home?addedfeedback");
                 break;

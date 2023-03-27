@@ -14,6 +14,10 @@
     </head>
     
     <body>
+        <%
+            if (!"customer".equals(session.getAttribute("role"))||!"instruction".equals(session.getAttribute("orderStep"))) {
+                response.sendRedirect("/Login");
+            }%>
         <header>
             <nav class="header">
                 <div class="header-left">
@@ -36,7 +40,10 @@
                 <p>Store Address:</p>
                 <p>1039 G. Tolentino St., Sampaloc Manila</p>
             </div>
-            <a href = "/Rating"> <button type="submit" class="doneBtn">DONE</button> </a>
+            <form action="Orders_Controller" method="post">
+                <input type="hidden" name="instruction" value="rating">
+                <button type="submit" class="doneBtn"> DONE</button>
+            </form>
         </div>
         
 </body>

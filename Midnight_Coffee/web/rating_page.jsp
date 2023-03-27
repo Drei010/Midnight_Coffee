@@ -14,6 +14,10 @@
     </head>
 
     <body>
+        <%
+            if (!"customer".equals(session.getAttribute("role"))||!"rating".equals(session.getAttribute("orderStep"))) {
+                response.sendRedirect("/Login");
+            }%>
         <header>
             <nav class="header">
                 <div class="header-left">
@@ -77,7 +81,7 @@
             } else {
                 rating.value = radioSelected.value;
             }
-            
+
             document.forms['ratingForm'].submit();
         }
     </script>

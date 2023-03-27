@@ -8,6 +8,10 @@
         <title>Customer Payment Page</title>
     </head>
     <body>
+        <%
+            if (!"customer".equals(session.getAttribute("role"))||!"payment".equals(session.getAttribute("orderStep"))) {
+                response.sendRedirect("/Login");
+            }%>
         <jsp:include page="loginSignup.jsp" />
 
         <div class="payment-message">
@@ -53,7 +57,10 @@
                 <p>Please take a screenshot of your receipt</p>
             </div>
 
-            <a href ="instruction_page.jsp"> <button type="submit" class="nextBtn"> Next</button></a>
+            <form action="Orders_Controller" method="post">
+                <input type="hidden" name="instruction" value="instruction">
+                <button type="submit" class="nextBtn"> Next</button>
+            </form>
         </div>
 
         <script>

@@ -54,6 +54,17 @@ public class Orders_Controller extends HttpServlet {
                 session.setAttribute("ordersDate", inputDate);
                 response.sendRedirect("/AdminOrders");
                 break;
+            case "instruction":
+                session.setAttribute("orderStep","instruction");
+                response.sendRedirect("/Instruction");
+                break;
+            case "rating":
+                session.setAttribute("orderStep","rating");
+                response.sendRedirect("/Rating");
+                break;
+            default:
+                response.sendRedirect("/Error");
+                break;
         }
 
     }

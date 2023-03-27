@@ -25,6 +25,7 @@ public class Logout extends HttpServlet {
         session.removeAttribute("firstname");
         session.removeAttribute("lastname"); 
         session.removeAttribute("isGuest");
+        session.removeAttribute("role");
         session.invalidate();
         response.sendRedirect("/Home");
     }
