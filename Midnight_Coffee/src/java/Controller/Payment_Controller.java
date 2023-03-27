@@ -193,6 +193,8 @@ public class Payment_Controller extends HttpServlet {
             //Order Submited
             HttpSession session = request.getSession();
             session.setAttribute("orderStep","payment");
+            session.setAttribute("totalPrice", orderTotal);
+            session.setAttribute("orderID", orderinsert.orderID(customerID, summaryQuantity, summaryName, summaryOption, summaryPrice, orderTotal, dateString, timeString, conn));
             response.sendRedirect("/Payment");
         } else {
             //Order Failed

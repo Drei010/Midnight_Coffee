@@ -30,7 +30,7 @@
         <div class="container">
             <div class ="orderId">
                 <h1> Your order id is: </h1>
-                <h1> 126 </h1>
+                <h1> <%=session.getAttribute("orderID")%> </h1>
             </div>
             <div class ="instructions">
                 <h1>Follow these instructions:</h1>

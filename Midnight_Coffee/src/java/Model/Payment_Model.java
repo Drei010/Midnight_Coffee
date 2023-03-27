@@ -40,6 +40,29 @@ public class Payment_Model {
 
     }
 
+    public int orderID(String customerID, String summaryQuantity, String summaryName, String summaryOption, String summaryPrice, String orderTotal, String orderDate, String orderTime, Connection con) {
+        try {
+            String query = "SELECT * FROM customer_orders WHERE customerID = ? AND summaryQuantity = ? AND summaryName = ? AND summaryOption = ? AND summaryPrice = ? AND orderTotal = ? AND orderDate = ? AND orderTime = ?";
+            PreparedStatement stmnt = con.prepareStatement(query);
+            stmnt.setString(1, customerID);
+            stmnt.setString(2, summaryQuantity);
+            stmnt.setString(3, summaryName);
+            stmnt.setString(4, summaryOption);
+            stmnt.setString(5, summaryPrice);
+            stmnt.setString(6, orderTotal);
+            stmnt.setString(7, orderDate);
+            stmnt.setString(8, orderTime);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                return records.getInt("orderID");
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     public String getingredientWeight(String ingredient, Connection conn) {
         try {
             String query = "SELECT * FROM ingredients WHERE ingredientName = ?";

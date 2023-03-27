@@ -57,7 +57,7 @@
             </div>
 
             <div class ="instructions">
-                <p>Amount to pay: PHP </p>
+                <p>Amount to pay: PHP <%=session.getAttribute("totalPrice")%></p>
                 <p>Please take a screenshot of your receipt</p>
             </div>
 
