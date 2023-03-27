@@ -62,7 +62,7 @@ public class Feedback_Controller extends HttpServlet {
                         updateList.updateDisplayed("No", Integer.parseInt(updateId[i]), conn);
                     }
                 }
-
+                
                 response.sendRedirect("/AdminFeedback?updated");
                 break;
             case "add":
@@ -75,6 +75,7 @@ public class Feedback_Controller extends HttpServlet {
 
                 session.setAttribute("orderStep", null);
                 add.insertFeedback(message, rating, id, conn);
+                
                 response.sendRedirect("/Home?addedfeedback");
                 break;
         }
