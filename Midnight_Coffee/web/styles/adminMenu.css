@@ -127,6 +127,7 @@ body {
     color: white;
     padding: 5px;
     z-index: 10;
+    width: 100px;
 }
 
 #saveChangesBtn{
@@ -154,6 +155,7 @@ body {
     color: white;
     padding: 5px;
     z-index: 10;
+    width: 100px;
 }
 
 .deactivateItemBtn{
@@ -164,6 +166,7 @@ body {
     color: white;
     padding: 5px;
     z-index: 10;
+    width: 100px;
 }
 
 .reactivateItemBtn{
@@ -174,6 +177,7 @@ body {
     color: white;
     padding: 5px;
     z-index: 10;
+    width: 100px;
 }
 
 .updateItemBtn:hover,
@@ -571,4 +575,12 @@ input[type=file] .itemUpdateImage{
     .carouselContainer {
         transform: scale(0.6);
     }
+}
+
+.SalesCount{
+    background-color: #282747;
+    border-radius: 10px;
+    color: white;
+    width: auto;
+   padding-left: 35px;
 }

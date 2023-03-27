@@ -139,9 +139,9 @@
 
                             <%-- Item Price--%> 
                             <h3 class="itemPrice" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
-
-                            <form>
-                                Sales:<%=best.getInt("count")%>
+                            
+                            <form class="SalesCount">
+                                <h3>Sales: <%=best.getInt("count")%></h3>
                             </form>
                             
                         </div>
