@@ -110,11 +110,15 @@ public class IngredientList {
 
     public void IngredientDeactivated(String instruction, int itemCode, Connection conn) {
         try {
-            String query = "UPDATE products SET itemStock = ? WHERE itemCode IN ( SELECT itemCode FROM recipes WHERE ingredientList LIKE CONCAT('%', (SELECT ingredientName FROM ingredients WHERE itemCode = ?), '%') )";
-            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String query = "";
+            PreparedStatement stmnt = null;
             if (instruction.equals("Deactivate")) {
+                query = "UPDATE products SET itemStock = ? WHERE itemCode IN ( SELECT itemCode FROM recipes WHERE ingredientList LIKE CONCAT('%', (SELECT ingredientName FROM ingredients WHERE itemCode = ?), '%') )";
+                stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 stmnt.setString(1, "Out of Stock");
             } else {
+                query = "UPDATE products SET itemStock = ? WHERE itemCode IN ( SELECT r.itemCode FROM recipes r JOIN ingredients i ON r.ingredientList LIKE CONCAT('%', i.ingredientName, '%') WHERE i.itemCode = ? AND ingredientWeight >= minimumWeight )";
+                stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
                 stmnt.setString(1, "In Stock");
             }
             stmnt.setInt(2, itemCode);
