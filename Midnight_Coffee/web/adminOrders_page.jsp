@@ -40,11 +40,13 @@
 
                 <form method="POST" action="GeneratePDF">
                     <!-- download transactions pdf onclick -->  
+                     <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
                     <button class="transactionBtn" ><i class='fa fa-print'></i> Transaction Report</button>
                 </form>
 
                 <!-- download products pdf onclick -->  
                 <form method="POST" action="GenerateProduct">
+                      <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
                     <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
                 </form>
             </div>
