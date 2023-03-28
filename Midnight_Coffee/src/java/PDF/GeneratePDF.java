@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -31,7 +30,6 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.sql.PreparedStatement;
 import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,7 +107,7 @@ public class GeneratePDF extends HttpServlet {
         headerCell3.setBackgroundColor(new BaseColor(40, 39, 71));
         PdfPCell headerCell4 = new PdfPCell(new Phrase("Total", tableFont));
         headerCell4.setBackgroundColor(new BaseColor(40, 39, 71));
-        PdfPCell headerCell5 = new PdfPCell(new Phrase("Date", tableFont));
+        PdfPCell headerCell5 = new PdfPCell(new Phrase("Time", tableFont));
         headerCell5.setBackgroundColor(new BaseColor(40, 39, 71));
     
         table.addCell(headerCell1);
@@ -136,7 +134,7 @@ public class GeneratePDF extends HttpServlet {
                 cell3.setBackgroundColor(new BaseColor(40, 39, 71));
                 PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTotal")));
                 cell4.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell5 = new PdfPCell(new Phrase(ordersDate));
+                PdfPCell cell5 = new PdfPCell(new Phrase(results.getString("orderTime")));
                 cell5.setBackgroundColor(new BaseColor(40, 39, 71));
                 
                 
