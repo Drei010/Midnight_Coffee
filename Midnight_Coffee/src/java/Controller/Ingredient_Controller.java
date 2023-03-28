@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.IngredientList;
-import Model.ProductList;
 import Model.Recipes;
 import java.io.IOException;
 import java.sql.Connection;

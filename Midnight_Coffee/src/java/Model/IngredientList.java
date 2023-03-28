@@ -102,6 +102,24 @@ public class IngredientList {
             stmnt.setInt(2, itemCode);
             stmnt.executeUpdate();
             stmnt.close();
+            IngredientDeactivated(instruction, itemCode, conn);
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void IngredientDeactivated(String instruction, int itemCode, Connection conn) {
+        try {
+            String query = "UPDATE products SET itemStock = ? WHERE itemCode IN ( SELECT itemCode FROM recipes WHERE ingredientList LIKE CONCAT('%', (SELECT ingredientName FROM ingredients WHERE itemCode = ?), '%') )";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            if (instruction.equals("Deactivate")) {
+                stmnt.setString(1, "Out of Stock");
+            } else {
+                stmnt.setString(1, "In Stock");
+            }
+            stmnt.setInt(2, itemCode);
+            stmnt.executeUpdate();
+            stmnt.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -164,6 +182,7 @@ public class IngredientList {
                     }
                 }
             } else {
+                productList.beforeFirst();
                 while (productList.next()) {
                     if (productList.getString("ingredientList").contains(ingredient)) {
                         String recipeArray[] = productList.getString("ingredientList").split(",");
@@ -206,19 +225,19 @@ public class IngredientList {
             Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-            ///Deletes deactivated products from database
-    public String deleteDeactivated(Connection conn){
-             String sql ="DELETE FROM products WHERE deactivationtimestamp  IS NOT NULL";
-              try {
+
+    ///Deletes deactivated products from database
+    public String deleteDeactivated(Connection conn) {
+        String sql = "DELETE FROM products WHERE deactivationtimestamp  IS NOT NULL";
+        try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.executeUpdate();
             stmnt.close();
-    return "Yes";
-                }catch (SQLException ex){
-                    Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
-                }
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
-          }
+    }
 
 }
