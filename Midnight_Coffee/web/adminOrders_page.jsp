@@ -34,98 +34,101 @@
             }%>
 
         <div class="ordersBody">
-            <!-- Header with download pdf buttons -->  
-            <div class="ordersBtn">
-                <h1>Customer Orders</h1>
-
-                <form method="POST" action="GeneratePDF">
-                    <!-- download transactions pdf onclick -->  
-                    <button class="transactionBtn" ><i class='fa fa-print'></i> Transaction Report</button>
-                </form>
-
-                <!-- download products pdf onclick -->  
-                <form method="POST" action="GenerateProduct">
-                    <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
-                </form>
-            </div>
-
             <!-- Table of orders -->  
-            <div class="ordersPanel">
+            <div class="ordersContainers">
+                <div class="ordersPanel">
+                    <!-- Header with download pdf buttons -->
+                    <h1 class="title">Customer Orders</h1>
+                    <div class="ordersBtn">
+                        <form method="POST" action="GeneratePDF">
+                            <!-- download transactions pdf onclick -->  
+                            <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
+                            <button class="transactionBtn" ><i class='fa fa-print'></i> Transaction Report</button>
+                        </form>
 
-                <h1>Orders for <%= session.getAttribute("ordersDate")%></h1>
-                <%
-                    ResultSet customerOrders = (ResultSet) session.getAttribute("customerOrders");
-                    if (customerOrders != null) {
-                                   while (customerOrders.next()) {%>
+                        <!-- download products pdf onclick -->  
+                        <form method="POST" action="GenerateProduct">
+                            <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
+                            <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
+                        </form>
+                    </div>
+<div class="horizontalDivider"></div>
+                    <p class="orderDate">Orders for <%= session.getAttribute("ordersDate")%></p>
+                    <%
+                        ResultSet customerOrders = (ResultSet) session.getAttribute("customerOrders");
+                        if (customerOrders != null) {
+                            while (customerOrders.next()) {%>
+                    
+                    <div class="ordersPanelContents">
 
-                <div class="ordersPanelContents">
+                        <!-- Onclick change order Summary panel-->  
+                        <!--0-->  <button  class="openSummaryBtn">
 
-                    <!-- Onclick change order Summary panel-->  
-                    <!--0-->  <button  class="openSummaryBtn">
+                            <h2>Order Number:  <%=customerOrders.getString("orderId")%> </h2>
+                            <a>Customer Name:  <%=customerOrders.getString("customerFirstName")%> <%=customerOrders.getString("customerLastName")%> </a>
+                            <br>
+                            <a>Mobile Number: <%=customerOrders.getString("customerMobileNumber")%></a>
+                            <br>
+                            <a>Email: <%=customerOrders.getString("customerEmail")%></a>
+                            <br>
+                            <a>Time Ordered: <%=customerOrders.getString("orderTime")%></a>
+                        </button>
 
-                        <h2>Order Number:  <%=customerOrders.getString("orderId")%> </h2>
-                        <a>Customer Name:  <%=customerOrders.getString("customerFirstName")%> <%=customerOrders.getString("customerLastName")%> </a>
-                        <br>
-                        <a>Mobile Number: <%=customerOrders.getString("customerMobileNumber")%></a>
-                        <br>
-                        <a>Email: <%=customerOrders.getString("customerEmail")%></a>
-                        <br>
-                        <a>Time Ordered: <%=customerOrders.getString("orderTime")%></a>
-                    </button>
+                        <div class="horizontalDivider"></div>
 
-                    <!-- Hidden fields for summary panel-->  
+                        <!-- Hidden fields for summary panel-->  
 
-                    <input class="hiddenOrderID" type="hidden" name="orderID" value="<%=customerOrders.getString("orderId")%>">
-                    <input class="hiddenOrderTotal" type="hidden" value="<%=customerOrders.getString("orderTotal")%>">
-                    <input class="hiddensummaryName" type="hidden" value="<%=customerOrders.getString("summaryName")%>">
-                    <input class="hiddenOption" type="hidden" value="<%=customerOrders.getString("summaryOption")%>">
-                    <input class="hiddenQuantity" type="hidden" value="<%=customerOrders.getString("summaryQuantity")%>">
-                    <input class="hiddensummaryPrice" type="hidden" value="<%=customerOrders.getString("summaryPrice")%>">
+                        <input class="hiddenOrderID" type="hidden" name="orderID" value="<%=customerOrders.getString("orderId")%>">
+                        <input class="hiddenOrderTotal" type="hidden" value="<%=customerOrders.getString("orderTotal")%>">
+                        <input class="hiddensummaryName" type="hidden" value="<%=customerOrders.getString("summaryName")%>">
+                        <input class="hiddenOption" type="hidden" value="<%=customerOrders.getString("summaryOption")%>">
+                        <input class="hiddenQuantity" type="hidden" value="<%=customerOrders.getString("summaryQuantity")%>">
+                        <input class="hiddensummaryPrice" type="hidden" value="<%=customerOrders.getString("summaryPrice")%>">
+                    </div>
+                    <%}
+                    } else {%>
 
-
+                    <h1>Looks Like there are no orders for this day.</h1>
+                    <%}%>
                 </div>
-                <%}
-                      } else {%>
 
-                <h1>Looks Like there are no orders for this day.</h1>
-                <%}%>
+                <div class="dateAndSummary">
+                    <!-- Select Date -->  
+                    <div class="selectDate">
+                        <h1>Select Date</h1>
 
+                        <form  action="Orders_Controller" method="POST">
+                            <input class="inputDate" type="date"  name="inputDate">
+                            <input type="hidden" name="action" value="changeDate">
+                            <button class="dateBtn">Submit Date</button>
+                        </form>
+                    </div>
 
+                    <!-- Order Summary -->  
+                    <div class="orderSummary">
+                        <h1>Order Summary</h1>
+                        <h3>Order Number: <a id="orderNumberValue"></a></h3>
+                        <h3>Total PHP: <a id="priceTotalValue"></a> </h3>
 
-            </div>
+                        <table id="summaryTable">
+                            <thead>
+                                <tr>
+                                    <th>Items</th>
+                                    <th>Option</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>      
 
-            <!-- Select Date -->  
-            <div class="selectDate">
-                <h1>Select Date</h1>
+                        </table>
 
-                <form  action="Orders_Controller" method="POST">
-                    <input class="inputDate" type="date"  name="inputDate">
-                    <input type="hidden" name="action" value="changeDate">
-                    <button class="dateBtn">Submit Date</button>
-                </form>
-            </div>
-
-            <!-- Order Summary -->  
-            <div class="orderSummary">
-                <h1>Order Summary</h1>
-                <h3>Order Number: <a id="orderNumberValue"></a></h3>
-                <h3>Total PHP: <a id="priceTotalValue"></a> </h3>
-
-                <table id="summaryTable">
-                    <thead>
-                        <tr>
-                            <th>Items</th>
-                            <th>Option</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>      
-
-                </table>
+                    </div>
+                </div>
 
             </div>
+
         </div>
         <script>
             //getbtn       
@@ -190,3 +193,4 @@
         </script>
     </body>
 </html>
+

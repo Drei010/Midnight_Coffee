@@ -8,48 +8,70 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 body{
     margin: 0;
-    padding-top: 150px;
+}
+
+.title {
+    margin-top: 0;
+}
+
+.orderDate{
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .ordersBody{
-    display: grid;
-    grid-template-areas:
-        'ordersBtn selectDate'
-        'ordersPanel orderSummary';
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 150px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 
-    gap: 5px;
-    max-width: 80%;
-    max-height: 600px;
-    padding:10px;
-    margin:auto;
+.ordersContainers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ordersBtn{
-    grid-area: ordersBtn;
-    padding: 15px;
-    
+    display: flex;
 }
-.ordersPanel{
-    grid-area: ordersPanel;
-    padding: 15px;
-    
-}
+
+
 .selectDate{
-    grid-area: selectDate;
     padding: 15px;
     background-color: #282747;
     border-radius: 0.3rem;
     color:white;
-    
+    margin-bottom: 5px;
 }
+
+.selectDate h1{
+    margin-top: 0;
+}
+
+.orderSummary h1{
+    margin-top: 0;
+}
+
+.selectDate form input[type="date"]:hover{
+    cursor: text;
+}
+
 .orderSummary{
-    grid-area: orderSummary;
     padding: 15px;
     background-color: #282747;
     border-radius: 0.3rem;
     color:white;
-    
+    min-height: 180px;
+    max-height: 180px;
+    overflow-y:scroll;
+    overflow-x: hidden;
 }
+
 .transactionBtn,.productBtn{
     font-size: 1.5rem;
     color:white;
@@ -57,27 +79,54 @@ body{
     display: inline-block;
     padding: 10px 20px;
     border-radius: 0.3rem;
-    
-    
+    margin-right: 5px;
 }
 
 .ordersPanel{
     background-color: #AEB3AF;
-    justify-content: center;
-    align-items: center;
-    padding: 25px;
+    padding: 25px 36px 25px 25px;
     overflow-x: hidden;
     overflow-y:scroll;
-    height:270px;
     width:600px;
+    height: 350px;
     border-radius: 0.3rem;
+    margin-right: 10px;
 }
+
+.ordersPanel::-webkit-scrollbar,
+.orderSummary::-webkit-scrollbar{
+    width: 15px;
+}
+
+.ordersPanel::-webkit-scrollbar-track,
+.orderSummary::-webkit-scrollbar-track{
+    background-color: #AEB3AF;
+    border-radius: 10px;
+}
+
+.ordersPanel::-webkit-scrollbar-thumb,
+.orderSummary::-webkit-scrollbar-thumb{
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.ordersPanel::-webkit-scrollbar-thumb:hover,
+.orderSummary::-webkit-scrollbar-thumb:hover {
+    background-color: #cccccc;
+}
+
+.horizontalDivider {
+    height: 2px;
+    background-color: white;
+    margin: 5px 0;
+    width: 600px;
+}
+
 .openSummaryBtn{
     background-color: #282747;
     color:white;
-    font-size: 1rem;
+    font-size: 1.2rem;
     width:600px;
-
 }
 
 .inputDate{
@@ -92,16 +141,29 @@ body{
     text-indent: 20px;
 }
 .dateBtn {
-    cursor: pointer;
     color: white;
     font-size: 0.7rem;
+    font-weight: bold;
     text-transform: uppercase;
     width: 10rem;
     border: 0;
     padding: 10px 0;
-    margin: -10px 0 0 -10px;
     border-radius: 5px;
     background-color: #8DC075;
-    text-indent: 0;
-    text-align: center;
+    margin: 0px 40px 0px 40px;
+}
+
+.productBtn:hover, .transactionBtn:hover,
+.openSummaryBtn:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.dateBtn:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.productBtn, .transactionBtn,
+.openSummaryBtn, .dateBtn{
+    transition: transform 150ms ease-in-out;
 }
