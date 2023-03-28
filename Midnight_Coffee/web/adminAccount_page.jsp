@@ -24,7 +24,7 @@
                 <h3> Your ID is <%=session.getAttribute("adminID")%></h3>
                 <form action="AdminAccount_Controller" method="POST">
                     <input type="hidden" name="action" value="adminUpdate">    
-                     <input type="hidden" name="adminID" value="<%=session.getAttribute("adminID")%>">    
+                    <input type="hidden" name="adminID" value="<%=session.getAttribute("adminID")%>">    
                     <label for="old-adminKeyOld">Enter your old Admin Key</label>
                     <input type="password" id="adminKeyOld" name="adminKeyOld" required><br>
 
@@ -41,18 +41,19 @@
                 </form>
             </div>
         </div>
-                    
-                    
-                                 <form method="POST" action="AdminAccount_Controller">
-                    <!-- Delete deactivated Products -->  
-                     <input type="hidden" name="action" value="deleteDeactivatedProducts">
-                    <button>Permanently delete deactivated Products</button>
-                </form>
 
-                 <!-- Delete deactivated Ingredients -->   
-                <form method="POST" action="AdminAccount_Controller">
-                      <input type="hidden" name="action" value="deleteDeactivatedIngredients">
-                    <button>Permanently delete deactivated ingredients</button>
-                </form>
+        <div class="bottomButtons">
+            <form method="POST" action="AdminAccount_Controller">
+                <!-- Delete deactivated Products -->  
+                <input type="hidden" name="action" value="deleteDeactivatedProducts">
+                <button>Permanently delete deactivated Products</button>
+            </form>
+
+            <!-- Delete deactivated Ingredients -->   
+            <form method="POST" action="AdminAccount_Controller">
+                <input type="hidden" name="action" value="deleteDeactivatedIngredients">
+                <button>Permanently delete deactivated ingredients</button>
+            </form>
+        </div>
     </body>
 </html>

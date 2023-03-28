@@ -10,12 +10,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 body {
     margin: 0;
     color: white;
+    background-color: #CFCBC2;
 }
 
 .inner-container {
     background-color: #282747;
     padding: 20px;
     border-radius: 10px;
+    margin-top: 50px;
+    border: solid white;
 }
 
 .outer-container {
@@ -26,14 +29,12 @@ body {
 }
 
 .outer-container h2 {
-    color: #282747;
     text-align: center;
     border: 3px solid #282747;
     border-radius: 5px;
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
-    background-color: #AEB3AF;
 }
 
 label {
@@ -45,7 +46,6 @@ input[type="email"],
 input[type="password"],
 input[type="submit"] {
     display: block;
-    margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -57,10 +57,12 @@ input[type="submit"] {
     background-color: #3b3e6d;
     color: white;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
 }
 
 input[type="submit"]:hover {
     background-color: #464a7a;
+    transform: scale(1.1);
 }
 
 @media screen and (min-width: 768px) {
@@ -74,5 +76,34 @@ input[type="submit"]:hover {
     input[type="password"],
     input[type="submit"] {
         width: auto;
+    }
+
+    .bottomButtons{
+        background-color: #282747;
+        width: fit-content;
+        margin-left: 10px;
+        border: solid white;
+        border-radius: 5px;
+    }
+    
+    .bottomButtons button{
+        background-color: #f44336;
+        padding: 10px 20px;
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        color: white;
+        transition: transform 0.2s ease-in-out;
+        min-width: 315px;
+        max-width: 315px;
+    }
+    
+    .bottomButtons button:hover{
+        transform: scale(1.1);
     }
 }
