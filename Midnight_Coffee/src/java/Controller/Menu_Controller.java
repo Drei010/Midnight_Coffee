@@ -102,17 +102,19 @@ public class Menu_Controller extends HttpServlet {
                     session.setAttribute("tea", loadMenu.CustomerProducts("Tea", conn));
                     session.setAttribute("best", loadMenu.bestSellers(conn));
                 }
-                    
-                if (session.getAttribute("isGuest") != "yes" && session.getAttribute("isGuest") != "no") {
-                    session.setAttribute("isGuest", "yes");
-                }
-                if (session.getAttribute("isGuest").equals("yes")) {
-                    session.setAttribute("role", "guest");
-                } else if (session.getAttribute("isGuest").equals("no")) {
-                    session.setAttribute("role", "customer");
-                } else {
-                    session.setAttribute("role", "admin");
-                }
+ /*    nag auto logout kapag nakalogin tas pupunta sa admin menu kaya nakacomment out muna               
+if (!"yes".equals(session.getAttribute("isGuest")) && !"no".equals(session.getAttribute("isGuest"))) {
+    session.setAttribute("isGuest", "yes");
+}
+
+if ("yes".equals(session.getAttribute("isGuest"))) {
+    session.setAttribute("role", "guest");
+} else if ("no".equals(session.getAttribute("isGuest"))) {
+    session.setAttribute("role", "customer");
+} else {
+    session.setAttribute("role", "admin");
+}
+*/
 
                 //delete entry after 30 days of deactivation
                 // get the current date and time

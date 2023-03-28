@@ -45,29 +45,18 @@
                  <li class="header-nav-item">
                     <!-- If logged in -->
                     <a  id="logoutBtn" href="Logout">Log Out</a>
-                    <!-- If logged out -->
-                    <a id="loginBtn" href="/Login">Log in</a>
                 </li>
             </ul>
         </nav>
     </header>
-              <%
-           ///Check if user is logged in
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-            if("admin".equals(session.getAttribute("role"))){  
-            %>
-                 <script>
-                   // Hide the login button and show the logout button 
-                    document.getElementById("logoutBtn").style.display = "block";
-                    document.getElementById("loginBtn").style.display = "none";
-                    </script>
-                    <%
-            }   else{
-                    %>
-                    <script>
-                    // Hide the logout button and show the login button
-                    document.getElementById("logoutBtn").style.display = "none";
-                    document.getElementById("loginBtn").style.display = "block";
-                 </script>
-            <%}%>
+                <% 
+                    // Check if user is logged in
+                   
+                    if (!"admin".equals(session.getAttribute("role"))) {
+                %>
+                   <script>
+                       //enable nalang eto kapag wala nang babaguhin 
+                   // document.getElementById('logoutBtn').click();
+                        </script>
+                <%   }   %>
 </html>
