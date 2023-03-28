@@ -60,12 +60,11 @@ public class LoginSignup_Model {
         return null;
 
     }
-        public ResultSet retrieveAdminData(String email, String adminkey, Connection conn) {
+        public ResultSet retrieveAdminData(String adminkey, Connection conn) {
         try {
-            String query = "SELECT * FROM customer_credentials WHERE customerEmail = ? and customerLastName = ?";
+            String query = "SELECT * FROM customer_credentials WHERE customerLastName = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmnt.setString(1, email);
-            stmnt.setString(2, adminkey);
+            stmnt.setString(1, adminkey);
             ResultSet records = stmnt.executeQuery();
             if (records.next()) {
                 records.beforeFirst();
@@ -84,14 +83,13 @@ public class LoginSignup_Model {
     }
     
        
-    public String updateAdminData(String adminkeyUpdate,  String customerEmail, String passwordUpdate, int customerID, Connection conn) {
-        String sql = "UPDATE customer_credentials SET customerLastName = ?, customerEmail = ?  WHERE customerID = ?";
+    public String updateAdminData(String adminkeyUpdate,  String passwordUpdate, int customerID, Connection conn) {
+        String sql = "UPDATE customer_credentials SET customerLastName = ?, customerPassword = ?  WHERE customerID = ?";
         try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.setString(1, adminkeyUpdate);
-            stmnt.setString(2, customerEmail);
-            stmnt.setString(3, passwordUpdate);
-            stmnt.setInt(4, customerID);
+            stmnt.setString(2, passwordUpdate);
+            stmnt.setInt(3, customerID);
             stmnt.executeUpdate();
             stmnt.close();
             return "Yes";

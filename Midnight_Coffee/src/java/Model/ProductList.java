@@ -273,5 +273,20 @@ public class ProductList {
 
         return null;
     }
+    
+
+        ///Deletes deactivated products from database
+    public String deleteDeactivated(Connection conn){
+             String sql ="DELETE FROM products WHERE deactivationtimestamp  IS NOT NULL";
+              try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.executeUpdate();
+            stmnt.close();
+    return "Yes";
+                }catch (SQLException ex){
+                    Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
+                }
+        return null;
+          }
 
 }

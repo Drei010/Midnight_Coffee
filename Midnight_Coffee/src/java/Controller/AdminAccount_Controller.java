@@ -5,6 +5,8 @@
 package Controller;
 
 import Model.LoginSignup_Model;
+import Model.ProductList;
+import Model.IngredientList;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -72,13 +74,11 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
             
             case "adminLogin":
                 // get parameters
-         String email = request.getParameter("email");
+      
         String adminkey = request.getParameter("adminkey");
         String password = request.getParameter("password");
-
-
-        
-         ResultSet results = adminAccountProcess.retrieveAdminData(email, adminkey, conn);
+       
+         ResultSet results = adminAccountProcess.retrieveAdminData(encrypt(adminkey), conn);
          try {
             //check if account exists
             if (results == null|| !results.next()) {
@@ -98,14 +98,12 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     else{
                     //Set Attributes
                     HttpSession session = request.getSession();
-                    session.setAttribute("adminID", results.getString("customerID"));
-                     session.setAttribute("adminkey", results.getString("customerLastName"));
-                    session.setAttribute("email", results.getString("customerEmail"));
-                    session.setAttribute("adminID", results.getString("customerID"));
+                    session.setAttribute("adminID", results.getString("customerID"));                  
+                    session.setAttribute("role", "admin");
                     
                     //go to homepage if login is successful       
                
-                    response.sendRedirect("/AdminLogin?LoginSuccess");
+                    response.sendRedirect("/AdminHome?LoginSuccess");
                     }
             }
                 
@@ -116,16 +114,16 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
          
          case "adminUpdate":
                              // get parameters
-        String adminID = request.getParameter("customerID");
-         String emailOld = request.getParameter("emailOld");
+         String adminID = request.getParameter("adminID");
+         String adminKeyOld = request.getParameter("adminKeyOld");
          String passwordOld = request.getParameter("passwordOld");
         
-        String emailUpdate = request.getParameter("emailUpdate");
-        String adminkeyUpdate = request.getParameter("adminkey");
-        String passwordUpdate = request.getParameter("passwordUpdate");
+
+        String adminKeyUpdate = request.getParameter("adminKeyNew");
+        String passwordUpdate = request.getParameter("passwordNew");
         
         //check old password and old email
-                 ResultSet resultsUpdate = adminAccountProcess.retrieveAdminData(emailOld, adminkeyUpdate, conn);
+                 ResultSet resultsUpdate = adminAccountProcess.retrieveAdminData( encrypt(adminKeyOld), conn);
          try {
             //check if account exists
             if (resultsUpdate == null|| !resultsUpdate.next()) {
@@ -144,7 +142,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     }
                     else{
                         //update admin
-             // adminAccountProcess.updateAdminData(adminkeyUpdate,emailUpdate ,encrypt(passwordUpdate) , Integer.parseInt(adminID), conn);
+              adminAccountProcess.updateAdminData(encrypt(adminKeyUpdate), encrypt(passwordUpdate), Integer.parseInt(adminID), conn);
 
                
                     request.getRequestDispatcher("/AdminAccount?UpdateSuccess").forward(request, response);
@@ -155,6 +153,19 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                 Logger.getLogger(LoginSignup_Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+             break;
+             
+         case"deleteDeactivatedProducts":
+             ProductList deleteProducts = new ProductList();
+             deleteProducts.deleteDeactivated(conn);
+              response.sendRedirect("/AdminAccount?deletedproducts");
+             break;
+        
+        
+         case"deleteDeactivatedIngredients":
+             IngredientList deleteIngredients = new IngredientList();
+             deleteIngredients.deleteDeactivated(conn);
+              response.sendRedirect("/AdminAccount?deletedproducts");
              break;
         }
         

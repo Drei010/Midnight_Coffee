@@ -9,7 +9,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel='stylesheet' type='text/css' href='styles/general.css'>
         <link rel='stylesheet' type='text/css' href='styles/adminAccount.css'>
 
         <title>Admin Account</title>
@@ -22,24 +21,38 @@
         <div class="outer-container">
             <h2>Update Admin Account</h2>
             <div class="inner-container">
-                <form action="AdminAccount_Controllera" method="GET">
-                    <input type="hidden" name="adminkey" value=<%=session.getAttribute("adminkey")%>>  
+                <h3> Your ID is <%=session.getAttribute("adminID")%></h3>
+                <form action="AdminAccount_Controller" method="POST">
                     <input type="hidden" name="action" value="adminUpdate">    
-                    <label for="old-email">Enter your old Email:</label>
-                    <input type="email" id="emailOld" name="emailOld"><br>
+                     <input type="hidden" name="adminID" value="<%=session.getAttribute("adminID")%>">    
+                    <label for="old-adminKeyOld">Enter your old Admin Key</label>
+                    <input type="password" id="adminKeyOld" name="adminKeyOld" required><br>
 
-                    <label for="old-password">Enter your old Password:</label>
-                    <input type="password" id="passwordOld" name="passwordOld"><br>
+                    <label for="old-passwordOld">Enter your old Password:</label>
+                    <input type="password" id="passwordOld" name="passwordOld" required><br>
 
-                    <label for="new-email">Enter new Email:</label>
-                    <input type="email" id="emailUpdate" name="emailUpdate"><br>
+                    <label for="adminKeyNew-email">Enter Admin Key:</label>
+                    <input type="password" id="adminKeyNew" name="adminKeyNew" required><br>
 
-                    <label for="new-password">Enter new Password:</label>
-                    <input type="password" id="emailUpdate" name="emailUpdate"><br>
+                    <label for="new-passwordNew">Enter new Password:</label>
+                    <input type="password" id="passwordNew" name="passwordNew" required><br>
 
                     <input type="submit" value="Submit">
                 </form>
             </div>
         </div>
+                    
+                    
+                                 <form method="POST" action="AdminAccount_Controller">
+                    <!-- Delete deactivated Products -->  
+                     <input type="hidden" name="action" value="deleteDeactivatedProducts">
+                    <button>Permanently delete deactivated Products</button>
+                </form>
+
+                 <!-- Delete deactivated Ingredients -->   
+                <form method="POST" action="AdminAccount_Controller">
+                      <input type="hidden" name="action" value="deleteDeactivatedIngredients">
+                    <button>Permanently delete deactivated ingredients</button>
+                </form>
     </body>
 </html>

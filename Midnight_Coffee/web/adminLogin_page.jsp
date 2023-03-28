@@ -23,8 +23,6 @@
        
         <input type="hidden" name="action" value="adminLogin">    
         <h1>Admin Login</h1>
-        <h3>Email</h3>
-        <input type="email" name="email" required>
         <h3>Admin Key</h3>
         <input type="password" name="adminkey" required>
         <h3>Password</h3>
@@ -33,6 +31,7 @@
         
         <!-- Captcha -->
         <div class="center">
+            
         <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;"></div>
         <br>
 
