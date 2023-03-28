@@ -7,10 +7,13 @@ package Controller;
 import Model.LoginSignup_Model;
 import Model.ProductList;
 import Model.IngredientList;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Cipher;
@@ -158,9 +161,36 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
          case"deleteDeactivatedProducts":
              ProductList deleteProducts = new ProductList();
              deleteProducts.deleteDeactivated(conn);
-              response.sendRedirect("/AdminAccount?deletedproducts");
+                   
+                      //Get the destination file path of the MENUImage folder
+            String destinationMenu = (String) getServletContext().getAttribute("destination") + "/MENUImages";
+         List<String> allowedFilenames  = new ArrayList<>();
+            try {
+               ResultSet rs = deleteProducts.getProductImagepaths(conn);
+                while (rs.next()) {
+                    allowedFilenames.add(rs.getString("itemImage"));
+                
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_Controller.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+                    // Delete all images that do not have a file path in the database
+            File folder = new File(destinationMenu);
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile() && file.getName().toLowerCase().endsWith(".jpg")|| file.getName().toLowerCase().endsWith(".png")) {
+                        String filename = file.getName();
+                        if (!allowedFilenames.contains(filename)) {
+                            file.delete();
+                        }
+                    }
+                }
+            }
+         response.sendRedirect("/AdminAccount?deletedproducts");
+
              break;
-        
+         
         
          case"deleteDeactivatedIngredients":
              IngredientList deleteIngredients = new IngredientList();

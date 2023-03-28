@@ -232,7 +232,7 @@ public class IngredientList {
 
     ///Deletes deactivated products from database
     public String deleteDeactivated(Connection conn) {
-        String sql = "DELETE FROM products WHERE deactivationtimestamp  IS NOT NULL";
+        String sql = "DELETE FROM ingredients WHERE deactivationtimestamp  IS NOT NULL";
         try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.executeUpdate();

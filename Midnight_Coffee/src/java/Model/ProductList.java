@@ -289,4 +289,20 @@ public class ProductList {
         return null;
           }
 
+    
+        public ResultSet getProductImagepaths(Connection conn) {
+        try {
+            String query = "SELECT * FROM products";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
