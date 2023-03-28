@@ -34,6 +34,7 @@
             }%>
 
         <div class="ordersBody">
+
             <!-- Table of orders -->  
             <div class="ordersContainers">
                 <div class="ordersPanel">
