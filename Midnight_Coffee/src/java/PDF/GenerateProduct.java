@@ -133,20 +133,35 @@ public class GenerateProduct extends HttpServlet {
             
             // Set the border width of the table
             table.getDefaultCell().setBorderWidth(2f);
+              
+            PdfPCell headerCell1 = new PdfPCell(new Phrase("Item Name", tableFont));
+            headerCell1.setBackgroundColor(new BaseColor(40, 39, 71));
+            PdfPCell headerCell2 = new PdfPCell(new Phrase("Item Price", tableFont));
+            headerCell2.setBackgroundColor(new BaseColor(40, 39, 71));
+            PdfPCell headerCell3 = new PdfPCell(new Phrase("Item stock", tableFont));
+            headerCell3.setBackgroundColor(new BaseColor(40, 39, 71));
+            PdfPCell headerCell4 = new PdfPCell(new Phrase("Deactivated", tableFont));
+            headerCell4.setBackgroundColor(new BaseColor(40, 39, 71));
+            PdfPCell headerCell5 = new PdfPCell(new Phrase("Weight", tableFont));
+            headerCell5.setBackgroundColor(new BaseColor(40, 39, 71));
             
-            // Add cells with the custom font and background color
-            PdfPCell cell1 = new PdfPCell(new Phrase("Item Name", tableFont));
-            cell1.setBackgroundColor(new BaseColor(40, 39, 71));
-            PdfPCell cell2 = new PdfPCell(new Phrase("Item Price", tableFont));
-            cell2.setBackgroundColor(new BaseColor(40, 39, 71));
-            PdfPCell cell3 = new PdfPCell(new Phrase("Item stock", tableFont));
-            cell3.setBackgroundColor(new BaseColor(40, 39, 71));
-            PdfPCell cell4 = new PdfPCell(new Phrase("Deactivated", tableFont));
-            cell4.setBackgroundColor(new BaseColor(40, 39, 71));
-            PdfPCell cell5 = new PdfPCell(new Phrase("Weight", tableFont));
-            cell5.setBackgroundColor(new BaseColor(40, 39, 71));
+            PdfPCell cell1 = new PdfPCell(new Phrase("Item Name"));
+            PdfPCell cell2 = new PdfPCell(new Phrase("Item Price"));
+            PdfPCell cell3 = new PdfPCell(new Phrase("Item stock"));
+            PdfPCell cell4 = new PdfPCell(new Phrase("Deactivated"));
+            PdfPCell cell5 = new PdfPCell(new Phrase("Weight"));
+
             
             // Add the cells to the table
+
+
+            table.addCell(headerCell1);
+            table.addCell(headerCell2);
+            table.addCell(headerCell3);
+            table.addCell(headerCell4);
+            table.addCell(headerCell5);
+            table.setSkipFirstHeader(true);
+            
             table.addCell(cell1);
             table.addCell(cell2);
             table.addCell(cell3);
