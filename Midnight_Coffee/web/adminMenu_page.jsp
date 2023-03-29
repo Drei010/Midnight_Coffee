@@ -119,26 +119,24 @@
                     %>
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
-                        <div class="item">  
-                            <input type="hidden" class="itemCode" name="<%=best.getString("itemCode")%>">
-                            <input type="hidden" class="itemClass" name="<%=best.getString("itemClass")%>">
+                        <div class="item"> 
                             <%-- Item Name--%>
-                            <a class="itemName" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
+                            <a class="itemName"><%=best.getString("itemName")%></a>     
 
                             <%-- Item Image--%>
                             <img
                                 class="thumbnail"
                                 src="MENUImages/<%=best.getString("itemImage")%>"
-                                alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
+                                alt="Sample Item Image">
 
                             <%-- Item Option--%>
-                            <a class="itemOption" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
+                            <a class="itemOption"><%=best.getString("itemOption")%></a>
 
                             <%-- Item PriceTag--%>
                             <h3 class="itemPHPTag">PHP</h3>
 
                             <%-- Item Price--%> 
-                            <h3 class="itemPrice" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
+                            <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
                             
                             <form class="SalesCount">
                                 <h3>Sales: <%=best.getInt("count")%></h3>
