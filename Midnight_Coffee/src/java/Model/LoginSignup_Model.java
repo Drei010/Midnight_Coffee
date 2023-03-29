@@ -114,4 +114,35 @@ public class LoginSignup_Model {
         }
         return null;
     }
+    
+        public ResultSet getCustomerAccounts( Connection conn){
+        try {
+            String query = "SELECT * FROM customer_credentials";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.first();
+                return records;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        
+            ///Deletes Customer Account from database
+    public String deleteCustomerAccount(int customerID, Connection conn){
+             String sql ="DELETE FROM customer_credentials WHERE customerID = ?";
+              try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setInt(1,customerID);
+            stmnt.executeUpdate();
+            stmnt.close();
+    return "Yes";
+                }catch (SQLException ex){
+                    Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE,null,ex);
+                }
+        return null;
+          }
 }
