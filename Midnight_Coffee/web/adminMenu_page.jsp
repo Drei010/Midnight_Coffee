@@ -121,22 +121,22 @@
                         <%-- Slider Item Start--%>      
                         <div class="item"> 
                             <%-- Item Name--%>
-                            <a class="itemName"><%=best.getString("itemName")%></a>     
+                            <a class="" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
 
                             <%-- Item Image--%>
                             <img
-                                class="thumbnail"
+                                class=""
                                 src="MENUImages/<%=best.getString("itemImage")%>"
-                                alt="Sample Item Image">
+                                alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
 
                             <%-- Item Option--%>
-                            <a class="itemOption"><%=best.getString("itemOption")%></a>
+                            <a class="" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
 
                             <%-- Item PriceTag--%>
-                            <h3 class="itemPHPTag">PHP</h3>
+                            <h3 class="">PHP</h3>
 
                             <%-- Item Price--%> 
-                            <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+                            <h3 class="" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
                             
                             <form class="SalesCount">
                                 <h3>Sales: <%=best.getInt("count")%></h3>
