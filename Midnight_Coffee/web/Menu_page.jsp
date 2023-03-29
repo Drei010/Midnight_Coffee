@@ -213,16 +213,7 @@
             </div>
         </div>
 
-        <!--Footer Total-->
-        <footer>
-            <div class="footer-container">
-                <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
-                <label>Total &#8369;:</label>
-                <input type="text" class ="totalFooter" id="totalFooter" value="0" disabled=""/>
-            </div>
-        </footer>
-
-
+<!--        For coffee-->
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
@@ -458,6 +449,15 @@
                 </button>
             </div>
         </div>
+                
+                        <!--Footer Total-->
+        <footer>
+            <div class="footer-container">
+                <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
+                <label>Total &#8369;:</label>
+                <input type="text" class ="totalFooter" id="totalFooter" value="0" disabled=""/>
+            </div>
+        </footer>
 
     </body>
     <script>

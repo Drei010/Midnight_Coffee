@@ -266,6 +266,9 @@ public class ProductList {
                     }
                     stmnt.close();
                 }
+                else{
+                    System.out.println("aaaaaaaaaaaaaaaaaaaa");
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);

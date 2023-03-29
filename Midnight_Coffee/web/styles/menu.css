@@ -267,9 +267,10 @@ table{
 
 /* Pop up*/
 #popupModal {
+    margin-top: 100px;
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     padding-top: 100px;
     left: 0;
     top: 0;
@@ -297,18 +298,37 @@ table{
   width: 100%;
   border-collapse: collapse;
   font-size: 16px;
+  overflow-y: scroll;
+  height: 350px;
+  display: block;
+}
+
+#paymentTable thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+#paymentTable tbody {
+  display: table;
+  width: 100%;
+  overflow: auto;
+  height: auto; 
+  table-layout: fixed;
 }
 
 #paymentTable thead tr {
   background-color: #282747;
   text-align: center;
   color: white;
+  width: 100%;
 }
 
 #paymentTable th, #paymentTable td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
+  width: 100%;
 }
 
 /* Button styles */

@@ -69,9 +69,13 @@ public class Feedback_Controller extends HttpServlet {
                 session = request.getSession();
                 FeedbackList add = new FeedbackList();
                 String idString = (String) session.getAttribute("customerID");
+                System.out.println(idString);
                 String message = request.getParameter("message");
+                System.out.println(message);
                 int rating = Integer.parseInt(request.getParameter("rating"));
+                System.out.println(rating);
                 int id = Integer.parseInt(idString);
+                System.out.println(id);
 
                 session.setAttribute("orderStep", null);
                 add.insertFeedback(message, rating, id, conn);
