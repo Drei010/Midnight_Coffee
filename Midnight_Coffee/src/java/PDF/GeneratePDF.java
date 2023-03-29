@@ -99,7 +99,7 @@ public class GeneratePDF extends HttpServlet {
         table.getDefaultCell().setBorderWidth(2f);
         
       
-        PdfPCell headerCell1 = new PdfPCell(new Phrase("Order number"));
+        PdfPCell headerCell1 = new PdfPCell(new Phrase("Order number", tableFont));
         headerCell1.setBackgroundColor(new BaseColor(40, 39, 71));
         PdfPCell headerCell2 = new PdfPCell(new Phrase("Name", tableFont));
         headerCell2.setBackgroundColor(new BaseColor(40, 39, 71));
