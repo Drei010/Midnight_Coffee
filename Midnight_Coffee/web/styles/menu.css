@@ -21,6 +21,32 @@ body {
     margin: 0;
     padding-top: 100px;
     background-color: #CFCBC2;
+    margin-bottom: 100px;
+}
+
+.bestSellerRow{
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.bestSellerRow .item{
+    display: contents;
+}
+
+.bestSellerRow .itemContainer{
+    background-color: #AEB3AF;
+    padding: 20px;
+    border-radius: 20px;
+    width: 100vw;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+.bestSellerRow .elementContainer{
+    display: flex;
+    gap: 20px;
 }
 
 table{
@@ -109,7 +135,8 @@ table{
     border-radius: 10px;
     color: white;
     padding: 10px;
-    max-width: 100px;
+    max-width: 130px;
+    min-width: 130px;
 
 }
 

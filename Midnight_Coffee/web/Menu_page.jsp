@@ -40,131 +40,148 @@
         <%ResultSet best = (ResultSet) session.getAttribute("best");
             if (best != null) {
                 if (best.next()) {%>
-        <div class="itemContainer">
-
-            <%-- Slider Item Start--%>      
-            <div class="item">  
-
-                <%-- Hidden fields for database submission--%>
-                <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
-                <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
-                <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
-                <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+        <div class="bestSellerRow">
+            <div class="itemContainer">
 
                 <%-- Item Name--%>
                 <h1 class="itemName"><%=best.getString("itemName")%></h1>     
 
-                <%-- Item Image--%>
-                <img
-                    class="thumbnail"
-                    src="MENUImages/<%=best.getString("itemImage")%>"
-                    alt="Sample Item Image">
 
-                <%-- Item Option--%>
-                <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+                <%-- Slider Item Start--%>      
+                <div class="item">  
 
-                <%-- Item PriceTag--%>
-                <h3 class="itemPHPTag">PHP</h3>
+                    <%-- Hidden fields for database submission--%>
+                    <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                    <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                    <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                    <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                    <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
 
-                <%-- Item Price--%> 
-                <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+                    <%-- Item Image--%>
+                    <img
+                        class="thumbnail"
+                        src="MENUImages/<%=best.getString("itemImage")%>"
+                        alt="Sample Item Image">
 
-                <%-- Quantity Decrament--%>
-                <div class="dec">-</div>
+                    <%-- Item Option--%>
+                    <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
 
-                <%-- Quantity input field--%>
-                <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                    <div class ="elementContainer">
 
-                <%-- Quantity Incrament--%>
-                <div class="inc">+</div>
+                        <%-- Item PriceTag--%>
+                        <h3 class="itemPHPTag">PHP</h3>
 
+                        <%-- Item Price--%> 
+                        <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+
+                        <%-- Quantity Decrament--%>
+<!--                        <div class="dec">-</div>
+
+                        <%-- Quantity input field--%>
+<!--                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>-->
+
+                        <%-- Quantity Incrament--%>
+<!--                        <div class="inc">+</div>-->
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <%}
-            if (best.next()) {%>
-        <div class="itemContainer">
+            <%}
+                if (best.next()) {%>
 
-            <%-- Slider Item Start--%>      
-            <div class="item">  
-
-                <%-- Hidden fields for database submission--%>
-                <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
-                <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
-                <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
-                <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+            <div class="itemContainer">
 
                 <%-- Item Name--%>
-                <h1 class="itemName"><%=best.getString("itemName")%></h1>     
+                <h1 class="itemName"><%=best.getString("itemName")%></h1>  
 
-                <%-- Item Image--%>
-                <img
-                    class="thumbnail"
-                    src="MENUImages/<%=best.getString("itemImage")%>"
-                    alt="Sample Item Image">
+                <%-- Slider Item Start--%>      
+                <div class="item">  
 
-                <%-- Item Option--%>
-                <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+                    <%-- Hidden fields for database submission--%>
+                    <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                    <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                    <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                    <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                    <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
 
-                <%-- Item PriceTag--%>
-                <h3 class="itemPHPTag">PHP</h3>
 
-                <%-- Item Price--%> 
-                <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
 
-                <%-- Quantity Decrament--%>
-                <div class="dec">-</div>
+                    <%-- Item Image--%>
+                    <img
+                        class="thumbnail"
+                        src="MENUImages/<%=best.getString("itemImage")%>"
+                        alt="Sample Item Image">
 
-                <%-- Quantity input field--%>
-                <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                    <%-- Item Option--%>
+                    <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+                    
+                    <div class="elementContainer">
 
-                <%-- Quantity Incrament--%>
-                <div class="inc">+</div>
+                    <%-- Item PriceTag--%>
+                    <h3 class="itemPHPTag">PHP</h3>
 
+                    <%-- Item Price--%> 
+                    <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+
+                    <%-- Quantity Decrament--%>
+<!--                    <div class="dec">-</div>-->
+
+                    <%-- Quantity input field--%>
+<!--                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>-->
+
+                    <%-- Quantity Incrament--%>
+<!--                    <div class="inc">+</div>-->
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <%}
-            if (best.next()) {%>
-        <div class="itemContainer">
-
-            <%-- Slider Item Start--%>      
-            <div class="item">  
-
-                <%-- Hidden fields for database submission--%>
-                <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
-                <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
-                <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
-                <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+            <%}
+                if (best.next()) {%>
+            <div class="itemContainer">
 
                 <%-- Item Name--%>
-                <h1 class="itemName"><%=best.getString("itemName")%></h1>     
+                <h1 class="itemName"><%=best.getString("itemName")%></h1>   
+                <%-- Slider Item Start--%>      
+                <div class="item">  
 
-                <%-- Item Image--%>
-                <img
-                    class="thumbnail"
-                    src="MENUImages/<%=best.getString("itemImage")%>"
-                    alt="Sample Item Image">
+                    <%-- Hidden fields for database submission--%>
+                    <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                    <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                    <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                    <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                    <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
 
-                <%-- Item Option--%>
-                <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
 
-                <%-- Item PriceTag--%>
-                <h3 class="itemPHPTag">PHP</h3>
 
-                <%-- Item Price--%> 
-                <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+                    <%-- Item Image--%>
+                    <img
+                        class="thumbnail"
+                        src="MENUImages/<%=best.getString("itemImage")%>"
+                        alt="Sample Item Image">
 
-                <%-- Quantity Decrament--%>
-                <div class="dec">-</div>
+                    <%-- Item Option--%>
+                    <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+                    
+                    <div class ="elementContainer">
 
-                <%-- Quantity input field--%>
-                <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                    <%-- Item PriceTag--%>
+                    <h3 class="itemPHPTag">PHP</h3>
 
-                <%-- Quantity Incrament--%>
-                <div class="inc">+</div>
+                    <%-- Item Price--%> 
+                    <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
 
+                    <%-- Quantity Decrament--%>
+<!--                    <div class="dec">-</div>-->
+
+                    <%-- Quantity input field--%>
+<!--                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>-->
+
+                    <%-- Quantity Incrament--%>
+<!--                    <div class="inc">+</div>-->
+                    
+                    </div>
+
+                </div>
             </div>
         </div>
         <%}
@@ -213,7 +230,7 @@
             </div>
         </div>
 
-<!--        For coffee-->
+        <!--        For coffee-->
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
@@ -449,8 +466,8 @@
                 </button>
             </div>
         </div>
-                
-                        <!--Footer Total-->
+
+        <!--Footer Total-->
         <footer>
             <div class="footer-container">
                 <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
