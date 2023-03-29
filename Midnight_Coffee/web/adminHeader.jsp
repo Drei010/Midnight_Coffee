@@ -56,7 +56,7 @@
                 %>
                    <script>
                        //enable nalang eto kapag wala nang babaguhin 
-                   // document.getElementById('logoutBtn').click();
+                    document.getElementById('logoutBtn').click();
                         </script>
                 <%   }   %>
 </html>
