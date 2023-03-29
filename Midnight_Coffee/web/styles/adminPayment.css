@@ -13,6 +13,10 @@ body {
     background-color: #CFCBC2;
 }
 
+.createQRItem form{
+    max-width: 262.14px;
+}
+
 
 .QRBody .updateQRItemTitle,
 .QRBody .createQRItemTitle{
@@ -24,6 +28,9 @@ body {
     margin: 0;
 }
 
+.QRBody .createQRItemTitle{
+    max-width: 253.34px;
+}
 
 label{
     color: white;
@@ -58,7 +65,7 @@ label{
 .createQRItem{
     padding: 25px;
     background-color: #282747;
-    max-width: 600px;
+    max-width: 400px;
     max-height: 600px;
     color:white;
     border-radius: 10px;

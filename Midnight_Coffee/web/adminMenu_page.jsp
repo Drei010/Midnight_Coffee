@@ -38,9 +38,7 @@
 
         <%-- Open popup for all add buttons of Coffee, Tea, and Latte. No need to repeat for their lines --%>
         <div id="popupModal">
-
             <div class="container-popup">
-
                 <form onsubmit="stringify()" id="newProductForm" action="Menu_Controller" method="POST" enctype="multipart/form-data">
                     <h2 id="popupTitleID" value=""></h2>
                     <input type="hidden" name="ingredientList" id="hiddenIngredient">
@@ -90,7 +88,6 @@
                     </div>
                 </form>
                 <!-- Ingredients div end-->
-
             </div>
         </div>
 
@@ -98,21 +95,12 @@
 
             <%-- Carousel title and progress bar--%>       
             <div class="header-menu">
-                <h3 class="title">Coffee</h3>
-                <div class="progress-bar"></div>
+                <h3 class="title">Sales Count</h3>
             </div>
 
-            <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
-
-
+            <div class="bestCarouselContainer">
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
-
                     <%ResultSet best = (ResultSet) session.getAttribute("best");
                         if (best != null) {
                             while (best.next()) {
@@ -120,28 +108,32 @@
                     <div class="itemContainer"> 
                         <%-- Slider Item Start--%>      
                         <div class="item"> 
+
                             <%-- Item Name--%>
-                            <a class="" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
+                            <a class="bestItemName" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
 
                             <%-- Item Image--%>
-                            <img
-                                class=""
-                                src="MENUImages/<%=best.getString("itemImage")%>"
-                                alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
+                            <img class=""
+                                 src="MENUImages/<%=best.getString("itemImage")%>"
+                                 alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
 
                             <%-- Item Option--%>
-                            <a class="" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
+                            <a class="bestItemOption" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
 
-                            <%-- Item PriceTag--%>
-                            <h3 class="">PHP</h3>
+                            <div class="bestItemPrice">
 
-                            <%-- Item Price--%> 
-                            <h3 class="" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
-                            
-                            <form class="SalesCount">
-                                <h3>Sales: <%=best.getInt("count")%></h3>
-                            </form>
-                            
+                                <%-- Item PriceTag--%>
+                                <h3 class="">PHP</h3>
+
+                                <%-- Item Price--%> 
+                                <h3 class="" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
+
+                                <form class="SalesCount">
+                                    <h3>Sales: <%=best.getInt("count")%></h3>
+                                </form>
+
+                            </div>
+
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -149,12 +141,6 @@
                     <%}
                         }%>
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
-
-
             </div>
         </div>
 
@@ -163,16 +149,9 @@
             <%-- Carousel title and progress bar--%>       
             <div class="header-menu">
                 <h3 class="title">Coffee</h3>
-                <div class="progress-bar"></div>
             </div>
 
             <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
-
 
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
@@ -201,34 +180,38 @@
                             <%-- Item Option--%>
                             <a class="itemOption" name="<%=coffee.getString("itemOption")%>"><%=coffee.getString("itemOption")%></a>
 
-                            <%-- Item PriceTag--%>
-                            <h3 class="itemPHPTag">PHP</h3>
+                            <div class="drinkItemPrice">
+                                <%-- Item PriceTag--%>
+                                <h3 class="itemPHPTag">PHP</h3>
 
-                            <%-- Item Price--%> 
-                            <h3 class="itemPrice" id="<%=coffee.getString("itemPrice")%>"><%=coffee.getString("itemPrice")%></h3>
+                                <%-- Item Price--%> 
+                                <h3 class="itemPrice" id="<%=coffee.getString("itemPrice")%>"><%=coffee.getString("itemPrice")%></h3>
+                            </div>
 
-                            <!--Update Menu Item-->
-                            <form>
-                                <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
-                            </form>
+                            <div class="drinkButtons">
+                                <!--Update Menu Item-->
+                                <form>
+                                    <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                </form>
 
-                            <!--Update Availability-->
-                            <button class="availabilityItemBtn">
-                                <a> <%=coffee.getString("itemStock")%> </a>                       
-                            </button>
+                                <!--Update Availability-->
+                                <button class="availabilityItemBtn">
+                                    <a> <%=coffee.getString("itemStock")%> </a>                       
+                                </button>
 
-                            <!--Deactivate Availability-->
-                            <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
-                                <%if (coffee.getString("deactivated").equals("No")) {%>
-                                <input type="hidden" name="instruction" value="deactivate">
-                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%} else {%>
-                                <input type="hidden" name="instruction" value="reactivate">
-                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                <p style="color:red">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
-                                <%}%>
-                            </form>
+                                <!--Deactivate Availability-->
+                                <form action="Menu_Controller" method="post">
+                                    <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
+                                    <%if (coffee.getString("deactivated").equals("No")) {%>
+                                    <input type="hidden" name="instruction" value="deactivate">
+                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                    <%} else {%>
+                                    <input type="hidden" name="instruction" value="reactivate">
+                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                    <p style="color:red">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
+                                    <%}%>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -236,12 +219,6 @@
                     <%}
                         }%>
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
-
-
             </div>
         </div>
 
@@ -250,15 +227,9 @@
             <%-- Carousel title and progress bar--%>       
             <div class="header-menu">
                 <h3 class="title">Kremalatte</h3>
-                <div class="progress-bar"></div>
             </div>
 
             <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
 
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
@@ -287,34 +258,38 @@
                             <%-- Item Option--%>
                             <a class="itemOption" name="<%=kremalatte.getString("itemOption")%>"><%=kremalatte.getString("itemOption")%></a>
 
-                            <%-- Item PriceTag--%>
-                            <h3 class="itemPHPTag">PHP</h3>
+                            <div class="drinkItemPrice">
+                                <%-- Item PriceTag--%>
+                                <h3 class="itemPHPTag">PHP</h3>
 
-                            <%-- Item Price--%> 
-                            <h3 class="itemPrice" id="<%=kremalatte.getString("itemPrice")%>"><%=kremalatte.getString("itemPrice")%></h3>
+                                <%-- Item Price--%> 
+                                <h3 class="itemPrice" id="<%=kremalatte.getString("itemPrice")%>"><%=kremalatte.getString("itemPrice")%></h3>
+                            </div>
 
-                            <!--Update Menu Item-->
-                            <form>
-                                <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
-                            </form>
+                            <div class="drinkButtons">
+                                <!--Update Menu Item-->
+                                <form>
+                                    <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                </form>
 
-                            <!--Update Availability-->
-                            <button class="availabilityItemBtn">
-                                <a> <%=kremalatte.getString("itemStock")%> </a>                       
-                            </button>
+                                <!--Update Availability-->
+                                <button class="availabilityItemBtn">
+                                    <a> <%=kremalatte.getString("itemStock")%> </a>                       
+                                </button>
 
-                            <!--Deactivate Availability-->
-                            <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
-                                <%if (kremalatte.getString("deactivated").equals("No")) {%>
-                                <input type="hidden" name="instruction" value="deactivate">
-                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%} else {%>
-                                <input type="hidden" name="instruction" value="reactivate">
-                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
-                                <%}%>
-                            </form>
+                                <!--Deactivate Availability-->
+                                <form action="Menu_Controller" method="post">
+                                    <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
+                                    <%if (kremalatte.getString("deactivated").equals("No")) {%>
+                                    <input type="hidden" name="instruction" value="deactivate">
+                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                    <%} else {%>
+                                    <input type="hidden" name="instruction" value="reactivate">
+                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                    <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
+                                    <%}%>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -322,12 +297,6 @@
                     <%}
                         }%>
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
-
-
             </div>
         </div>
 
@@ -337,15 +306,9 @@
             <%-- Carousel title and progress bar--%>       
             <div class="header-menu">
                 <h3 class="title">Tea</h3>
-                <div class="progress-bar"></div>
             </div>
 
             <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
 
                 <%-- Carousel Items Slider--%>
                 <div class="slider">
@@ -374,34 +337,38 @@
                             <%-- Item Option--%>
                             <a class="itemOption" name="<%=tea.getString("itemOption")%>"><%=tea.getString("itemOption")%></a>
 
-                            <%-- Item PriceTag--%>
-                            <h3 class="itemPHPTag">PHP</h3>
+                            <div class="drinkItemPrice">
+                                <%-- Item PriceTag--%>
+                                <h3 class="itemPHPTag">PHP</h3>
 
-                            <%-- Item Price--%> 
-                            <h3 class="itemPrice" id="<%=tea.getString("itemPrice")%>"><%=tea.getString("itemPrice")%></h3>
+                                <%-- Item Price--%> 
+                                <h3 class="itemPrice" id="<%=tea.getString("itemPrice")%>"><%=tea.getString("itemPrice")%></h3>
+                            </div>
 
-                            <!--Update Menu Item-->
-                            <form>
-                                <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
-                            </form>
+                            <div class="drinkButtons">
+                                <!--Update Menu Item-->
+                                <form>
+                                    <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                </form>
 
-                            <!--Update Availability-->
-                            <button class="availabilityItemBtn">
-                                <a> <%=tea.getString("itemStock")%> </a>                       
-                            </button>
+                                <!--Update Availability-->
+                                <button class="availabilityItemBtn">
+                                    <a> <%=tea.getString("itemStock")%> </a>                       
+                                </button>
 
-                            <!--Deactivate Availability-->
-                            <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
-                                <%if (tea.getString("deactivated").equals("No")) {%>
-                                <input type="hidden" name="instruction" value="deactivate">
-                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%} else {%>
-                                <input type="hidden" name="instruction" value="reactivate">
-                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
-                                <%}%>
-                            </form>
+                                <!--Deactivate Availability-->
+                                <form action="Menu_Controller" method="post">
+                                    <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
+                                    <%if (tea.getString("deactivated").equals("No")) {%>
+                                    <input type="hidden" name="instruction" value="deactivate">
+                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                    <%} else {%>
+                                    <input type="hidden" name="instruction" value="reactivate">
+                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                    <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
+                                    <%}%>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -409,11 +376,6 @@
                     <%}
                         }%>
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
-
             </div>
         </div>
 
@@ -507,7 +469,9 @@
             </div>
         </div>
     </body>
-    <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
+    <footer>
+        <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
+    </footer>
     <script>
         // Add click event listener to document and invoke onHandleClick function if handle is clicked
         document.addEventListener("click", e => {

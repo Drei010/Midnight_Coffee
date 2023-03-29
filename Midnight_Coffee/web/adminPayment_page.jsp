@@ -102,6 +102,7 @@
 
                         <h4><label for="QRImage">QR Image</label></h4>
                         <input name="QRImage" id="QRImageAdd" type="file" required/> 
+                        <br>
                         <a id="warningAdd"></a>
                         <br>
 

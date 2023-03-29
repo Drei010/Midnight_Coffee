@@ -6,15 +6,106 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 6 Feb 2023, 12:11:13 am
     Author     : rvhin
 */
-*, *::after, *::before {
-    box-sizing: border-box;
+
+/*NEW CSS STARTS HERE*/
+
+.carouselContainer,
+.bestCarouselContainer{
+    display: flex;
+    overflow-x: scroll; /* enables horizontal scrolling */
+    margin-right: 1%; /* limits container width to fit screen size */
+    margin-left: 1%;
+    justify-content: start;
+    border: solid white;
+    border-width: 5px;
+    border-radius: 10px;
+    padding: 5px;
 }
 
-:root {
-    --handle-size: 3rem;
-    --div-gap: .3rem;
-    --item-height: 34rem;
+.bestCarouselContainer .itemContainer{
+    max-width: 355px;
+    max-height: 400px;
+
 }
+
+.bestCarouselContainer img,
+.thumbnail{
+    max-width: 300px;
+    max-height: 200px;
+    min-width: 300px;
+    min-height: 200px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.bestCarouselContainer .bestItemName{
+    font-size: 24px;
+    max-width: 350px;
+    min-width: 350px;
+}
+
+.bestCarouselContainer .bestItemOption{
+    background-color: #282747;
+    width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.bestCarouselContainer .bestItemPrice,
+.drinkItemPrice{
+    display: flex;
+}
+
+.drinkItemPrice h3{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.drinkButtons{
+    display: flex;
+}
+
+.carouselContainer::-webkit-scrollbar,
+.bestCarouselContainer::-webkit-scrollbar{
+    width: 15px;
+}
+
+.carouselContainer::-webkit-scrollbar-track,
+.bestCarouselContainer::-webkit-scrollbar-track{
+    background-color: #282747;
+    border-radius: 10px;
+}
+
+.carouselContainer::-webkit-scrollbar-thumb,
+.bestCarouselContainer::-webkit-scrollbar-thumb{
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.carouselContainer::-webkit-scrollbar-thumb:hover,
+.bestCarouselContainer::-webkit-scrollbar-thumb:hover{
+    background-color: #cccccc;
+}
+
+.row{
+    margin-top: 20px;
+}
+
+.SalesCount{
+    margin-left: auto;
+    margin-right: 28px;
+}
+
+.SalesCount h3{
+    background-color: #282747;
+    border-radius: 10px;
+    color: white;
+    width: auto;
+    padding: 10px;
+    margin: 5px 0px 0px 0px;
+}
+
+/*NEW CSS ENDS HERE*/
 
 body {
     color: white;
@@ -25,11 +116,7 @@ body {
 
 /*carousel container*/
 .carouselContainer {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    width: 100%;
-    flex-grow: 1;
+
 }
 
 .slider {
@@ -38,8 +125,7 @@ body {
     display: flex;
     flex-grow: 1;
     margin: 0 var(--div-gap);
-    transform: translateX(calc(var(--slider-index) * -100%));
-    transition: transform 250ms ease-in-out;
+    margin-bottom: 5px;
 }
 
 /*items*/
@@ -51,38 +137,15 @@ body {
     background-color: #AEB3AF;
 }
 
-/*item container grid*/
+/*item container*/
 .slider > .itemContainer >.item{
     display: grid;
-    grid-template-areas:
-        'itemName itemName  itemName  '
-        'thumbnail thumbnail  thumbnail  '
-        'itemOption itemOption  itemOption   '
-        'itemPHPTag itemPrice  updateItemBtn  '
-        'itemPHPTag itemPrice  availabilityItemBtn '
-        'itemPHPTag itemPrice deactivateItemBtn';
-    
-    gap: 0.5rem;
-    width:1rem;
-    padding:0.5rem;
-    margin-left: 1rem;
-    align-content: space-between;
-    align-items: stretch;
-    justify-items: stretch;
     justify-content: start;
+    padding: 15px;
 }
 .itemContainer{
-    max-width: 420px;
-    
-}
-
-
-/*item image*/
-.thumbnail{
-    grid-area: thumbnail;
-    width: 18.75rem;
-    height: 12.5rem;
-    margin: 0;
+    max-width: 355px;
+    max-height: 500px;
 }
 
 .currentImage{
@@ -93,19 +156,12 @@ body {
 
 /*item name*/
 .itemName{
-    grid-area: itemName;
-    font-size: 2rem;
+    font-size: 24px;
 
-}
-
-/*item php*/
-.itemPHPTag{
-    grid-area: itemPHPTag;
 }
 
 /*item option*/
 .itemOption{
-    grid-area: itemOption;
     background-color: #282747;
     border-radius: 10px;
     color: white;
@@ -113,14 +169,8 @@ body {
     max-width: 18.75rem;
 }
 
-/*item price*/
-.itemPrice{
-    grid-area: itemPrice;
-}
-
 /*item update*/
 .updateItemBtn{
-    grid-area: updateItemBtn;
     margin: 0;
     background-color: #8DC075;
     border-radius: 4px;
@@ -148,7 +198,6 @@ body {
 
 /*item availability*/
 .availabilityItemBtn{
-    grid-area: availabilityItemBtn;
     margin: 0;
     background-color: #758AC0;
     border-radius: 4px;
@@ -159,7 +208,6 @@ body {
 }
 
 .deactivateItemBtn{
-    grid-area: deactivateItemBtn;
     margin: 0;
     background-color: #C56161;
     border-radius: 4px;
@@ -170,7 +218,6 @@ body {
 }
 
 .reactivateItemBtn{
-    grid-area: deactivateItemBtn;
     margin: 0;
     background-color: #8DC075;
     border-radius: 4px;
@@ -188,91 +235,26 @@ body {
     transform: scale(1.2);
 }
 
-/*arrows*/
-.handle {
-    border: none;
-    border-radius: 1rem;
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-color: #282747;
-    z-index: 2;
-    margin: var(--div-gap) 0;
-    height: var(--item-height);
-    width: var(--handle-size);
-    cursor: pointer;
-    font-size: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    line-height: 0;
-    transition: background-color 150ms ease-in-out;
-    position: sticky;
-}
-
-/*Left arrow*/
-.left-handle {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    left: 0;
-}
-
-/*Right arrow*/
-.right-handle {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    right: 0;
-}
-
 .item{
     display: flex;
     align-items: center;
-}
-
-/*Arrow Hover*/
-.handle:hover,
-.handle:focus {
-    background-color: rgba(255, 255, 255, .5);
 }
 
 .text {
     transition: transform 150ms ease-in-out;
 }
 
-.handle:hover .text,
-.handle:focus .text {
-    transform: scale(1.2);
-}
-
 /*progress bar location*/
 .header-menu {
     display: flex;
-    justify-content: space-between;
-    padding: .5rem calc((var(--div-gap) * 2) + var(--handle-size));
     align-items: center;
     color: black;
 }
 
 .title {
     font-size: 2rem;
-    margin: 0;
-}
-
-/* Progress Bar*/
-.progress-bar {
-    display: flex;
-    gap: .25rem;
-}
-
-.progress-item {
-    flex: 0 0 1.5rem;
-    min-width: 1.5rem;
-    height: .5rem;
-    background-color: rgba(255, 255, 255, .5);
-}
-
-.progress-item.active {
-    background-color: rgba(255, 255, 255, .9);
+    margin-left: 2%;
+    margin-bottom: 0%;
 }
 
 /* Pop up*/
@@ -376,7 +358,7 @@ input[type=file] .itemUpdateImage{
     width: 60%;
     height: 500px;
     z-index: 5;
-    overflow: auto; 
+    overflow: auto;
 }
 
 .itemAddName{
@@ -457,9 +439,9 @@ input[type=file] .itemUpdateImage{
 }
 
 .itemAddName, .itemAddImage,
-.itemAddOption, .itemAddPrice, 
+.itemAddOption, .itemAddPrice,
 .container-popup-update input,
-.container-popup-update select, 
+.container-popup-update select,
 #updateProductImgDiv .currentImage{
     width: 100%;
     padding: 12px 20px;
@@ -471,7 +453,7 @@ input[type=file] .itemUpdateImage{
     color: black;
 }
 
-.container-popup-update select, 
+.container-popup-update select,
 .container-popup-update input,
 #updateProductImgDiv .currentImage{
     max-width: 204px;
@@ -493,17 +475,18 @@ input[type=file] .itemUpdateImage{
     background-size: contain;
     background-repeat: no-repeat;
     border: none;
-    height: var(--item-height);
+    height: 250px;
     width: 250px;
     transition: transform 0.2s ease;
     border-radius: 10px;
     background-color: #282747;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .addItem:hover{
     cursor: pointer;
-    transform: scale(1.2);
+    transform: scaleY(1.2);
+    transform: scaleX (1.05);
     z-index: 10;
 }
 
@@ -563,9 +546,9 @@ input[type=file] .itemUpdateImage{
     .slider {
         --items-per-screen: 3;
     }
-/*    .carouselContainer {
-        transform: scale(0.8);
-    }*/
+    /*    .carouselContainer {
+            transform: scale(0.8);
+        }*/
 }
 
 @media (max-width: 500px) {
@@ -577,10 +560,3 @@ input[type=file] .itemUpdateImage{
     }
 }
 
-.SalesCount{
-    background-color: #282747;
-    border-radius: 10px;
-    color: white;
-    width: auto;
-   padding-left: 35px;
-}
