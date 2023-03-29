@@ -90,7 +90,7 @@ public class GeneratePDF extends HttpServlet {
         rect.setBackgroundColor(new BaseColor(207, 203, 194));
         canvas.rectangle(rect);
         // Create a font object for the table
-        Font tableFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.WHITE);
+        Font tableFont = new Font(Font.FontFamily.HELVETICA, 15, Font.NORMAL, BaseColor.WHITE);
         // Create a PdfPTable object with 3 columns
         PdfPTable table = new PdfPTable(5);
         // Set the border color of the table
