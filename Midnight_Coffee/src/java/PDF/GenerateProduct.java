@@ -140,13 +140,13 @@ public class GenerateProduct extends HttpServlet {
                 int ordersArrayLength = summaryNameArray.length;
                 
                  for (int i = 0; i < ordersArrayLength; i++) {
-                PdfPCell cell1 = new PdfPCell(new Phrase(summaryNameArray[i]));
+                PdfPCell cell1 = new PdfPCell(new Phrase(summaryNameArray[i], tableFont));
                 cell1.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell2 = new PdfPCell(new Phrase(summaryOptionArray[i]));
+                PdfPCell cell2 = new PdfPCell(new Phrase(summaryOptionArray[i], tableFont));
                 cell2.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell3 = new PdfPCell(new Phrase(summaryQuantityArray[i]));
+                PdfPCell cell3 = new PdfPCell(new Phrase(summaryQuantityArray[i], tableFont));
                 cell3.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTime")));
+                PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTime"), tableFont));
                 cell4.setBackgroundColor(new BaseColor(40, 39, 71));
 
                 

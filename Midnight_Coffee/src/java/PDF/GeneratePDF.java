@@ -99,7 +99,7 @@ public class GeneratePDF extends HttpServlet {
         table.getDefaultCell().setBorderWidth(2f);
         
       
-        PdfPCell headerCell1 = new PdfPCell(new Phrase("Order number", tableFont));
+        PdfPCell headerCell1 = new PdfPCell(new Phrase("Order number"));
         headerCell1.setBackgroundColor(new BaseColor(40, 39, 71));
         PdfPCell headerCell2 = new PdfPCell(new Phrase("Name", tableFont));
         headerCell2.setBackgroundColor(new BaseColor(40, 39, 71));
@@ -126,15 +126,15 @@ public class GeneratePDF extends HttpServlet {
                response.sendRedirect("/adminOrders_page?Noordersforthatday");
                 } 
             while(results.next()){
-                PdfPCell cell1 = new PdfPCell(new Phrase(results.getString("orderID")));
+                PdfPCell cell1 = new PdfPCell(new Phrase(results.getString("orderID"), tableFont));
                 cell1.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell2 = new PdfPCell(new Phrase(results.getString("customerFirstName")));
+                PdfPCell cell2 = new PdfPCell(new Phrase(results.getString("customerFirstName"), tableFont));
                 cell2.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell3 = new PdfPCell(new Phrase(results.getString("customerEmail")));
+                PdfPCell cell3 = new PdfPCell(new Phrase(results.getString("customerEmail"), tableFont));
                 cell3.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTotal")));
+                PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTotal"), tableFont));
                 cell4.setBackgroundColor(new BaseColor(40, 39, 71));
-                PdfPCell cell5 = new PdfPCell(new Phrase(results.getString("orderTime")));
+                PdfPCell cell5 = new PdfPCell(new Phrase(results.getString("orderTime"), tableFont));
                 cell5.setBackgroundColor(new BaseColor(40, 39, 71));
                 
                 
