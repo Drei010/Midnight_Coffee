@@ -265,7 +265,7 @@
 
                             <div>
                                 <a href="mailto:business.midnightcoffee@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
-                                <p>business.midnightcoffee@gmail.com</a></p>
+                                <p>business.midnightcoffee<br>@gmail.com</a></p>
                             </div>
                         </div>
 

@@ -42,6 +42,8 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    max-height: 350px;
+    min-height: 350px;
 }
 
 .carousel-item h1, .carousel-item p {

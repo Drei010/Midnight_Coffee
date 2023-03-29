@@ -191,9 +191,9 @@
         <div id="popupModal">
 
             <div class="container-popup">
+                <div class="paymentTableTitle">Order Summary</div>
                 <table id="paymentTable">
-                    <thead>
-                        <tr>Order Summary</tr>
+                    <thead>                        
                         <tr>
                             <th>Quantity</th>
                             <th>Name</th>
@@ -470,9 +470,10 @@
         <!--Footer Total-->
         <footer>
             <div class="footer-container">
-                <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
-                <label>Total &#8369;:</label>
+                <label>Total: PHP </label>
                 <input type="text" class ="totalFooter" id="totalFooter" value="0" disabled=""/>
+                <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
+                
             </div>
         </footer>
 
