@@ -95,7 +95,7 @@ public class GenerateProduct extends HttpServlet {
         PdfPTable table = new PdfPTable(5);
         // Set the border color of the table
         table.getDefaultCell().setBorderColor(new BaseColor(250, 128, 114));
-        // Set the border width of the table
+
         table.getDefaultCell().setBorderWidth(2f);
         
       
@@ -150,8 +150,6 @@ public class GenerateProduct extends HttpServlet {
                 cell4.setBackgroundColor(new BaseColor(40, 39, 71));
 
                 
-                
-                // Add the cells to the table
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);

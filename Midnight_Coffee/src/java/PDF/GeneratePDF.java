@@ -95,7 +95,7 @@ public class GeneratePDF extends HttpServlet {
         PdfPTable table = new PdfPTable(5);
         // Set the border color of the table
         table.getDefaultCell().setBorderColor(new BaseColor(250, 128, 114));
-        // Set the border width of the table
+
         table.getDefaultCell().setBorderWidth(2f);
         
       
