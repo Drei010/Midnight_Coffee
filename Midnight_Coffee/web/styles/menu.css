@@ -16,17 +16,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     --div-gap: .25rem;
 }
 
+h1{
+    font-size: 24px;
+}
+
 body {
     color: white;
     margin: 0;
-    padding-top: 100px;
+    padding-top: 160px;
     background-color: #CFCBC2;
     margin-bottom: 100px;
 }
 
 .bestSellerRow{
     display: flex;
-    gap: 100px;
+    gap: 2%;
     justify-content: center;
     align-items: center;
 }
@@ -36,12 +40,18 @@ body {
 }
 
 .bestSellerRow .itemContainer{
+    display: grid;
+    grid-template-areas:
+        'itemName itemName  itemName itemName itemName '
+        'thumbnail thumbnail  thumbnail thumbnail thumbnail '
+        'itemOption itemOption  itemOption itemOption itemOption '
+        'itemPHPTag itemPrice  decrament itemQuantity incrament';
     background-color: #AEB3AF;
     padding: 20px;
     border-radius: 20px;
     width: 100vw;
-    max-height: 300px;
-    min-height: 300px;
+    max-height: max-content;
+    min-height: min-content;
 }
 
 .bestSellerRow .elementContainer{
@@ -55,12 +65,39 @@ table{
 }
 
 /*carousel container*/
-.carouselContainer {
+.carouselContainer, .bestSellerRow {
     display: flex;
-    justify-content: center;
-    overflow: hidden;
-    width: 100%;
-    flex-grow: 1;
+    overflow-x: scroll; /* enables horizontal scrolling */
+    margin-right: 1%; /* limits container width to fit screen size */
+    margin-left: 1%;
+    justify-content: start;
+    border-width: 5px;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: -8px 0 5px -5px rgba(0,0,0,2),
+        8px 0 5px -5px rgba(0,0,0,2);
+}
+
+.carouselContainer::-webkit-scrollbar,
+.bestSellerRow::-webkit-scrollbar{
+    width: 15px;
+}
+
+.carouselContainer::-webkit-scrollbar-track,
+.bestSellerRow::-webkit-scrollbar-track{
+    background-color: #282747;
+    border-radius: 10px;
+}
+
+.carouselContainer::-webkit-scrollbar-thumb,
+.bestSellerRow::-webkit-scrollbar-thumb{
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.carouselContainer::-webkit-scrollbar-thumb:hover,
+.bestSellerRow::-webkit-scrollbar-thumb:hover{
+    background-color: #cccccc;
 }
 
 .slider {
@@ -90,10 +127,8 @@ table{
         'thumbnail thumbnail  thumbnail thumbnail thumbnail '
         'itemOption itemOption  itemOption itemOption itemOption '
         'itemPHPTag itemPrice  decrament itemQuantity incrament';
-    gap: 0.5rem;
-    width:1rem;
     padding:0.5rem;
-    margin-left: 1rem;
+    margin-left: 5%;
     align-content: space-between;
     align-items: stretch;
     justify-items: stretch;
@@ -107,9 +142,12 @@ table{
 /*item image*/
 .thumbnail{
     grid-area: thumbnail;
-    width: 18.75rem;
-    height: 12.5rem;
+    max-width: 300px;
+    max-height: 200px;
+    min-width: 300px;
+    min-height: 200px;
     margin: 0;
+    border-radius: 10px;
 
 }
 
@@ -187,60 +225,14 @@ table{
     max-width: 25px;
 
 }
-/*arrows*/
-.handle {
-    border: none;
-    border-radius: 1rem;
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-color: #282747;
-    z-index: 1;
-    margin: var(--div-gap) 0;
-    width: var(--handle-size);
-    cursor: pointer;
-    font-size: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    line-height: 0;
-    transition: background-color 150ms ease-in-out;
-    position: sticky;
-}
-
-/*Left arrow*/
-.left-handle {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    left: 0;
-}
-
-/*Right arrow*/
-.right-handle {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    right: 0;
-}
 
 .item{
     display: flex;
     align-items: center;
 }
 
-/*Arrow Hover*/
-.handle:hover,
-.handle:focus {
-    background-color: rgba(255, 255, 255, .5);
-}
-
-
 .text {
     transition: transform 150ms ease-in-out;
-}
-
-.handle:hover .text,
-.handle:focus .text {
-    transform: scale(1.2);
 }
 
 /*progress bar location*/
@@ -257,12 +249,6 @@ table{
     margin: 0;
 }
 
-/* Progress Bar*/
-.progress-bar {
-    display: flex;
-    gap: .25rem;
-}
-
 .progress-item {
     flex: 0 0 1.5rem;
     min-width: 1.5rem;
@@ -270,17 +256,13 @@ table{
     background-color: rgba(255, 255, 255, .5);
 }
 
-.progress-item.active {
-    background-color: rgba(255, 255, 255, .9);
-}
-
 @media (max-width: 1000px) {
     .slider {
         --items-per-screen: 3;
     }
-/*    .carouselContainer {
-        transform: scale(0.8);
-    }*/
+    /*    .carouselContainer {
+            transform: scale(0.8);
+        }*/
 }
 
 @media (max-width: 500px) {
@@ -294,7 +276,6 @@ table{
 
 /* Pop up*/
 #popupModal {
-    margin-top: 100px;
     display: none;
     position: fixed;
     z-index: 10;
@@ -318,84 +299,85 @@ table{
     width: 60%;
     height: 500px;
     z-index: 5;
+    margin-top: 3%;
 }
 
 .paymentTableTitle {
-  font-family: "Poppins", sans-serif;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #282747;
-  text-shadow: 1px 1px #ddd;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #282747;
+    text-shadow: 1px 1px #ddd;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* Table styles */
 #paymentTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-  overflow-y: scroll;
-  height: 350px;
-  display: block;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    overflow-y: scroll;
+    height: 350px;
+    display: block;
 }
 
 #paymentTable thead {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 
 #paymentTable tbody {
-  display: table;
-  width: 100%;
-  overflow: auto;
-  height: auto; 
-  table-layout: fixed;
+    display: table;
+    width: 100%;
+    overflow: auto;
+    height: auto;
+    table-layout: fixed;
 }
 
 #paymentTable thead tr {
-  background-color: #282747;
-  text-align: center;
-  color: white;
-  width: 100%;
+    background-color: #282747;
+    text-align: center;
+    color: white;
+    width: 100%;
 }
 
 #paymentTable th, #paymentTable td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-  width: 100%;
-  font-size: 16px;
-  font-weight: normal;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 /* Button styles */
 .paymentBtn {
-  display: block;
-  margin: 20px auto 0;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #282747;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #282747;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .paymentBtn:hover {
-  background-color: #0062cc;
+    background-color: #0062cc;
 }
 
 /* Order Summary header styles */
 #paymentTable thead tr:first-child {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
 }
 
 footer {
@@ -419,23 +401,23 @@ footer {
 }
 
 .checkoutBtn{
-  width: 180px;
-  color: #fff;
-  border: 2px solid #fff;
-  background-color: transparent;
-  border-radius: 20px;
-  box-shadow: none;
-  transition: ease-out 0.3s;
-  font-size: 12px;
-  padding: 12px 0;
-  outline: none;
-  font-family: "Poppins", sans-serif;
+    width: 180px;
+    color: #fff;
+    border: 2px solid #fff;
+    background-color: transparent;
+    border-radius: 20px;
+    box-shadow: none;
+    transition: ease-out 0.3s;
+    font-size: 12px;
+    padding: 12px 0;
+    outline: none;
+    font-family: "Poppins", sans-serif;
 }
 
 .checkoutBtn:hover {
-  background-color: #fff;
-  color: #282747;
-  cursor: pointer;
+    background-color: #fff;
+    color: #282747;
+    cursor: pointer;
 }
 
 .totalFooter{
@@ -443,4 +425,15 @@ footer {
     background: none;
     color: white;
     font-size: 15px;
+}
+
+.horizontalDivider {
+    height: 10px;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 98%;
 }

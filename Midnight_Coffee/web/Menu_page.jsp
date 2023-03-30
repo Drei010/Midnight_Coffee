@@ -40,6 +40,9 @@
         <%ResultSet best = (ResultSet) session.getAttribute("best");
             if (best != null) {
                 if (best.next()) {%>
+        <div class="header-menu">
+            <h3 class="title">Top 3 Sellers</h3>
+        </div>
         <div class="bestSellerRow">
             <div class="itemContainer">
 
@@ -66,23 +69,22 @@
                     <%-- Item Option--%>
                     <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
 
-                    <div class ="elementContainer">
 
-                        <%-- Item PriceTag--%>
-                        <h3 class="itemPHPTag">PHP</h3>
 
-                        <%-- Item Price--%> 
-                        <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+                    <%-- Item PriceTag--%>
+                    <h3 class="itemPHPTag">PHP</h3>
 
-                        <%-- Quantity Decrament--%>
-<!--                        <div class="dec">-</div>
+                    <%-- Item Price--%> 
+                    <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
 
-                        <%-- Quantity input field--%>
-<!--                        <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>-->
+                    <%-- Quantity Decrament--%>
+                    <div class="dec">-</div>
 
-                        <%-- Quantity Incrament--%>
-<!--                        <div class="inc">+</div>-->
-                    </div>
+                    <%-- Quantity input field--%>
+                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+
+                    <%-- Quantity Incrament--%>
+                    <div class="inc">+</div>
 
                 </div>
             </div>
@@ -104,8 +106,6 @@
                     <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
                     <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
 
-
-
                     <%-- Item Image--%>
                     <img
                         class="thumbnail"
@@ -114,8 +114,6 @@
 
                     <%-- Item Option--%>
                     <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
-                    
-                    <div class="elementContainer">
 
                     <%-- Item PriceTag--%>
                     <h3 class="itemPHPTag">PHP</h3>
@@ -124,15 +122,13 @@
                     <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
 
                     <%-- Quantity Decrament--%>
-<!--                    <div class="dec">-</div>-->
+                    <div class="dec">-</div>
 
                     <%-- Quantity input field--%>
-<!--                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>-->
+                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
                     <%-- Quantity Incrament--%>
-<!--                    <div class="inc">+</div>-->
-                    </div>
-
+                    <div class="inc">+</div>
                 </div>
             </div>
             <%}
@@ -161,8 +157,7 @@
 
                     <%-- Item Option--%>
                     <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
-                    
-                    <div class ="elementContainer">
+
 
                     <%-- Item PriceTag--%>
                     <h3 class="itemPHPTag">PHP</h3>
@@ -171,15 +166,13 @@
                     <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
 
                     <%-- Quantity Decrament--%>
-<!--                    <div class="dec">-</div>-->
+                    <div class="dec">-</div>
 
                     <%-- Quantity input field--%>
-<!--                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>-->
+                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
                     <%-- Quantity Incrament--%>
-<!--                    <div class="inc">+</div>-->
-                    
-                    </div>
+                    <div class="inc">+</div>
 
                 </div>
             </div>
@@ -225,26 +218,19 @@
 
                     <button type="submit" class="paymentBtn"> Proceed to Payment</button>
                 </form>
-
-
             </div>
         </div>
 
+        <div class="horizontalDivider"></div>
         <!--        For coffee-->
         <div class="row">
 
             <%-- Carousel title and progress bar--%>       
             <div class="header-menu">
                 <h3 class="title">Coffee</h3>
-                <div class="progress-bar"></div>
             </div>
 
             <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
 
                 <%ResultSet coffee = (ResultSet) session.getAttribute("coffee");
                     if (coffee != null) {%>
@@ -303,28 +289,18 @@
                         }%>
 
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
             </div>
         </div>
-
+        <div class="horizontalDivider"></div>
         <!--        For krema latte-->
         <div class="row">
 
             <%-- Carousel title and progress bar--%>    
             <div class="header-menu">
                 <h3 class="title">Kremalatte</h3>
-                <div class="progress-bar"></div>
             </div>
 
             <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
 
                 <%ResultSet kremalatte = (ResultSet) session.getAttribute("kremalatte");
                     if (kremalatte != null) {%>
@@ -382,28 +358,18 @@
                         }%>
 
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
             </div>
         </div>       
-
+        <div class="horizontalDivider"></div>
         <!--        For teas-->
         <div class="row">
 
             <%-- Carousel title and progress bar--%>    
             <div class="header-menu">
                 <h3 class="title">Handcrafted Teas</h3>
-                <div class="progress-bar"></div>
             </div>
 
             <div class="carouselContainer">
-
-                <%-- Left Arrow Button--%>
-                <button class="handle left-handle">
-                    <div class="text">&#8249;</div>
-                </button>
 
                 <%ResultSet tea = (ResultSet) session.getAttribute("tea");
                     if (tea != null) {%>
@@ -460,139 +426,21 @@
                         }%>
 
                 </div>
-                <%-- Right Arrow Button--%>
-                <button class="handle right-handle">
-                    <div class="text">&#8250;</div>
-                </button>
             </div>
         </div>
-
+        <div class="horizontalDivider"></div>
         <!--Footer Total-->
         <footer>
             <div class="footer-container">
                 <label>Total: PHP </label>
                 <input type="text" class ="totalFooter" id="totalFooter" value="0" disabled=""/>
                 <button id="checkoutBtn" class="checkoutBtn"> Proceed to Checkout</button>
-                
+
             </div>
         </footer>
 
     </body>
     <script>
-
-        // If the arrow buttons are clicked
-        document.addEventListener("click", e => {
-            let handle;
-            if (e.target.matches(".handle")) {
-                handle = e.target;
-            } else {
-                handle = e.target.closest(".handle");
-            }
-            if (handle) {
-                onHandleClick(handle);
-            }
-        });
-
-        //Throttle progress bar update
-        const throttleProgressBar = throttle((delay = 1000) => {
-            document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-        });
-        window.addEventListener("resize", throttleProgressBar);
-
-        document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-
-
-        //Progress bar computation
-        function calculateProgressBar(progressBar) {
-            progressBar.innerHTML = "";
-            const slider = progressBar.closest(".row").querySelector(".slider");
-            if (!slider) {
-                return;
-            }
-            const itemCount = slider.children.length;
-            const itemsPerScreen = parseInt(
-                    getComputedStyle(slider).getPropertyValue("--items-per-screen")
-                    );
-            let sliderIndex = parseInt(
-                    getComputedStyle(slider).getPropertyValue("--slider-index")
-                    );
-            const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen);
-
-            if (sliderIndex >= progressBarItemCount) {
-                slider.style.setProperty("--slider-index", progressBarItemCount - 1);
-                sliderIndex = progressBarItemCount - 1;
-            }
-
-            for (let i = 0; i < progressBarItemCount; i++) {
-                const barItem = document.createElement("div");
-                barItem.classList.add("progress-item");
-                if (i === sliderIndex) {
-                    barItem.classList.add("active");
-                }
-                progressBar.append(barItem);
-            }
-        }
-
-
-        ///Move progress bar and containers
-        function onHandleClick(handle) {
-
-            const progressBar = handle.closest(".row").querySelector(".progress-bar");
-            const slider = handle.closest(".carouselContainer").querySelector(".slider");
-            const sliderIndex = parseInt(
-                    getComputedStyle(slider).getPropertyValue("--slider-index")
-                    );
-            const progressBarItemCount = progressBar.children.length;
-            if (handle.classList.contains("left-handle")) {
-                if (sliderIndex - 1 < 0) {
-                    slider.style.setProperty("--slider-index", progressBarItemCount - 1);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[progressBarItemCount - 1].classList.add("active");
-                } else {
-                    slider.style.setProperty("--slider-index", sliderIndex - 1);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[sliderIndex - 1].classList.add("active");
-                }
-            }
-
-            if (handle.classList.contains("right-handle")) {
-                if (sliderIndex + 1 >= progressBarItemCount) {
-                    slider.style.setProperty("--slider-index", 0);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[0].classList.add("active");
-                } else {
-                    slider.style.setProperty("--slider-index", sliderIndex + 1);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[sliderIndex + 1].classList.add("active");
-                }
-            }
-        }
-
-        function throttle(cb, delay = 1000) {
-            let shouldWait = false;
-            let waitingArgs;
-            const timeoutFunc = () => {
-                if (waitingArgs === null) {
-                    shouldWait = false;
-                } else {
-                    cb(...waitingArgs);
-                    waitingArgs = null;
-                    requestAnimationFrame(timeoutFunc, delay);
-                }
-            };
-
-            return (...args) => {
-                if (shouldWait) {
-                    waitingArgs = args;
-                    return;
-                }
-
-                cb(...args);
-                shouldWait = true;
-                requestAnimationFrame(timeoutFunc, delay);
-            };
-        }
-
 
         var incramentButton = document.getElementsByClassName('inc');
         var decramentButton = document.getElementsByClassName('dec');
