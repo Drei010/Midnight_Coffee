@@ -15,27 +15,28 @@ body {
     height: 64vh;
     background-color: #CFCBC2;
     border-radius: 5px;
-    width: 100%;
     justify-content: center;
+    margin-right: 40px;
+    margin-left: 40px;
+    margin-top: 20px;
 }
 .containerTabs{
-    width: 80vw;
-    background-color: #f2f2f2;
+    width: 80%;
+    background-color: #E6E6E6;
 
 }
 .side-menu {
-    width: 250px;
+    width: 15%;
     height: auto;
-    background: #E6E6E6;
+    background: #282747;
     box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.1);
     font-family: "Poppins", sans-serif;
 }
 
 
 .GeneralInfo, .PasswordInfo ,.DeactivateAccount{
-    background-color: #f2f2f2;
+    background-color: #E6E6E6;
     height: 50vh;
-    width: 60vh;
     padding: 50px;
 }
 
@@ -48,9 +49,10 @@ body {
 .li {
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    width: 100%;
 }
 a:link, a:visited{
-    color:black;
+    color:white;
     text-decoration: none;
 
 }

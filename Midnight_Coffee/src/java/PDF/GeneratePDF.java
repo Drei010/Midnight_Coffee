@@ -84,31 +84,40 @@ public class GeneratePDF extends HttpServlet {
         dateParagraph.setSpacingBefore(10f);
         document.add(dateParagraph);
         document.add(new Paragraph("\n\n"));
-        // Set the background color of the document
-        PdfContentByte canvas = writer.getDirectContentUnder();
-        Rectangle rect = new Rectangle(0, 0, PageSize.A4.getWidth(), PageSize.A4.getHeight());
-        rect.setBackgroundColor(new BaseColor(207, 203, 194));
-        canvas.rectangle(rect);
+
         // Create a font object for the table
-        Font tableFont = new Font(Font.FontFamily.HELVETICA, 15, Font.NORMAL, BaseColor.WHITE);
+        Font tableFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.WHITE);
         // Create a PdfPTable object with 3 columns
         PdfPTable table = new PdfPTable(5);
         // Set the border color of the table
         table.getDefaultCell().setBorderColor(new BaseColor(250, 128, 114));
+        
+        table.setWidthPercentage(100); // Set the width of the table to 100% of the page
+        float[] columnWidths = {2f, 3f, 3f, 2f, 3f}; // Define the column widths
+        table.setWidths(columnWidths);
 
         table.getDefaultCell().setBorderWidth(2f);
         
       
         PdfPCell headerCell1 = new PdfPCell(new Phrase("Order number", tableFont));
         headerCell1.setBackgroundColor(new BaseColor(40, 39, 71));
+        headerCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        
         PdfPCell headerCell2 = new PdfPCell(new Phrase("Name", tableFont));
         headerCell2.setBackgroundColor(new BaseColor(40, 39, 71));
+        headerCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+        
         PdfPCell headerCell3 = new PdfPCell(new Phrase("Email", tableFont));
         headerCell3.setBackgroundColor(new BaseColor(40, 39, 71));
+        headerCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+        
         PdfPCell headerCell4 = new PdfPCell(new Phrase("Total", tableFont));
         headerCell4.setBackgroundColor(new BaseColor(40, 39, 71));
+        headerCell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+        
         PdfPCell headerCell5 = new PdfPCell(new Phrase("Time", tableFont));
         headerCell5.setBackgroundColor(new BaseColor(40, 39, 71));
+        headerCell5.setHorizontalAlignment(Element.ALIGN_CENTER);
     
         table.addCell(headerCell1);
         table.addCell(headerCell2);
@@ -128,14 +137,24 @@ public class GeneratePDF extends HttpServlet {
             while(results.next()){
                 PdfPCell cell1 = new PdfPCell(new Phrase(results.getString("orderID"), tableFont));
                 cell1.setBackgroundColor(new BaseColor(40, 39, 71));
+                cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell1.setFixedHeight(30f);
+                
                 PdfPCell cell2 = new PdfPCell(new Phrase(results.getString("customerFirstName"), tableFont));
                 cell2.setBackgroundColor(new BaseColor(40, 39, 71));
+                cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 PdfPCell cell3 = new PdfPCell(new Phrase(results.getString("customerEmail"), tableFont));
                 cell3.setBackgroundColor(new BaseColor(40, 39, 71));
+                cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTotal"), tableFont));
                 cell4.setBackgroundColor(new BaseColor(40, 39, 71));
+                cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
                 PdfPCell cell5 = new PdfPCell(new Phrase(results.getString("orderTime"), tableFont));
                 cell5.setBackgroundColor(new BaseColor(40, 39, 71));
+                cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
                 
                 
                 // Add the cells to the table

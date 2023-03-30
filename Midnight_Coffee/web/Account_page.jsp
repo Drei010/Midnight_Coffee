@@ -25,10 +25,6 @@
             document.getElementById('logoutBtn').click();
         </script>
         <%   }%>
-        <div class="headerContainer">
-            <h1>Account Settings</h1>
-            <h3>Change your profile and account settings</h3>
-        </div>
         <div class="container">
             <div class="side-menu">
                 <ul class="ul">

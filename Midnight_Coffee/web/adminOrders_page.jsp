@@ -40,14 +40,14 @@
                     <!-- Header with download pdf buttons -->
                     <h1 class="title">Customer Orders</h1>
                     <div class="ordersBtn">
-                        <form method="POST" action="GeneratePDF">
+                        <form method="POST" action="GeneratePDF" target="_blank">
                             <!-- download transactions pdf onclick -->  
                             <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
                             <button class="transactionBtn" ><i class='fa fa-print'></i> Transaction Report</button>
                         </form>
 
                         <!-- download products pdf onclick -->  
-                        <form method="POST" action="GenerateProduct">
+                        <form method="POST" action="GenerateProduct" target="_blank">
                             <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
                             <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
                         </form>
