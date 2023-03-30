@@ -119,6 +119,8 @@ public class LoginSignup_Controller extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute("firstname", results.getString("customerFirstname"));
                         session.setAttribute("lastname", results.getString("customerLastname"));
+                        session.setAttribute("mobilenumber", results.getString("customerMobileNumber"));
+                        session.setAttribute("email", results.getString("customerEmail"));
                         session.setAttribute("customerID", results.getString("customerID"));
                         session.setAttribute("role", "customer");
                         session.setAttribute("isGuest", "no");

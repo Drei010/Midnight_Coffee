@@ -22,6 +22,23 @@
         <url-pattern>/Menu</url-pattern>
     </servlet-mapping>
     
+        <servlet>
+        <servlet-name>Account_page</servlet-name>
+        <jsp-file>/Account_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Account_page</servlet-name>
+        <url-pattern>/Account_page</url-pattern>
+    </servlet-mapping>
+            <servlet>
+        <servlet-name>adminCustomerManagement_page</servlet-name>
+        <jsp-file>/adminCustomerManagement_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminCustomerManagement_page</servlet-name>
+        <url-pattern>/adminCustomerManagement_page</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>Signup</servlet-name>
         <jsp-file>/Signup_page.jsp</jsp-file>
@@ -157,9 +174,7 @@
         <url-pattern>/Rating</url-pattern>
     </servlet-mapping>
     
-    <error-page>  
-        <location>/error_page.jsp</location>  
-    </error-page>  
+
        
     <context-param>
         <param-name>jdbcDriverURL</param-name>

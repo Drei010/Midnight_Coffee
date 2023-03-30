@@ -12,11 +12,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.itextpdf-5.5.9.jar-1}</file>
+                    <file>${file.reference.itextpdf-5.5.9.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.commons-codec-1.15.jar}</file>
+                    <file>${file.reference.mysql-connector-j-8.0.31.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

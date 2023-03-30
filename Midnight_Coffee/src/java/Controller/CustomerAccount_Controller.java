@@ -7,12 +7,16 @@ package Controller;
 import Model.LoginSignup_Model;
 import java.io.IOException;
 import java.sql.Connection;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -20,7 +24,36 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "CustomerAccount_Controller", urlPatterns = {"/CustomerAccount_Controller"})
 public class CustomerAccount_Controller extends HttpServlet {
+//Encryption
+    private static byte[] key = {0x41, 0x4E, 0x44, 0x52, 0x45, 0x49, 0x4B, 0x59, 0x4C, 0x45, 0x48, 0x49, 0x44, 0x41, 0x4C, 0x47};
 
+    public static String encrypt(String strToEncrypt) {
+        String encryptedString = null;
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
+            final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+            IvParameterSpec iv = new IvParameterSpec(new byte[16]);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
+            encryptedString = Base64.encodeBase64String(cipher.doFinal(strToEncrypt.getBytes()));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return encryptedString;
+    }
+
+    public static String decrypt(String codeDecrypt) {
+        String decryptedString = null;
+        try {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING", "SunJCE");
+            final SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
+            IvParameterSpec iv = new IvParameterSpec(new byte[16]);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
+            decryptedString = new String(cipher.doFinal(Base64.decodeBase64(codeDecrypt)));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return decryptedString;
+    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
  //Get Connection
@@ -39,13 +72,51 @@ public class CustomerAccount_Controller extends HttpServlet {
                 //Load customer Accounts
                 session.setAttribute("customerAccounts", processAccounts.getCustomerAccounts(conn));
                 session.setAttribute("loadedCustomerAccounts", "yes");
-                 response.sendRedirect("adminCustomerManagement_page.jsp");
+                 response.sendRedirect("/adminCustomerManagement_page");
                 break;
             case "Delete":
-                //Delete customer Accounts
+                //Delete customer Accounts admin side
+                int customerIDadmin = Integer.parseInt(request.getParameter("customerID"));
+                processAccounts.deleteCustomerAccount(customerIDadmin,conn);
+                 response.sendRedirect("adminCustomerManagement_page.jsp?accountdeleted");
+                break;
+            case "DeleteCustomer":
+                //Customer side delete
                 int customerID = Integer.parseInt(request.getParameter("customerID"));
                 processAccounts.deleteCustomerAccount(customerID,conn);
-                 response.sendRedirect("adminCustomerManagement_page.jsp?accountdeleted");
+                response.sendRedirect("/Account_page");
+                break;
+            case  "updatePassword":
+                int CustomerIDpassword= Integer.parseInt(request.getParameter("customerID"));
+                String oldCustomerPassword = request.getParameter("oldCustomerPassword");
+                String newCustomerPassword = request.getParameter("newCustomerPassword");
+                
+                //get old password
+                String encryptedOldPassword = processAccounts.getCustomerPassword(CustomerIDpassword, conn);
+                
+                
+                if (oldCustomerPassword.equals(decrypt(encryptedOldPassword))) {
+                    
+                //Update Password
+                processAccounts.updatePassword(CustomerIDpassword, encrypt(newCustomerPassword), conn);
+                response.sendRedirect("/Account_page?passwordupdated"); 
+                
+                } else {
+                    response.sendRedirect("/Account_page?oldpasswordisincorrect"); 
+                }
+
+                break;
+            case  "updateInfo":
+                 int CustomerIDinfo = Integer.parseInt(request.getParameter("customerID"));
+                 String newCustomerFirstName = request.getParameter("newCustomerFirstName");
+                 String newCustomerLastName = request.getParameter("newCustomerLastName");
+                 String newCustomerEmail = request.getParameter("newCustomerEmail");
+                 String newCustomerMobileNumber = request.getParameter("newCustomerMobileNumber");
+                 
+                 //Update General Info
+                 processAccounts.updateCustomerAccount(CustomerIDinfo, newCustomerFirstName, newCustomerLastName, newCustomerEmail, newCustomerMobileNumber, conn);
+
+                response.sendRedirect("/Logout"); 
                 break;
     }
     }

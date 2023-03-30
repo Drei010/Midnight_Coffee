@@ -10,7 +10,6 @@
     <head class>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='styles/loginSignup.css'>
-        <link rel='stylesheet' type='text/css' href='styles/Signup_page.css'>
         <title>Sign up Page</title>
         <!--Captcha API-->
         <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -26,7 +25,7 @@
                     <label id="First-Name" for="one">First name<input type="text" name="firstname" required>
                     </label>         
                     &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label id="First-Name" for="one">Last name <input type="text" name="lastname" required>
+                    <label id="First-Last" for="one">Last name <input type="text" name="lastname" required>
                     </label>
                 </div>
                 <h3>Password</h3>

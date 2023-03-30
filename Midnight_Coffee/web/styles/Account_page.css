@@ -1,0 +1,115 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 30 Mar 2023, 7:34:06 pm
+    Author     : Andrei
+*/
+
+    body {
+    margin: 0;
+    padding-top: 100px;
+    background-color: #CFCBC2;   
+    }
+    .headerContainer{
+    padding-left: 50px;
+
+    }
+    .container {
+      padding-left: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      height: 64vh;
+      background-color: #CFCBC2;
+      border-radius: 5px;
+    }
+    .containerTabs{
+        width:1200px;
+         background-color: #f2f2f2;
+        
+    }
+    .side-menu {
+      width: 250px;
+      height: 100%;
+      background: #E6E6E6;
+      box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+    }
+
+    
+    .GeneralInfo, .PasswordInfo ,.DeactivateAccount{
+        background-color: #f2f2f2;
+        height: 50vh;
+        width: 60vh;
+        padding: 50px;
+    }
+    
+    
+    .ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .li {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    a:link, a:visited{
+        color:black;
+      text-decoration: none;
+      
+    }
+    a:hover, a:active {
+      color: blue;
+    }
+
+    .updateBtn{
+        background-color: #008CBA;
+    }
+
+    .deleteBtn{
+        background-color: #f44336;
+    }
+
+
+    .updateBtn:hover,
+    .deleteBtn:hover{
+        cursor: pointer;
+        transform: scale(1.2);
+    }
+
+
+    .updateBtn,
+    .deleteBtn{
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 12px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: transform 150ms ease-in-out;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 5px;
+    }
+    input {
+    display: flex;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #E6E6E6;
+    width: 100%;
+    border: 1px solid;
+    border-color: black;
+    padding: 10px 10px;
+    margin: 15px -10px;
+    margin-top: -15px;    
+    }
+     .fullname   {
+    display: flex;
+    flex-direction: row;
+
+    }

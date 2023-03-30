@@ -94,7 +94,7 @@ public class LoginSignup_Model {
             stmnt.close();
             return "Yes";
         } catch (SQLException ex) {
-            Logger.getLogger(Payment_Model.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -145,4 +145,52 @@ public class LoginSignup_Model {
                 }
         return null;
           }
+    
+    
+        public String updateCustomerAccount(int CustomerIDinfo, String newCustomerFirstName,  String newCustomerLastName, String newCustomerEmail, String newCustomerMobileNumber, Connection conn) {
+        String sql = "UPDATE customer_credentials SET customerFirstName = ?, customerLastName = ?, customerEmail = ?, customerMobileNumber = ?  WHERE customerID = ?";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, newCustomerFirstName);
+            stmnt.setString(2, newCustomerLastName);
+            stmnt.setString(3, newCustomerEmail);
+            stmnt.setString(4, newCustomerMobileNumber);
+            stmnt.setInt(5, CustomerIDinfo);
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        
+        public String updatePassword(int CustomerIDinfo,  String customerPassword, Connection conn) {
+        String sql = "UPDATE customer_credentials SET customerPassword = ?  WHERE customerID = ?";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, customerPassword);
+            stmnt.setInt(2, CustomerIDinfo);
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        public String getCustomerPassword(int id, Connection conn) {
+            try {
+                String query = "SELECT customerPassword FROM customer_credentials WHERE customerID = ?";
+                PreparedStatement stmnt = conn.prepareStatement(query);
+                stmnt.setInt(1, id);
+                ResultSet records = stmnt.executeQuery();
+                if (records.next()) {
+                    return records.getString("customerPassword");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
 }

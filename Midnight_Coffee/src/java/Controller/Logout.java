@@ -24,6 +24,9 @@ public class Logout extends HttpServlet {
          HttpSession session = request.getSession();
         session.removeAttribute("firstname");
         session.removeAttribute("lastname"); 
+        session.removeAttribute("customerMobileNumber");
+        session.removeAttribute("customerEmail"); 
+        session.removeAttribute("customerID"); 
         session.removeAttribute("isGuest");
         session.removeAttribute("role");
         session.invalidate();
