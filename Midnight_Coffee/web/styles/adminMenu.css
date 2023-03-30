@@ -25,7 +25,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .bestCarouselContainer .itemContainer{
     max-width: 355px;
     max-height: 400px;
-
 }
 
 .bestCarouselContainer img,
@@ -36,6 +35,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     min-height: 200px;
     margin-bottom: 5px;
     margin-top: 5px;
+    border-radius: 10px;
 }
 
 .bestCarouselContainer .bestItemName{
@@ -63,6 +63,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .drinkButtons{
     display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .carouselContainer::-webkit-scrollbar,
@@ -88,7 +90,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .row{
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .SalesCount{
@@ -114,25 +116,14 @@ body {
     background-color: #CFCBC2;
 }
 
-/*carousel container*/
-.carouselContainer {
-
-}
-
 .slider {
-    --items-per-screen: 4;
-    --slider-index: 0;
     display: flex;
     flex-grow: 1;
-    margin: 0 var(--div-gap);
-    margin-bottom: 5px;
 }
 
 /*items*/
 .slider > .itemContainer {
-    flex: 0 0 calc(100% / var(--items-per-screen));
     margin-right:  0.5rem;
-    padding: var(--div-gap);
     border-radius: 1rem;
     background-color: #AEB3AF;
 }
@@ -175,8 +166,8 @@ body {
     background-color: #8DC075;
     border-radius: 4px;
     color: white;
-    padding: 5px;
-    z-index: 10;
+    padding: 5px 10px;
+    z-index: 3;
     width: 100px;
 }
 
@@ -202,28 +193,32 @@ body {
     background-color: #758AC0;
     border-radius: 4px;
     color: white;
-    padding: 5px;
-    z-index: 10;
+    padding: 5px 10px;
+    z-index: 3;
     width: 100px;
 }
 
 .deactivateItemBtn{
-    margin: 0;
+    margin-top: 5px;
+    margin-left: 34%;
+    margin-right: 30%;
     background-color: #C56161;
     border-radius: 4px;
     color: white;
-    padding: 5px;
-    z-index: 10;
+    padding: 5px 10px;
+    z-index: 3;
     width: 100px;
 }
 
 .reactivateItemBtn{
-    margin: 0;
+    margin-top: 5px;
+    margin-left: 34%;
+    margin-right: 30%;
     background-color: #8DC075;
     border-radius: 4px;
     color: white;
-    padding: 5px;
-    z-index: 10;
+    padding: 5px 10px;
+    z-index: 3;
     width: 100px;
 }
 
@@ -233,6 +228,7 @@ body {
 .reactivateItemBtn:hover
 {
     transform: scale(1.2);
+    cursor: pointer;
 }
 
 .item{
@@ -261,7 +257,7 @@ body {
 #popupModal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 5;
     padding-top: 100px;
     left: 0;
     top: 0;

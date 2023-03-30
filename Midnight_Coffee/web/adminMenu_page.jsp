@@ -198,20 +198,20 @@
                                 <button class="availabilityItemBtn">
                                     <a> <%=coffee.getString("itemStock")%> </a>                       
                                 </button>
-
-                                <!--Deactivate Availability-->
-                                <form action="Menu_Controller" method="post">
-                                    <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
-                                    <%if (coffee.getString("deactivated").equals("No")) {%>
-                                    <input type="hidden" name="instruction" value="deactivate">
-                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                    <%} else {%>
-                                    <input type="hidden" name="instruction" value="reactivate">
-                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                    <p style="color:red">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
-                                    <%}%>
-                                </form>
                             </div>
+
+                            <!--Deactivate Availability-->
+                            <form action="Menu_Controller" method="post">
+                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
+                                <%if (coffee.getString("deactivated").equals("No")) {%>
+                                <input type="hidden" name="instruction" value="deactivate">
+                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                <%} else {%>
+                                <input type="hidden" name="instruction" value="reactivate">
+                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <p style="color:red; text-align:center; margin-bottom: 0; margin-top: 5px;">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
+                                <%}%>
+                            </form>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -276,20 +276,19 @@
                                 <button class="availabilityItemBtn">
                                     <a> <%=kremalatte.getString("itemStock")%> </a>                       
                                 </button>
-
-                                <!--Deactivate Availability-->
-                                <form action="Menu_Controller" method="post">
-                                    <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
-                                    <%if (kremalatte.getString("deactivated").equals("No")) {%>
-                                    <input type="hidden" name="instruction" value="deactivate">
-                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                    <%} else {%>
-                                    <input type="hidden" name="instruction" value="reactivate">
-                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                    <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
-                                    <%}%>
-                                </form>
                             </div>
+                            <!--Deactivate Availability-->
+                            <form action="Menu_Controller" method="post">
+                                <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
+                                <%if (kremalatte.getString("deactivated").equals("No")) {%>
+                                <input type="hidden" name="instruction" value="deactivate">
+                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                <%} else {%>
+                                <input type="hidden" name="instruction" value="reactivate">
+                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
+                                <%}%>
+                            </form>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   
@@ -355,20 +354,19 @@
                                 <button class="availabilityItemBtn">
                                     <a> <%=tea.getString("itemStock")%> </a>                       
                                 </button>
-
-                                <!--Deactivate Availability-->
-                                <form action="Menu_Controller" method="post">
-                                    <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
-                                    <%if (tea.getString("deactivated").equals("No")) {%>
-                                    <input type="hidden" name="instruction" value="deactivate">
-                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                    <%} else {%>
-                                    <input type="hidden" name="instruction" value="reactivate">
-                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                    <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
-                                    <%}%>
-                                </form>
                             </div>
+                            <!--Deactivate Availability-->
+                            <form action="Menu_Controller" method="post">
+                                <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
+                                <%if (tea.getString("deactivated").equals("No")) {%>
+                                <input type="hidden" name="instruction" value="deactivate">
+                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                <%} else {%>
+                                <input type="hidden" name="instruction" value="reactivate">
+                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
+                                <%}%>
+                            </form>
                         </div>
                     </div>
                     <%-- Slider Item End--%>   

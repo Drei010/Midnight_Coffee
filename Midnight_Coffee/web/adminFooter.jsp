@@ -21,12 +21,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2;
-            margin-left: -30px;
+            z-index: 4;
         }
 
         .footer-container {
-            width: 80%;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
