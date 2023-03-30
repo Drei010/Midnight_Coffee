@@ -16,7 +16,7 @@
         <title>Orders</title>
     </head>
     <body>
-        <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->  
+        <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->
 
         <%
             if (!"yes".equals(session.getAttribute("loadedOrders"))) {
@@ -34,7 +34,6 @@
             }%>
 
         <div class="ordersBody">
-
             <!-- Table of orders -->  
             <div class="ordersContainers">
                 <div class="ordersPanel">
@@ -53,26 +52,22 @@
                             <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
                         </form>
                     </div>
-<div class="horizontalDivider"></div>
+                    <div class="horizontalDivider"></div>
                     <p class="orderDate">Orders for <%= session.getAttribute("ordersDate")%></p>
                     <%
                         ResultSet customerOrders = (ResultSet) session.getAttribute("customerOrders");
                         if (customerOrders != null) {
                             while (customerOrders.next()) {%>
-                    
+
                     <div class="ordersPanelContents">
 
                         <!-- Onclick change order Summary panel-->  
-                        <!--0-->  <button  class="openSummaryBtn">
-
+                 <!--0-->  <button  class="openSummaryBtn">
                             <h2>Order Number:  <%=customerOrders.getString("orderId")%> </h2>
-                            <a>Customer Name:  <%=customerOrders.getString("customerFirstName")%> <%=customerOrders.getString("customerLastName")%> </a>
-                            <br>
-                            <a>Mobile Number: <%=customerOrders.getString("customerMobileNumber")%></a>
-                            <br>
-                            <a>Email: <%=customerOrders.getString("customerEmail")%></a>
-                            <br>
-                            <a>Time Ordered: <%=customerOrders.getString("orderTime")%></a>
+                            <p>Customer Name:  <%=customerOrders.getString("customerFirstName")%> <%=customerOrders.getString("customerLastName")%> </p>
+                            <p>Mobile Number: <%=customerOrders.getString("customerMobileNumber")%></p>
+                            <p>Email: <%=customerOrders.getString("customerEmail")%></p>
+                            <p>Time Ordered: <%=customerOrders.getString("orderTime")%></p>
                         </button>
 
                         <div class="horizontalDivider"></div>
@@ -122,14 +117,10 @@
                             </thead>
                             <tbody>
                             </tbody>      
-
                         </table>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
         <script>
             //getbtn       
@@ -189,8 +180,6 @@
 
                 });
             }
-
-
         </script>
     </body>
 </html>

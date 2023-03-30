@@ -61,6 +61,10 @@ body{
     cursor: text;
 }
 
+.selectDate, .orderSummary{
+    border: 5px solid white;
+}
+
 .orderSummary{
     padding: 15px;
     background-color: #282747;
@@ -68,7 +72,7 @@ body{
     color:white;
     min-height: 180px;
     max-height: 180px;
-    overflow-y:scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -91,6 +95,7 @@ body{
     height: 350px;
     border-radius: 0.3rem;
     margin-right: 10px;
+    border: 5px solid white;
 }
 
 .ordersPanel::-webkit-scrollbar,
@@ -129,6 +134,16 @@ body{
     width:600px;
 }
 
+.openSummaryBtn p{
+    margin: 0;
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.openSummaryBtn h2{
+    pointer-events: none;
+}
+
 .inputDate{
     display: block;
     border-radius: 5px;
@@ -151,6 +166,17 @@ body{
     border-radius: 5px;
     background-color: #8DC075;
     margin: 0px 40px 0px 40px;
+}
+
+#summaryTable{
+    border: 2px solid white;
+}
+
+#summaryTable th,
+#summaryTable td {
+  border: 2px solid white; /* add border to table header and data cells */
+  text-align: center;
+  padding: 5px;
 }
 
 .productBtn:hover, .transactionBtn:hover,
