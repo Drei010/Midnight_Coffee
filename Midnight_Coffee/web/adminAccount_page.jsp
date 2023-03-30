@@ -21,6 +21,10 @@
         <div class="outer-container">
             <h2>Update Admin Account</h2>
             <div class="inner-container">
+                <div class="flex">
+                    <a href="/AdminAccount"> Account </a>
+                    <a href="/adminCustomerManagement_page.jsp"> Customer Accounts </a>
+                </div>
                 <h3> Your ID is <%=session.getAttribute("adminID")%></h3>
                 <form action="AdminAccount_Controller" method="POST">
                     <input type="hidden" name="action" value="adminUpdate">    
@@ -40,20 +44,25 @@
                     <input type="submit" value="Submit">
                 </form>
             </div>
+            <div class="bottomButtons">
+                <form method="POST" action="AdminAccount_Controller">
+                    <!-- Delete deactivated Products -->  
+                    <input type="hidden" name="action" value="deleteDeactivatedProducts">
+                    <button>Permanently delete deactivated Products</button>
+                </form>
+
+                <!-- Delete deactivated Ingredients -->   
+                <form method="POST" action="AdminAccount_Controller">
+                    <input type="hidden" name="action" value="deleteDeactivatedIngredients">
+                    <button>Permanently delete deactivated ingredients</button>
+                </form>
+            </div>
         </div>
 
-        <div class="bottomButtons">
-            <form method="POST" action="AdminAccount_Controller">
-                <!-- Delete deactivated Products -->  
-                <input type="hidden" name="action" value="deleteDeactivatedProducts">
-                <button>Permanently delete deactivated Products</button>
-            </form>
 
-            <!-- Delete deactivated Ingredients -->   
-            <form method="POST" action="AdminAccount_Controller">
-                <input type="hidden" name="action" value="deleteDeactivatedIngredients">
-                <button>Permanently delete deactivated ingredients</button>
-            </form>
-        </div>
+        <footer>
+            <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
+        </footer>
     </body>
+
 </html>

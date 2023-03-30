@@ -33,9 +33,6 @@
                 <li class="header-nav-item">
                     <a href="/AdminAccount"> Account </a>
                 </li>
-                 <li class="header-nav-item">
-                    <a href="/adminCustomerManagement_page.jsp"> Customer Accounts </a>
-                </li>
                 <li class="header-nav-item">
                     <a href="/AdminFeedback"> Feedback </a>
                 </li>
@@ -51,7 +48,7 @@
                 </li>
             </ul>
         </nav>
-    </header>
+    </header>   
                 <% 
                     // Check if user is logged in
                    
