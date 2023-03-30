@@ -579,7 +579,7 @@
                 warningAdd.innerText = '';
             } else {
                 addBtn.disabled = true;
-                warningAdd.innerText = 'Incompatible file types. Please use ethier .jpg or .png';
+                warningAdd.innerText = 'Incompatible file types. Please use either .jpg or .png';
                 warningAdd.style.color = "red";
             }
         });

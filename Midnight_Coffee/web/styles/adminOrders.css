@@ -25,7 +25,7 @@ body{
     align-items: center;
     position: absolute;
     top: 150px;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     right: 0;
 }
@@ -33,7 +33,7 @@ body{
 .ordersContainers{
     display: flex;
     justify-content: center;
-    align-items: center;
+    height: 100%;
 }
 
 .ordersBtn{
@@ -71,7 +71,7 @@ body{
     border-radius: 0.3rem;
     color:white;
     min-height: 180px;
-    max-height: 180px;
+    max-height: 50%;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -91,11 +91,15 @@ body{
     padding: 25px 36px 25px 25px;
     overflow-x: hidden;
     overflow-y:scroll;
-    width:600px;
-    height: 350px;
+    width: 100%;
+    height: auto;
     border-radius: 0.3rem;
     margin-right: 10px;
     border: 5px solid white;
+}
+
+.dateAndSummary{
+    width: 100%;
 }
 
 .ordersPanel::-webkit-scrollbar,
@@ -124,14 +128,14 @@ body{
     height: 2px;
     background-color: white;
     margin: 5px 0;
-    width: 600px;
+    width: 100%;
 }
 
 .openSummaryBtn{
     background-color: #282747;
     color:white;
     font-size: 1.2rem;
-    width:600px;
+    width:100%;
 }
 
 .openSummaryBtn p{
@@ -165,11 +169,12 @@ body{
     padding: 10px 0;
     border-radius: 5px;
     background-color: #8DC075;
-    margin: 0px 40px 0px 40px;
+    margin: 0px 40px 0px 10px;
 }
 
 #summaryTable{
     border: 2px solid white;
+    width: 100%;
 }
 
 #summaryTable th,

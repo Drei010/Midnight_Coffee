@@ -12,21 +12,13 @@
         <link rel='stylesheet' type='text/css' href='styles/adminHome.css'>
         <title>Admin</title>
     </head>
-
+    
     <body>
         <jsp:include page="adminHeader.jsp" /> <!-- Calls the header for admin-->
             <div class="admin-home-container">
-                <div class="home-container-contents">
-                    <div class="first-line">
-                        <p>Midnight Coffee</p>
-                    </div>
-                    <div class="second-line">
-                        <p>It's more than just coffee</p>
-                    </div>
-                    <div class="third-line">
-                        <p>Thank you for your great service!</p>
-                    </div>
-                </div>
+                <p>Thank you for your great service</p>
+                <p>at Midnight Coffee</p>
+                <button class="cta-button" onclick="location.href = '/AdminOrders';">View Orders</button>
             </div>
     </body>
 
