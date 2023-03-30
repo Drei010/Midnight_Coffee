@@ -98,51 +98,55 @@
                 <h3 class="title">Sales Count</h3>
             </div>
 
-            <div class="bestCarouselContainer">
-                <%-- Carousel Items Slider--%>
-                <div class="slider">
-                    <%ResultSet best = (ResultSet) session.getAttribute("best");
-                        if (best != null) {
-                            while (best.next()) {
-                    %>
-                    <div class="itemContainer"> 
-                        <%-- Slider Item Start--%>      
-                        <div class="item"> 
+            <div class="border">
+                <div class="bestCarouselContainer">
+                    <%-- Carousel Items Slider--%>
+                    <div class="slider">
+                        <%ResultSet best = (ResultSet) session.getAttribute("best");
+                            if (best != null) {
+                                while (best.next()) {
+                        %>
+                        <div class="itemContainer"> 
+                            <%-- Slider Item Start--%>      
+                            <div class="item"> 
 
-                            <%-- Item Name--%>
-                            <a class="bestItemName" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
+                                <%-- Item Name--%>
+                                <a class="bestItemName" name="<%=best.getString("itemName")%>"><%=best.getString("itemName")%></a>     
 
-                            <%-- Item Image--%>
-                            <img class=""
-                                 src="MENUImages/<%=best.getString("itemImage")%>"
-                                 alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
+                                <%-- Item Image--%>
+                                <img class=""
+                                     src="MENUImages/<%=best.getString("itemImage")%>"
+                                     alt="Sample Item Image" id="<%=best.getString("itemImage")%>">
 
-                            <%-- Item Option--%>
-                            <a class="bestItemOption" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
+                                <%-- Item Option--%>
+                                <a class="bestItemOption" name="<%=best.getString("itemOption")%>"><%=best.getString("itemOption")%></a>
 
-                            <div class="bestItemPrice">
+                                <div class="bestItemPrice">
 
-                                <%-- Item PriceTag--%>
-                                <h3 class="">PHP</h3>
+                                    <%-- Item PriceTag--%>
+                                    <h3 class="">PHP</h3>
 
-                                <%-- Item Price--%> 
-                                <h3 class="" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
+                                    <%-- Item Price--%> 
+                                    <h3 class="" id="<%=best.getString("itemPrice")%>"><%=best.getString("itemPrice")%></h3>
 
-                                <form class="SalesCount">
-                                    <h3>Sales: <%=best.getInt("count")%></h3>
-                                </form>
+                                    <form class="SalesCount">
+                                        <h3>Sales: <%=best.getInt("count")%></h3>
+                                    </form>
+
+                                </div>
 
                             </div>
-
                         </div>
-                    </div>
-                    <%-- Slider Item End--%>   
+                        <%-- Slider Item End--%>   
 
-                    <%}
-                        }%>
+                        <%}
+                            }%>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="horizontalDivider"></div>
 
         <div class="row">
 
@@ -151,76 +155,79 @@
                 <h3 class="title">Coffee</h3>
             </div>
 
-            <div class="carouselContainer">
+            <div class="border">
+                <div class="carouselContainer">
 
-                <%-- Carousel Items Slider--%>
-                <div class="slider">
+                    <%-- Carousel Items Slider--%>
+                    <div class="slider">
 
-                    <%-- Add Coffee Item Button --%>
-                    <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
+                        <%-- Add Coffee Item Button --%>
+                        <div class="item"> <button class="addItem" id="addCoffeeItem"></button></div>
 
-                    <%ResultSet coffee = (ResultSet) session.getAttribute("coffee");
-                        if (coffee != null) {
-                            while (coffee.next()) {
-                    %>
-                    <div class="itemContainer"> 
-                        <%-- Slider Item Start--%>      
-                        <div class="item">  
-                            <input type="hidden" class="itemCode" name="<%=coffee.getString("itemCode")%>">
-                            <input type="hidden" class="itemClass" name="<%=coffee.getString("itemClass")%>">
-                            <%-- Item Name--%>
-                            <a class="itemName" name="<%=coffee.getString("itemName")%>"><%=coffee.getString("itemName")%></a>     
+                        <%ResultSet coffee = (ResultSet) session.getAttribute("coffee");
+                            if (coffee != null) {
+                                while (coffee.next()) {
+                        %>
+                        <div class="itemContainer"> 
+                            <%-- Slider Item Start--%>      
+                            <div class="item">  
+                                <input type="hidden" class="itemCode" name="<%=coffee.getString("itemCode")%>">
+                                <input type="hidden" class="itemClass" name="<%=coffee.getString("itemClass")%>">
+                                <%-- Item Name--%>
+                                <a class="itemName" name="<%=coffee.getString("itemName")%>"><%=coffee.getString("itemName")%></a>     
 
-                            <%-- Item Image--%>
-                            <img
-                                class="thumbnail"
-                                src="MENUImages/<%=coffee.getString("itemImage")%>"
-                                alt="Sample Item Image" id="<%=coffee.getString("itemImage")%>">
+                                <%-- Item Image--%>
+                                <img
+                                    class="thumbnail"
+                                    src="MENUImages/<%=coffee.getString("itemImage")%>"
+                                    alt="Sample Item Image" id="<%=coffee.getString("itemImage")%>">
 
-                            <%-- Item Option--%>
-                            <a class="itemOption" name="<%=coffee.getString("itemOption")%>"><%=coffee.getString("itemOption")%></a>
+                                <%-- Item Option--%>
+                                <a class="itemOption" name="<%=coffee.getString("itemOption")%>"><%=coffee.getString("itemOption")%></a>
 
-                            <div class="drinkItemPrice">
-                                <%-- Item PriceTag--%>
-                                <h3 class="itemPHPTag">PHP</h3>
+                                <div class="drinkItemPrice">
+                                    <%-- Item PriceTag--%>
+                                    <h3 class="itemPHPTag">PHP</h3>
 
-                                <%-- Item Price--%> 
-                                <h3 class="itemPrice" id="<%=coffee.getString("itemPrice")%>"><%=coffee.getString("itemPrice")%></h3>
-                            </div>
+                                    <%-- Item Price--%> 
+                                    <h3 class="itemPrice" id="<%=coffee.getString("itemPrice")%>"><%=coffee.getString("itemPrice")%></h3>
+                                </div>
 
-                            <div class="drinkButtons">
-                                <!--Update Menu Item-->
-                                <form>
-                                    <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                <div class="drinkButtons">
+                                    <!--Update Menu Item-->
+                                    <form>
+                                        <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                    </form>
+
+                                    <!--Update Availability-->
+                                    <button class="availabilityItemBtn">
+                                        <a> <%=coffee.getString("itemStock")%> </a>                       
+                                    </button>
+                                </div>
+
+                                <!--Deactivate Availability-->
+                                <form action="Menu_Controller" method="post">
+                                    <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
+                                    <%if (coffee.getString("deactivated").equals("No")) {%>
+                                    <input type="hidden" name="instruction" value="deactivate">
+                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                    <%} else {%>
+                                    <input type="hidden" name="instruction" value="reactivate">
+                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                    <p style="color:red; text-align:center; margin-bottom: 0; margin-top: 5px;">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
+                                    <%}%>
                                 </form>
-
-                                <!--Update Availability-->
-                                <button class="availabilityItemBtn">
-                                    <a> <%=coffee.getString("itemStock")%> </a>                       
-                                </button>
                             </div>
-
-                            <!--Deactivate Availability-->
-                            <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=coffee.getString("itemCode")%>">
-                                <%if (coffee.getString("deactivated").equals("No")) {%>
-                                <input type="hidden" name="instruction" value="deactivate">
-                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%} else {%>
-                                <input type="hidden" name="instruction" value="reactivate">
-                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                <p style="color:red; text-align:center; margin-bottom: 0; margin-top: 5px;">Product will be permanently deleted in: <%=coffee.getString("deactivationtimestamp")%></p>
-                                <%}%>
-                            </form>
                         </div>
-                    </div>
-                    <%-- Slider Item End--%>   
+                        <%-- Slider Item End--%>   
 
-                    <%}
-                        }%>
+                        <%}
+                            }%>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="horizontalDivider"></div>
 
         <div class="row">
 
@@ -229,76 +236,79 @@
                 <h3 class="title">Kremalatte</h3>
             </div>
 
-            <div class="carouselContainer">
+            <div class="border">
+                <div class="carouselContainer">
 
-                <%-- Carousel Items Slider--%>
-                <div class="slider">
+                    <%-- Carousel Items Slider--%>
+                    <div class="slider">
 
-                    <%-- Add Kremalatte Item Button --%>
-                    <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
-                        <%ResultSet kremalatte = (ResultSet) session.getAttribute("kremalatte");
-                            if (kremalatte != null) {
-                                while (kremalatte.next()) {
-                        %>
+                        <%-- Add Kremalatte Item Button --%>
+                        <div class="item"> <button class="addItem" id="addLatteItem"></button></div>
+                            <%ResultSet kremalatte = (ResultSet) session.getAttribute("kremalatte");
+                                if (kremalatte != null) {
+                                    while (kremalatte.next()) {
+                            %>
 
-                    <div class="itemContainer"> 
-                        <%-- Slider Item Start--%>      
-                        <div class="item">  
-                            <input type="hidden" class="itemCode" name="<%=kremalatte.getString("itemCode")%>">
-                            <input type="hidden" class="itemClass" name="<%=kremalatte.getString("itemClass")%>">
-                            <%-- Item Name--%>
-                            <a class="itemName" name="<%=kremalatte.getString("itemName")%>"><%=kremalatte.getString("itemName")%></a>     
+                        <div class="itemContainer"> 
+                            <%-- Slider Item Start--%>      
+                            <div class="item">  
+                                <input type="hidden" class="itemCode" name="<%=kremalatte.getString("itemCode")%>">
+                                <input type="hidden" class="itemClass" name="<%=kremalatte.getString("itemClass")%>">
+                                <%-- Item Name--%>
+                                <a class="itemName" name="<%=kremalatte.getString("itemName")%>"><%=kremalatte.getString("itemName")%></a>     
 
-                            <%-- Item Image--%>
-                            <img
-                                class="thumbnail"
-                                src="MENUImages/<%=kremalatte.getString("itemImage")%>"
-                                alt="Sample Item Image" id="<%=kremalatte.getString("itemImage")%>">
+                                <%-- Item Image--%>
+                                <img
+                                    class="thumbnail"
+                                    src="MENUImages/<%=kremalatte.getString("itemImage")%>"
+                                    alt="Sample Item Image" id="<%=kremalatte.getString("itemImage")%>">
 
-                            <%-- Item Option--%>
-                            <a class="itemOption" name="<%=kremalatte.getString("itemOption")%>"><%=kremalatte.getString("itemOption")%></a>
+                                <%-- Item Option--%>
+                                <a class="itemOption" name="<%=kremalatte.getString("itemOption")%>"><%=kremalatte.getString("itemOption")%></a>
 
-                            <div class="drinkItemPrice">
-                                <%-- Item PriceTag--%>
-                                <h3 class="itemPHPTag">PHP</h3>
+                                <div class="drinkItemPrice">
+                                    <%-- Item PriceTag--%>
+                                    <h3 class="itemPHPTag">PHP</h3>
 
-                                <%-- Item Price--%> 
-                                <h3 class="itemPrice" id="<%=kremalatte.getString("itemPrice")%>"><%=kremalatte.getString("itemPrice")%></h3>
-                            </div>
+                                    <%-- Item Price--%> 
+                                    <h3 class="itemPrice" id="<%=kremalatte.getString("itemPrice")%>"><%=kremalatte.getString("itemPrice")%></h3>
+                                </div>
 
-                            <div class="drinkButtons">
-                                <!--Update Menu Item-->
-                                <form>
-                                    <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                <div class="drinkButtons">
+                                    <!--Update Menu Item-->
+                                    <form>
+                                        <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                    </form>
+
+                                    <!--Update Availability-->
+                                    <button class="availabilityItemBtn">
+                                        <a> <%=kremalatte.getString("itemStock")%> </a>                       
+                                    </button>
+                                </div>
+                                <!--Deactivate Availability-->
+                                <form action="Menu_Controller" method="post">
+                                    <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
+                                    <%if (kremalatte.getString("deactivated").equals("No")) {%>
+                                    <input type="hidden" name="instruction" value="deactivate">
+                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                    <%} else {%>
+                                    <input type="hidden" name="instruction" value="reactivate">
+                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                    <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
+                                    <%}%>
                                 </form>
-
-                                <!--Update Availability-->
-                                <button class="availabilityItemBtn">
-                                    <a> <%=kremalatte.getString("itemStock")%> </a>                       
-                                </button>
                             </div>
-                            <!--Deactivate Availability-->
-                            <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=kremalatte.getString("itemCode")%>">
-                                <%if (kremalatte.getString("deactivated").equals("No")) {%>
-                                <input type="hidden" name="instruction" value="deactivate">
-                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%} else {%>
-                                <input type="hidden" name="instruction" value="reactivate">
-                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                <p style="color:red">Product will be permanently deleted in: <%=kremalatte.getString("deactivationtimestamp")%></p>
-                                <%}%>
-                            </form>
                         </div>
-                    </div>
-                    <%-- Slider Item End--%>   
+                        <%-- Slider Item End--%>   
 
-                    <%}
-                        }%>
+                        <%}
+                            }%>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div class="horizontalDivider"></div>
 
         <div class="row">
 
@@ -307,72 +317,74 @@
                 <h3 class="title">Tea</h3>
             </div>
 
-            <div class="carouselContainer">
+            <div class="border">
+                <div class="carouselContainer">
 
-                <%-- Carousel Items Slider--%>
-                <div class="slider">
+                    <%-- Carousel Items Slider--%>
+                    <div class="slider">
 
-                    <%-- Add Tea Item Button --%>
-                    <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
-                        <%ResultSet tea = (ResultSet) session.getAttribute("tea");
-                            if (tea != null) {
-                                while (tea.next()) {
-                        %>
+                        <%-- Add Tea Item Button --%>
+                        <div class="item"> <button class="addItem" id="addTeaItem"></button></div>
+                            <%ResultSet tea = (ResultSet) session.getAttribute("tea");
+                                if (tea != null) {
+                                    while (tea.next()) {
+                            %>
 
-                    <div class="itemContainer"> 
-                        <%-- Slider Item Start--%>      
-                        <div class="item">  
-                            <input type="hidden" class="itemCode" name="<%=tea.getString("itemCode")%>">
-                            <input type="hidden" class="itemClass" name="<%=tea.getString("itemClass")%>">
-                            <%-- Item Name--%>
-                            <a class="itemName" name="<%=tea.getString("itemName")%>"><%=tea.getString("itemName")%></a>     
+                        <div class="itemContainer"> 
+                            <%-- Slider Item Start--%>      
+                            <div class="item">  
+                                <input type="hidden" class="itemCode" name="<%=tea.getString("itemCode")%>">
+                                <input type="hidden" class="itemClass" name="<%=tea.getString("itemClass")%>">
+                                <%-- Item Name--%>
+                                <a class="itemName" name="<%=tea.getString("itemName")%>"><%=tea.getString("itemName")%></a>     
 
-                            <%-- Item Image--%>
-                            <img
-                                class="thumbnail"
-                                src="MENUImages/<%=tea.getString("itemImage")%>"
-                                alt="Sample Item Image" id="<%=tea.getString("itemImage")%>">
+                                <%-- Item Image--%>
+                                <img
+                                    class="thumbnail"
+                                    src="MENUImages/<%=tea.getString("itemImage")%>"
+                                    alt="Sample Item Image" id="<%=tea.getString("itemImage")%>">
 
-                            <%-- Item Option--%>
-                            <a class="itemOption" name="<%=tea.getString("itemOption")%>"><%=tea.getString("itemOption")%></a>
+                                <%-- Item Option--%>
+                                <a class="itemOption" name="<%=tea.getString("itemOption")%>"><%=tea.getString("itemOption")%></a>
 
-                            <div class="drinkItemPrice">
-                                <%-- Item PriceTag--%>
-                                <h3 class="itemPHPTag">PHP</h3>
+                                <div class="drinkItemPrice">
+                                    <%-- Item PriceTag--%>
+                                    <h3 class="itemPHPTag">PHP</h3>
 
-                                <%-- Item Price--%> 
-                                <h3 class="itemPrice" id="<%=tea.getString("itemPrice")%>"><%=tea.getString("itemPrice")%></h3>
-                            </div>
+                                    <%-- Item Price--%> 
+                                    <h3 class="itemPrice" id="<%=tea.getString("itemPrice")%>"><%=tea.getString("itemPrice")%></h3>
+                                </div>
 
-                            <div class="drinkButtons">
-                                <!--Update Menu Item-->
-                                <form>
-                                    <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                <div class="drinkButtons">
+                                    <!--Update Menu Item-->
+                                    <form>
+                                        <input type="button" class="updateItemBtn" onclick=" buttonClickPopupUpdate()" value="Update">
+                                    </form>
+
+                                    <!--Update Availability-->
+                                    <button class="availabilityItemBtn">
+                                        <a> <%=tea.getString("itemStock")%> </a>                       
+                                    </button>
+                                </div>
+                                <!--Deactivate Availability-->
+                                <form action="Menu_Controller" method="post">
+                                    <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
+                                    <%if (tea.getString("deactivated").equals("No")) {%>
+                                    <input type="hidden" name="instruction" value="deactivate">
+                                    <button type="submit" class="deactivateItemBtn">Deactivate</button>
+                                    <%} else {%>
+                                    <input type="hidden" name="instruction" value="reactivate">
+                                    <button type="submit" class="reactivateItemBtn">Reactivate</button>
+                                    <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
+                                    <%}%>
                                 </form>
-
-                                <!--Update Availability-->
-                                <button class="availabilityItemBtn">
-                                    <a> <%=tea.getString("itemStock")%> </a>                       
-                                </button>
                             </div>
-                            <!--Deactivate Availability-->
-                            <form action="Menu_Controller" method="post">
-                                <input type="hidden" name="product" value="<%=tea.getString("itemCode")%>">
-                                <%if (tea.getString("deactivated").equals("No")) {%>
-                                <input type="hidden" name="instruction" value="deactivate">
-                                <button type="submit" class="deactivateItemBtn">Deactivate</button>
-                                <%} else {%>
-                                <input type="hidden" name="instruction" value="reactivate">
-                                <button type="submit" class="reactivateItemBtn">Reactivate</button>
-                                <p style="color:red">Product will be permanently deleted in: <%=tea.getString("deactivationtimestamp")%></p>
-                                <%}%>
-                            </form>
                         </div>
-                    </div>
-                    <%-- Slider Item End--%>   
+                        <%-- Slider Item End--%>   
 
-                    <%}
-                        }%>
+                        <%}
+                            }%>
+                    </div>
                 </div>
             </div>
         </div>
@@ -471,129 +483,7 @@
         <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
     </footer>
     <script>
-        // Add click event listener to document and invoke onHandleClick function if handle is clicked
-        document.addEventListener("click", e => {
-            let handle;
 
-            // Check if the clicked element is a handle or a child of a handle
-            if (e.target.matches(".handle")) {
-                handle = e.target;
-            } else {
-                handle = e.target.closest(".handle");
-            }
-
-            // If handle is found, invoke onHandleClick function with the handle as argument
-            if (handle) {
-                onHandleClick(handle);
-            }
-        });
-
-        // Throttle the progress bar update function to prevent too many updates
-        const throttleProgressBar = throttle((delay = 1000) => {
-            document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-        });
-        // Add a resize event listener to window that invokes the throttled progress bar update function
-        window.addEventListener("resize", throttleProgressBar);
-        // Invoke the progress bar update function on page load
-        document.querySelectorAll(".progress-bar").forEach(calculateProgressBar);
-
-        // Compute the progress bar items and update the progress bar
-        function calculateProgressBar(progressBar) {
-            // Clear the progress bar
-            progressBar.innerHTML = "";
-
-            // Get the slider element and number of items per screen from its computed style
-            const slider = progressBar.closest(".row").querySelector(".slider");
-            if (!slider) {
-                return;
-            }
-            const itemCount = slider.children.length;
-            const itemsPerScreen = (parseInt(
-                    getComputedStyle(slider).getPropertyValue("--items-per-screen")
-                    ) * 1);
-
-            // Get the slider index and number of progress bar items
-            let sliderIndex = parseInt(
-                    getComputedStyle(slider).getPropertyValue("--slider-index")
-                    );
-            const progressBarItemCount = Math.ceil(itemCount / itemsPerScreen);
-
-            // If the slider index is out of bounds, adjust it to the correct value
-            if (sliderIndex >= progressBarItemCount) {
-                slider.style.setProperty("--slider-index", progressBarItemCount - 1);
-                sliderIndex = progressBarItemCount - 1;
-            }
-
-            // Add progress bar items to the progress bar and highlight the active item
-            for (let i = 0; i < progressBarItemCount; i++) {
-                const barItem = document.createElement("div");
-                barItem.classList.add("progress-item");
-                if (i === sliderIndex) {
-                    barItem.classList.add("active");
-                }
-                progressBar.append(barItem);
-            }
-        }
-
-        // Update the progress bar and slider position based on which handle was clicked
-        function onHandleClick(handle) {
-            const progressBar = handle.closest(".row").querySelector(".progress-bar");
-            const slider = handle.closest(".carouselContainer").querySelector(".slider");
-            const sliderIndex = parseInt(
-                    getComputedStyle(slider).getPropertyValue("--slider-index")
-                    );
-            const progressBarItemCount = progressBar.children.length;
-
-            // Move the slider left
-            if (handle.classList.contains("left-handle")) {
-                if (sliderIndex - 1 < 0) {
-                    slider.style.setProperty("--slider-index", progressBarItemCount - 1);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[progressBarItemCount - 1].classList.add("active");
-                } else {
-                    slider.style.setProperty("--slider-index", sliderIndex - 1);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[sliderIndex - 1].classList.add("active");
-                }
-            }
-
-            if (handle.classList.contains("right-handle")) {
-                if (sliderIndex + 1 >= progressBarItemCount) {
-                    slider.style.setProperty("--slider-index", 0);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[0].classList.add("active");
-                } else {
-                    slider.style.setProperty("--slider-index", sliderIndex + 1);
-                    progressBar.children[sliderIndex].classList.remove("active");
-                    progressBar.children[sliderIndex + 1].classList.add("active");
-                }
-            }
-        }
-
-        function throttle(cb, delay = 1000) {
-            let shouldWait = false;
-            let waitingArgs;
-            const timeoutFunc = () => {
-                if (waitingArgs === null) {
-                    shouldWait = false;
-                } else {
-                    cb(...waitingArgs);
-                    waitingArgs = null;
-                    requestAnimationFrame(timeoutFunc, delay);
-                }
-            };
-
-            return (...args) => {
-                if (shouldWait) {
-                    waitingArgs = args;
-                    return;
-                }
-
-                cb(...args);
-                shouldWait = true;
-                requestAnimationFrame(timeoutFunc, delay);
-            };
-        }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function (event) {
