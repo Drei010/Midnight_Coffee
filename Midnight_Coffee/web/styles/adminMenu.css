@@ -21,6 +21,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding: 5px;
     box-shadow: -8px 0 5px -5px rgba(0,0,0,2), 
                 8px 0 5px -5px rgba(0,0,0,2);
+    background-color: #282747;
 }
 
 .border{
@@ -495,6 +496,7 @@ input[type=file] .itemUpdateImage{
     border-radius: 10px;
     background-color: #282747;
     margin-right: 10px;
+    border: 5px solid white;
 }
 
 .addItem:hover{
