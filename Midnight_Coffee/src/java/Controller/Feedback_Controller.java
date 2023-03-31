@@ -52,8 +52,7 @@ public class Feedback_Controller extends HttpServlet {
             case "update":
                 String update = request.getParameter("update");
                 String updateId = request.getParameter("updateId");
-                if (update == null || update.trim().isEmpty()) {
-
+                if (update != null && !"[]".equals(update) && updateId != null && !"[]".equals(updateId)) {
                     String updateArray[] = update.replaceAll("\\[|\\]", "").split(",");
                     String updateIdArray[] = updateId.replaceAll("\\[|\\]|\"", "").split(",");
                     FeedbackList updateList = new FeedbackList();
@@ -65,6 +64,7 @@ public class Feedback_Controller extends HttpServlet {
                         }
                     }
                 }
+
                 response.sendRedirect("/AdminFeedback?updated");
                 break;
             case "add":
