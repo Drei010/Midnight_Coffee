@@ -56,7 +56,6 @@
                     <label for="itemAddPrice">Product Price:</label>
                     <input type="number" placeholder="Php" name="itemAddPrice" class="itemAddPrice" min="1" required>
                     <input type="hidden" id="itemAddClassification" name="itemAddClassification" value="">
-                    <input type="hidden" name="itemAvailability" value="In Stock">
                     <input type="hidden" name="instruction" value="addItemMenu">
                     <button type="submit"  class="addProductBtn" id="addProductBtn" >Add new product</button>
                 </form>
