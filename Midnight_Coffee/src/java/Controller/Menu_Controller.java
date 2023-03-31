@@ -171,6 +171,11 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
 
                 String ingredientList = request.getParameter("ingredientList");
                 String weightList = request.getParameter("GramList");
+                
+                //redirect if no ingredients added
+                if(ingredientList== null || weightList==null){
+                 response.sendRedirect("/AdminMenu?noingredients");
+                }
 
                 Path source = Paths.get(destination + File.separator + itemAddImage);
 
@@ -201,7 +206,7 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
 
                 // Rename the file in the same directory
                 try {
-                    itemAddImage = itemAddName + "." + fileType;
+                    itemAddImage = itemAddName + itemAddOption + "." + fileType;
                     Files.move(source, source.resolveSibling(itemAddImage));
                 } catch (IOException e) {
                     response.sendRedirect("/AdminMenu?failedtoupload");
@@ -270,7 +275,7 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
                     String fileTypeUpdate = image.substring(image.length() - 3).toLowerCase();
 
                     // Save the image to the destination directory
-                    newImagename = updateName + "." + fileTypeUpdate;
+                    newImagename = updateName  + option + "." + fileTypeUpdate;
                     Path targetUpdate = Paths.get(destination, newImagename);
 
                     try (InputStream iptStreamUpdate = filePartUpdate.getInputStream(); OutputStream otpStreamUpdate = new FileOutputStream(targetUpdate.toFile())) {
