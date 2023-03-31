@@ -54,12 +54,7 @@
             case 3:
         %><script>alert("Wrong Password!");</script><%
                 break;
-            case 6:
-        %><script>alert("Connection Failed!");</script><%
-                break;
-            case 7:
-        %><script>alert("Captcha is Incorrect!");</script><%
-                        break;
+
                     default:
                     // code block
                     }
