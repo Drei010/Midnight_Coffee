@@ -297,7 +297,7 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
                     response.sendRedirect("/AdminMenu?productalreadyexists");
                 } else {
                     try {
-                        list = productList.retrieveData(itemName, conn);
+                        list = productList.getByItemCode(itemCode, conn);
                         list.next();
                         if (category == null || category.trim().isEmpty()) {
                             category = list.getString("itemClass");

@@ -317,4 +317,22 @@ public class ProductList {
         }
         return null;
     }
+    
+    public ResultSet getByItemCode(int itemCode, Connection conn) {
+        try {
+            String query = "SELECT * FROM products WHERE itemCode = ?";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmnt.setInt(1, itemCode);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
 }

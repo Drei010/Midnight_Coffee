@@ -82,6 +82,7 @@ table{
     padding: 5px;
     box-shadow: -8px 0 5px -5px rgba(0,0,0,2),
         8px 0 5px -5px rgba(0,0,0,2);
+    background-color: #282747;
 }
 
 .carouselContainer::-webkit-scrollbar,
