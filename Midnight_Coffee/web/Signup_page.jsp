@@ -60,13 +60,13 @@
                             </div>
                         </div>
                         <button type="submit" id="btnSignup">Sign up</button>
+                        <div class="center">
+                            <a  href="/Login">Already have an account?</a><br>
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
-        <div class="center">
-            <a  href="/Login">Already have an account?</a><br>
-        </div>
 
         <!-- Terms and conditions Popup Modal-->
         <div id="modal">

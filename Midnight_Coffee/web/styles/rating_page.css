@@ -40,6 +40,7 @@ body {
   margin: 0 auto;
   margin-top: 200px;
   border-radius: 5px;
+  max-height: 400px
 }
 
 .rateText{
@@ -112,6 +113,7 @@ body {
   margin: 0 auto;
   margin-top: 10px;
   border-radius: 5px;
+  max-height:100px;
 }
 
 .container2Text{

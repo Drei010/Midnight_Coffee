@@ -19,6 +19,7 @@ body {
     border-radius: 10px;
     margin-top: 50px;
     border: solid white;
+    width: 80%;
 }
 
 .flex{
@@ -84,7 +85,6 @@ input[type="submit"]:hover {
 }
 
 .bottomButtons {
-  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -121,6 +121,7 @@ input[type="submit"]:hover {
         border: solid white;
         border-radius: 5px;
         margin-bottom: 2%;
+        margin-top: 2%;
     }
     
     .bottomButtons button{
@@ -143,4 +144,9 @@ input[type="submit"]:hover {
     .bottomButtons button:hover{
         transform: scale(1.1);
     }
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
 }

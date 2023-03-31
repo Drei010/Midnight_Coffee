@@ -253,6 +253,7 @@ table{
 .title {
     font-size: 2rem;
     margin: 0;
+    font-family: "Poppins", sans-serif;
 }
 
 .progress-item {

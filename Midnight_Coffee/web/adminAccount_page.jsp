@@ -26,7 +26,7 @@
                     <a href="/adminCustomerManagement_page.jsp"> Customer Accounts </a>
                 </div>
                 <h3> Your ID is <%=session.getAttribute("adminID")%></h3>
-                <form action="AdminAccount_Controller" method="POST">
+                <form action="AdminAccount_Controller" method="POST" class="form">
                     <input type="hidden" name="action" value="adminUpdate">    
                     <input type="hidden" name="adminID" value="<%=session.getAttribute("adminID")%>">    
                     <label for="old-adminKeyOld">Enter your old Admin Key</label>
