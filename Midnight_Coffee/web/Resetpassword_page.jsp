@@ -50,5 +50,21 @@
             document.getElementById('backBtn').click();
         </script>
         <%   }%>
+        
+                    <!--Alerts -->	
+        <%
+            if (request.getParameter("process") != null) {
+                int process = Integer.parseInt(request.getParameter("process"));
+                switch (process) {
+
+            case 1:
+        %><script>alert("Reset Failed please try again later");</script><%
+                break;
+
+                    default:
+                    // code block
+                    }
+            }
+        %>
     </body>
 </html>

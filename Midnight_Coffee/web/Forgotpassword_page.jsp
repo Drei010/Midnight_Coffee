@@ -40,5 +40,20 @@
         </form>
 
     </div>
+            <!--Alerts -->	
+        <%
+            if (request.getParameter("process") != null) {
+                int process = Integer.parseInt(request.getParameter("process"));
+                switch (process) {
+
+            case 1:
+        %><script>alert("Account Does not Exist!");</script><%
+                break;
+
+                    default:
+                    // code block
+                    }
+            }
+        %>
 </body>
 </html>

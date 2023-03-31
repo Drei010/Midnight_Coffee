@@ -133,7 +133,7 @@ public class CustomerAccount_Controller extends HttpServlet {
                   response.sendRedirect("/Resetpassword_page.jsp"); 
                  }else{
                  //Account does not exist
-                  response.sendRedirect("/Forgotpassword_page?accountdoesnotexist"); 
+                  response.sendRedirect("/Forgotpassword_page?process=1"); 
                  }
                      
                 break;
@@ -152,7 +152,7 @@ public class CustomerAccount_Controller extends HttpServlet {
                  
                }else{
                  //login Failed
-                  response.sendRedirect("/Forgotpassword_page?resetFailed");
+                  response.sendRedirect("/Forgotpassword_page?process=1");
                  }
                 break;
     }

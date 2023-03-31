@@ -101,10 +101,10 @@ public class LoginSignup_Controller extends HttpServlet {
             ResultSet results = logIn.retrieveData(email, conn);
             try {
                 //check if account exists
-                if (results == null || !results.next()) {
+                if (results == null) {
                     //Account does not exist
                     response.sendRedirect("/Login?process=2");
-                    results.close();
+                   
                 } else {
 
                     //Check if password matches with password in the database
