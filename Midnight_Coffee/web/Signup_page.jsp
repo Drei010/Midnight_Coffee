@@ -42,7 +42,7 @@
 
                 <h3>Mobile Number</h3>
                 <input type="tel" id="phone" placeholder="+63" name="mobilenumber"
-                       
+
                        required>
 
                 <!-- Captcha -->
@@ -65,7 +65,19 @@
             <!-- Terms and conditions Popup Modal-->
             <div id="modal">
                 <h2>Terms and Conditions</h2>
-                <p>These are the terms and conditions</p>
+                <div class="termsAndConditions">
+                    <h3>Section 1 - Account Information</h3>
+                    <p>By signing up, you agree to give us the information that you will input on the page.
+                        included information such as First Name, Last Name, Password, Email, and Mobile Number will be stored and will
+                        only be used for legitimacy of a customer, security of the store, and communication details to reach you.</p>
+                    <h3>Section 2 - Products</h3>
+
+                    <h3>Section 3 - Prices</h3>
+
+                    <h3>Section 4 - Ordering for Pickup</h3>
+
+                    <h3>Section 5 - Ordering for Deliveries</h3>
+                </div>
                 <button id="acceptBtn">Accept Terms and conditions</button>
             </div>
         </div>
