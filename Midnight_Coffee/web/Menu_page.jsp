@@ -37,149 +37,68 @@
         %>
         <input type="hidden" id="role" value="<%=session.getAttribute("role")%>">
 
-        <%ResultSet best = (ResultSet) session.getAttribute("best");
-            if (best != null) {
-                if (best.next()) {%>
+<div class="row">
         <div class="header-menu">
             <h3 class="title">Top 3 Sellers</h3>
         </div>
-        <div class="bestSellerRow">
-            <div class="itemContainer">
-
-                <%-- Item Name--%>
-                <h1 class="itemName"><%=best.getString("itemName")%></h1>     
+     <div class="carouselContainer">
+          <div class="slider">
+          
+        <%ResultSet best = (ResultSet) session.getAttribute("best");
+            if (best != null) {%>
+            
+            <div class="slider">
+              <% for(int i =0; i<3; i++){ if (best.next()) {%>
+              <div class="itemContainer">
 
 
                 <%-- Slider Item Start--%>      
                 <div class="item">  
 
                     <%-- Hidden fields for database submission--%>
-                    <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                    <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
-                    <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
-                    <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
-                    <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
+                
+                   <!--0-->  <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
+                    <!--1--> <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
+                     <!--2--><input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
+                     <!--3--><input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
 
+                       <%-- Item Name--%>
+                            <!--4--> <h1 class="itemName"><%=best.getString("itemName")%></h1>  
                     <%-- Item Image--%>
-                    <img
+                    <!--5--> <img
                         class="thumbnail"
                         src="MENUImages/<%=best.getString("itemImage")%>"
                         alt="Sample Item Image">
 
                     <%-- Item Option--%>
-                    <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
+                    <!--6--> <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
 
 
 
                     <%-- Item PriceTag--%>
-                    <h3 class="itemPHPTag">PHP</h3>
+                    <!--7--> <h3 class="itemPHPTag">PHP</h3>
 
                     <%-- Item Price--%> 
-                    <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
+                   <!--8-->  <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
 
                     <%-- Quantity Decrament--%>
-                    <div class="dec">-</div>
+                    <!--9--> <div class="dec">-</div>
 
                     <%-- Quantity input field--%>
-                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                    <!--10--> <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
                     <%-- Quantity Incrament--%>
-                    <div class="inc">+</div>
+                    <!--11--> <div class="inc">+</div>
 
                 </div>
+                    
+              </div> <%}}}
+                 %>
+            
             </div>
-            <%}
-                if (best.next()) {%>
-
-            <div class="itemContainer">
-
-                <%-- Item Name--%>
-                <h1 class="itemName"><%=best.getString("itemName")%></h1>  
-
-                <%-- Slider Item Start--%>      
-                <div class="item">  
-
-                    <%-- Hidden fields for database submission--%>
-                    <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                    <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
-                    <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
-                    <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
-                    <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
-
-                    <%-- Item Image--%>
-                    <img
-                        class="thumbnail"
-                        src="MENUImages/<%=best.getString("itemImage")%>"
-                        alt="Sample Item Image">
-
-                    <%-- Item Option--%>
-                    <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
-
-                    <%-- Item PriceTag--%>
-                    <h3 class="itemPHPTag">PHP</h3>
-
-                    <%-- Item Price--%> 
-                    <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
-
-                    <%-- Quantity Decrament--%>
-                    <div class="dec">-</div>
-
-                    <%-- Quantity input field--%>
-                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                    <%-- Quantity Incrament--%>
-                    <div class="inc">+</div>
-                </div>
             </div>
-            <%}
-                if (best.next()) {%>
-            <div class="itemContainer">
-
-                <%-- Item Name--%>
-                <h1 class="itemName"><%=best.getString("itemName")%></h1>   
-                <%-- Slider Item Start--%>      
-                <div class="item">  
-
-                    <%-- Hidden fields for database submission--%>
-                    <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                    <input type="hidden" id="itemId" name="itemId" value="<%=best.getString("itemCode")%>"/>
-                    <input type="hidden" id="hiddenName" name="hiddenName" value="<%=best.getString("itemName")%>"/>
-                    <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=best.getString("itemOption")%>"/>
-                    <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=best.getString("itemPrice")%>" />
-
-
-
-                    <%-- Item Image--%>
-                    <img
-                        class="thumbnail"
-                        src="MENUImages/<%=best.getString("itemImage")%>"
-                        alt="Sample Item Image">
-
-                    <%-- Item Option--%>
-                    <h3 class="itemOption"><%=best.getString("itemOption")%></h3>
-
-
-                    <%-- Item PriceTag--%>
-                    <h3 class="itemPHPTag">PHP</h3>
-
-                    <%-- Item Price--%> 
-                    <h3 class="itemPrice"><%=best.getString("itemPrice")%></h3>
-
-                    <%-- Quantity Decrament--%>
-                    <div class="dec">-</div>
-
-                    <%-- Quantity input field--%>
-                    <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
-
-                    <%-- Quantity Incrament--%>
-                    <div class="inc">+</div>
-
-                </div>
-            </div>
-            <%}
-            %>
-        </div>
-        <%}%>
+           
+</div>
 
 
         <%-- Open popup for the order summary --%>
@@ -249,38 +168,38 @@
                         <div class="item">  
 
                             <%-- Hidden fields for database submission--%>
-                            <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
-                            <input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
-                            <input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
-                            <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
-                            <input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
+                           
+                             <!--0--><input type="hidden" id="itemId" name="itemId" value="<%=coffee.getString("itemCode")%>"/>
+                             <!--1--><input type="hidden" id="hiddenName" name="hiddenName" value="<%=coffee.getString("itemName")%>"/>
+                             <!--2--><input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=coffee.getString("itemOption")%>"/>
+                             <!--3--><input type="hidden" id="hiddenPrice" class="hiddenPrice" name="hiddenPrice" value="<%=coffee.getString("itemPrice")%>" />
 
                             <%-- Item Name--%>
-                            <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
+                            <!--4--> <h1 class="itemName"><%=coffee.getString("itemName")%></h1>     
 
                             <%-- Item Image--%>
-                            <img
+                             <!--5--><img
                                 class="thumbnail"
                                 src="MENUImages/<%=coffee.getString("itemImage")%>"
                                 alt="Sample Item Image">
 
                             <%-- Item Option--%>
-                            <h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
+                             <!--6--><h3 class="itemOption"><%=coffee.getString("itemOption")%></h3>
 
                             <%-- Item PriceTag--%>
-                            <h3 class="itemPHPTag">PHP</h3>
+                             <!--7--><h3 class="itemPHPTag">PHP</h3>
 
                             <%-- Item Price--%> 
-                            <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
+                            <!--8--> <h3 class="itemPrice"><%=coffee.getString("itemPrice")%></h3>
 
                             <%-- Quantity Decrament--%>
-                            <div class="dec">-</div>
+                            <!--9--> <div class="dec">-</div>
 
                             <%-- Quantity input field--%>
-                            <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
+                           <!--10-->  <input type="text"  name="itemQuantity" class="itemQuantity" disabled="" value="0"/>
 
                             <%-- Quantity Incrament--%>
-                            <div class="inc">+</div>
+                           <!--11-->  <div class="inc">+</div>
 
                         </div>
                     </div>
@@ -319,7 +238,7 @@
                         <div class="item">  
 
                             <%-- Hidden fields for database submission--%>
-                            <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                          
                             <input type="hidden" id="itemId" name="itemId" value="<%=kremalatte.getString("itemCode")%>"/>
                             <input type="hidden" id="hiddenName" name="hiddenName" value="<%=kremalatte.getString("itemName")%>"/>
                             <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=kremalatte.getString("itemOption")%>"/>
@@ -387,7 +306,7 @@
                         <div class="item">  
 
                             <%-- Hidden fields for database submission--%>
-                            <input type="hidden" id="menu_form" name="instruction" value="menupage"/>
+                       
                             <input type="hidden" id="itemId" name="itemId" value="<%=tea.getString("itemCode")%>"/>
                             <input type="hidden" id="hiddenName" name="hiddenName" value="<%=tea.getString("itemName")%>"/>
                             <input type="hidden" id="hiddenClassification" name="hiddenClassification" value="<%=tea.getString("itemOption")%>"/>
@@ -466,7 +385,7 @@
                 var buttonClicked = event.target;
 
                 // get reference to input field
-                var input = buttonClicked.parentElement.children[11];
+                var input = buttonClicked.parentElement.children[10];
 
                 // get current value of input field
                 var inputValue = input.value;
@@ -481,7 +400,7 @@
                 const tbodyEl = document.querySelector("tbody");
 
                 //Get id of current item
-                var itemID = buttonClicked.parentElement.children[1].value;
+                var itemID = buttonClicked.parentElement.children[0].value;
 
                 //Create new row if quantity is equal to 1
                 if (newValue === 1) {
@@ -498,28 +417,28 @@
                 <td>`
 
                             //Item Name
-                            + buttonClicked.parentElement.children[2].value +
+                            + buttonClicked.parentElement.children[1].value +
                             `</td>
                 <td>`
 
                             //Item Classification  
-                            + buttonClicked.parentElement.children[3].value +
+                            + buttonClicked.parentElement.children[2].value +
                             //set price id as price + itemId
                             `</td>
                 <td id="price` + itemID + `">`
 
                             //Item Price  
-                            + buttonClicked.parentElement.children[4].value +
+                            + buttonClicked.parentElement.children[3].value +
                             `</td>
                     <td hidden>`
-                            + buttonClicked.parentElement.children[1].value +
+                            + buttonClicked.parentElement.children[0].value +
                             `</td>
                             
             </tr>`;
                 } else {
 
                     //get old price
-                    var oldPrice = buttonClicked.parentElement.children[4].value;
+                    var oldPrice = buttonClicked.parentElement.children[3].value;
 
                     //Compute for the new price (Quantity * old price)
                     var newPrice = parseInt(oldPrice) * newValue;
@@ -545,7 +464,7 @@
                 var buttonClicked = event.target;
 
                 // get reference to input field
-                var input = buttonClicked.parentElement.children[11];
+                var input = buttonClicked.parentElement.children[10];
 
                 // get current value of input field
                 var inputValue = input.value;
@@ -554,14 +473,14 @@
                 var newValue = parseInt(inputValue) - 1;
 
                 //Get id of current item 
-                var itemID = buttonClicked.parentElement.children[1].value;
+                var itemID = buttonClicked.parentElement.children[0].value;
 
                 // update value of input field  
                 if (newValue > 0) {
                     input.value = newValue;
 
                     //get old price
-                    var oldPrice = buttonClicked.parentElement.children[4].value;
+                    var oldPrice = buttonClicked.parentElement.children[3].value;
 
                     //Compute for the new price (Quantity * old price)
                     var newPrice = parseInt(oldPrice) * newValue;
