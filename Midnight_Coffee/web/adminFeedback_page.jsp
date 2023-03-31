@@ -86,7 +86,7 @@
                         </td>
                         <td class="box">
                             <label class="Cbox">
-                                <input type="hidden" name="customerid" value="<%=feedbackList.getInt("customerID")%>">
+                                <input type="hidden" name="feedbackid" value="<%=feedbackList.getInt("feedbackID")%>">
                                 <input type="hidden" name="checked" value="<%=feedbackList.getString("displayed")%>">
                                 <input type="checkbox" class="Cbox" name="Cbox">
                                 <span class="checkmark"></span>
@@ -98,7 +98,7 @@
                         }%>
                 </table>
                 <div class="upBtn">
-                    <form action="Feedback_Controller" name="form" method="post" onsubmit="compareDiff()">
+                    <form action="Feedback_Controller" method="post" onclick="compareDiff()">
                         <input type="hidden" name ="update" id="update">
                         <input type="hidden" name ="updateId" id="updateId">
                         <input type="hidden" name="instruction" value="update">
@@ -111,15 +111,15 @@
     <script>
         let ratings = document.getElementsByName("rating"),
                 stars = document.getElementsByName("rate"),
-                id = document.getElementsByName("customerid"),
+                id = document.getElementsByName("feedbackid"),
                 isChecked = document.getElementsByName("checked"),
                 cbox = document.getElementsByName("Cbox");
+        var cboxValues = [];
         var cboxValues = [],
                 originalCboxValues = [],
                 updateCboxValues = [],
                 idValues = [],
                 updateIdValues = [];
-
         var $table = document.getElementById("table"),
                 $n = 5,
                 $rowCount = $table.rows.length,
@@ -137,29 +137,6 @@
         } else {
             checkItems();
             pushItems(1);
-
-            for (i = 0; i < cbox.length; i++) {
-                (function (protectedIndex) {
-                    cbox[i].onclick = function () {
-                        cboxValues[protectedIndex] = [1, cbox[protectedIndex].checked ? true : false];
-                    };
-                    cbox[i].checked = cboxValues[i][1];
-                })(i);
-            }
-        }
-
-        function sort($p) {
-            var $rows = $th, $s = (($n * $p) - $n);
-            for ($i = $s; $i < ($s + $n) && $i < $tr.length; $i++)
-                $rows += $tr[$i];
-
-            $table.innerHTML = $rows;
-            document.getElementById("buttons").innerHTML = pageButtons($pageCount, $p);
-            document.getElementById("id" + $p).setAttribute("class", "active");
-
-            checkItems();
-            pushItems($p);
-
             for (i = 0; i < cbox.length; i++) {
                 (function (protectedIndex) {
                     cbox[i].onclick = function () {
@@ -169,7 +146,24 @@
                 })(i);
             }
         }
-
+        function sort($p) {
+            var $rows = $th, $s = (($n * $p) - $n);
+            for ($i = $s; $i < ($s + $n) && $i < $tr.length; $i++)
+                $rows += $tr[$i];
+            $table.innerHTML = $rows;
+            document.getElementById("buttons").innerHTML = pageButtons($pageCount, $p);
+            document.getElementById("id" + $p).setAttribute("class", "active");
+            checkItems();
+            pushItems($p);
+            for (i = 0; i < cbox.length; i++) {
+                (function (protectedIndex) {
+                    cbox[i].onclick = function () {
+                        cboxValues[($p - 1) * 5 + protectedIndex] = [$p, cbox[protectedIndex].checked ? true : false];
+                    };
+                    cbox[i].checked = cboxValues[($p - 1) * 5 + protectedIndex][1];
+                })(i);
+            }
+        }
         function pageButtons($pCount, $cur) {
             var $prevDis = ($cur === 1) ? "disabled" : "",
                     $nextDis = ($cur === $pCount) ? "disabled" : "",
@@ -177,10 +171,8 @@
             for ($i = 1; $i <= $pCount; $i++)
                 $buttons += "<input type='button' id='id" + $i + "'value='" + $i + "' onclick='sort(" + $i + ")'>";
             $buttons += "<input type='button' value='Next >>' onclick='sort(" + ($cur + 1) + ")' " + $nextDis + "></div>";
-
             return $buttons;
         }
-
         function checkItems() {
             for (var i = 0; i < ratings.length; i++) {
                 stars[(i + 1) * 5 - ratings[i].value].checked = true;
@@ -191,21 +183,21 @@
                 }
             }
         }
-
         function pushItems($p) {
             for (var i = 0; i < cbox.length; i++) {
                 if (cboxValues.length < ($p - 1) * 5 + cbox.length) {
                     cboxValues.push([$p, cbox[i].checked]);
                     originalCboxValues.push([$p, cbox[i].checked]);
                     idValues.push([$p, id[i].value]);
+                    console.log(id[i].value);
                 }
             }
+                console.log(idValues);
         }
-
         function compareDiff() {
             var update = document.getElementById("update"),
                     updateId = document.getElementById("updateId");
-            console.log(cboxValues);
+
             for (var i = 0; i < originalCboxValues.length; i++) {
                 if (cboxValues[i][1] !== originalCboxValues[i][1]) {
                     updateCboxValues.push(cboxValues[i][1]);
@@ -214,8 +206,8 @@
             }
             update.value = JSON.stringify(updateCboxValues);
             updateId.value = JSON.stringify(updateIdValues);
-
-            document.forms['form'].submit();
+            console.log(update.value);
+            console.log(updateId.value);
         }
     </script>
 </html>

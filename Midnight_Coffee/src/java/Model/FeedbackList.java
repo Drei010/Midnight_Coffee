@@ -64,12 +64,12 @@ public class FeedbackList {
         return "";
     }
 
-    public void updateDisplayed(String displayed, int customerID, Connection conn) {
+    public void updateDisplayed(String displayed, int feedbackID, Connection conn) {
         try {
-            String query = "UPDATE feedbacklist SET displayed = ? WHERE customerID = ?";
+            String query = "UPDATE feedbacklist SET displayed = ? WHERE feedbackID = ?";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmnt.setString(1, displayed);
-            stmnt.setInt(2, customerID);
+            stmnt.setInt(2, feedbackID);
             stmnt.executeUpdate();
             stmnt.close();
         } catch (SQLException ex) {
