@@ -176,9 +176,11 @@
 
                 </div>
             </div>
+            <%}
+            %>
         </div>
-        <%}
-            }%>
+        <%}%>
+
 
         <%-- Open popup for the order summary --%>
         <div id="popupModal">
