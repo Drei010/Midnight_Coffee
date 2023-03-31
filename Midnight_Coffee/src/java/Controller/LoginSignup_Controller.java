@@ -101,7 +101,7 @@ public class LoginSignup_Controller extends HttpServlet {
             ResultSet results = logIn.retrieveData(email, conn);
             try {
                 //check if account exists
-                if (results == null) {
+                if (results == null|| !results.next()) {
                     //Account does not exist
                     response.sendRedirect("/Login?process=2");
                    
@@ -113,7 +113,7 @@ public class LoginSignup_Controller extends HttpServlet {
 
                         //Password does not match
                         response.sendRedirect("/Login?process=3");
-                        results.close();
+                      
                     } else {
                         //Set Attributes
                         HttpSession session = request.getSession();
