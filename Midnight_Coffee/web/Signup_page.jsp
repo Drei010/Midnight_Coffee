@@ -50,10 +50,7 @@
 
                         <!-- Captcha -->
                         <div class="center">
-                            <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" 
-                                 style="display: inline-block;"
-                                  data-callback="enableSubmitButton" 
-                                    data-expired-callback="disableSubmitButton">             
+                            <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;">             
                             </div>
 
 
@@ -62,7 +59,7 @@
                                 <input type="checkbox" id="checkbox" required><a>Agree to our</a> <a href="#" id="termsLink">Terms and conditions</a><br>
                             </div>
                         </div>
-                        <button type="submit" id="btnSignup" disabled>Sign up</button>
+                        <button type="submit" id="btnSignup">Sign up</button>
                         <div class="center">
                             <a  href="/Login">Already have an account?</a><br>
                         </div>
@@ -110,14 +107,6 @@
             }
         %>
         <script>
-            
-             function enableSubmitButton() {
-    document.getElementById('btnSignup').disabled = false;
-  }
-  
-  function disableSubmitButton() {
-    document.getElementById('btnSignup').disabled = true;
-  }
 
             ///Password checker
             let pass1 = document.querySelector('#pass1');
