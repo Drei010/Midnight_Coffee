@@ -64,5 +64,27 @@
             <jsp:include page="adminFooter.jsp" /> <!-- Calls the footer for admin-->
         </footer>
     </body>
+            <!--Alerts -->	
+        <%
+            if (request.getParameter("process") != null) {
+                int process = Integer.parseInt(request.getParameter("process"));
+                switch (process) {
+                    case 1:
+        %><script>alert("Deactivated products are now permanently deleted!");</script><%
+                break;
+            case 2:
+        %><script>alert("Deactivated ingredients are now permanently deleted!");</script><%
+                break;
+            case 3:
+        %><script>alert("Admin Account updated!");</script><%
+                break;
+            case 4:
+        %><script>alert("Password does not match!");</script><%
+                break;
+                    default:
+                    // code block
+                    }
+            }
+        %>
 
 </html>

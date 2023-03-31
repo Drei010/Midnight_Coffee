@@ -140,7 +140,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     if (!checkPassword.equals(passwordOld)) {
 
                         //Password does not match
-                        response.sendRedirect("/AdminAccount?process=3");
+                        response.sendRedirect("/AdminAccount?process=4");
                         resultsUpdate.close();
                     }
                     else{
@@ -148,7 +148,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
               adminAccountProcess.updateAdminData(encrypt(adminKeyUpdate), encrypt(passwordUpdate), Integer.parseInt(adminID), conn);
 
                
-                    request.getRequestDispatcher("/AdminAccount?UpdateSuccess").forward(request, response);
+                    request.getRequestDispatcher("/AdminAccount?process=3").forward(request, response);
                     }
             }
                 
@@ -187,7 +187,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
                     }
                 }
             }
-         response.sendRedirect("/AdminAccount?deletedproducts");
+         response.sendRedirect("/AdminAccount?process=1");
 
              break;
          
@@ -195,7 +195,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
          case"deleteDeactivatedIngredients":
              IngredientList deleteIngredients = new IngredientList();
              deleteIngredients.deleteDeactivated(conn);
-              response.sendRedirect("/AdminAccount?deletedproducts");
+              response.sendRedirect("/AdminAccount?process=2");
              break;
         }
         

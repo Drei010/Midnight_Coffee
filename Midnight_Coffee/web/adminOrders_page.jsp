@@ -102,7 +102,6 @@
 
                     <!-- Order Summary -->  
                     <div class="orderSummary">
-                        <%=session.getAttribute("customerOrders")%>
                         <h1>Order Summary</h1>
                         <h3>Order Number: <a id="orderNumberValue"></a></h3>
                         <h3>Total PHP: <a id="priceTotalValue"></a> </h3>
