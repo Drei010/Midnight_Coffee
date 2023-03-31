@@ -10,7 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel='stylesheet' type='text/css' href='styles/loginSignup.css'>
-        <link rel='stylesheet' type='text/css' href='styles/Signup_page.css'>
         <title>Login Page</title>
         <!--Captcha API-->
         <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -39,6 +38,10 @@
                 </div>
                 <br>
                 <button type="submit">Login</button>
+                <br>
+                <div class="forgotContainer">
+                   <a href="/Forgotpassword_page">Forgot Password</a>
+                   </div>
         </form>
 
         <!--Alerts -->	
@@ -55,11 +58,10 @@
             case 3:
         %><script>alert("Wrong Password!");</script><%
                 break;
-            case 6:
-        %><script>alert("Connection Failed!");</script><%
-                break;
-            case 7:
-        %><script>alert("Captcha is Incorrect!");</script><%
+            case 4:
+        %><script>alert("Password Reset!");</script><%
+
+
                         break;
                     default:
                     // code block

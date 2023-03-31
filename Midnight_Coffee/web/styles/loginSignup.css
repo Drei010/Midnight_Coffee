@@ -199,8 +199,9 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
-
+.forgotContainer{
+text-align:center;
+}
 @media only screen and (max-width: 600px) {
 
     .signupForm{

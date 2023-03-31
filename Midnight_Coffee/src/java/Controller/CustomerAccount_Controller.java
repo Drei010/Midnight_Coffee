@@ -118,6 +118,43 @@ public class CustomerAccount_Controller extends HttpServlet {
 
                 response.sendRedirect("/Logout"); 
                 break;
+                
+                
+            case  "Forgotpassword":
+                
+                 String email = request.getParameter("email");
+                 String mobileNumber = request.getParameter("mobileNumber");
+
+                 //Retrieve customer ID
+                 String customerRetrievedID = processAccounts.getCustomerID(email, mobileNumber, conn);
+                 if(customerRetrievedID!=null){
+                     //Account retrieved
+                 session.setAttribute("customerRetrievedID", customerRetrievedID);
+                  response.sendRedirect("/Resetpassword_page.jsp"); 
+                 }else{
+                 //Account does not exist
+                  response.sendRedirect("/Forgotpassword_page?accountdoesnotexist"); 
+                 }
+                     
+                break;
+                
+            case  "Resetpassword":
+                
+                 String newPassword = request.getParameter("newPassword");
+                 int customerIDPassword = Integer.parseInt(request.getParameter("customerIDPassword"));
+
+                 //Update Password
+                 String yes = processAccounts.updatePassword(customerIDPassword, encrypt(newPassword), conn);
+                 if(yes.equals("Yes")){
+                     //login Success
+                  session.removeAttribute("customerRetrievedID");
+                  response.sendRedirect("/Login?process=4");
+                 
+               }else{
+                 //login Failed
+                  response.sendRedirect("/Forgotpassword_page?resetFailed");
+                 }
+                break;
     }
     }
 

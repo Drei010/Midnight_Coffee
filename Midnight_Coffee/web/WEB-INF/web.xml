@@ -13,6 +13,23 @@
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     
+        <servlet>
+        <servlet-name>Forgotpassword_page</servlet-name>
+        <jsp-file>/Forgotpassword_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Forgotpassword_page</servlet-name>
+        <url-pattern>/Forgotpassword_page</url-pattern>
+    </servlet-mapping>
+    
+            <servlet>
+        <servlet-name>Resetpassword_page</servlet-name>
+        <jsp-file>/Resetpassword_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Resetpassword_page</servlet-name>
+        <url-pattern>/Resetpassword_page</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>Menu</servlet-name>
         <jsp-file>/Menu_page.jsp</jsp-file>
@@ -173,7 +190,14 @@
         <servlet-name>Rating</servlet-name>
         <url-pattern>/Rating</url-pattern>
     </servlet-mapping>
+    <!--
     
+      <error-page>  
+        <location>/error_page.jsp</location>  
+    </error-page>  
+    
+    
+    -->
 
        
     <context-param>

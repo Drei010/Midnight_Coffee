@@ -193,4 +193,21 @@ public class LoginSignup_Model {
             }
             return null;
         }
+        
+        
+                public String getCustomerID(String email, String mobileNumber, Connection conn) {
+            try {
+                String query = "SELECT customerID FROM customer_credentials WHERE customerEmail = ? and customerMobileNumber = ?";
+                PreparedStatement stmnt = conn.prepareStatement(query);
+                stmnt.setString(1, email);
+                stmnt.setString(2, mobileNumber);
+                ResultSet records = stmnt.executeQuery();
+                if (records.next()) {
+                    return records.getString("customerID");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
 }
