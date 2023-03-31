@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.IngredientList;
+import Model.ProductList;
 import Model.Recipes;
 import java.io.IOException;
 import java.sql.Connection;
@@ -78,7 +79,7 @@ public class Ingredient_Controller extends HttpServlet {
                     Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 response.sendRedirect("/AdminIngredients");
-                
+
                 break;
 
             case "insertIngredient":
@@ -152,14 +153,13 @@ public class Ingredient_Controller extends HttpServlet {
                 if (weightS == null || weightS.trim().isEmpty()) {
                     try {
                         weight = results.getInt("ingredientWeight");
-                        System.out.println(results.getInt("ingredientWeight"));
                     } catch (SQLException ex) {
                         Logger.getLogger(Ingredient_Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     weight = Integer.parseInt(weightS);
                 }
-                
+
                 if (minS == null || minS.trim().isEmpty()) {
                     try {
                         min = results.getInt("minimumWeight");
@@ -180,6 +180,7 @@ public class Ingredient_Controller extends HttpServlet {
                         //Update Ingredient
                         ResultSet ingredients = ingredientsProcess.ingredientItem(ingredientName, conn);
                         ingredientsProcess.UpdateIngredient(ingredients.getInt("itemCode"), updateName, weight, min, conn);
+                        ingredientsProcess.setInStock(ingredientName, conn);
                         Recipes recipes = new Recipes();
                         ResultSet list = recipes.RecipeList(conn);
                         while (list.next()) {

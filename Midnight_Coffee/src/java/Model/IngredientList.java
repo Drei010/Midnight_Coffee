@@ -168,17 +168,26 @@ public class IngredientList {
                         if (productList.getString("ingredientList").contains(ingredient)) {
                             String recipeArray[] = productList.getString("ingredientList").split(",");
                             if (recipeArray.length <= 1) {
+
+                                System.out.println(productList.getString("itemName"));
                                 productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
-                            }
-                            for (String currIngredient : recipeArray) {
-                                if (!currIngredient.equals(ingredient)) {
-                                    ResultSet otherIngredient = ingredientItem(currIngredient, conn);
-                                    if (otherIngredient != null) {
-                                        if (otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")) {
+                            } else {
+                                for (String currIngredient : recipeArray) {
+                                    if (!currIngredient.equals(ingredient)) {
+                                        ResultSet otherIngredient = ingredientItem(currIngredient, conn);
+                                        if (otherIngredient != null) {
+                                            if (otherIngredient.getInt("ingredientWeight") > otherIngredient.getInt("minimumWeight")) {
+
+                                                System.out.println(productList.getString("itemName"));
+                                                productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
+                                            } else {
+                                                productListMethod.setStock("Out of Stock", productList.getInt("itemCode"), conn);
+                                            }
+                                        } else {
+
+                                            System.out.println(productList.getString("itemName"));
                                             productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
                                         }
-                                    } else {
-                                        productListMethod.setStock("In Stock", productList.getInt("itemCode"), conn);
                                     }
                                 }
                             }
@@ -189,22 +198,7 @@ public class IngredientList {
                 productList.beforeFirst();
                 while (productList.next()) {
                     if (productList.getString("ingredientList").contains(ingredient)) {
-                        String recipeArray[] = productList.getString("ingredientList").split(",");
-                        if (recipeArray.length <= 1) {
-                            productListMethod.setStock("Out of Stock", productList.getInt("itemCode"), conn);
-                        }
-                        for (String currIngredient : recipeArray) {
-                            if (!currIngredient.equals(ingredient)) {
-                                ResultSet otherIngredient = ingredientItem(currIngredient, conn);
-                                if (otherIngredient != null) {
-                                    if (otherIngredient.getInt("ingredientWeight") < otherIngredient.getInt("minimumWeight")) {
-                                        productListMethod.setStock("Out of Stock", productList.getInt("itemCode"), conn);
-                                    }
-                                } else {
-                                    productListMethod.setStock("Out of Stock", productList.getInt("itemCode"), conn);
-                                }
-                            }
-                        }
+                        productListMethod.setStock("Out of Stock", productList.getInt("itemCode"), conn);
                     }
                 }
             }

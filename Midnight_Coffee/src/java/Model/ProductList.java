@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ProductList {
 
     public ResultSet CustomerProducts(String itemClass, Connection conn) {
@@ -185,7 +184,15 @@ public class ProductList {
 
     public ResultSet getBestSellers(Connection conn) {
         try {
-            String query = "SELECT s1.* FROM salescount s1 LEFT JOIN salescount s2 ON s1.itemClass = s2.itemClass AND s1.count < s2.count WHERE s2.count IS NULL;";
+            String query = "SELECT s.itemCode, s.itemName, s.itemOption, s.itemClass, s.count \n" +
+"FROM midnightcoffeedb.salescount s\n" +
+"JOIN (\n" +
+"  SELECT itemClass, MAX(count) as maxCount\n" +
+"  FROM midnightcoffeedb.salescount\n" +
+"  WHERE itemCode NOT IN (SELECT itemCode FROM midnightcoffeedb.products WHERE itemStock = 'Out of Stock')\n" +
+"  GROUP BY itemClass\n" +
+") t ON s.itemClass = t.itemClass AND s.count = t.maxCount\n" +
+"WHERE s.itemCode NOT IN (SELECT itemCode FROM midnightcoffeedb.products WHERE itemStock = 'Out of Stock');";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet records = stmnt.executeQuery();
             if (records.next()) {
@@ -265,8 +272,7 @@ public class ProductList {
                         return records;
                     }
                     stmnt.close();
-                }
-                else{
+                } else {
                     System.out.println("aaaaaaaaaaaaaaaaaaaa");
                 }
             }
@@ -276,24 +282,22 @@ public class ProductList {
 
         return null;
     }
-    
 
-        ///Deletes deactivated products from database
-    public String deleteDeactivated(Connection conn){
-             String sql ="DELETE FROM products WHERE deactivationtimestamp  IS NOT NULL";
-              try {
+    ///Deletes deactivated products from database
+    public String deleteDeactivated(Connection conn) {
+        String sql = "DELETE FROM products WHERE deactivationtimestamp  IS NOT NULL";
+        try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.executeUpdate();
             stmnt.close();
-    return "Yes";
-                }catch (SQLException ex){
-                    Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE,null,ex);
-                }
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(QR_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
-          }
+    }
 
-    
-        public ResultSet getProductImagepaths(Connection conn) {
+    public ResultSet getProductImagepaths(Connection conn) {
         try {
             String query = "SELECT * FROM products";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
