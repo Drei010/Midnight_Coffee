@@ -244,4 +244,16 @@ public class IngredientList {
         return null;
     }
 
+    public boolean getStockAvailability(String ingredient, Connection conn) {
+        try {
+            ResultSet ingredientData = ingredientItem(ingredient, conn);
+            if (ingredientData.getInt("ingredientWeight") > ingredientData.getInt("minimumWeight")) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredientList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }
