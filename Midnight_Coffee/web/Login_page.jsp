@@ -31,19 +31,23 @@
 
                 <!-- Captcha -->
                 <div class="center">
-                    <div class="g-recaptcha" data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS" style="display: inline-block;"></div>
+                    <div class="g-recaptcha" 
+                         data-sitekey="6Lcij1gkAAAAAJC_xpuTXOEqDUzQW3bMyqc9HhPS"
+                         style="display: inline-block;"
+                            data-callback="enableSubmitButton" 
+                             data-expired-callback="disableSubmitButton"></div>
                     <br>
 
                     <a  href="/Signup">Don’t have an account?</a><br>
                 </div>
                 <br>
-                <button type="submit">Login</button>
+                <button id="submit-btn"  type="submit" disabled>Login</button>
                 <br>
                 <div class="forgotContainer">
                    <a href="/Forgotpassword_page">Forgot Password</a>
                    </div>
         </form>
-
+  </div>
         <!--Alerts -->	
         <%
             if (request.getParameter("process") != null) {
@@ -68,6 +72,16 @@
                     }
             }
         %>
-    </div>
+        
+                <script>      function enableSubmitButton() {
+    document.getElementById('submit-btn').disabled = false;
+  }
+  
+  function disableSubmitButton() {
+    document.getElementById('submit-btn').disabled = true;
+  }
+            </script>
+           
+  
 </body>
 </html>
