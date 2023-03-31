@@ -43,13 +43,13 @@
                         <form method="POST" action="GeneratePDF" target="_blank">
                             <!-- download transactions pdf onclick -->  
                             <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
-                            <button class="transactionBtn" ><i class='fa fa-print'></i> Transaction Report</button>
+                            <button class="transactionBtn" id="transactionBtn"><i class='fa fa-print'></i> Transaction Report</button>
                         </form>
 
                         <!-- download products pdf onclick -->  
                         <form method="POST" action="GenerateProduct" target="_blank">
                             <input type="hidden" name="ordersDate" value="<%=session.getAttribute("ordersDate")%>">
-                            <button class="productBtn" ><i class='fa fa-print'></i> Product Report</button>
+                            <button class="productBtn" id="productBtn"><i class='fa fa-print'></i> Product Report</button>
                         </form>
                     </div>
                     <div class="horizontalDivider"></div>
@@ -102,6 +102,7 @@
 
                     <!-- Order Summary -->  
                     <div class="orderSummary">
+                        <%=session.getAttribute("customerOrders")%>
                         <h1>Order Summary</h1>
                         <h3>Order Number: <a id="orderNumberValue"></a></h3>
                         <h3>Total PHP: <a id="priceTotalValue"></a> </h3>
@@ -122,6 +123,23 @@
                 </div>
             </div>
         </div>
+               
+                <%
+             //disable and enable buttons
+             if(session.getAttribute("customerOrders")==null)
+                { %>
+                 <script>
+                       document.getElementById('transactionBtn').disabled = true;
+                        document.getElementById('productBtn').disabled = true;
+                      </script>
+                <%} else {%>
+                
+                                 <script>
+                       document.getElementById('transactionBtn').disabled = false;
+                        document.getElementById('productBtn').disabled = false;
+                      </script>
+                
+                <%}%>
         <script>
             //getbtn       
             var openSummaryBtn = document.getElementsByClassName('openSummaryBtn');

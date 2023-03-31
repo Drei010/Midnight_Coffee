@@ -87,7 +87,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
             if (results == null|| !results.next()) {
                 //Account does not exist
                 response.sendRedirect("/AdminLogin?process=2");
-                results.close();
+               
             }else{
                 
                     //Check if password matches with password in the database
@@ -96,7 +96,7 @@ private static byte[] key = {0x41,0x4E,0x44,0x52,0x45,0x49,0x4B,0x59,0x4C,0x45,0
 
                         //Password does not match
                         response.sendRedirect("/AdminLogin?process=3");
-                        results.close();
+                       
                     }
                     else{
                     //Set Attributes
