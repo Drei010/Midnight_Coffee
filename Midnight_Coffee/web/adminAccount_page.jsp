@@ -22,7 +22,6 @@
             <h2>Update Admin Account</h2>
             <div class="inner-container">
                 <div class="flex">
-                    <a href="/AdminAccount"> Account </a>
                     <a href="/adminCustomerManagement_page.jsp"> Customer Accounts </a>
                 </div>
                 <h3> Your ID is <%=session.getAttribute("adminID")%></h3>

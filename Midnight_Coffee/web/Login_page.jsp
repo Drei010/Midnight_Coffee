@@ -64,6 +64,8 @@
                 break;
             case 4:
         %><script>alert("Password Reset!");</script><%
+              case 5:
+        %><script>alert("Please Login to order!");</script><%
 
 
                         break;

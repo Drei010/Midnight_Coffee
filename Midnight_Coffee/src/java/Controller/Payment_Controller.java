@@ -49,6 +49,11 @@ public class Payment_Controller extends HttpServlet {
         String summaryPrice = request.getParameter("summaryPrice");
         String orderTotal = request.getParameter("orderTotal");
         String summaryItemCode = request.getParameter("summaryItemCode");
+        
+                        //redirect if no products added
+                if(summaryName==null ||summaryQuantity==null||summaryOption==null||summaryPrice==null||orderTotal==null||summaryItemCode==null){
+                 response.sendRedirect("/Menu?noproductsselected");
+                }
 
         // Get the current date and time
         LocalDateTime now = LocalDateTime.now();

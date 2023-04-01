@@ -190,14 +190,14 @@
         <servlet-name>Rating</servlet-name>
         <url-pattern>/Rating</url-pattern>
     </servlet-mapping>
-    <!--
+
     
       <error-page>  
         <location>/error_page.jsp</location>  
     </error-page>  
     
     
-    -->
+
 
        
     <context-param>

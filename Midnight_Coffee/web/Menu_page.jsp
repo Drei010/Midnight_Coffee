@@ -367,11 +367,7 @@
         var decramentButton = document.getElementsByClassName('dec');
         var role = document.getElementById('role');
 
-        if (role.value === "customer") {
-            checkoutBtn.disabled = false;
-        } else {
-            checkoutBtn.disabled = true;
-        }
+
 
 
         /////////////////////////////// Total orders computation//////////////////////
@@ -529,7 +525,12 @@
         ///Open Modal by clicking link
         document.getElementById("checkoutBtn").onclick = function (e) {
             e.preventDefault();
+             if (role.value === "customer") {
             document.getElementById("popupModal").style.display = "block";
+             }else{
+                 
+                  window.location.href = 'http://localhost:8080/Login?process=5';
+             }
         };
 
 
