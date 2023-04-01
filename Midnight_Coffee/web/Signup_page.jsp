@@ -98,12 +98,10 @@
             case 2:
         %><script>alert("Account Creation Failed!");</script><%
                 break;
-            case 6:
-        %><script>alert("Connection Failed!");</script><%
+            case 3:
+        %><script>alert("That name cannot be used please use another!");</script><%
                 break;
-            case 7:
-        %><script>alert("Captcha is Incorrect!");</script><%
-                        break;
+
                     default:
                     // code block
                     }

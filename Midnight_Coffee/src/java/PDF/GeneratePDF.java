@@ -130,10 +130,7 @@ public class GeneratePDF extends HttpServlet {
         ResultSet results = newPDF.Orders(ordersDate, conn);
 
         try {
-                    if (!results.next()) {
-                    // ResultSet is empty
-               response.sendRedirect("/adminOrders_page?Noordersforthatday");
-                } 
+
             while(results.next()){
                 PdfPCell cell1 = new PdfPCell(new Phrase(results.getString("orderID"), tableFont));
                 cell1.setBackgroundColor(new BaseColor(40, 39, 71));

@@ -127,10 +127,7 @@ public class GenerateProduct extends HttpServlet {
         ResultSet results = newPDF.Orders(ordersDate, conn);
 
         try {
-                    if (!results.next()) {
-                    // ResultSet is empty
-               response.sendRedirect("/adminOrders_page?Noordersforthatday");
-                } 
+
             while(results.next()){
                 
                 

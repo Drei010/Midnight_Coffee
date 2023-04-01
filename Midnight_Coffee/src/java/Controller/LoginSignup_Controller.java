@@ -86,8 +86,9 @@ public class LoginSignup_Controller extends HttpServlet {
                 response.sendRedirect("/Signup?process=1");
 
             }
-
+            if (!firstname.equalsIgnoreCase("admin")) {
             String Yes = signUp.insertData(firstname, lastname, encrypt(password), email, mobilenumber, conn);
+            
             if ("Yes".equals(Yes)) {
                 //Account Creation Successful data inserted to the database
                 response.sendRedirect("/Login?process=1");
@@ -95,7 +96,10 @@ public class LoginSignup_Controller extends HttpServlet {
                 //Account Creation Failed
                 response.sendRedirect("/Signup?process=2");
             }
-
+             }else{
+            //the name admin can't be used as a first name error
+            response.sendRedirect("/Signup?process=3");
+            }
         } else {
             LoginSignup_Model logIn = new LoginSignup_Model();
             ResultSet results = logIn.retrieveData(email, conn);

@@ -106,7 +106,7 @@ public class LoginSignup_Model {
             stmnt.setInt(1, id);
             ResultSet records = stmnt.executeQuery();
             if (records.next()) {
-                records.first();
+                records.beforeFirst();
                 return records;
             }
         } catch (SQLException ex) {
@@ -117,14 +117,14 @@ public class LoginSignup_Model {
     
         public ResultSet getCustomerAccounts( Connection conn){
         try {
-            String query = "SELECT * FROM customer_credentials";
+            String query = "SELECT * FROM customer_credentials WHERE customerFirstName NOT LIKE '%admin%' ESCAPE '!'";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             ResultSet records = stmnt.executeQuery();
-            if (records.next()) {
-                records.first();
-                return records;
-            }
+                if (records.next()) {
+                    records.beforeFirst();
+                    return records;
+                }
         } catch (SQLException ex) {
             Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
         }
