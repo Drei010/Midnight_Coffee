@@ -10,11 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Admin Customer Account Management Page</title>
-                <link rel='stylesheet' type='text/css' href='styles/adminCustomerManagement.css'>
+        <link rel='stylesheet' type='text/css' href='styles/adminCustomerManagement.css'>
     </head>
     <body>
-                <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->  
-                    <%
+        <jsp:include page="adminHeader.jsp" /> <!-- Calls the header jsp -->  
+        <%
             if (!"yes".equals(session.getAttribute("loadedCustomerAccounts"))) {
         %>
         <form action="CustomerAccount_Controller" method="POST" name="load">
@@ -26,31 +26,31 @@
             };
         </script>
         <%} else {
-                    session.setAttribute("loadedCustomerAccounts", "no");
-                }%>
-           <div class="AccountContainer">
+                session.setAttribute("loadedCustomerAccounts", "no");
+            }%>
+        <div class="AccountContainer">
             <div class="AccountBody">      
 
                 <div class="updateAccountItem">
                     <h1 class="updateAccountItemTitle"> Customer Account List</h1>
-                
-          
-                    <table data-rows-per-page="6" id="table">
-                        <thead>
-                            <tr>
-                                <th>Customer ID</th>
-                                <th>Customer First Name</th>
-                                <th>Customer Last Name</th>
-                                <th>Customer Password</th>
-                                <th>Customer Email</th>
-                                <th>Customer Mobile Number</th>
-                                 <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody data-page="1">
-                             <form id="CustomerAccountTable" action="CustomerAccount_Controller" method="POST">
-                                  <input type="hidden" id="action" name="action" value="">
-                                  <input type="hidden" id="customerID" name="customerID" value="">
+
+
+                    <form name="CustomerAccountTable" action="CustomerAccount_Controller" method="POST">
+                        <table data-rows-per-page="6" id="table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Customer First Name</th>
+                                    <th>Customer Last Name</th>
+                                    <th>Customer Password</th>
+                                    <th>Customer Email</th>
+                                    <th>Customer Mobile Number</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody data-page="1">
+                            <input type="text" id="action" name="action" value="">
+                            <input type="text" id="customerID" name="customerID" value="">
                             <%
                                 ResultSet customerAccounts = (ResultSet) session.getAttribute("customerAccounts");
                                 if (customerAccounts != null) {
@@ -66,19 +66,20 @@
 
 
                             </tr>
-               <% }
-                }%>
+                            <% }
+                   }%>
 
                             <!-- Repeat the above row for each item in the table -->
-                        </tbody>
-                        </form>
-                    </table>
-        
 
-                        
+                            </tbody>
+                        </table>
+                    </form>
 
 
-          
+
+
+
+
                 </div>
 
 
@@ -86,7 +87,7 @@
         </div>
     </body>
     <script>
-                var $table = document.getElementById("table"),
+        var $table = document.getElementById("table"),
                 $n = 5,
                 $rowCount = $table.rows.length,
                 $firstRow = $table.rows[0].firstElementChild.tagName,
@@ -114,8 +115,8 @@
 
 
         function pageButtons($pCount, $cur) {
-            var $prevDis = ($cur === 1) ? "disabled" : "",
-                    $nextDis = ($cur === $pCount) ? "disabled" : "",
+            var $prevDis = ($cur === 1) ? "enabled" : "",
+                    $nextDis = ($cur === $pCount) ? "enabled" : "",
                     $buttons = "<input type='button' class='prev' value='<< Prev' onclick='sort(" + ($cur - 1) + ")' " + $prevDis + ">";
             for ($i = 1; $i <= $pCount; $i++)
                 $buttons += "<input type='button' id='id" + $i + "'value='" + $i + "' onclick='sort(" + $i + ")'>";
@@ -128,8 +129,7 @@
             document.getElementById('action').value = button.value;
             document.getElementById('customerID').value = button.name;
             document.forms['CustomerAccountTable'].submit();
-            return true;
         }
-        
+
     </script>
 </html>
