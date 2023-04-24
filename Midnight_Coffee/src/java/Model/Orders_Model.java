@@ -24,6 +24,7 @@ public class Orders_Model {
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmnt.setString(1, orderDate);
             ResultSet records = stmnt.executeQuery();
+            records.beforeFirst();
             if (records.next()) {
                 records.beforeFirst();
                 return records;

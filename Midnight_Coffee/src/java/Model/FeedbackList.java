@@ -81,6 +81,7 @@ public class FeedbackList {
         try {
             LoginSignup_Model db = new LoginSignup_Model();
             ResultSet customerData = db.getCustomerData(id, conn);
+            customerData.next();
             String query = "INSERT INTO feedbacklist (rating, message, customerID, customerFirstName, customerLastName, displayed) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             stmnt.setInt(1, rating);

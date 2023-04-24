@@ -3,7 +3,7 @@
     Created on : 4 Feb 2023, 6:00:38 pm
     Author     : Andrei
 --%>
-
+<%@ page import="java.time.LocalDate" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,15 +38,16 @@
                         <h4 style="color:red;"></h4>
 
                         <h3>Confirm Password</h3>
-                        <input type="password" id="pass2" name="confirmpassword" required>
+                        <input type="password" id="pass2" name="confirmpassword" required>  
+                        
+                        <h3>Birthday</h3>
+                        <input type="date" name="birthday"  max="<%= java.time.LocalDate.now().minusYears(12) %>"  required>
 
                         <h3>Email</h3>
                         <input type="email" name="email" required>
 
                         <h3>Mobile Number</h3>
-                        <input type="tel" id="phone" placeholder="+63" name="mobilenumber"
-
-                               required>
+                        <input type="tel" id="phone" placeholder="+63" name="mobilenumber" required>
 
                         <!-- Captcha -->
                         <div class="center">

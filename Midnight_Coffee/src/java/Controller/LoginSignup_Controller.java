@@ -73,6 +73,7 @@ public class LoginSignup_Controller extends HttpServlet {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String password = request.getParameter("password");
+         String birthday = request.getParameter("birthday");
         String email = request.getParameter("email");
         String mobilenumber = request.getParameter("mobilenumber");
 
@@ -87,7 +88,7 @@ public class LoginSignup_Controller extends HttpServlet {
 
             }
             if (!firstname.equalsIgnoreCase("admin")) {
-            String Yes = signUp.insertData(firstname, lastname, encrypt(password), email, mobilenumber, conn);
+            String Yes = signUp.insertData(firstname, lastname, encrypt(password), birthday, email, mobilenumber, conn);
             
             if ("Yes".equals(Yes)) {
                 //Account Creation Successful data inserted to the database

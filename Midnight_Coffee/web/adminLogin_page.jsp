@@ -69,7 +69,7 @@
         <script>      function enableSubmitButton() {
     document.getElementById('submit-btn').disabled = false;
   }
-  
+
   function disableSubmitButton() {
     document.getElementById('submit-btn').disabled = true;
   }

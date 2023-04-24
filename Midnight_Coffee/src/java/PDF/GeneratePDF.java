@@ -33,7 +33,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -88,12 +90,12 @@ public class GeneratePDF extends HttpServlet {
         // Create a font object for the table
         Font tableFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.WHITE);
         // Create a PdfPTable object with 3 columns
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(6);
         // Set the border color of the table
         table.getDefaultCell().setBorderColor(new BaseColor(250, 128, 114));
         
         table.setWidthPercentage(100); // Set the width of the table to 100% of the page
-        float[] columnWidths = {2f, 3f, 3f, 2f, 3f}; // Define the column widths
+        float[] columnWidths = {2f, 3f, 3f, 2f, 3f, 2f}; // Define the column widths
         table.setWidths(columnWidths);
 
         table.getDefaultCell().setBorderWidth(2f);
@@ -111,19 +113,25 @@ public class GeneratePDF extends HttpServlet {
         headerCell3.setBackgroundColor(new BaseColor(40, 39, 71));
         headerCell3.setHorizontalAlignment(Element.ALIGN_CENTER);
         
-        PdfPCell headerCell4 = new PdfPCell(new Phrase("Total", tableFont));
+        PdfPCell headerCell4 = new PdfPCell(new Phrase("Age", tableFont));
         headerCell4.setBackgroundColor(new BaseColor(40, 39, 71));
         headerCell4.setHorizontalAlignment(Element.ALIGN_CENTER);
         
-        PdfPCell headerCell5 = new PdfPCell(new Phrase("Time", tableFont));
+        PdfPCell headerCell5 = new PdfPCell(new Phrase("Total", tableFont));
         headerCell5.setBackgroundColor(new BaseColor(40, 39, 71));
         headerCell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+       
+       PdfPCell headerCell6 = new PdfPCell(new Phrase("Time", tableFont));
+        headerCell6.setBackgroundColor(new BaseColor(40, 39, 71));
+        headerCell6.setHorizontalAlignment(Element.ALIGN_CENTER);
+        
     
         table.addCell(headerCell1);
         table.addCell(headerCell2);
         table.addCell(headerCell3);
         table.addCell(headerCell4);
         table.addCell(headerCell5);
+         table.addCell(headerCell6);
         table.setSkipFirstHeader(true);
         
         Orders_Model newPDF = new Orders_Model();
@@ -145,13 +153,33 @@ public class GeneratePDF extends HttpServlet {
                 cell3.setBackgroundColor(new BaseColor(40, 39, 71));
                 cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
                 
-                PdfPCell cell4 = new PdfPCell(new Phrase(results.getString("orderTotal"), tableFont));
+                
+                //Age computation
+                 // Parse the birth date string into a LocalDate object
+               String birthDateStr =results.getString("customerBirthday");
+                     if(birthDateStr == null){
+                         birthDateStr = "2023-04-01";
+                     }
+
+                LocalDate birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+                
+                // Get the current date
+                LocalDate currentDate = LocalDate.now();
+                
+                // Calculate the difference between the two dates in years
+                String age = String.valueOf(Period.between(birthDate, currentDate).getYears());
+                
+                PdfPCell cell4 = new PdfPCell(new Phrase(age, tableFont));
                 cell4.setBackgroundColor(new BaseColor(40, 39, 71));
                 cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
                 
-                PdfPCell cell5 = new PdfPCell(new Phrase(results.getString("orderTime"), tableFont));
+                PdfPCell cell5 = new PdfPCell(new Phrase(results.getString("orderTotal"), tableFont));
                 cell5.setBackgroundColor(new BaseColor(40, 39, 71));
                 cell5.setHorizontalAlignment(Element.ALIGN_CENTER);
+                
+                PdfPCell cell6 = new PdfPCell(new Phrase(results.getString("orderTime"), tableFont));
+                cell6.setBackgroundColor(new BaseColor(40, 39, 71));
+                cell6.setHorizontalAlignment(Element.ALIGN_CENTER);
                 
                 
                 // Add the cells to the table
@@ -160,6 +188,7 @@ public class GeneratePDF extends HttpServlet {
                 table.addCell(cell3);
                 table.addCell(cell4);
                 table.addCell(cell5);
+                table.addCell(cell6);
                 // Add cells with the custom font and background color
                 
             }

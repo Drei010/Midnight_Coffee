@@ -41,8 +41,8 @@ public class LoginSignup_Model {
     }
 
     ///Insert signup Data to the Database
-    public String insertData(String firstname, String lastname, String password, String email, String mobilenumber, Connection conn) {
-        String sql = "INSERT INTO customer_credentials (customerFirstName, customerLastName, customerPassword, customerEmail, customerMobileNumber) VALUES ( ?, ?, ?, ?, ?)";
+    public String insertData(String firstname, String lastname, String password, String birthday, String email, String mobilenumber, Connection conn) {
+        String sql = "INSERT INTO customer_credentials (customerFirstName, customerLastName, customerPassword, customerEmail, customerMobileNumber, customerBirthday) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmnt = conn.prepareStatement(sql);
             stmnt.setString(1, firstname);
@@ -50,6 +50,7 @@ public class LoginSignup_Model {
             stmnt.setString(3, password);
             stmnt.setString(4, email);
             stmnt.setString(5, mobilenumber);
+            stmnt.setString(6, birthday);
 
             stmnt.executeUpdate();
             stmnt.close();
