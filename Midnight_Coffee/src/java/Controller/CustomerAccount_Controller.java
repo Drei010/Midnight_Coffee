@@ -7,6 +7,14 @@ package Controller;
 import Model.LoginSignup_Model;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -68,18 +76,87 @@ public class CustomerAccount_Controller extends HttpServlet {
         HttpSession session = request.getSession();
         String instruction = request.getParameter("action");
         switch (instruction) {
-            case "load":
-                //Load customer Accounts
+            case "load":               
+                 //deactivate account 365 days since last login
+                // get the current date and time
+                Calendar calendar = Calendar.getInstance();
+                Date now = calendar.getTime();
+
+                // format the date and time into a string
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestamp = dateFormat.format(now);
+
+                //get current time stamp
+              Timestamp current = Timestamp.valueOf(timestamp);
+
+               
+
+                // retrieve accounts
+                ResultSet results = processAccounts.getCustomerAccounts(conn);
+
+                if (results == null) {
+                    response.sendRedirect("/adminCustomerManagement_page");
+                }
+                try {
+
+                    while (results.next()) {
+
+                        if (results.getString("lastLoginTimestamp") != null) {
+                            //get date of the last login
+                            Timestamp old = Timestamp.valueOf(results.getString("lastLoginTimestamp"));
+                            
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(old);
+                            cal.add(Calendar.DAY_OF_YEAR, 365);
+                             old = new Timestamp(cal.getTimeInMillis());
+                            //old is before the current
+                                if (old.compareTo(current) < 0) {
+                                
+                                //deactivate account
+                                processAccounts.deactivateAccount(results.getString("customerID"), "Yes", conn);
+
+                            }
+                            else{
+                            //deactivate account
+                                processAccounts.deactivateAccount(results.getString("customerID"), "No", conn);
+                            }
+                        }
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(CustomerAccount_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                                //Load customer Accounts
                 session.setAttribute("customerAccounts", processAccounts.getCustomerAccounts(conn));
+                
+                              //Load Deactivated customer Accounts
+                session.setAttribute("customerDeactivatedAccounts", processAccounts.getDeactivatedAccounts(conn));
+                
                 session.setAttribute("loadedCustomerAccounts", "yes");
+                
                  response.sendRedirect("/adminCustomerManagement_page");
                 break;
-            case "Delete":
+            case "Reactivate":
+                
+                             // get the current date and time
+                Calendar calendarNew = Calendar.getInstance();
+                Date present = calendarNew.getTime();
+
+                // format the date and time into a string
+                SimpleDateFormat dateFormatNew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestampNew = dateFormatNew.format(present);
                 //Delete customer Accounts admin side
-                int customerIDadmin = Integer.parseInt(request.getParameter("customerID"));
-                processAccounts.deleteCustomerAccount(customerIDadmin,conn);
-                 response.sendRedirect("adminCustomerManagement_page.jsp?accountdeleted");
+               String customerIDadmin = request.getParameter("customerID");
+                //processAccounts.deleteCustomerAccount(customerIDadmin,conn);
+                
+               String Yes = processAccounts.insertTimestamp(timestampNew, customerIDadmin, conn);
+               session.setAttribute("loadedCustomerAccounts", "");
+                 response.sendRedirect("/adminCustomerManagement_page");
+                 
                 break;
+                
+                
+                
             case "DeleteCustomer":
                 //Customer side delete
                 int customerID = Integer.parseInt(request.getParameter("customerID"));

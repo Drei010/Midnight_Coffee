@@ -35,7 +35,7 @@
                     <h1 class="updateAccountItemTitle"> Customer Account List</h1>
 
 
-                    <form name="CustomerAccountTable" action="CustomerAccount_Controller" method="POST">
+          
                         <table data-rows-per-page="6" id="table">
                             <thead>
                                 <tr>
@@ -45,12 +45,12 @@
                                     <th>Customer Password</th>
                                     <th>Customer Email</th>
                                     <th>Customer Mobile Number</th>
-                                    <th>Delete</th>
+                                    <th>Customer Birthday</th>
+                                     <th>Last Login</th>
+                               
                                 </tr>
                             </thead>
                             <tbody data-page="1">
-                            <input type="text" id="action" name="action" value="">
-                            <input type="text" id="customerID" name="customerID" value="">
                             <%
                                 ResultSet customerAccounts = (ResultSet) session.getAttribute("customerAccounts");
                                 if (customerAccounts != null) {
@@ -62,7 +62,8 @@
                                 <td><%=customerAccounts.getString("customerPassword")%></td>
                                 <td><%=customerAccounts.getString("customerEmail")%></td>
                                 <td><%=customerAccounts.getString("customerMobileNumber")%></td>
-                                <td><input type="button" class="btn btn-red" onclick="return buttonClick(this)" name="<%=customerAccounts.getString("customerID")%>" value="Delete"></td>
+                                <td><%=customerAccounts.getString("customerBirthday")%></td>
+                                 <td><%=customerAccounts.getString("lastLoginTimestamp")%></td>
 
 
                             </tr>
@@ -73,13 +74,50 @@
 
                             </tbody>
                         </table>
-                    </form>
+                     <h1 class="updateAccountItemTitle"> Deactivated Customer Account List</h1>
+                        <form name="CustomerAccountTable" action="CustomerAccount_Controller" method="POST">
+                        <table data-rows-per-page="6" id="table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Customer First Name</th>
+                                    <th>Customer Last Name</th>
+                                    <th>Customer Password</th>
+                                    <th>Customer Email</th>
+                                    <th>Customer Mobile Number</th>
+                                    <th>Customer Birthday</th>
+                                    <th>Last Login</th>
+                                    <th>Reactivate</th>
+                                </tr>
+                            </thead>
+                            <tbody data-page="1">
+                             <input type="hidden" id="action" name="action" value="">
+                            <input type="hidden" id="customerID" name="customerID" value="">
+  <%
+                                ResultSet customerDeactivatedAccounts = (ResultSet) session.getAttribute("customerDeactivatedAccounts");
+                                if (customerDeactivatedAccounts != null) {
+                                    while (customerDeactivatedAccounts.next()) {%>
+                            <tr>
+                                <td><%=customerDeactivatedAccounts.getString("customerID")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("customerFirstName")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("customerLastName")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("customerPassword")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("customerEmail")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("customerMobileNumber")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("customerBirthday")%></td>
+                                <td><%=customerDeactivatedAccounts.getString("lastLoginTimestamp")%></td>
+                                <td><input type="button" class="btn btn-blue" onclick="return buttonClick(this)" name="<%=customerDeactivatedAccounts.getString("customerID")%>" value="Reactivate"></td>
+                           
 
+                            </tr>
+                            <% }
+                   }%>
 
+                            <!-- Repeat the above row for each item in the table -->
 
-
-
-
+                            </tbody>
+                        </table>
+     </form>
                 </div>
 
 

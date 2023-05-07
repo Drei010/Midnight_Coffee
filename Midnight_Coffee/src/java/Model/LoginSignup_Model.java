@@ -61,6 +61,42 @@ public class LoginSignup_Model {
         return null;
 
     }
+    
+        ///Insert timestamp Data to the Database
+    public String insertTimestamp(String timestamp, String customerID, Connection conn) {
+        String sql = "UPDATE customer_credentials SET lastLoginTimestamp = ?, deactivated = 'No' WHERE customerID = ?";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, timestamp);
+            stmnt.setInt(2, Integer.parseInt(customerID));
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+    
+    
+          ///Insert timestamp Data to the Database
+    public String deactivateAccount( String customerID, String deactivation, Connection conn) {
+        String sql = "UPDATE customer_credentials SET deactivated = ? WHERE customerID = ?";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, deactivation);
+            stmnt.setInt(2, Integer.parseInt(customerID));
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
+    }
+    
         public ResultSet retrieveAdminData(String adminkey, Connection conn) {
         try {
             String query = "SELECT * FROM customer_credentials WHERE customerLastName = ?";
@@ -118,7 +154,23 @@ public class LoginSignup_Model {
     
         public ResultSet getCustomerAccounts( Connection conn){
         try {
-            String query = "SELECT * FROM customer_credentials WHERE customerFirstName NOT LIKE '%admin%' ESCAPE '!'";
+            String query = "SELECT * FROM customer_credentials WHERE customerFirstName NOT LIKE '%admin%' ESCAPE '!' AND deactivated <> 'Yes'";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            ResultSet records = stmnt.executeQuery();
+                if (records.next()) {
+                    records.beforeFirst();
+                    return records;
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginSignup_Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        
+                public ResultSet getDeactivatedAccounts( Connection conn){
+        try {
+            String query = "SELECT * FROM customer_credentials WHERE customerFirstName NOT LIKE '%admin%' ESCAPE '!' AND deactivated = 'Yes'";
             PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
             ResultSet records = stmnt.executeQuery();

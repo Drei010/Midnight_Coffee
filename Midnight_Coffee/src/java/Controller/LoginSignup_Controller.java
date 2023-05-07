@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import javax.crypto.Cipher;
@@ -68,6 +72,14 @@ public class LoginSignup_Controller extends HttpServlet {
         if (conn == null) {
             response.sendRedirect("/Home?noconnection");
         }
+             // get the current date and time
+                Calendar calendar = Calendar.getInstance();
+                Date now = calendar.getTime();
+
+                // format the date and time into a string
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestamp = dateFormat.format(now);
+
 
         // get parameters
         String firstname = request.getParameter("firstname");
@@ -76,6 +88,7 @@ public class LoginSignup_Controller extends HttpServlet {
          String birthday = request.getParameter("birthday");
         String email = request.getParameter("email");
         String mobilenumber = request.getParameter("mobilenumber");
+        
 
         //check if login or signup
         if (firstname != null) {
@@ -120,6 +133,10 @@ public class LoginSignup_Controller extends HttpServlet {
                         response.sendRedirect("/Login?process=3");
                       
                     } else {
+                        
+                        //insert time stamp
+                          String Yes = logIn.insertTimestamp(timestamp, results.getString("customerID"), conn);
+            
                         //Set Attributes
                         HttpSession session = request.getSession();
                         session.setAttribute("firstname", results.getString("customerFirstname"));
