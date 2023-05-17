@@ -43,8 +43,8 @@ h3{
     padding-bottom: 5px;
 }
 
-.left input[type=text],
-.left input[type=number]{
+input[type=text],
+input[type=number]{
     font-size: 20px;
     width: 204px;
     padding: 6px 10px;
@@ -53,7 +53,7 @@ h3{
     box-sizing: border-box;
     background: #CFCBC2;
     color: black;
-    
+
 }
 
 
@@ -63,7 +63,7 @@ h3{
     padding-top: 50px;
 }
 
-.right #buttons input{
+#buttons input{
     padding: 10px 20px;
     border: solid #282747;
     border-radius: 5px;
@@ -74,12 +74,14 @@ h3{
     margin-left: .5px;
     margin-right: .5px;
 }
-.right #buttons input:hover{
+#buttons input:hover{
     transform: scale(1.1);
 }
 
 #buttons{
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -238,4 +240,8 @@ p{
     width: 1px;
     background-color: white;
     margin: 0 20px;
+}
+
+.AccountContainer{
+    margin: 10px;
 }

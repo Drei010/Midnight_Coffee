@@ -39,7 +39,7 @@
 
 <div class="row">
         <div class="header-menu">
-            <h3 class="title">Top 3 Sellers</h3>
+            <h3 class="title">Best Sellers</h3>
         </div>
      <div class="carouselContainer">
           <div class="slider">

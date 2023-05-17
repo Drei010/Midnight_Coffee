@@ -32,7 +32,7 @@
             <div class="AccountBody">      
 
                 <div class="updateAccountItem">
-                    <h1 class="updateAccountItemTitle"> Customer Account List</h1>
+                    <h1 class="updateAccountItemTitle"  style="color: black;"> Customers </h1>
 
 
           
@@ -74,7 +74,7 @@
 
                             </tbody>
                         </table>
-                     <h1 class="updateAccountItemTitle"> Deactivated Customer Account List</h1>
+                   <h1 class="updateAccountItemTitle" style="color: black;"> Deactivated Accounts</h1>
                         <form name="CustomerAccountTable" action="CustomerAccount_Controller" method="POST">
                         <table data-rows-per-page="6" id="table">
                             <thead>
