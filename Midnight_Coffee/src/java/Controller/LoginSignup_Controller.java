@@ -10,22 +10,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 import org.apache.commons.codec.binary.Base64;
-
+import java.io.IOException;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.mail.Session;
 /**
  *
  * @author Andrei
@@ -89,7 +96,7 @@ public class LoginSignup_Controller extends HttpServlet {
         String email = request.getParameter("email");
         String mobilenumber = request.getParameter("mobilenumber");
         
-
+    
         //check if login or signup
         if (firstname != null) {
             //sign up
@@ -136,7 +143,37 @@ public class LoginSignup_Controller extends HttpServlet {
                         
                         //insert time stamp
                           String Yes = logIn.insertTimestamp(timestamp, results.getString("customerID"), conn);
+                          
+                          //Email
+                 String to = email;
+                String from = "midnightcoffee1234@gmail.com";
+                String host = "smtp.gmail.com";
+                Properties properties = System.getProperties();
+                properties.setProperty("mail.smtp.host", host);
+                properties.setProperty("mail.smtp.port", "587");
+                properties.setProperty("mail.smtp.starttls.enable", "true");
+                properties.setProperty("mail.smtp.auth", "true");
+
+                Session sessionEmail = Session.getInstance(properties, new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("midnightcoffee1234@gmail.com", "fiamcjcpmsmnonkk");
+                    }
+                });
+
+        try {
+            MimeMessage message = new MimeMessage(sessionEmail);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             
+            //Email Message
+            message.setSubject("Account Login Activity");
+            message.setText("You have logged in to your Midnight Coffee Account");
+
+            Transport.send(message);
+           
+        } catch (MessagingException mex) {
+            System.out.println("Failed to send email: " + mex.getMessage());
+        }
                         //Set Attributes
                         HttpSession session = request.getSession();
                         session.setAttribute("firstname", results.getString("customerFirstname"));
