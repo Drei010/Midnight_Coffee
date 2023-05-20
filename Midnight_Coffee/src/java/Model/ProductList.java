@@ -70,7 +70,44 @@ public class ProductList {
         }
         return null;
     }
+    
+    
+        ///Insert transaction Data to the Database
+    public String insertTransactionTimestamp( String itemTransaction, String itemName, String transactionTimestamp, Connection conn) {
+        String sql = "INSERT INTO admin_transactions (itemTransaction, itemName, transactionTimestamp) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement stmnt = conn.prepareStatement(sql);
+            stmnt.setString(1, itemTransaction);
+            stmnt.setString(2, itemName);
+            stmnt.setString(3, transactionTimestamp);
 
+            stmnt.executeUpdate();
+            stmnt.close();
+            return "Yes";
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    
+    
+        public ResultSet retrieveTransactionData(Connection conn) {
+        try {
+            String query = "SELECT * FROM admin_transactions";
+            PreparedStatement stmnt = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet records = stmnt.executeQuery();
+            if (records.next()) {
+                records.beforeFirst();
+                return records;
+            }
+            stmnt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
     public ResultSet retrieveData(String itemName, Connection conn) {
         try {
             String query = "SELECT * FROM products WHERE itemName = ?";

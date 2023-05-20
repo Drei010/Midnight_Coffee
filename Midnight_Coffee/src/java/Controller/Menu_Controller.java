@@ -75,7 +75,15 @@ public class Menu_Controller extends HttpServlet {
 
         //Get the destination file path of the MENUImage folder
         String destination = (String) getServletContext().getAttribute("destination") + "/MENUImages";
+                // get the current date and time
+                Calendar calendar = Calendar.getInstance();
+                Date now = calendar.getTime();
 
+                // format the date and time into a string
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String timestamp = dateFormat.format(now);
+                
+                
         switch (instruction) {
 
             //load adminPayment_page
@@ -117,17 +125,9 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
                  */
 
                 //delete entry after 30 days of deactivation
-                // get the current date and time
-                Calendar calendar = Calendar.getInstance();
-                Date now = calendar.getTime();
-
-                // format the date and time into a string
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String timestamp = dateFormat.format(now);
 
                 //get current time stamp
                 Timestamp current = Timestamp.valueOf(timestamp);
-                /// loadMenu.deleteProduct(timestamp, conn);
 
                 // retrieve products
                 ResultSet results = loadMenu.retrieveProducts(conn);
@@ -230,6 +230,9 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
                 Recipes insertRecipe = new Recipes();
                 insertRecipe.insertRecipe(itemAddName, itemAddOption, ingredientList.replaceAll("\\[|\\]|\"", ""), weightList.replaceAll("\\[|\\]|\"", ""), conn);
                 if ("Yes".equals(insertSuccess)) {
+                    
+                    //add transaction timestamp
+                   insertEntry.insertTransactionTimestamp("Add Menu Item", itemAddName,timestamp,conn) ;
                     response.sendRedirect("/AdminMenu?success");
 
                 } else {
@@ -325,7 +328,8 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
                     } catch (SQLException ex) {
                         Logger.getLogger(Menu_Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
+                    //add transaction timestamp
+                   productList.insertTransactionTimestamp("Update Menu Item", updateName,timestamp,conn);
                     // Redirect to a success page
                     response.sendRedirect("/AdminMenu?updatedproductsuccess");
                 }
@@ -335,10 +339,12 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
             //delete after 30 days
             case "deactivate":
             case "reactivate":
-
+                String itemcode = request.getParameter("product");
+                int productDeactivate = Integer.parseInt(itemcode);
+                
                 //Declare new ProductList for deactivation/reactivation
                 ProductList change = new ProductList();
-
+                               
                 // get the current date and time
                 Calendar calendarDeactivated = Calendar.getInstance();
                 Date nowDeactivated = calendarDeactivated.getTime();
@@ -348,11 +354,25 @@ if ("yes".equals(session.getAttribute("isGuest"))) {
                 SimpleDateFormat dateFormatDeactivated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String timestampDeactivated = dateFormatDeactivated.format(nowDeactivated);
 
-                int productDeactivate = Integer.parseInt(request.getParameter("product"));
+               
                 change.changeActivation(instruction, productDeactivate, timestampDeactivated, conn);
-
+                
+                //get item name
+                ResultSet productName = change.getByItemCode(productDeactivate, conn);
+              
+            {
+              
+            try {
+                  productName.next();
+                change.insertTransactionTimestamp("Reactivate/Deactivate Menu Item", productName.getString("itemName"),timestamp,conn);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu_Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
+            }
                 response.sendRedirect("/AdminMenu?changeActivation");
                 break;
+
 
         }
 

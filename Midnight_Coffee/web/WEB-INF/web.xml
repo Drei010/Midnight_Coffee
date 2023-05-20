@@ -190,16 +190,21 @@
         <servlet-name>Rating</servlet-name>
         <url-pattern>/Rating</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>AdminTransactions</servlet-name>
+        <jsp-file>/adminTransactions_page.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminTransactions</servlet-name>
+        <url-pattern>/adminTransactions_page</url-pattern>
+    </servlet-mapping>
 
-    
+   
       <error-page>  
         <location>/error_page.jsp</location>  
     </error-page>  
-    
-    
-
-
-       
+  
+   
     <context-param>
         <param-name>jdbcDriverURL</param-name>
         <param-value>jdbc:mysql</param-value>

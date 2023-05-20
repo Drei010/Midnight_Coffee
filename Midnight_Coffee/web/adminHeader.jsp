@@ -42,6 +42,11 @@
                 <li class="header-nav-item">
                     <a href="/AdminIngredients"> Ingredients </a>
                 </li>
+                
+                 <li class="header-nav-item">
+                    <a href="/adminTransactions_page">Admin Transactions </a>
+                </li>
+           
                  <li class="header-nav-item">
                     <!-- If logged in -->
                     <a  id="logoutBtn" href="Logout">Log Out</a>
