@@ -78,14 +78,14 @@
                                 ResultSet ingredients = (ResultSet) session.getAttribute("ingredients");
                                 if (ingredients != null) {
                                     while (ingredients.next()) {%>
-                            <tr>
+                            <tr name="tableRow">
                                 <td><%=ingredients.getString("ingredientName")%></td>
-                                <td><%=ingredients.getString("ingredientWeight")%>g</td>
-                                <td><%=ingredients.getString("minimumWeight")%>g</td>
+                                <td name="tableRemainingWeight" id="<%=ingredients.getString("ingredientWeight")%>"><%=ingredients.getString("ingredientWeight")%>g</td>
+                                <td name="tableMinimumWeight" id="<%=ingredients.getString("minimumWeight")%>"><%=ingredients.getString("minimumWeight")%>g</td>
 
                                 <% if (ingredients.getString("deactivationtimestamp") == null) {%>
                                 <td><input type="button" class="btn btn-red" onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Deactivate"></td>
-                                <td></td>
+                                <td><p class="warningDeactivate"></p></td>
                                 <%} else {%>
                                 <td><input type="button" class="btn btn-green"  onclick="return buttonClick(this)" name="<%=ingredients.getString("itemCode")%>" value="Reactivate"></td>
                                 <td><p class="warningDeactivate"><%=ingredients.getString("deactivationtimestamp")%></p></td>
@@ -196,6 +196,15 @@
     </body>
 
     <script>
+        let tableRows = document.getElementsByName("tableRow"),
+                remainingWeights = document.getElementsByName("tableRemainingWeight"),
+                    minimumWeights= document.getElementsByName("tableMinimumWeight");
+            
+            for(var i = 0; i < tableRows.length; i++){
+                if(remainingWeights[i].id <= (2 * minimumWeights[i].id)){
+                    tableRows[i].style.backgroundColor = "#D9544D";
+                }
+            }
 
         function setUpdateWeights(){
             let select = document.getElementById("updateSelectIngredient"),

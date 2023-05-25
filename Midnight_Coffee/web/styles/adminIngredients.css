@@ -90,11 +90,10 @@ table {
     background-color: #282747;
 }
 
-th, td {
+th, td{
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 10px;
-    background-color: #282747;
 }
 
 th, td, label, h1 {
@@ -104,6 +103,7 @@ th, td, label, h1 {
 th {
     background-color: #282747;
     font-size: 20px;
+    background-color: #282747;
 }
 
 .btn {
@@ -146,8 +146,9 @@ tbody tr {
 tbody tr:nth-child(-n+6) {
     display: table-row;
 }
+
 .warningDeactivate{
-    color:red;
+    color:white;
 }
 
 @media only screen and (max-width: 600px) {
